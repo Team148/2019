@@ -164,3 +164,4 @@ bin/
 *.properties
 2019/gradlew
 *.bat
+*.MF
