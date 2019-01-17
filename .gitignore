@@ -164,4 +164,4 @@ bin/
 *.properties
 2019/gradlew
 *.bat
-2019/src/main/deploy/example.txt
+*.MF
