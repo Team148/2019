@@ -21,7 +21,7 @@ public class Elevator extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private static Elevator m_instance = null;
+  private static Elevator m_instance;
 
   //Declare Elevator TalonSRXs
   private final WPI_TalonSRX m_elevator1 = new WPI_TalonSRX(8);

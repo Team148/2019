@@ -16,9 +16,24 @@ public class ElevatorBallRoller extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
+  public static ElevatorBallRoller m_instance;
+
+  public ElevatorBallRoller() {
+
+    super();
+
+  }
+
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+  }
+
+  public static ElevatorBallRoller getInstance() {
+    if (m_instance == null) {
+      m_instance = new ElevatorBallRoller();
+    }
+    return m_instance;
   }
 }

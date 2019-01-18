@@ -16,9 +16,24 @@ public class Beak extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
+  private static Beak m_instance;
+
+  public Beak() {
+
+    super();
+
+  }
+
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+  }
+
+  public static Beak getInstance() {
+    if (m_instance == null) {
+      m_instance = new Beak();
+    }
+    return m_instance;
   }
 }

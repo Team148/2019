@@ -12,13 +12,28 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * Add your docs here.
  */
-public class HatchFloor extends Subsystem {
+public class BallFloorIntake extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
+
+  private static BallFloorIntake m_instance;
+
+  public BallFloorIntake() {
+
+    super();
+
+  }
 
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+  }
+
+  public static BallFloorIntake getInstance() {
+    if (m_instance == null) {
+      m_instance = new BallFloorIntake();
+    }
+    return m_instance;
   }
 }

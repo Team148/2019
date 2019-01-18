@@ -13,8 +13,12 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 //import Subsystems
+import frc.robot.subsystems.BallFloorIntake;
+import frc.robot.subsystems.Beak;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.ElevatorBallRoller;
+import frc.robot.subsystems.HatchFloorIntake;
 
 
 /**
@@ -26,8 +30,12 @@ import frc.robot.subsystems.Elevator;
  */
 public class Robot extends TimedRobot {
   public static OI m_oi;
+  public static BallFloorIntake m_ballFloor;
+  public static Beak m_beak;
   public static Drivetrain m_driveTrain;
   public static Elevator m_elevator;
+  public static ElevatorBallRoller m_ballElevator;
+  public static HatchFloorIntake m_hatchFloor;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -35,9 +43,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    
     m_oi = OI.getInstance();
+    m_ballFloor = BallFloorIntake.getInstance();
+    m_beak = Beak.getInstance();
     m_driveTrain = Drivetrain.getInstance();
     m_elevator = Elevator.getInstance();
+    m_ballElevator = ElevatorBallRoller.getInstance();
+    m_hatchFloor = HatchFloorIntake.getInstance();
 
   }
 
