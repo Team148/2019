@@ -25,10 +25,10 @@ public class Drivetrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private static Drivetrain m_instance = null;
+  private static Drivetrain m_instance;
 
   //Create Left Drive TalonSRXs
-  private final WPI_TalonSRX m_driveLeft1 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_MASTER);
+  private final WPI_TalonSRX m_driveLeft1= new WPI_TalonSRX(RobotMap.LEFT_DRIVE_MASTER);
   private final WPI_TalonSRX m_driveLeft2 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_TWO);
   private final WPI_TalonSRX m_driveLeft3 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_THREE);
 
