@@ -30,6 +30,7 @@ public class RobotMap {
 
   //Map Elevator CanIDs
   public static final int ELEVATOR_ONE = 7;
+  public static final int ELEVATOR_TWO = 8;
 
   //Map Pigeon CanID
   public static final int PIGEON_IMU = 8;
