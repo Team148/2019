@@ -70,6 +70,35 @@ public class Drivetrain extends Subsystem {
     return m_instance;
   }
 
+  private void setFactoryDefault() {
+    m_driveLeft1.configFactoryDefault();
+    m_driveLeft2.configFactoryDefault();
+    m_driveLeft3.configFactoryDefault();
+    m_driveRight1.configFactoryDefault();
+    m_driveRight2.configFactoryDefault();
+    m_driveRight3.configFactoryDefault();
+  }
+
+  private void setBrakeMode(boolean mode) {
+
+    if (mode == true) {
+      m_driveLeft1.setNeutralMode(NeutralMode.Brake);
+      m_driveLeft2.setNeutralMode(NeutralMode.Brake);
+      m_driveLeft3.setNeutralMode(NeutralMode.Brake);
+      m_driveRight1.setNeutralMode(NeutralMode.Brake);
+      m_driveRight2.setNeutralMode(NeutralMode.Brake);
+      m_driveRight3.setNeutralMode(NeutralMode.Brake);
+    }
+    else {
+      m_driveLeft1.setNeutralMode(NeutralMode.Coast);
+      m_driveLeft2.setNeutralMode(NeutralMode.Coast);
+      m_driveLeft3.setNeutralMode(NeutralMode.Coast);
+      m_driveRight1.setNeutralMode(NeutralMode.Coast);
+      m_driveRight2.setNeutralMode(NeutralMode.Coast);
+      m_driveRight3.setNeutralMode(NeutralMode.Coast);
+    }
+  }
+
   private void configureMotors() {
     m_driveLeft2.follow(m_driveLeft1);
     m_driveLeft3.follow(m_driveLeft1);
@@ -93,34 +122,6 @@ public class Drivetrain extends Subsystem {
 
     m_driveRight1.configPeakOutputForward(1.0, 0);
     m_driveRight1.configPeakOutputReverse(-1.0, 0);
-  }
-
-  private void setFactoryDefault() {
-    m_driveLeft1.configFactoryDefault();
-    m_driveLeft2.configFactoryDefault();
-    m_driveLeft3.configFactoryDefault();
-    m_driveRight1.configFactoryDefault();
-    m_driveRight2.configFactoryDefault();
-    m_driveRight3.configFactoryDefault();
-  }
-  private void setBrakeMode(boolean mode) {
-
-    if (mode == true) {
-      m_driveLeft1.setNeutralMode(NeutralMode.Brake);
-      m_driveLeft2.setNeutralMode(NeutralMode.Brake);
-      m_driveLeft3.setNeutralMode(NeutralMode.Brake);
-      m_driveRight1.setNeutralMode(NeutralMode.Brake);
-      m_driveRight2.setNeutralMode(NeutralMode.Brake);
-      m_driveRight3.setNeutralMode(NeutralMode.Brake);
-    }
-    else {
-      m_driveLeft1.setNeutralMode(NeutralMode.Coast);
-      m_driveLeft2.setNeutralMode(NeutralMode.Coast);
-      m_driveLeft3.setNeutralMode(NeutralMode.Coast);
-      m_driveRight1.setNeutralMode(NeutralMode.Coast);
-      m_driveRight2.setNeutralMode(NeutralMode.Coast);
-      m_driveRight3.setNeutralMode(NeutralMode.Coast);
-    }
   }
 
   private void setMotorSafeties() {
