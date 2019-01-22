@@ -104,7 +104,7 @@ public class Limelight extends Subsystem {
     m_pipeline = pipe;
   }
 
-  public bool IsEnabled() {
+  public boolean IsEnabled() {
     if(m_camMode == 0.0)
       return true;
     else
@@ -126,7 +126,7 @@ public class Limelight extends Subsystem {
     return m_target_heading;
   }
   
-  public bool IsTargeting() {
+  public boolean IsTargeting() {
     if(validObject.getDouble(0.0) > 0)
       return true;
     else
