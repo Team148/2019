@@ -8,16 +8,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.subsystems.Limelight;
 
 public class LLLedOff extends Command {
   public LLLedOff() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+      requires(Limelight.getInstance());
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    frc.robot.subsystems.Limelight.getInstance().setLimelightLEDOff();
   }
 
   // Called repeatedly when this Command is scheduled to run

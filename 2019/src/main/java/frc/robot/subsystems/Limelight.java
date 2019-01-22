@@ -58,7 +58,7 @@ public class Limelight extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-    SetDefaultCommand(new UpdateLimeLight()); 
+    setDefaultCommand(new UpdateLimeLight()); 
   }
 
   public static Limelight getInstance() {
@@ -97,10 +97,10 @@ public class Limelight extends Subsystem {
       cammode.setDouble(m_camMode);
   }
 
-  public boolean CheckConnection() {
+  public boolean CheckConnection() {  //??? this depends on return of null, -1?
     if(validObject.getDouble(-1) == -1) {
       System.out.println("Lost Connection to Limelight");
-      NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+      NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight"); //??not passed
       return false;
     }
     else
