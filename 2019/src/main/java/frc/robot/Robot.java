@@ -40,6 +40,8 @@ public class Robot extends TimedRobot {
   public static ElevatorBallRoller m_ballElevator;
   public static HatchFloorIntake m_hatchFloor;
 
+  private TrajectoryGenerator mTrajectoryGenerator;
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -54,6 +56,8 @@ public class Robot extends TimedRobot {
     m_elevator = Elevator.getInstance();
     m_ballElevator = ElevatorBallRoller.getInstance();
     m_hatchFloor = HatchFloorIntake.getInstance();
+
+    mTrajectoryGenerator = TrajectoryGenerator.getInstance();
 
   }
 
