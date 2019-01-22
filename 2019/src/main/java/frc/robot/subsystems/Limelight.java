@@ -12,6 +12,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableType;
 import edu.wpi.first.networktables.NetworkTableValue;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -23,10 +24,23 @@ public class Limelight extends Subsystem {
   // here. Call these from Commands.
 
   private static Limelight m_instance;
+  NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
+  private boolean m_connected = false;
   private double m_LEDMode = 0.0;
   private double m_pipeline = 0.0;
-  private double cameraMode = 0.0;
+  private double m_camMode = 0.0;
+
+  NetworkTableEntry validObject;
+	NetworkTableEntry xOffSet;
+	NetworkTableEntry yOffSet;
+	NetworkTableEntry targetArea;
+	NetworkTableEntry skew;
+	NetworkTableEntry latency;
+	NetworkTableEntry ledMode;
+	NetworkTableEntry pipeline;
+	NetworkTableEntry cammode;
+
 
   public Limelight() {
 
@@ -34,7 +48,7 @@ public class Limelight extends Subsystem {
 
     System.out.println("Creating Limelight");
 
-    m_ledMode = 1.0;		//set LEDs to default to off
+    m_LEDMode = 1.0;		//set LEDs to default to off
     m_pipeline = 0.0;		//sort by largest
     m_camMode = 1.0;		//vision processing ON
 
@@ -143,7 +157,7 @@ public class Limelight extends Subsystem {
       return false;
   }
   
-  void SetEnableVision(bool on) {
+  void SetEnableVision(boolean on) {
     if(on)
       m_camMode = 0.0;
     else
