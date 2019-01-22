@@ -32,8 +32,7 @@ public class Limelight extends Subsystem {
 
     super();
 
-  //	std::cout <<"Creating Limelight" << std::endl;
-
+    System.out.println("Creating Limelight");
 
     m_ledMode = 1.0;		//set LEDs to default to off
     m_pipeline = 0.0;		//sort by largest
@@ -67,7 +66,7 @@ public class Limelight extends Subsystem {
       NetworkTableEntry cammode = table.getEntry("camMode");
 
       //read values periodically
-      double validObject = tv.getDouble(0.0);
+      double validObject = tv.getDouble(-1);
       double xOffSet = tx.getDouble(0.0);
       double yOffSet = ty.getDouble(0.0);
       double m_LEDMode = ledMode.getDouble(0.0);
@@ -82,6 +81,16 @@ public class Limelight extends Subsystem {
       ledMode.setDouble(m_LEDMode);
       pipeline.setDouble(m_pipeline);
       cammode.setDouble(m_camMode);
+  }
+
+  public boolean CheckConnection() {
+    if(validObject.getDouble(-1) == -1) {
+      System.out.println("Lost Connection to Limelight");
+      NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+      return false;
+    }
+    else
+      return true;
   }
 
   public void setLimelightLEDOn() {
@@ -113,7 +122,8 @@ public class Limelight extends Subsystem {
   
   
   public double GetOffsetAngle() {
- //   std::cout << xOffSet.GetDouble(0) << std::endl;
+ 
+    System.out.println(xOffSet.getDouble(0));
     return xOffSet.getDouble(0);
   
   }
