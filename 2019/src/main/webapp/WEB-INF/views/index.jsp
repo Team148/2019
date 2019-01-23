@@ -8,7 +8,6 @@
     <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
     <script type='text/javascript' src='<c:url value='/resources/js/script.js' />'></script>
 
-    <link rel='shortcut icon' href='https://media.team254.com/homepage/icons/favicon32.png'/>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet'>

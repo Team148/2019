@@ -22,7 +22,8 @@ import frc.robot.subsystems.HatchFloorIntake;
 
 //import Commands
 
-
+//import 254
+import frc.paths.TrajectoryGenerator;
 
 /**
  * The VM is configured to automatically run this class, and to call the

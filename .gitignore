@@ -165,3 +165,4 @@ bin/
 2019/gradlew
 *.bat
 *.MF
+*.xml
