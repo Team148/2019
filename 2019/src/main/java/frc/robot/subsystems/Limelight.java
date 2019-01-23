@@ -9,8 +9,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableType;
-import edu.wpi.first.networktables.NetworkTableValue;
+//import edu.wpi.first.networktables.NetworkTableType;
+//import edu.wpi.first.networktables.NetworkTableValue;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 
@@ -72,10 +72,10 @@ public class Limelight extends Subsystem {
 
   public void getLimelightData() {
       //read values from NetworkTables
-      NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+      table = NetworkTableInstance.getDefault().getTable("limelight");
       NetworkTableEntry tv = table.getEntry("tv"); //0 or 1 for valid target
       NetworkTableEntry tx = table.getEntry("tx");
-      NetworkTableEntry ty = table.getEntry("ty");
+//      NetworkTableEntry ty = table.getEntry("ty");
       NetworkTableEntry ledMode = table.getEntry("ledMode");
       NetworkTableEntry pipeline = table.getEntry("pipeline");
       NetworkTableEntry cammode = table.getEntry("camMode");
@@ -83,7 +83,7 @@ public class Limelight extends Subsystem {
       //read values periodically
       double validObject = tv.getDouble(-1);
       double xOffSet = tx.getDouble(0.0);
-      double yOffSet = ty.getDouble(0.0);
+//      double yOffSet = ty.getDouble(0.0);
       double m_LEDMode = ledMode.getDouble(0.0);
       double m_pipeline = pipeline.getDouble(0.0);
       double m_camMode = cammode.getDouble(0.0);
@@ -101,7 +101,7 @@ public class Limelight extends Subsystem {
   public boolean CheckConnection() {  //??? this depends on return of null, -1?
     if(validObject.getDouble(-1) == -1) {
       System.out.println("Lost Connection to Limelight");
-      NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight"); //??not passed
+      table = NetworkTableInstance.getDefault().getTable("limelight");
       return false;
     }
     else
