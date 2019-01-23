@@ -15,6 +15,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.commands.UpdateLimeLight;
 
 /**
  * Add your docs here.
@@ -26,10 +27,10 @@ public class Limelight extends Subsystem {
   private static Limelight m_instance;
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
-  private boolean m_connected = false;
-  private double m_LEDMode = 0.0;
-  private double m_pipeline = 0.0;
-  private double m_camMode = 0.0;
+  boolean m_connected = false;
+  double m_LEDMode = 0.0;
+  double m_pipeline = 0.0;
+  double m_camMode = 0.0;
 
   NetworkTableEntry validObject;
 	NetworkTableEntry xOffSet;
@@ -142,12 +143,12 @@ public class Limelight extends Subsystem {
   
   }
   public double GetTargetHeading() {
-    double m_target_heading = Drivetrain.getInstance().getRobotPathHeading();
+   // double m_target_heading = Drivetrain.getInstance().getRobotPathHeading();
     if(IsTargeting())
     {
-      m_target_heading = Drivetrain.getInstance().getRobotPathHeading() + (-xOffSet.getDouble(0));
+   //   m_target_heading = Drivetrain.getInstance().getRobotPathHeading() + (-xOffSet.getDouble(0));
     }
-    return m_target_heading;
+    return 0.0;//m_target_heading;
   }
   
   public boolean IsTargeting() {
