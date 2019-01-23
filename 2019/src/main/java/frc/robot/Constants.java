@@ -13,6 +13,7 @@ package frc.robot;
 public class Constants {
     
     //Drivetrain Constants
+    public static final int DRIVE_ENCODER_TPR = 4096;
 
     //Elevator Constants
     public static final int ELEVATOR_SOFT_LIMIT = 36500;
@@ -65,28 +66,6 @@ public class Constants {
     public static final double kCenterToFrontBumperDistance = 14.99;	//34.473 / 2.0;
     public static final double kCenterToRearBumperDistance = 19.48;		//34.473 / 2.0;
     public static final double kCenterToSideBumperDistance = 32.47 / 2.0;
-
-    // Pose of the LIDAR frame w.r.t. the robot frame
-    // TODO measure in CAD/on robot!
-    public static final double kLidarXOffset = -3.3211;
-    public static final double kLidarYOffset = 0.0;
-    public static final double kLidarYawAngleDegrees = 0.0;
-
-    /* LIDAR CONSTANTS */
-    public static final int kChezyLidarScanSize = 400;
-    public static final int kChezyLidarNumScansToStore = 10;
-    public static final String kChezyLidarPath = "/home/root/chezy_lidar";
-    public static final double kChezyLidarRestartTime = 2.5;
-
-    public static final String kLidarLogDir = "/home/lvuser/lidarLogs/";
-    public static final int kNumLidarLogsToKeep = 10;
-    public static final double kLidarICPTranslationEpsilon = 0.01; // convergence threshold for tx,ty
-    public static final double kLidarICPAngleEpsilon = 0.01;       // convergence threshold for theta
-
-    public static final int kCameraStreamPort = 5810;
-
-    /* LIDAR CONSTANTS */
-    public static final double kScaleTrackerTimeout = 0.6;
 
     /* CONTROL LOOP GAINS */
 
@@ -149,11 +128,6 @@ public class Constants {
     public static final double kWristRampRate = 0.001;
     public static final double kAutoWristRampRate = 0.01;
 
-    // Do not change anything after this line unless you rewire the robot and
-    // update the spreadsheet!
-    // Port assignments should match up with the spreadsheet here:
-    // https://docs.google.com/spreadsheets/d/179YszqnEWPWInuHUrYJnYL48LUL7LUhZrnvmNu1kujE/edit#gid=0
-
     /* I/O */
     // (Note that if multiple talons are dedicated to a mechanism, any sensors
     // are attached to the master)
@@ -161,26 +135,26 @@ public class Constants {
     public static final int kCANTimeoutMs = 10; //use for on the fly updates
     public static final int kLongCANTimeoutMs = 100; //use for constructors
 
-    // Drive	//fixed for 148
-    public static final int kLeftDriveMasterId = 1;
-    public static final int kLeftDriveSlaveAId = 3;
-    public static final int kLeftDriveSlaveBId = 5;
-    public static final int kRightDriveMasterId = 2;
-    public static final int kRightDriveSlaveAId = 4;
-    public static final int kRightDriveSlaveBId = 6;
+    // // Drive	//fixed for 148
+    // public static final int kLeftDriveMasterId = 1;
+    // public static final int kLeftDriveSlaveAId = 3;
+    // public static final int kLeftDriveSlaveBId = 5;
+    // public static final int kRightDriveMasterId = 2;
+    // public static final int kRightDriveSlaveAId = 4;
+    // public static final int kRightDriveSlaveBId = 6;
 
-    // Followers
-    public static final int kFollowerLeftAChannelId = 2;
-    public static final int kFollowerLeftBChannelId = 3;
-    public static final int kFollowerRightAChannelId = 0;
-    public static final int kFollowerRightBChannelId = 1;
-    public static final int kFollowerRearAChannelId = 4;
-    public static final int kFollowerRearBChannelId = 5;
+    // // Followers
+    // public static final int kFollowerLeftAChannelId = 2;
+    // public static final int kFollowerLeftBChannelId = 3;
+    // public static final int kFollowerRightAChannelId = 0;
+    // public static final int kFollowerRightBChannelId = 1;
+    // public static final int kFollowerRearAChannelId = 4;
+    // public static final int kFollowerRearBChannelId = 5;
 
-    // Intake	//fixed for 148 - need to fix Canifier
-    public static final int kIntakeLeftMasterId = 12;
-    public static final int kIntakeRightMasterId = 14;
-    public static final int kCanifierId = 0;
+    // // Intake	//fixed for 148 - need to fix Canifier
+    // public static final int kIntakeLeftMasterId = 12;
+    // public static final int kIntakeRightMasterId = 14;
+    // public static final int kCanifierId = 0;
 
     // Elevator
     public static final int kElevatorMasterId = 10;
@@ -191,20 +165,20 @@ public class Constants {
     // Wrist
     public static final int KWristMasterId = 15;
 
-    // Solenoids
-    public static final int kShifterSolenoidId = 12; // PCM 0, Solenoid 4
-    public static final int kIntakeCloseSolenoid = 10;
-    public static final int kIntakeClampSolenoid = 9;
-    public static final int kForkliftDeploySolenoid = 7;  // CURRENTLY 6 ON PRACTICE!!!
-    public static final int kFollowerWheelSolenoid = 11;
-    public static final int kElevatorShifterSolenoidId = 8;
-    public static final int kUnlockHookSolenoid = 4;
-    public static final int kJazzHandsSolenoid = 5;
-    public static final int kKickstandSolenoid = 3;
+    // // Solenoids
+    // public static final int kShifterSolenoidId = 12; // PCM 0, Solenoid 4
+    // public static final int kIntakeCloseSolenoid = 10;
+    // public static final int kIntakeClampSolenoid = 9;
+    // public static final int kForkliftDeploySolenoid = 7;  // CURRENTLY 6 ON PRACTICE!!!
+    // public static final int kFollowerWheelSolenoid = 11;
+    // public static final int kElevatorShifterSolenoidId = 8;
+    // public static final int kUnlockHookSolenoid = 4;
+    // public static final int kJazzHandsSolenoid = 5;
+    // public static final int kKickstandSolenoid = 3;
 
-    // Control Board
-    public static final boolean kUseGamepadForDriving = true;
-    public static final boolean kUseGamepadForButtons = false;
+    // // Control Board
+    // public static final boolean kUseGamepadForDriving = true;
+    // public static final boolean kUseGamepadForButtons = false;
 
     public static final int kDriveGamepadPort = 0;
     public static final int kButtonGamepadPort = 2;
@@ -223,4 +197,26 @@ public class Constants {
 
     public static final double kKickstandToggleRumbleTime = 0.5;
     public static final double kKickstandDelay = 1.0;
+
+    // Pose of the LIDAR frame w.r.t. the robot frame
+    // TODO measure in CAD/on robot!
+    public static final double kLidarXOffset = -3.3211;
+    public static final double kLidarYOffset = 0.0;
+    public static final double kLidarYawAngleDegrees = 0.0;
+
+    /* LIDAR CONSTANTS */
+    public static final int kChezyLidarScanSize = 400;
+    public static final int kChezyLidarNumScansToStore = 10;
+    public static final String kChezyLidarPath = "/home/root/chezy_lidar";
+    public static final double kChezyLidarRestartTime = 2.5;
+
+    public static final String kLidarLogDir = "/home/lvuser/lidarLogs/";
+    public static final int kNumLidarLogsToKeep = 10;
+    public static final double kLidarICPTranslationEpsilon = 0.01; // convergence threshold for tx,ty
+    public static final double kLidarICPAngleEpsilon = 0.01;       // convergence threshold for theta
+
+    public static final int kCameraStreamPort = 5810;
+
+    /* LIDAR CONSTANTS */
+    public static final double kScaleTrackerTimeout = 0.6;
 }
