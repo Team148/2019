@@ -23,6 +23,8 @@ import frc.robot.subsystems.HatchFloorIntake;
 //import Commands
 
 //import 254
+import frc.auto.AutoModeBase;
+import frc.auto.AutoModeExecutor;
 import frc.paths.TrajectoryGenerator;
 
 /**
@@ -42,6 +44,9 @@ public class Robot extends TimedRobot {
   public static HatchFloorIntake m_hatchFloor;
 
   private TrajectoryGenerator mTrajectoryGenerator;
+  private AutoModeSelector mAutoModeSelector = new AutoModeSelector();
+
+  private AutoModeExecutor mAutoModeExecutor;
 
   /**
    * This function is run when the robot is first started up and should be
