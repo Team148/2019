@@ -9,20 +9,17 @@ import java.util.Optional;
 
 public class AutoModeSelector {
 
-    enum StartingPosition {
-        LEFT,
-        CENTER,
-        RIGHT,
+    enum StartingHeight {
+        LEVEL_ONE,
+        LEVEL_TWO
     }
 
     ;
 
-    enum SwitchScalePosition {
-        USE_FMS_DATA,
-        LEFT_SWITCH_LEFT_SCALE,
-        LEFT_SWITCH_RIGHT_SCALE,
-        RIGHT_SWITCH_LEFT_SCALE,
-        RIGHT_SWITCH_RIGHT_SCALE,
+    enum StartingPosition {
+        LEFT,
+        CENTER,
+        RIGHT
     }
 
     ;
@@ -30,80 +27,72 @@ public class AutoModeSelector {
     enum DesiredMode {
         DO_NOTHING,
         CROSS_AUTO_LINE,
-        SIMPLE_SWITCH,
-        SCALE_AND_SWITCH,
-        ONLY_SCALE,
-        ADVANCED, // This uses 4 additional sendable choosers to pick one for each field state combo
+        CARGO_SHIP,
+        CARGO_SHIP_AND_ROCKET,
+        ROCKET
     }
 
     ;
 
-    private DesiredMode mCachedDesiredMode = null;
-    private SwitchScalePosition mCachedSwitchScalePosition = null;
+    private StartingHeight mCachedStartingHeight = null;
     private StartingPosition mCachedStartingPosition = null;
+    private DesiredMode mCachedDesiredMode = null;
 
     private Optional<AutoModeCreator> mCreator = Optional.empty();
 
-    private AutoFieldState mFieldState = AutoFieldState.getInstance();
-
-    private SendableChooser<DesiredMode> mModeChooser;
-    private SendableChooser<SwitchScalePosition> mSwitchScalePositionChooser;
+    private SendableChooser<StartingHeight> mStartHeightChooser;
     private SendableChooser<StartingPosition> mStartPositionChooser;
+    private SendableChooser<DesiredMode> mModeChooser;
 
     public AutoModeSelector() {
-        mModeChooser = new SendableChooser<>();
-        mModeChooser.addDefault("Cross Auto Line", DesiredMode.CROSS_AUTO_LINE);
-        mModeChooser.addObject("Do Nothing", DesiredMode.DO_NOTHING);
-        mModeChooser.addObject("Simple switch", DesiredMode.SIMPLE_SWITCH);
-        mModeChooser.addObject("Scale AND Switch", DesiredMode.SCALE_AND_SWITCH);
-        mModeChooser.addObject("Only Scale", DesiredMode.ONLY_SCALE);
-        SmartDashboard.putData("Auto mode", mModeChooser);
+
+        mStartHeightChooser = new SendableChooser<>();
+        mStartHeightChooser.setDefaultOption("Level 1", StartingHeight.LEVEL_ONE);
+        mStartHeightChooser.addOption("Level 2", StartingHeight.LEVEL_TWO);
+        SmartDashboard.putData("Start Height", mStartHeightChooser);
 
         mStartPositionChooser = new SendableChooser<>();
-        mStartPositionChooser.addDefault("Right", StartingPosition.RIGHT);
-        mStartPositionChooser.addObject("Center", StartingPosition.CENTER);
-        mStartPositionChooser.addObject("Left", StartingPosition.LEFT);
-        SmartDashboard.putData("Starting Position", mStartPositionChooser);
+        mStartPositionChooser.setDefaultOption("Right", StartingPosition.RIGHT);
+        mStartPositionChooser.addOption("Center", StartingPosition.CENTER);
+        mStartPositionChooser.addOption("Right", StartingPosition.RIGHT);
 
-        mSwitchScalePositionChooser = new SendableChooser<>();
-        mSwitchScalePositionChooser.addDefault("Use FMS Data", SwitchScalePosition.USE_FMS_DATA);
-        mSwitchScalePositionChooser.addObject("Left Switch Left Scale", SwitchScalePosition.LEFT_SWITCH_LEFT_SCALE);
-        mSwitchScalePositionChooser.addObject("Left Switch Right Scale", SwitchScalePosition.LEFT_SWITCH_RIGHT_SCALE);
-        mSwitchScalePositionChooser.addObject("Right Switch Left Scale", SwitchScalePosition.RIGHT_SWITCH_LEFT_SCALE);
-        mSwitchScalePositionChooser.addObject("Right Switch Right Scale", SwitchScalePosition.RIGHT_SWITCH_RIGHT_SCALE);
-        SmartDashboard.putData("Switch and Scale Position", mSwitchScalePositionChooser);
-
+        mModeChooser = new SendableChooser<>();
+        mModeChooser.setDefaultOption("Cross Auto Line ", DesiredMode.CROSS_AUTO_LINE);
+        mModeChooser.addOption("Do Nothing", DesiredMode.DO_NOTHING);
+        mModeChooser.addOption("Cargo Ship", DesiredMode.CARGO_SHIP);
+        mModeChooser.addOption("Cargo Ship AND Rocket", DesiredMode.CARGO_SHIP_AND_ROCKET);
+        mModeChooser.addOption("Only Rocket", DesiredMode.ROCKET);
     }
 
     public void updateModeCreator() {
+
+        StartingHeight startingHeight = mStartHeightChooser.getSelected();
+        StartingPosition startingPosition = mStartPositionChooser.getSelected();
         DesiredMode desiredMode = mModeChooser.getSelected();
-        StartingPosition staringPosition = mStartPositionChooser.getSelected();
-        SwitchScalePosition switchScalePosition = mSwitchScalePositionChooser.getSelected();
-        if (mCachedDesiredMode != desiredMode || staringPosition != mCachedStartingPosition || switchScalePosition != mCachedSwitchScalePosition) {
-            System.out.println("Auto selection changed, updating creator: desiredMode->" + desiredMode.name() + ", starting position->" + staringPosition.name() + ", switch/scale position->" + switchScalePosition.name());
-            mCreator = getCreatorForParams(desiredMode, staringPosition);
-            if (switchScalePosition == SwitchScalePosition.USE_FMS_DATA) {
-                mFieldState.disableOverride();
-            } else {
-                setFieldOverride(switchScalePosition);
-            }
+
+        if (mCachedDesiredMode != desiredMode || mCachedStartingHeight != startingHeight || mCachedStartingPosition != startingPosition) {
+            System.out.println("Auto selection changed, updating creator! Desired Mode->" + desiredMode.name() + ", Starting Height->" + startingHeight.name() + ", Starting Position->" + startingPosition.name());
+            mCreator = getCreatorForParams(desiredMode, startingHeight, startingPosition);
         }
+
         mCachedDesiredMode = desiredMode;
-        mCachedStartingPosition = staringPosition;
-        mCachedSwitchScalePosition = switchScalePosition;
+        mCachedStartingHeight = startingHeight;
+        mCachedStartingPosition = startingPosition;
     }
 
-    private Optional<AutoModeCreator> getCreatorForParams(DesiredMode mode, StartingPosition position) {
+    private Optional<AutoModeCreator> getCreatorForParams(DesiredMode mode, StartingHeight height, StartingPosition position) {
+        boolean startOnOne = StartingHeight.LEVEL_ONE == height;
         boolean startOnLeft = StartingPosition.LEFT == position;
+
         switch (mode) {
-            case SIMPLE_SWITCH:
-                return Optional.of(new SimpleSwitchModeCreator());
             case CROSS_AUTO_LINE:
                 return Optional.of(new CrossAutoLineCreator());
-            case SCALE_AND_SWITCH:
-                return Optional.of(new SwitchAndScaleAutoModeCreator());
-            case ONLY_SCALE:
-                return Optional.of(new ScaleOnlyAutoModeCreator(startOnLeft));
+            case CARGO_SHIP:
+                return Optional.of(new CargoShipModeCreator(startOnOne, startOnLeft));
+            case CARGO_SHIP_AND_ROCKET:
+                return Optional.of(new CargoShipANDRocketModeCreator(startOnOne, startOnLeft));
+            case ROCKET:
+                return Optional.of(new RocketModeCreator(startOnOne, startOnLeft));
             default:
                 break;
         }
@@ -112,45 +101,21 @@ public class AutoModeSelector {
         return Optional.empty();
     }
 
-    private void setFieldOverride(SwitchScalePosition switchScalePosition) {
-        switch (switchScalePosition) {
-            case LEFT_SWITCH_LEFT_SCALE:
-                mFieldState.overrideSides("LLL");
-                break;
-            case LEFT_SWITCH_RIGHT_SCALE:
-                mFieldState.overrideSides("LRL");
-                break;
-            case RIGHT_SWITCH_LEFT_SCALE:
-                mFieldState.overrideSides("RLR");
-                break;
-            case RIGHT_SWITCH_RIGHT_SCALE:
-                mFieldState.overrideSides("RRR");
-                break;
-            default:
-                break;
-        }
-    }
-
     public void reset() {
         mCreator = Optional.empty();
-        mFieldState.disableOverride();
         mCachedDesiredMode = null;
     }
 
     public void outputToSmartDashboard() {
         SmartDashboard.putString("AutoModeSelected", mCachedDesiredMode.name());
+        SmartDashboard.putString("StartingHeightSelected", mCachedStartingHeight.name());
         SmartDashboard.putString("StartingPositionSelected", mCachedStartingPosition.name());
-        SmartDashboard.putString("SwitchScalePositionSelected", mCachedSwitchScalePosition.name());
     }
 
-    public Optional<AutoModeBase> getAutoMode(AutoFieldState fieldState) {
+    public Optional<AutoModeBase> getAutoMode() {
         if (!mCreator.isPresent()) {
             return Optional.empty();
         }
-        if (fieldState.isOverridingGameData()) {
-            System.out.println("Overriding FMS switch/scale positions!");
-        }
-        return Optional.of(mCreator.get().getStateDependentAutoMode(fieldState));
+        return Optional.of(mCreator.get().getStateDependentAutoMode());
     }
-
 }

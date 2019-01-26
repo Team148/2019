@@ -1,6 +1,5 @@
 package frc.auto.creators;
 
-import frc.robot.AutoFieldState;
 import frc.auto.AutoModeBase;
 import frc.auto.modes.CrossAutoLineMode;
 
@@ -10,7 +9,7 @@ public class CrossAutoLineCreator implements AutoModeCreator {
     private CrossAutoLineMode mCrossAutoLineMode = new CrossAutoLineMode();
 
     @Override
-    public AutoModeBase getStateDependentAutoMode(AutoFieldState fieldState) {
+    public AutoModeBase getStateDependentAutoMode() {
         return mCrossAutoLineMode;
     }
 }
