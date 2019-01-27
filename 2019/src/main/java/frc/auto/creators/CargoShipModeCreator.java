@@ -9,25 +9,25 @@ public class CargoShipModeCreator implements AutoModeCreator {
     private boolean mRobotStartedOnLevel1;
     private boolean mRobotStartedOnLeft;
 
-    private AutoModeBase CargoShipLeft;
-    private AutoModeBase CargoShipRight;
+    private AutoModeBase CargoShipLevel1;
+    private AutoModeBase CargoShipLevel2;
     
     public CargoShipModeCreator(boolean startOnLevelOne, boolean startOnLeft) {
         mRobotStartedOnLevel1 = startOnLevelOne;
         mRobotStartedOnLeft = startOnLeft;
 
-        CargoShipLeft = new CargoShipMode(mRobotStartedOnLevel1, mRobotStartedOnLeft);
-        CargoShipRight = new CargoShipMode(mRobotStartedOnLevel1, mRobotStartedOnLeft);
+        CargoShipLevel1 = new CargoShipMode(mRobotStartedOnLevel1, mRobotStartedOnLeft);
+        CargoShipLevel2 = new CargoShipMode(mRobotStartedOnLevel1, mRobotStartedOnLeft);
     }
 
     @Override
     public AutoModeBase getStateDependentAutoMode() {
         System.out.println("Getting CargoShipMode for " + mRobotStartedOnLevel1 + " AND " + mRobotStartedOnLeft);
-        if (mRobotStartedOnLeft) {
-            return CargoShipLeft;
+        if (mRobotStartedOnLevel1) {
+            return CargoShipLevel1;
         }
         else {
-            return CargoShipRight;
+            return CargoShipLevel2;
         }
     }
 }
