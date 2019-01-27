@@ -132,6 +132,8 @@ public class Constants {
     // (Note that if multiple talons are dedicated to a mechanism, any sensors
     // are attached to the master)
 
+    public static final double kLooperDt = 0.01;
+
     public static final int kCANTimeoutMs = 10; //use for on the fly updates
     public static final int kLongCANTimeoutMs = 100; //use for constructors
 
