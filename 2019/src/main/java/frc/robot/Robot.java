@@ -7,10 +7,15 @@
 
 package frc.robot;
 
+import java.sql.Driver;
+import java.util.Arrays;
+import java.util.Optional;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Timer;
 
 //import Subsystems
 import frc.robot.subsystems.BallFloorIntake;
@@ -43,7 +48,7 @@ public class Robot extends TimedRobot {
   public static ElevatorBallRoller m_ballElevator;
   public static HatchFloorIntake m_hatchFloor;
 
-  private TrajectoryGenerator mTrajectoryGenerator;
+  private TrajectoryGenerator mTrajectoryGenerator = TrajectoryGenerator.getInstance();;
   private AutoModeSelector mAutoModeSelector = new AutoModeSelector();
 
   private AutoModeExecutor mAutoModeExecutor;
@@ -63,7 +68,11 @@ public class Robot extends TimedRobot {
     m_ballElevator = ElevatorBallRoller.getInstance();
     m_hatchFloor = HatchFloorIntake.getInstance();
 
-    mTrajectoryGenerator = TrajectoryGenerator.getInstance();
+    
+
+
+    mTrajectoryGenerator.generateTrajectories();
+    mAutoModeSelector.updateModeCreator();
 
   }
 
@@ -87,11 +96,18 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+
+      // Reset all auto mode state.
+      mAutoModeSelector.reset();
+      mAutoModeSelector.updateModeCreator();
+      mAutoModeExecutor = new AutoModeExecutor();
   }
 
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
+
+    mAutoModeSelector.updateModeCreator();
   }
 
   /**
@@ -108,6 +124,9 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     
+    mAutoModeExecutor.start();
+    Optional<AutoModeBase> autoMode = mAutoModeSelector.getAutoMode();
+    mAutoModeExecutor.setAutoMode(autoMode.get());
   }
 
   /**
@@ -116,6 +135,8 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
+
+    SmartDashboard.putString("Match Cycle", "AUTONOMOUS");
   }
 
   @Override
@@ -129,6 +150,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+
+    SmartDashboard.putString("Match Cycle", "TELEOP");
   }
 
   /**

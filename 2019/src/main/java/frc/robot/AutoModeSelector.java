@@ -18,7 +18,6 @@ public class AutoModeSelector {
 
     enum StartingPosition {
         LEFT,
-        CENTER,
         RIGHT
     }
 
@@ -52,16 +51,17 @@ public class AutoModeSelector {
         SmartDashboard.putData("Start Height", mStartHeightChooser);
 
         mStartPositionChooser = new SendableChooser<>();
-        mStartPositionChooser.setDefaultOption("Right", StartingPosition.RIGHT);
-        mStartPositionChooser.addOption("Center", StartingPosition.CENTER);
-        mStartPositionChooser.addOption("Right", StartingPosition.RIGHT);
+        mStartPositionChooser.setDefaultOption("Right", StartingPosition.LEFT);
+        mStartPositionChooser.addOption("Center", StartingPosition.RIGHT);
+        SmartDashboard.putData("Start Position", mStartPositionChooser);
 
-        mModeChooser = new SendableChooser<>();
+        mModeChooser = new SendableChooser<>(); 
         mModeChooser.setDefaultOption("Cross Auto Line ", DesiredMode.CROSS_AUTO_LINE);
         mModeChooser.addOption("Do Nothing", DesiredMode.DO_NOTHING);
         mModeChooser.addOption("Cargo Ship", DesiredMode.CARGO_SHIP);
         mModeChooser.addOption("Cargo Ship AND Rocket", DesiredMode.CARGO_SHIP_AND_ROCKET);
         mModeChooser.addOption("Only Rocket", DesiredMode.ROCKET);
+        SmartDashboard.putData("Desired Mode", mModeChooser);
     }
 
     public void updateModeCreator() {

@@ -12,7 +12,7 @@ public class TestMode extends AutoModeBase {
         System.out.println("Test mode");
         Drivetrain.getInstance().startLogging();
 
-        runAction(new DriveTrajectory(TrajectoryGenerator.getInstance().getTrajectorySet().sideStartToFarScale.get(true), true));
+        // runAction(new DriveTrajectory(TrajectoryGenerator.getInstance().getTrajectorySet().sideStartToFarScale.get(true), true));
 
         Drivetrain.getInstance().stopLogging();
 

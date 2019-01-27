@@ -18,11 +18,11 @@ public class SideStartSwitchMode extends AutoModeBase {
         mStartedLeft = robotStartedOnLeft;
         mGoLeft = switchIsLeft;
 
-        if (mGoLeft == mStartedLeft) {
-            mTrajectory = new DriveTrajectory(TrajectoryGenerator.getInstance().getTrajectorySet().sideStartToNearSwitch.get(mStartedLeft), true);
-        } else {
-            mTrajectory = new DriveTrajectory(TrajectoryGenerator.getInstance().getTrajectorySet().sideStartToFarSwitch.get(mStartedLeft), true);
-        }
+        // if (mGoLeft == mStartedLeft) {
+        //     mTrajectory = new DriveTrajectory(TrajectoryGenerator.getInstance().getTrajectorySet().sideStartToNearSwitch.get(mStartedLeft), true);
+        // } else {
+        //     mTrajectory = new DriveTrajectory(TrajectoryGenerator.getInstance().getTrajectorySet().sideStartToFarSwitch.get(mStartedLeft), true);
+        // }
     }
 
 
@@ -30,10 +30,10 @@ public class SideStartSwitchMode extends AutoModeBase {
     protected void routine() throws AutoModeEndedException {
         System.out.println("Running Simple switch");
 
-        runAction(new ParallelAction(
-                Arrays.asList(
-                        mTrajectory
-                )
-        ));
+        // runAction(new ParallelAction(
+        //         Arrays.asList(
+        //                 mTrajectory
+        //         )
+        // ));
     }
 }

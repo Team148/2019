@@ -25,27 +25,27 @@ public class SwitchAndScaleMode extends AutoModeBase {
         mSwitchLeft = isSwitchOnLeft;
         mScaleLeft = isScaleOnLeft;
 
-        if (isSwitchOnLeft) {
-            mStartToSwitch = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().centerStartToLeftSwitch, true);
-            mStartCubeWaitTime = mTrajectoryGenerator.getTrajectorySet().centerStartToLeftSwitch.getLastState().t() - 0.1;
-        } else {
-            mStartToSwitch = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().centerStartToRightSwitch, true);
-            mStartCubeWaitTime = mTrajectoryGenerator.getTrajectorySet().centerStartToRightSwitch.getLastState().t() - 0.1;
-        }
-        if (isScaleOnLeft) {
-            mPyramidCubeToScale = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().centerPyramidCubeToScaleLeft.get(mScaleLeft));
-            mScaleToFence = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().scaleToFenceLeft.get(mScaleLeft));
-            mFenceToScale = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().fenceToScaleLeft.get(mScaleLeft));
-            mFenceWaitTime = mTrajectoryGenerator.getTrajectorySet().scaleToFenceLeft.get(mScaleLeft).getLastState().t() - 0.15 + 0.25;
-        } else {
-            mPyramidCubeToScale = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().centerPyramidCubeToScaleRight.get(mScaleLeft));
-            mScaleToFence = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().scaleToFenceRight.get(mScaleLeft));
-            mFenceToScale = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().fenceToScaleRight.get(mScaleLeft));
-            mFenceWaitTime = mTrajectoryGenerator.getTrajectorySet().scaleToFenceRight.get(mScaleLeft).getLastState().t() - 0.15 + 0.25;
-        }
+        // if (isSwitchOnLeft) {
+        //     mStartToSwitch = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().centerStartToLeftSwitch, true);
+        //     mStartCubeWaitTime = mTrajectoryGenerator.getTrajectorySet().centerStartToLeftSwitch.getLastState().t() - 0.1;
+        // } else {
+        //     mStartToSwitch = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().centerStartToRightSwitch, true);
+        //     mStartCubeWaitTime = mTrajectoryGenerator.getTrajectorySet().centerStartToRightSwitch.getLastState().t() - 0.1;
+        // }
+        // if (isScaleOnLeft) {
+        //     mPyramidCubeToScale = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().centerPyramidCubeToScaleLeft.get(mScaleLeft));
+        //     mScaleToFence = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().scaleToFenceLeft.get(mScaleLeft));
+        //     mFenceToScale = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().fenceToScaleLeft.get(mScaleLeft));
+        //     mFenceWaitTime = mTrajectoryGenerator.getTrajectorySet().scaleToFenceLeft.get(mScaleLeft).getLastState().t() - 0.15 + 0.25;
+        // } else {
+        //     mPyramidCubeToScale = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().centerPyramidCubeToScaleRight.get(mScaleLeft));
+        //     mScaleToFence = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().scaleToFenceRight.get(mScaleLeft));
+        //     mFenceToScale = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().fenceToScaleRight.get(mScaleLeft));
+        //     mFenceWaitTime = mTrajectoryGenerator.getTrajectorySet().scaleToFenceRight.get(mScaleLeft).getLastState().t() - 0.15 + 0.25;
+        // }
 
-        mSwitchToPyramidCube = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().switchToCenterPyramidCube.get(mSwitchLeft));
-        mPyramidWaitTime = mTrajectoryGenerator.getTrajectorySet().switchToCenterPyramidCube.get(mScaleLeft).getLastState().t() - 0.15;
+        // mSwitchToPyramidCube = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().switchToCenterPyramidCube.get(mSwitchLeft));
+        // mPyramidWaitTime = mTrajectoryGenerator.getTrajectorySet().switchToCenterPyramidCube.get(mScaleLeft).getLastState().t() - 0.15;
 
     }
 

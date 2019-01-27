@@ -166,3 +166,5 @@ bin/
 *.bat
 *.MF
 *.xml
+*.debug
+*.4

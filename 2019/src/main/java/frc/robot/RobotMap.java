@@ -20,8 +20,8 @@ public class RobotMap {
 
   //Map LeftDrive CAN IDs
   public static final int LEFT_DRIVE_MASTER = 1;
-  public static final int LEFT_DRIVE_TWO = 2;
-  public static final int LEFT_DRIVE_THREE = 3;
+  public static final int LEFT_DRIVE_TWO = 3;
+  public static final int LEFT_DRIVE_THREE = 5;
 
   //Map RightDrive CAN IDs
   public static final int RIGHT_DRIVE_MASTER = 2;
@@ -29,8 +29,8 @@ public class RobotMap {
   public static final int RIGHT_DRIVE_THREE = 6;
 
   //Map Elevator CanIDs
-  public static final int ELEVATOR_ONE = 7;
-  public static final int ELEVATOR_TWO = 8;
+  public static final int ELEVATOR_ONE = 10;
+  public static final int ELEVATOR_TWO = 11;
 
   //Map Ball Floor Intake CAN IDs
   public static final int BALL_FLOOR_ONE = 9;
