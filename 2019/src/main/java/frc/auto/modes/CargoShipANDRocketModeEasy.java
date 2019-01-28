@@ -12,13 +12,14 @@ import java.util.Arrays;
 public class CargoShipANDRocketModeEasy extends AutoModeBase {
 
     private static final TrajectoryGenerator mTrajectoryGenerator = TrajectoryGenerator.getInstance();
-    
+
     final boolean mStartedLeft;
+    private DriveTrajectory mLevelOneToCargoTwo;
 
     public CargoShipANDRocketModeEasy(boolean driveToLeftCargo) {
         mStartedLeft = driveToLeftCargo;
 
-        
+        mLevelOneToCargoTwo = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level1ToCargoTwo.get(mStartedLeft));
     }
 
     @Override
@@ -28,22 +29,22 @@ public class CargoShipANDRocketModeEasy extends AutoModeBase {
         //Score First Hatch
         runAction(new ParallelAction (
             Arrays.asList(
-
+                mLevelOneToCargoTwo
             )
         ));
 
-        //Get Second Hatch
-        runAction(new ParallelAction (
-            Arrays.asList(
+        // //Get Second Hatch
+        // runAction(new ParallelAction (
+        //     Arrays.asList(
 
-            )
-        ));
+        //     )
+        // ));
 
-        //Score Second Hatch
-        runAction(new ParallelAction (
-            Arrays.asList(
+        // //Score Second Hatch
+        // runAction(new ParallelAction (
+        //     Arrays.asList(
                 
-            )
-        ));
+        //     )
+        // ));
     }
 }
