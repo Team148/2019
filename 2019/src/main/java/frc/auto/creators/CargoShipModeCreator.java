@@ -1,7 +1,8 @@
 package frc.auto.creators;
 
 import frc.auto.AutoModeBase;
-import frc.auto.modes.CargoShipMode;
+import frc.auto.modes.CargoShipModeEasy;
+import frc.auto.modes.CargoShipModeHard;
 
 public class CargoShipModeCreator implements AutoModeCreator {
 
@@ -16,8 +17,8 @@ public class CargoShipModeCreator implements AutoModeCreator {
         mRobotStartedOnLevel1 = startOnLevelOne;
         mRobotStartedOnLeft = startOnLeft;
 
-        CargoShipLevel1 = new CargoShipMode(mRobotStartedOnLevel1, mRobotStartedOnLeft);
-        CargoShipLevel2 = new CargoShipMode(mRobotStartedOnLevel1, mRobotStartedOnLeft);
+        CargoShipLevel1 = new CargoShipModeEasy(mRobotStartedOnLeft);
+        CargoShipLevel2 = new CargoShipModeHard(mRobotStartedOnLeft);
     }
 
     @Override

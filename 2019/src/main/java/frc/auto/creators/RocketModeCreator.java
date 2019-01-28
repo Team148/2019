@@ -1,7 +1,8 @@
 package frc.auto.creators;
 
 import frc.auto.AutoModeBase;
-import frc.auto.modes.RocketMode;
+import frc.auto.modes.RocketModeEasy;
+import frc.auto.modes.RocketModeHard;
 
 public class RocketModeCreator implements AutoModeCreator {
 
@@ -16,8 +17,8 @@ public class RocketModeCreator implements AutoModeCreator {
         mRobotStartedOnLevel1 = startOnLevelOne;
         mRobotStartedOnLeft = startOnLeft;
 
-        RocketLevel1 = new RocketMode(mRobotStartedOnLevel1, mRobotStartedOnLeft);
-        RocketLevel2 = new RocketMode(mRobotStartedOnLevel1, mRobotStartedOnLeft);
+        RocketLevel1 = new RocketModeEasy(mRobotStartedOnLeft);
+        RocketLevel2 = new RocketModeHard(mRobotStartedOnLeft);
     }
 
     @Override

@@ -9,28 +9,15 @@ import lib.geometry.Translation2d;
 
 import java.util.Arrays;
 
-public class RocketMode extends AutoModeBase {
+public class RocketModeEasy extends AutoModeBase {
 
     private static final TrajectoryGenerator mTrajectoryGenerator = TrajectoryGenerator.getInstance();
-    final boolean mStartedLevelOne;
     final boolean mStartedLeft;
 
-    public RocketMode(boolean driveOffLevel1, boolean driveToLeftCargo) {
-        mStartedLevelOne = driveOffLevel1;
+    public RocketModeEasy(boolean driveToLeftCargo) {
         mStartedLeft = driveToLeftCargo;
 
-        if (driveOffLevel1 && driveToLeftCargo) {   //Level 1 AND Left
-
-        }
-        else if (driveOffLevel1 && !driveToLeftCargo) { //Level 1 AND Right
-
-        }
-        else if (!driveOffLevel1 && driveToLeftCargo) { //Level 2 AND Left
-
-        }
-        else {  //!driveOffLevel1 && !driveToLeftCargo  Level 2 AND Right
-
-        }
+        
     }
 
     @Override
