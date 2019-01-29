@@ -131,6 +131,8 @@ public class Robot extends TimedRobot {
         mAutoModeSelector.updateModeCreator();
         mAutoModeExecutor = new AutoModeExecutor();
 
+        mEnabledLooper.start();
+
         mDisabledLooper.start();
     } catch (Throwable t) {
       CrashTracker.logThrowableCrash(t);
@@ -151,6 +153,9 @@ public class Robot extends TimedRobot {
       mAutoModeExecutor.setAutoMode(autoMode.get());
     }
     System.gc();
+
+    RobotState.getInstance().outputToSmartDashboard();
+    Drivetrain.getInstance().outputTelemetry();
   }
 
   /**

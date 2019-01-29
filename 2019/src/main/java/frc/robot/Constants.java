@@ -13,7 +13,7 @@ package frc.robot;
 public class Constants {
     
     //Drivetrain Constants
-    public static final int DRIVE_ENCODER_TPR = 4096;
+    public static final int DRIVE_ENCODER_TPR = 5000;
 
     //Elevator Constants
     public static final int ELEVATOR_SOFT_LIMIT = 36500;
@@ -52,7 +52,7 @@ public class Constants {
     public static final double kDriveWheelTrackWidthInches = 24.9;
     public static final double kDriveWheelDiameterInches = 5.878 * 0.99;
     public static final double kDriveWheelRadiusInches = kDriveWheelDiameterInches / 2.0;
-    public static final double kTrackScrubFactor = 1.0;  // Tune me!
+    public static final double kTrackScrubFactor = 1.3;  // Tune me!
 
     // Tuned dynamics
     public static final double kRobotLinearInertia = 60.0;  // kg TODO tune
