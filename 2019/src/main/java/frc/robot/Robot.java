@@ -7,12 +7,19 @@
 
 package frc.robot;
 
+import java.sql.Driver;
+import java.util.Arrays;
+import java.util.Optional;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Timer;
 
 //import Subsystems
+import frc.robot.subsystems.*;
 import frc.robot.subsystems.BallFloorIntake;
 import frc.robot.subsystems.Beak;
 import frc.robot.subsystems.Drivetrain;
@@ -20,7 +27,17 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.ElevatorBallRoller;
 import frc.robot.subsystems.HatchFloorIntake;
 
+import frc.robot.SubsystemManager;
+
 //import Commands
+
+//import 254
+import frc.auto.AutoModeBase;
+import frc.auto.AutoModeExecutor;
+import frc.loops.Looper;
+import frc.paths.TrajectoryGenerator;
+import lib.geometry.Pose2d;
+import lib.util.*;
 
 
 
@@ -40,6 +57,21 @@ public class Robot extends TimedRobot {
   public static ElevatorBallRoller m_ballElevator;
   public static HatchFloorIntake m_hatchFloor;
 
+  private TrajectoryGenerator mTrajectoryGenerator = TrajectoryGenerator.getInstance();;
+  private AutoModeSelector mAutoModeSelector = new AutoModeSelector();
+
+  private AutoModeExecutor mAutoModeExecutor;
+
+  private Looper mEnabledLooper = new Looper();
+  private Looper mDisabledLooper = new Looper();
+
+  private final SubsystemManager mSubsystemManager = new SubsystemManager(
+            Arrays.asList(
+                    RobotStateEstimator.getInstance(),
+                    Drivetrain.getInstance()
+            )
+    );
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -54,6 +86,13 @@ public class Robot extends TimedRobot {
     m_elevator = Elevator.getInstance();
     m_ballElevator = ElevatorBallRoller.getInstance();
     m_hatchFloor = HatchFloorIntake.getInstance();
+
+    mSubsystemManager.registerEnabledLoops(mEnabledLooper);
+    mSubsystemManager.registerDisabledLoops(mDisabledLooper);
+
+
+    mTrajectoryGenerator.generateTrajectories();
+    mAutoModeSelector.updateModeCreator();
 
   }
 
@@ -77,11 +116,46 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+
+      try {
+        CrashTracker.logDisabledInit();
+        mEnabledLooper.stop();
+        if (mAutoModeExecutor != null) {
+          mAutoModeExecutor.stop();
+      }
+
+        Drivetrain.getInstance().zeroSensors();
+        RobotState.getInstance().reset(Timer.getFPGATimestamp(), Pose2d.identity());
+
+        mAutoModeSelector.reset();
+        mAutoModeSelector.updateModeCreator();
+        mAutoModeExecutor = new AutoModeExecutor();
+
+        mEnabledLooper.start();
+
+        mDisabledLooper.start();
+    } catch (Throwable t) {
+      CrashTracker.logThrowableCrash(t);
+      throw t;
+    }
   }
 
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
+
+    mAutoModeSelector.updateModeCreator();
+
+    Optional<AutoModeBase> autoMode = mAutoModeSelector.getAutoMode();
+    
+    if (autoMode.isPresent() && autoMode.get() != mAutoModeExecutor.getAutoMode()) {
+      System.out.println("Set auto mode to: " + autoMode.get().getClass().toString());
+      mAutoModeExecutor.setAutoMode(autoMode.get());
+    }
+    System.gc();
+
+    RobotState.getInstance().outputToSmartDashboard();
+    Drivetrain.getInstance().outputTelemetry();
   }
 
   /**
@@ -98,6 +172,21 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     
+    try {
+      CrashTracker.logAutoInit();
+      mDisabledLooper.stop();
+
+      RobotState.getInstance().reset(Timer.getFPGATimestamp(), Pose2d.identity());
+
+      Drivetrain.getInstance().zeroSensors();
+
+      mAutoModeExecutor.start();
+
+      mEnabledLooper.start();
+  } catch (Throwable t) {
+      CrashTracker.logThrowableCrash(t);
+      throw t;
+  }
   }
 
   /**
@@ -106,6 +195,11 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
+
+    SmartDashboard.putString("Match Cycle", "AUTONOMOUS");
+
+    RobotState.getInstance().outputToSmartDashboard();
+    Drivetrain.getInstance().outputTelemetry();
   }
 
   @Override
@@ -119,6 +213,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+
+    SmartDashboard.putString("Match Cycle", "TELEOP");
   }
 
   /**

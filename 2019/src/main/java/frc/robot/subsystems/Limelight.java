@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.commands.UpdateLimeLight;
 
+
 /**
  * Add your docs here.
  */
@@ -25,6 +26,7 @@ public class Limelight extends Subsystem {
   // here. Call these from Commands.
 
   private static Limelight m_instance;
+  
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
   boolean m_connected = false;
@@ -42,7 +44,6 @@ public class Limelight extends Subsystem {
 	NetworkTableEntry pipeline;
 	NetworkTableEntry cammode;
 
-
   public Limelight() {
 
     super();
@@ -59,6 +60,7 @@ public class Limelight extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+
     setDefaultCommand(new UpdateLimeLight()); 
   }
 
@@ -164,5 +166,4 @@ public class Limelight extends Subsystem {
     else
       m_camMode = 1.0;
   }
-  
 }

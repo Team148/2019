@@ -15,24 +15,29 @@ package frc.robot;
  */
 public class RobotMap {
 
-  //Map PDP CanID
+  //Map PDP CAN ID
   public static final int POWER_DISTRO_PANEL = 0;
 
-  //Map LeftDrive CanIDs
+  //Map LeftDrive CAN IDs
   public static final int LEFT_DRIVE_MASTER = 1;
-  public static final int LEFT_DRIVE_TWO = 2;
-  public static final int LEFT_DRIVE_THREE = 3;
+  public static final int LEFT_DRIVE_TWO = 3;
+  public static final int LEFT_DRIVE_THREE = 5;
 
-  //Map RightDrive CanIDs
+  //Map RightDrive CAN IDs
   public static final int RIGHT_DRIVE_MASTER = 2;
   public static final int RIGHT_DRIVE_TWO = 4;
   public static final int RIGHT_DRIVE_THREE = 6;
 
   //Map Elevator CanIDs
-  public static final int ELEVATOR_ONE = 7;
+  public static final int ELEVATOR_ONE = 10;
+  public static final int ELEVATOR_TWO = 11;
 
-  //Map Pigeon CanID
-  public static final int PIGEON_IMU = 8;
+  //Map Ball Floor Intake CAN IDs
+  public static final int BALL_FLOOR_ONE = 9;
+
+
+  //Map Pigeon CAN ID
+  public static final int PIGEON_IMU = 0;
 
   //Pneumatic Control Module
   public static final int PCM = 0;
