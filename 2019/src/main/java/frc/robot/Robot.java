@@ -14,10 +14,12 @@ import java.util.Optional;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Timer;
 
 //import Subsystems
+import frc.robot.subsystems.*;
 import frc.robot.subsystems.BallFloorIntake;
 import frc.robot.subsystems.Beak;
 import frc.robot.subsystems.Drivetrain;
@@ -25,12 +27,19 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.ElevatorBallRoller;
 import frc.robot.subsystems.HatchFloorIntake;
 
+import frc.robot.SubsystemManager;
+
 //import Commands
 
 //import 254
 import frc.auto.AutoModeBase;
 import frc.auto.AutoModeExecutor;
+import frc.loops.Looper;
 import frc.paths.TrajectoryGenerator;
+import lib.geometry.Pose2d;
+import lib.util.*;
+
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -53,6 +62,16 @@ public class Robot extends TimedRobot {
 
   private AutoModeExecutor mAutoModeExecutor;
 
+  private Looper mEnabledLooper = new Looper();
+  private Looper mDisabledLooper = new Looper();
+
+  private final SubsystemManager mSubsystemManager = new SubsystemManager(
+            Arrays.asList(
+                    RobotStateEstimator.getInstance(),
+                    Drivetrain.getInstance()
+            )
+    );
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -68,7 +87,8 @@ public class Robot extends TimedRobot {
     m_ballElevator = ElevatorBallRoller.getInstance();
     m_hatchFloor = HatchFloorIntake.getInstance();
 
-    
+    mSubsystemManager.registerEnabledLoops(mEnabledLooper);
+    mSubsystemManager.registerDisabledLoops(mDisabledLooper);
 
 
     mTrajectoryGenerator.generateTrajectories();
@@ -97,10 +117,25 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
 
-      // Reset all auto mode state.
-      mAutoModeSelector.reset();
-      mAutoModeSelector.updateModeCreator();
-      mAutoModeExecutor = new AutoModeExecutor();
+      try {
+        CrashTracker.logDisabledInit();
+        mEnabledLooper.stop();
+        if (mAutoModeExecutor != null) {
+          mAutoModeExecutor.stop();
+      }
+
+        Drivetrain.getInstance().zeroSensors();
+        RobotState.getInstance().reset(Timer.getFPGATimestamp(), Pose2d.identity());
+
+        mAutoModeSelector.reset();
+        mAutoModeSelector.updateModeCreator();
+        mAutoModeExecutor = new AutoModeExecutor();
+
+        mDisabledLooper.start();
+    } catch (Throwable t) {
+      CrashTracker.logThrowableCrash(t);
+      throw t;
+    }
   }
 
   @Override
@@ -108,6 +143,14 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
 
     mAutoModeSelector.updateModeCreator();
+
+    Optional<AutoModeBase> autoMode = mAutoModeSelector.getAutoMode();
+    
+    if (autoMode.isPresent() && autoMode.get() != mAutoModeExecutor.getAutoMode()) {
+      System.out.println("Set auto mode to: " + autoMode.get().getClass().toString());
+      mAutoModeExecutor.setAutoMode(autoMode.get());
+    }
+    System.gc();
   }
 
   /**
@@ -124,9 +167,21 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     
-    mAutoModeExecutor.start();
-    Optional<AutoModeBase> autoMode = mAutoModeSelector.getAutoMode();
-    mAutoModeExecutor.setAutoMode(autoMode.get());
+    try {
+      CrashTracker.logAutoInit();
+      mDisabledLooper.stop();
+
+      RobotState.getInstance().reset(Timer.getFPGATimestamp(), Pose2d.identity());
+
+      Drivetrain.getInstance().zeroSensors();
+
+      mAutoModeExecutor.start();
+
+      mEnabledLooper.start();
+  } catch (Throwable t) {
+      CrashTracker.logThrowableCrash(t);
+      throw t;
+  }
   }
 
   /**
@@ -137,6 +192,9 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
 
     SmartDashboard.putString("Match Cycle", "AUTONOMOUS");
+
+    RobotState.getInstance().outputToSmartDashboard();
+    Drivetrain.getInstance().outputTelemetry();
   }
 
   @Override

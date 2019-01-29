@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import frc.robot.subsystems.Subsystem;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.RobotState;
@@ -21,11 +22,10 @@ import com.ctre.phoenix.sensors.PigeonIMU_StatusFrame;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import frc.robot.commands.DriveWithJoystick;
+// import frc.robot.commands.DriveWithJoystick;
 import frc.planners.DriveMotionPlanner;
 
 import lib.geometry.Pose2d;
@@ -37,6 +37,9 @@ import lib.trajectory.timing.TimedState;
 
 import lib.util.DriveSignal;
 import lib.util.ReflectingCSVWriter;
+
+import frc.loops.ILooper;
+import frc.loops.Loop;
 
 /**
  * Add your docs here.
@@ -78,6 +81,40 @@ private final WPI_VictorSPX m_driveRight3 = new WPI_VictorSPX(RobotMap.RIGHT_DRI
   private static final int kLowGearVelocityControlSlot = 0;
   private static final double DRIVE_ENCODER_PPR = 4096.0;
 
+
+  private final Loop mLoop = new Loop() {
+    @Override
+    public void onStart(double timestamp) {
+        synchronized (Drivetrain.this) {
+            setOpenLoop(new DriveSignal(0.05, 0.05));
+            setBrakeMode(false);
+//                 startLogging();
+        }
+    }
+
+    @Override
+    public void onLoop(double timestamp) {
+        synchronized (Drivetrain.this) {
+            switch (mDriveControlState) {
+                case OPEN_LOOP:
+                    break;
+                case PATH_FOLLOWING:
+                    updatePathFollower();
+                    break;
+                default:
+                    System.out.println("Unexpected drive control state: " + mDriveControlState);
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void onStop(double timestamp) {
+        stop();
+        stopLogging();
+    }
+};
+
   public Drivetrain() {
 
     super();
@@ -89,6 +126,8 @@ private final WPI_VictorSPX m_driveRight3 = new WPI_VictorSPX(RobotMap.RIGHT_DRI
     configureMotors();
     setMotorSafeties();
     setPigeonStatusFrame();
+
+    reloadGains();
     
     m_drive = new DifferentialDrive(m_driveLeft1, m_driveRight1);
     m_drive.setSafetyEnabled(false);
@@ -96,11 +135,11 @@ private final WPI_VictorSPX m_driveRight3 = new WPI_VictorSPX(RobotMap.RIGHT_DRI
     mMotionPlanner = new DriveMotionPlanner();
   }
 
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    setDefaultCommand(new DriveWithJoystick());
-  }
+//   @Override
+//   public void initDefaultCommand() {
+//     // Set the default command for a subsystem here.
+//     setDefaultCommand(new DriveWithJoystick());
+//   }
 
   public static Drivetrain getInstance() {
     if (m_instance == null) {
@@ -214,6 +253,11 @@ private final WPI_VictorSPX m_driveRight3 = new WPI_VictorSPX(RobotMap.RIGHT_DRI
       return rad_s / (Math.PI * 2.0) * 4096.0 / 10.0;
   }
 
+@Override
+    public void registerEnabledLoops(ILooper in) {
+        in.register(mLoop);
+    }
+
   /**
    * Configure talons for open loop control
    */
@@ -296,12 +340,12 @@ private final WPI_VictorSPX m_driveRight3 = new WPI_VictorSPX(RobotMap.RIGHT_DRI
       mPeriodicIO.gyro_heading = heading;
   }
 
-  
+  @Override
   public synchronized void stop() {
       setOpenLoop(DriveSignal.NEUTRAL);
   }
 
-  
+  @Override
   public void outputTelemetry() {
     SmartDashboard.putNumber("Right Drive Distance", mPeriodicIO.right_distance);
     SmartDashboard.putNumber("Right Drive Ticks", mPeriodicIO.right_position_ticks);
@@ -327,6 +371,7 @@ private final WPI_VictorSPX m_driveRight3 = new WPI_VictorSPX(RobotMap.RIGHT_DRI
       mPeriodicIO = new PeriodicIO();
   }
 
+  @Override
   public void zeroSensors() {
       setHeading(Rotation2d.identity());
       resetEncoders();
@@ -377,6 +422,8 @@ private final WPI_VictorSPX m_driveRight3 = new WPI_VictorSPX(RobotMap.RIGHT_DRI
   }
 
   private void updatePathFollower() {
+
+    System.out.println("IN UPDATEPATHFOLLOWER");
       if (mDriveControlState == DriveControlState.PATH_FOLLOWING) {
           final double now = Timer.getFPGATimestamp();
 
@@ -398,7 +445,7 @@ private final WPI_VictorSPX m_driveRight3 = new WPI_VictorSPX(RobotMap.RIGHT_DRI
               mPeriodicIO.left_accel = mPeriodicIO.right_accel = 0.0;
           }
       } else {
-          DriverStation.reportError("Drive is not in path following state", false);
+          DriverStation.reportError("Drivetrain is not in path following state", false);
       }
   }
 
@@ -415,9 +462,12 @@ private final WPI_VictorSPX m_driveRight3 = new WPI_VictorSPX(RobotMap.RIGHT_DRI
       m_driveRight1.config_kF(kLowGearVelocityControlSlot, Constants.kDriveLowGearVelocityKf, Constants.kLongCANTimeoutMs);
       m_driveRight1.config_IntegralZone(kLowGearVelocityControlSlot, Constants.kDriveLowGearVelocityIZone, Constants.kLongCANTimeoutMs);
   }
+
+  @Override
   public void writeToLog() {
   }
 
+  @Override
   public synchronized void readPeriodicInputs() {
       double prevLeftTicks = mPeriodicIO.left_position_ticks;
       double prevRightTicks = mPeriodicIO.right_position_ticks;
@@ -448,6 +498,7 @@ private final WPI_VictorSPX m_driveRight3 = new WPI_VictorSPX(RobotMap.RIGHT_DRI
       // System.out.println("control state: " + mDriveControlState + ", left: " + mPeriodicIO.left_demand + ", right: " + mPeriodicIO.right_demand);
   }
 
+  @Override
   public synchronized void writePeriodicOutputs() {
       if (mDriveControlState == DriveControlState.OPEN_LOOP) {
           m_driveLeft1.set(ControlMode.PercentOutput, mPeriodicIO.left_demand, DemandType.ArbitraryFeedForward, 0.0);
@@ -458,6 +509,10 @@ private final WPI_VictorSPX m_driveRight3 = new WPI_VictorSPX(RobotMap.RIGHT_DRI
           m_driveRight1.set(ControlMode.Velocity, mPeriodicIO.right_demand, DemandType.ArbitraryFeedForward,
                   mPeriodicIO.right_feedforward + Constants.kDriveLowGearVelocityKd * mPeriodicIO.right_accel / 1023.0);
       }
+  }
+
+  @Override public boolean checkSystem() {
+      return true;
   }
 
   public synchronized void startLogging() {
