@@ -79,7 +79,7 @@ private final WPI_VictorSPX m_driveRight3 = new WPI_VictorSPX(RobotMap.RIGHT_DRI
   private boolean mIsBrakeMode;
 
   private static final int kLowGearVelocityControlSlot = 0;
-  private static final double DRIVE_ENCODER_PPR = 4096.0;
+  private static final double DRIVE_ENCODER_PPR = 5000.0;
 
 
   private final Loop mLoop = new Loop() {
@@ -250,7 +250,7 @@ private final WPI_VictorSPX m_driveRight3 = new WPI_VictorSPX(RobotMap.RIGHT_DRI
   }
 
   private static double radiansPerSecondToTicksPer100ms(double rad_s) {
-      return rad_s / (Math.PI * 2.0) * 4096.0 / 10.0;
+      return rad_s / (Math.PI * 2.0) * 5000.0 / 10.0;
   }
 
 @Override

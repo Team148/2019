@@ -37,6 +37,8 @@ import frc.auto.AutoModeExecutor;
 import frc.loops.Looper;
 import frc.paths.TrajectoryGenerator;
 import lib.geometry.Pose2d;
+import lib.geometry.Rotation2d;
+import lib.geometry.Translation2d;
 import lib.util.*;
 
 
@@ -125,7 +127,7 @@ public class Robot extends TimedRobot {
       }
 
         Drivetrain.getInstance().zeroSensors();
-        RobotState.getInstance().reset(Timer.getFPGATimestamp(), Pose2d.identity());
+        RobotState.getInstance().reset(Timer.getFPGATimestamp(), new Pose2d(new Translation2d(20.0, -45.0), Rotation2d.fromDegrees(0.0)));
 
         mAutoModeSelector.reset();
         mAutoModeSelector.updateModeCreator();
@@ -176,7 +178,7 @@ public class Robot extends TimedRobot {
       CrashTracker.logAutoInit();
       mDisabledLooper.stop();
 
-      RobotState.getInstance().reset(Timer.getFPGATimestamp(), Pose2d.identity());
+      RobotState.getInstance().reset(Timer.getFPGATimestamp(), new Pose2d(new Translation2d(20.0, -45.0), Rotation2d.fromDegrees(0.0)));
 
       Drivetrain.getInstance().zeroSensors();
 

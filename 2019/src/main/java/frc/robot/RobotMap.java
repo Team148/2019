@@ -41,4 +41,7 @@ public class RobotMap {
 
   //Pneumatic Control Module
   public static final int PCM = 0;
+
+  //Solenoid Channels
+  
 }

@@ -273,10 +273,11 @@ public class TrajectoryGenerator {
         private Trajectory<TimedState<Pose2dWithCurvature>> getLevel2ToCargoTwo() {
             List<Pose2d> waypoints = new ArrayList<>();
             waypoints.add(kRightLevel2StartPose);
-            waypoints.add(kRightOffLevel2Pose);
-            // waypoints.add(new Pose2d(new Translation2d(160.0, -60.0), Rotation2d.fromDegrees(315.0)));
-           // waypoints.add(kRightCargoTwoPose);
-             waypoints.add(new Pose2d(new Translation2d(325.0, -45.0), Rotation2d.fromDegrees(0.0)));
+            waypoints.add(new Pose2d(new Translation2d(250.0, -35.0), Rotation2d.fromDegrees(90.0)));
+            // waypoints.add(kRightOffLevel2Pose);
+            // waypoints.add(new Pose2d(new Translation2d(200.0, -90.0), Rotation2d.fromDegrees(0.0)));
+            // waypoints.add(kRightCargoTwoPose);
+            // waypoints.add(new Pose2d(new Translation2d(325.0, -45.0), Rotation2d.fromDegrees(0.0)));
             return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
                 kMaxVelocity, kMaxAccel, kMaxVoltage);
         }
