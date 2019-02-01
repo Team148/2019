@@ -251,7 +251,7 @@ private final WPI_VictorSPX m_driveRight3 = new WPI_VictorSPX(RobotMap.RIGHT_DRI
   }
 
   private static double radiansPerSecondToTicksPer100ms(double rad_s) {
-      return rad_s / (Math.PI * 2.0) * 5000.0 / 10.0;
+      return rad_s / (Math.PI * 2.0) * DRIVE_ENCODER_PPR / 10.0;
   }
 
 @Override

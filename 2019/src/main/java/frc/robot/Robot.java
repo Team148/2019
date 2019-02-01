@@ -20,12 +20,11 @@ import edu.wpi.first.wpilibj.Timer;
 
 //import Subsystems
 import frc.robot.subsystems.*;
-import frc.robot.subsystems.BallFloorIntake;
+import frc.robot.subsystems.FloorIntake;
 import frc.robot.subsystems.Beak;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.ElevatorBallRoller;
-import frc.robot.subsystems.HatchFloorIntake;
+import frc.robot.subsystems.RollerClaw;
 
 import frc.robot.SubsystemManager;
 
@@ -52,12 +51,11 @@ import lib.util.*;
  */
 public class Robot extends TimedRobot {
   public static OI m_oi;
-  public static BallFloorIntake m_ballFloor;
+  public static FloorIntake m_Floor;
   public static Beak m_beak;
   public static Drivetrain m_driveTrain;
   public static Elevator m_elevator;
-  public static ElevatorBallRoller m_ballElevator;
-  public static HatchFloorIntake m_hatchFloor;
+  public static RollerClaw m_RollerClaw;
 
   private TrajectoryGenerator mTrajectoryGenerator = TrajectoryGenerator.getInstance();;
   private AutoModeSelector mAutoModeSelector = new AutoModeSelector();
@@ -82,12 +80,11 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     
     m_oi = OI.getInstance();
-    m_ballFloor = BallFloorIntake.getInstance();
+    m_Floor = FloorIntake.getInstance();
     m_beak = Beak.getInstance();
     m_driveTrain = Drivetrain.getInstance();
     m_elevator = Elevator.getInstance();
-    m_ballElevator = ElevatorBallRoller.getInstance();
-    m_hatchFloor = HatchFloorIntake.getInstance();
+    m_RollerClaw = RollerClaw.getInstance();
 
     mSubsystemManager.registerEnabledLoops(mEnabledLooper);
     mSubsystemManager.registerDisabledLoops(mDisabledLooper);

@@ -12,16 +12,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * Add your docs here.
  */
-public class HatchFloorIntake extends Subsystem {
+public class EndGame extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  public static HatchFloorIntake m_instance;
+  private static EndGame m_instance;
 
-  public HatchFloorIntake() {
+  public EndGame() {
 
     super();
-    
+
   }
 
   @Override
@@ -30,9 +30,9 @@ public class HatchFloorIntake extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
 
-  public static HatchFloorIntake getInstance() {
+  public static EndGame getInstance() {
     if (m_instance == null) {
-      m_instance = new HatchFloorIntake();
+      m_instance = new EndGame();
     }
     return m_instance;
   }

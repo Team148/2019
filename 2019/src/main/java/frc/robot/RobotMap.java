@@ -28,13 +28,15 @@ public class RobotMap {
   public static final int RIGHT_DRIVE_TWO = 4;
   public static final int RIGHT_DRIVE_THREE = 6;
 
-  //Map Elevator CanIDs
+  //Map Ball Floor Intake CAN IDs
+  public static final int FLOOR_INTAKE = 7;
+
+  //Map Roller Claw CAN IDs
+  public static final int ROLLER_CLAW = 8;
+
+  //Map Elevator CAN IDs
   public static final int ELEVATOR_ONE = 10;
   public static final int ELEVATOR_TWO = 11;
-
-  //Map Ball Floor Intake CAN IDs
-  public static final int BALL_FLOOR_ONE = 9;
-
 
   //Map Pigeon CAN ID
   public static final int PIGEON_IMU = 0;
@@ -42,6 +44,11 @@ public class RobotMap {
   //Pneumatic Control Module
   public static final int PCM = 0;
 
-  //Solenoid Channels
-  
+  //Solenoid Channels PCM = 0
+  public static final int BALL_INTAKE_OUT = 0;
+  public static final int DISC_INTAKE_OUT = 1;
+  public static final int DISC_INTAKE_REACH = 2;
+  public static final int BEAK_GRAB = 3;
+  public static final int BEAK_DEPLOY = 4;
+  public static final int END_GAME = 5;
 }

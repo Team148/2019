@@ -12,13 +12,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * Add your docs here.
  */
-public class ElevatorBallRoller extends Subsystem {
+public class RollerClaw extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  public static ElevatorBallRoller m_instance;
+  public static RollerClaw m_instance;
 
-  public ElevatorBallRoller() {
+  public RollerClaw() {
 
     super();
 
@@ -30,9 +30,9 @@ public class ElevatorBallRoller extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
 
-  public static ElevatorBallRoller getInstance() {
+  public static RollerClaw getInstance() {
     if (m_instance == null) {
-      m_instance = new ElevatorBallRoller();
+      m_instance = new RollerClaw();
     }
     return m_instance;
   }

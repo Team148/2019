@@ -17,15 +17,15 @@ import frc.robot.RobotMap;
 /**
  * Add your docs here.
  */
-public class BallFloorIntake extends Subsystem {
+public class FloorIntake extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private static BallFloorIntake m_instance;
+  private static FloorIntake m_instance;
 
-  private final WPI_TalonSRX m_ballFloor1 = new WPI_TalonSRX(RobotMap.BALL_FLOOR_ONE);
+  private final WPI_TalonSRX m_Floor1 = new WPI_TalonSRX(RobotMap.FLOOR_INTAKE);
 
-  public BallFloorIntake() {
+  public FloorIntake() {
 
     super();
 
@@ -42,46 +42,46 @@ public class BallFloorIntake extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
 
-  public static BallFloorIntake getInstance() {
+  public static FloorIntake getInstance() {
     if (m_instance == null) {
-      m_instance = new BallFloorIntake();
+      m_instance = new FloorIntake();
     }
     return m_instance;
   }
 
   private void setFactoryDefault() {
 
-    m_ballFloor1.configFactoryDefault();
+    m_Floor1.configFactoryDefault();
   }
 
   private void setBrakeMode(boolean mode) {
 
     if (mode == true) {
-      m_ballFloor1.setNeutralMode(NeutralMode.Brake);
+      m_Floor1.setNeutralMode(NeutralMode.Brake);
     }
     else {
-      m_ballFloor1.setNeutralMode(NeutralMode.Coast);
+      m_Floor1.setNeutralMode(NeutralMode.Coast);
     }
   }
 
   private void configureMotor() {
 
-    m_ballFloor1.configVoltageCompSaturation(12.0, 0);
-    m_ballFloor1.enableVoltageCompensation(true);
+    m_Floor1.configVoltageCompSaturation(12.0, 0);
+    m_Floor1.enableVoltageCompensation(true);
   }
 
   private void setMotorSafeties() {
     
-    m_ballFloor1.setSafetyEnabled(false);
+    m_Floor1.setSafetyEnabled(false);
   }
 
-  public void setBallFloorIntakeMotor(double percent) {
+  public void setFloorIntakeMotor(double percent) {
 
-    m_ballFloor1.set(ControlMode.PercentOutput, percent);
+    m_Floor1.set(ControlMode.PercentOutput, percent);
   }
 
   public double getAverageCurrent() {
 
-    return m_ballFloor1.getOutputCurrent();
+    return m_Floor1.getOutputCurrent();
   }
 }
