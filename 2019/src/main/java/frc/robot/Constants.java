@@ -200,22 +200,22 @@ public class Constants {
     public static final double kKickstandToggleRumbleTime = 0.5;
     public static final double kKickstandDelay = 1.0;
 
-    // Pose of the LIDAR frame w.r.t. the robot frame
-    // TODO measure in CAD/on robot!
-    public static final double kLidarXOffset = -3.3211;
-    public static final double kLidarYOffset = 0.0;
-    public static final double kLidarYawAngleDegrees = 0.0;
+    // // Pose of the LIDAR frame w.r.t. the robot frame
+    // // TODO measure in CAD/on robot!
+    // public static final double kLidarXOffset = -3.3211;
+    // public static final double kLidarYOffset = 0.0;
+    // public static final double kLidarYawAngleDegrees = 0.0;
 
-    /* LIDAR CONSTANTS */
-    public static final int kChezyLidarScanSize = 400;
-    public static final int kChezyLidarNumScansToStore = 10;
-    public static final String kChezyLidarPath = "/home/root/chezy_lidar";
-    public static final double kChezyLidarRestartTime = 2.5;
+    // /* LIDAR CONSTANTS */
+    // public static final int kChezyLidarScanSize = 400;
+    // public static final int kChezyLidarNumScansToStore = 10;
+    // public static final String kChezyLidarPath = "/home/root/chezy_lidar";
+    // public static final double kChezyLidarRestartTime = 2.5;
 
-    public static final String kLidarLogDir = "/home/lvuser/lidarLogs/";
-    public static final int kNumLidarLogsToKeep = 10;
-    public static final double kLidarICPTranslationEpsilon = 0.01; // convergence threshold for tx,ty
-    public static final double kLidarICPAngleEpsilon = 0.01;       // convergence threshold for theta
+    // public static final String kLidarLogDir = "/home/lvuser/lidarLogs/";
+    // public static final int kNumLidarLogsToKeep = 10;
+    // public static final double kLidarICPTranslationEpsilon = 0.01; // convergence threshold for tx,ty
+    // public static final double kLidarICPAngleEpsilon = 0.01;       // convergence threshold for theta
 
     public static final int kCameraStreamPort = 5810;
 

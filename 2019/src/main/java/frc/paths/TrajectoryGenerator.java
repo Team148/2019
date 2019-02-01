@@ -86,25 +86,21 @@ public class TrajectoryGenerator {
     //Constant Poses
     //Start
     //Level 1
-    public static final Pose2d kLeftLevel1StartPose = new Pose2d(new Translation2d(67.0, 45.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d kRightLevel1StartPose = new Pose2d(new Translation2d(67.0, -45.0), Rotation2d.fromDegrees(0.0));
+    public static final Pose2d kLeftLevel1StartPose = new Pose2d(new Translation2d(63.0, 45.0), Rotation2d.fromDegrees(0.0));
+    public static final Pose2d kRightLevel1StartPose = new Pose2d(new Translation2d(63.0, -45.0), Rotation2d.fromDegrees(0.0));
 
     //Level 2
-    public static final Pose2d kLeftLevel2StartPose = new Pose2d(new Translation2d(20.0, 45.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d kRightLevel2StartPose = new Pose2d(new Translation2d(20.0, -45.0), Rotation2d.fromDegrees(0.0));
+    public static final Pose2d kLeftLevel2StartPose = new Pose2d(new Translation2d(16.0, 45.0), Rotation2d.fromDegrees(0.0));
+    public static final Pose2d kRightLevel2StartPose = new Pose2d(new Translation2d(16.0, -45.0), Rotation2d.fromDegrees(0.0));
 
     //Off Level 2
     public static final Pose2d kLeftOffLevel2Pose = new Pose2d(new Translation2d(120.0, 45.0), Rotation2d.fromDegrees(0.0));
     public static final Pose2d kRightOffLevel2Pose = new Pose2d(new Translation2d(120.0, -45.0), Rotation2d.fromDegrees(0.0));
-    //Cross Auto Lines
-    //Level 1
-    public static final Pose2d kLeftDriveStraightEnd = new Pose2d(new Translation2d(140.0, 45.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d kRightDriveStraightEnd = new Pose2d(new Translation2d(140.0, -45.0), Rotation2d.fromDegrees(0.0));
 
     //Scoring Poses
     //Cargo One
-    public static final Pose2d kLeftCargoOnePose = new Pose2d(new Translation2d(200.0, 10.0), Rotation2d.fromDegrees(0.0));
-    public static final Pose2d kRightCargoOnePose = new Pose2d(new Translation2d(200.0, -10.0), Rotation2d.fromDegrees(0.0));
+    public static final Pose2d kLeftCargoOnePose = new Pose2d(new Translation2d(205.0, 10.0), Rotation2d.fromDegrees(0.0));
+    public static final Pose2d kRightCargoOnePose = new Pose2d(new Translation2d(205.0, -10.0), Rotation2d.fromDegrees(0.0));
 
     //Cargo Two
     public static final Pose2d kLeftCargoTwoPose = new Pose2d(new Translation2d(259.0, 45.0), Rotation2d.fromDegrees(270.0));
@@ -119,20 +115,20 @@ public class TrajectoryGenerator {
     public static final Pose2d kRightCargoFourPose = new Pose2d(new Translation2d(302.0, -45.0), Rotation2d.fromDegrees(90.0));
 
     //Rocket One
-    public static final Pose2d kLeftRocketOnePose = new Pose2d(new Translation2d(193.0, 130.0), Rotation2d.fromDegrees(30.0));
-    public static final Pose2d kRightRocketOnePose = new Pose2d(new Translation2d(193.0, -130.0), Rotation2d.fromDegrees(330.0));
+    public static final Pose2d kLeftRocketOnePose = new Pose2d(new Translation2d(198.0, 134.0), Rotation2d.fromDegrees(30.0));
+    public static final Pose2d kRightRocketOnePose = new Pose2d(new Translation2d(198.0, -134.0), Rotation2d.fromDegrees(330.0));
 
     //Rocket Two
-    public static final Pose2d kLeftRocketTwoPose = new Pose2d(new Translation2d(228.0, 110.0), Rotation2d.fromDegrees(90.0));
-    public static final Pose2d kRightRocketTwoPose = new Pose2d(new Translation2d(228.0, -110.0), Rotation2d.fromDegrees(270.0));
+    public static final Pose2d kLeftRocketTwoPose = new Pose2d(new Translation2d(228.0, 115.0), Rotation2d.fromDegrees(90.0));
+    public static final Pose2d kRightRocketTwoPose = new Pose2d(new Translation2d(228.0, -115.0), Rotation2d.fromDegrees(270.0));
 
     //Rocket Three
-    public static final Pose2d kLeftRocketThreePose = new Pose2d(new Translation2d(262.0, 130.0), Rotation2d.fromDegrees(150.0));
-    public static final Pose2d kRightRocketThreePose = new Pose2d(new Translation2d(262.0, -130.0), Rotation2d.fromDegrees(210.0));
+    public static final Pose2d kLeftRocketThreePose = new Pose2d(new Translation2d(258.0, 134.0), Rotation2d.fromDegrees(150.0));
+    public static final Pose2d kRightRocketThreePose = new Pose2d(new Translation2d(258.0, -134.0), Rotation2d.fromDegrees(210.0));
 
     //Loading Station Poses
-    public static final Pose2d kLeftLoadingStationPose = new Pose2d(new Translation2d(25.0, 135.0), Rotation2d.fromDegrees(180.0));
-    public static final Pose2d kRightLoadingStationPose = new Pose2d(new Translation2d(25.0, -135.0), Rotation2d.fromDegrees(180.0)); 
+    public static final Pose2d kLeftLoadingStationPose = new Pose2d(new Translation2d(16.0, 135.0), Rotation2d.fromDegrees(180.0));
+    public static final Pose2d kRightLoadingStationPose = new Pose2d(new Translation2d(16.0, -135.0), Rotation2d.fromDegrees(180.0)); 
 
     public class TrajectorySet {
         public class MirroredTrajectory {
@@ -150,9 +146,6 @@ public class TrajectoryGenerator {
         }
 
         //Score first game piece
-        public final MirroredTrajectory driveStraightLevel1;
-        public final MirroredTrajectory driveStraightLevel2;
-
         public final MirroredTrajectory level1ToCargoOne;
         public final MirroredTrajectory level2ToCargoOne;
         
@@ -187,9 +180,6 @@ public class TrajectoryGenerator {
         private TrajectorySet() {
 
             //Score first game piece
-            driveStraightLevel1 = new MirroredTrajectory(getDriveStraightLevel1());
-            driveStraightLevel2 = new MirroredTrajectory(getDriveStraightLevel2());
-
             level1ToCargoOne = new MirroredTrajectory(getLevel1ToCargoOne());
             level2ToCargoOne = new MirroredTrajectory(getLevel2ToCargoOne());
 
@@ -223,23 +213,6 @@ public class TrajectoryGenerator {
         }
 
         //Score first game piece trajectories
-        private Trajectory<TimedState<Pose2dWithCurvature>> getDriveStraightLevel1() {
-            List<Pose2d> waypoints = new ArrayList<>();
-            waypoints.add(kRightLevel1StartPose);
-            waypoints.add(kRightDriveStraightEnd);
-
-            return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
-                kMaxVelocity, kMaxAccel, kMaxVoltage);
-        }
-
-        private Trajectory<TimedState<Pose2dWithCurvature>> getDriveStraightLevel2() {
-            List<Pose2d> waypoints = new ArrayList<>();
-            waypoints.add(kRightLevel2StartPose);
-            waypoints.add(kRightDriveStraightEnd);
-
-            return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
-                kMaxVelocity, kMaxAccel, kMaxVoltage);
-        }
 
         private Trajectory<TimedState<Pose2dWithCurvature>> getLevel1ToCargoOne() {
             List<Pose2d> waypoints = new ArrayList<>();
@@ -253,7 +226,6 @@ public class TrajectoryGenerator {
         private Trajectory<TimedState<Pose2dWithCurvature>> getLevel2ToCargoOne() {
             List<Pose2d> waypoints = new ArrayList<>();
             waypoints.add(kRightLevel2StartPose);
-            waypoints.add(kRightOffLevel2Pose);
             waypoints.add(kRightCargoOnePose);
 
             return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
@@ -263,7 +235,6 @@ public class TrajectoryGenerator {
         private Trajectory<TimedState<Pose2dWithCurvature>> getLevel1ToCargoTwo() {
             List<Pose2d> waypoints = new ArrayList<>();
             waypoints.add(kRightLevel1StartPose);
-            waypoints.add(new Pose2d(new Translation2d(160.0, -60.0), Rotation2d.fromDegrees(315.0)));
             waypoints.add(kRightCargoTwoPose);
 
             return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
@@ -273,11 +244,8 @@ public class TrajectoryGenerator {
         private Trajectory<TimedState<Pose2dWithCurvature>> getLevel2ToCargoTwo() {
             List<Pose2d> waypoints = new ArrayList<>();
             waypoints.add(kRightLevel2StartPose);
-            waypoints.add(new Pose2d(new Translation2d(250.0, -35.0), Rotation2d.fromDegrees(90.0)));
-            // waypoints.add(kRightOffLevel2Pose);
-            // waypoints.add(new Pose2d(new Translation2d(200.0, -90.0), Rotation2d.fromDegrees(0.0)));
-            // waypoints.add(kRightCargoTwoPose);
-            // waypoints.add(new Pose2d(new Translation2d(325.0, -45.0), Rotation2d.fromDegrees(0.0)));
+            waypoints.add(kRightCargoTwoPose);
+            
             return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
                 kMaxVelocity, kMaxAccel, kMaxVoltage);
         }
@@ -285,7 +253,6 @@ public class TrajectoryGenerator {
         private Trajectory<TimedState<Pose2dWithCurvature>> getLevel1ToCargoThree() {
             List<Pose2d> waypoints = new ArrayList<>();
             waypoints.add(kRightLevel1StartPose);
-            waypoints.add(new Pose2d(new Translation2d(160.0, -60.0), Rotation2d.fromDegrees(315.0)));
             waypoints.add(kRightCargoThreePose);
 
             return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
@@ -295,8 +262,6 @@ public class TrajectoryGenerator {
         private Trajectory<TimedState<Pose2dWithCurvature>> getLevel2ToCargoThree() {
             List<Pose2d> waypoints = new ArrayList<>();
             waypoints.add(kRightLevel2StartPose);
-            waypoints.add(kRightOffLevel2Pose);
-            waypoints.add(new Pose2d(new Translation2d(160.0, -60.0), Rotation2d.fromDegrees(315.0)));
             waypoints.add(kRightCargoThreePose);
 
             return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
@@ -306,7 +271,6 @@ public class TrajectoryGenerator {
         private Trajectory<TimedState<Pose2dWithCurvature>> getLevel1ToCargoFour() {
             List<Pose2d> waypoints = new ArrayList<>();
             waypoints.add(kRightLevel1StartPose);
-            waypoints.add(new Pose2d(new Translation2d(160.0, -60.0), Rotation2d.fromDegrees(315.0)));
             waypoints.add(kRightCargoFourPose);
 
             return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
@@ -316,8 +280,6 @@ public class TrajectoryGenerator {
         private Trajectory<TimedState<Pose2dWithCurvature>> getLevel2ToCargoFour() {
             List<Pose2d> waypoints = new ArrayList<>();
             waypoints.add(kRightLevel2StartPose);
-            waypoints.add(kRightOffLevel2Pose);
-            waypoints.add(new Pose2d(new Translation2d(160.0, -60.0), Rotation2d.fromDegrees(315.0)));
             waypoints.add(kRightCargoFourPose);
 
             return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
@@ -336,7 +298,6 @@ public class TrajectoryGenerator {
         private Trajectory<TimedState<Pose2dWithCurvature>> getLevel2ToRocketOne() {
             List<Pose2d> waypoints = new ArrayList<>();
             waypoints.add(kRightLevel2StartPose);
-            waypoints.add(new Pose2d(new Translation2d(75.0, -45.0), Rotation2d.fromDegrees(0.0)));
             waypoints.add(kRightRocketOnePose);
 
             return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
@@ -355,7 +316,6 @@ public class TrajectoryGenerator {
         private Trajectory<TimedState<Pose2dWithCurvature>> getLevel2ToRocketTwo() {
             List<Pose2d> waypoints = new ArrayList<>();
             waypoints.add(kRightLevel1StartPose);
-            waypoints.add(kRightOffLevel2Pose);
             waypoints.add(kRightRocketTwoPose);
 
             return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
@@ -365,7 +325,7 @@ public class TrajectoryGenerator {
         private Trajectory<TimedState<Pose2dWithCurvature>> getLevel1ToRocketThree() {
             List<Pose2d> waypoints = new ArrayList<>();
             waypoints.add(kRightLevel1StartPose);
-            waypoints.add(new Pose2d(new Translation2d(250.0, -60.0), Rotation2d.fromDegrees(0.0)));
+            waypoints.add(new Pose2d(new Translation2d(225.0, -50.0), Rotation2d.fromDegrees(0.0)));
             waypoints.add(kRightRocketThreePose);
 
             return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
@@ -375,8 +335,7 @@ public class TrajectoryGenerator {
         private Trajectory<TimedState<Pose2dWithCurvature>> getLevel2ToRocketThree() {
             List<Pose2d> waypoints = new ArrayList<>();
             waypoints.add(kRightLevel1StartPose);
-            waypoints.add(kRightOffLevel2Pose);
-            waypoints.add(new Pose2d(new Translation2d(250.0, -60.0), Rotation2d.fromDegrees(0.0)));
+            waypoints.add(new Pose2d(new Translation2d(225.0, -50.0), Rotation2d.fromDegrees(0.0)));
             waypoints.add(kRightRocketThreePose);
 
             return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
@@ -435,7 +394,6 @@ public class TrajectoryGenerator {
         private Trajectory<TimedState<Pose2dWithCurvature>> getLoadingStationToRocketTwo() {
             List<Pose2d> waypoints = new ArrayList<>();
             waypoints.add(kRightLoadingStationPose);
-            waypoints.add(new Pose2d(new Translation2d(175.0, -60.0), Rotation2d.fromDegrees(0.0)));
             waypoints.add(kRightRocketTwoPose);
 
             return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
@@ -445,7 +403,7 @@ public class TrajectoryGenerator {
         private Trajectory<TimedState<Pose2dWithCurvature>> getLoadingStationToRocketThree() {
             List<Pose2d> waypoints = new ArrayList<>();
             waypoints.add(kRightLoadingStationPose);
-            waypoints.add(new Pose2d(new Translation2d(225.0, -60.0), Rotation2d.fromDegrees(0.0)));
+            waypoints.add(new Pose2d(new Translation2d(225.0, -80.0), Rotation2d.fromDegrees(0.0)));
             waypoints.add(kRightRocketThreePose);
 
             return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),

@@ -12,7 +12,7 @@ import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.RobotState;
 
-import com.ctre.phoenix.ErrorCode;
+// import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -195,25 +195,26 @@ private final WPI_VictorSPX m_driveRight3 = new WPI_VictorSPX(RobotMap.RIGHT_DRI
     m_driveGyro.setStatusFramePeriod(PigeonIMU_StatusFrame.CondStatus_1_General, 5, 0);
   }
 
-  private double getGyroYaw() {
-    m_driveGyro.getYawPitchRoll(yawPitchRoll);
-    return yawPitchRoll[0];
-  }
+  //imported from 148 2018, using 254 code
+//   private double getGyroYaw() {
+//     m_driveGyro.getYawPitchRoll(yawPitchRoll);
+//     return yawPitchRoll[0];
+//   }
 
-  private double getGyroPitch() {
-    m_driveGyro.getYawPitchRoll(yawPitchRoll);
-    return yawPitchRoll[1];
-  }
+//   private double getGyroPitch() {
+//     m_driveGyro.getYawPitchRoll(yawPitchRoll);
+//     return yawPitchRoll[1];
+//   }
 
-  private double getGyroRoll() {
-    m_driveGyro.getYawPitchRoll(yawPitchRoll);
-    return yawPitchRoll[2];
-  }
+//   private double getGyroRoll() {
+//     m_driveGyro.getYawPitchRoll(yawPitchRoll);
+//     return yawPitchRoll[2];
+//   }
 
-  private double updatePigeon() {
-    m_driveGyro.getRawGyro(yawPitchRoll);
-    return yawPitchRoll[0];
-  }
+//   private double updatePigeon() {
+//     m_driveGyro.getRawGyro(yawPitchRoll);
+//     return yawPitchRoll[0];
+//   }
 
   public void getPigeonStatus() {
     PigeonIMU.GeneralStatus generalStatus = new PigeonIMU.GeneralStatus();

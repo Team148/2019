@@ -1,6 +1,6 @@
 package lib.util;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Small class filled with static util methods for the SmartDashboard.

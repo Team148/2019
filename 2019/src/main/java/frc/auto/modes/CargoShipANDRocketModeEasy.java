@@ -1,6 +1,5 @@
 package frc.auto.modes;
 
-import frc.auto.AutoConstants;
 import frc.auto.AutoModeBase;
 import frc.auto.AutoModeEndedException;
 import frc.auto.actions.*;
@@ -19,7 +18,7 @@ public class CargoShipANDRocketModeEasy extends AutoModeBase {
     public CargoShipANDRocketModeEasy(boolean driveToLeftCargo) {
         mStartedLeft = driveToLeftCargo;
 
-        mLevelOneToCargoTwo = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level1ToCargoTwo.get(mStartedLeft));
+        mLevelOneToCargoTwo = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level1ToCargoTwo.get(mStartedLeft), true);
     }
 
     @Override
