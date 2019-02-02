@@ -38,6 +38,7 @@ public class FloorIntake extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
+
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
   }
@@ -49,29 +50,27 @@ public class FloorIntake extends Subsystem {
     return m_instance;
   }
 
-  private void setFactoryDefault() {
-
+  public void setFactoryDefault(){
     m_Floor1.configFactoryDefault();
+    m_Floor1.configFactoryDefault();
+
   }
-
-  private void setBrakeMode(boolean mode) {
-
+  public void setBrakeMode(boolean mode){
     if (mode == true) {
+      m_Floor1.setNeutralMode(NeutralMode.Brake);
       m_Floor1.setNeutralMode(NeutralMode.Brake);
     }
     else {
       m_Floor1.setNeutralMode(NeutralMode.Coast);
+      m_Floor1.setNeutralMode(NeutralMode.Coast);
     }
   }
-
-  private void configureMotor() {
-
-    m_Floor1.configVoltageCompSaturation(12.0, 0);
-    m_Floor1.enableVoltageCompensation(true);
+  public void configureMotor(){
+    m_Floor1.configOpenloopRamp(1.0, 0);
+    m_Floor1.configOpenloopRamp(1.0, 0);
   }
-
-  private void setMotorSafeties() {
-    
+  public void setMotorSafeties(){
+    m_Floor1.setSafetyEnabled(false);
     m_Floor1.setSafetyEnabled(false);
   }
 

@@ -30,7 +30,7 @@ public class Beak extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
 
-  public static Beak getInstance() {
+  public static Beak getInstance() { 
     if (m_instance == null) {
       m_instance = new Beak();
     }

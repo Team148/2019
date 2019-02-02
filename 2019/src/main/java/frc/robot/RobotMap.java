@@ -32,7 +32,7 @@ public class RobotMap {
   public static final int FLOOR_INTAKE = 7;
 
   //Map Roller Claw CAN IDs
-  public static final int ROLLER_CLAW = 8;
+  public static final int ROLLER_ONE = 8;
 
   //Map Elevator CAN IDs
   public static final int ELEVATOR_ONE = 10;
