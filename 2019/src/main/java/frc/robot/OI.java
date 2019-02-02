@@ -61,9 +61,9 @@ public class OI {
     final POVButton m_operatorPOVLeft = new POVButton(m_operatorJoystick, 180);
     final POVButton m_operatorPOVRight = new POVButton(m_operatorJoystick, 0);
 
+
     //Buttons to Commands
-    
-  }
+      }
 
   public static OI getInstance() {
     if(m_instance == null) {
@@ -71,4 +71,18 @@ public class OI {
     }
     return m_instance;
   }
+
+  public double getThrottle() {
+    return m_driveJoystick.getRawAxis(1) * -1;
+  }
+
+
+  public double getTurn() {
+      return m_driveJoystick.getRawAxis(4);
+  }
+
+  public boolean getQuickTurn() {
+    return m_driveJoystick.getRawButton(6);
+  }
+
 }

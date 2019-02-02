@@ -65,6 +65,9 @@ public class Robot extends TimedRobot {
   private Looper mEnabledLooper = new Looper();
   private Looper mDisabledLooper = new Looper();
 
+  private CheesyDriveHelper mCheesyDriveHelper = new CheesyDriveHelper();
+  private ArcadeDriveHelper mArcadeDriveHelper = new ArcadeDriveHelper();
+
   private final SubsystemManager mSubsystemManager = new SubsystemManager(
             Arrays.asList(
                     RobotStateEstimator.getInstance(),
@@ -203,7 +206,33 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    
+    try {
+      CrashTracker.logTeleopInit();
+      mDisabledLooper.stop();
+      if (mAutoModeExecutor != null) {
+          mAutoModeExecutor.stop();
+      }
+
+      // mInfrastructure.setIsDuringAuto(false);
+      // mWrist.setRampRate(Constants.kWristRampRate);
+
+      RobotState.getInstance().reset(Timer.getFPGATimestamp(), Pose2d.identity());
+      mEnabledLooper.start();
+      // mLED.setEnableFaults(false);
+      // mInHangMode = false;
+      // mForklift.retract();
+
+      // mShootDelayed.update(false, Double.POSITIVE_INFINITY);
+      // mPoopyShootDelayed.update(false, Double.POSITIVE_INFINITY);
+      m_driveTrain.setVelocity(DriveSignal.NEUTRAL, DriveSignal.NEUTRAL);
+      m_driveTrain.setOpenLoop(new DriveSignal(0.05, 0.05));
+
+      // mKickStandEngaged = true;
+      // mKickStandReleased.update(true);
+    } catch (Throwable t) {
+        CrashTracker.logThrowableCrash(t);
+        throw t;
+    }
   }
 
   /**
@@ -214,6 +243,21 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
 
     SmartDashboard.putString("Match Cycle", "TELEOP");
+        double timestamp = Timer.getFPGATimestamp();
+
+        double throttle = m_oi.getThrottle();
+        double turn = m_oi.getTurn();
+
+        try {
+            // // When elevator is up, tune sensitivity on turn a little.
+            // if (mElevator.getInchesOffGround() > Constants.kElevatorLowSensitivityThreshold) {
+            //     turn *= Constants.kLowSensitivityFactor;
+            // }
+            m_driveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle, turn));
+            } catch (Throwable t) {
+                CrashTracker.logThrowableCrash(t);
+                throw t;
+            }
   }
 
   /**
