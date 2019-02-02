@@ -7,10 +7,14 @@
 
 package frc.robot.subsystems;
 
+import javax.lang.model.util.ElementScanner6;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
@@ -24,6 +28,13 @@ public class FloorIntake extends Subsystem {
   private static FloorIntake m_instance;
 
   private final WPI_TalonSRX m_Floor1 = new WPI_TalonSRX(RobotMap.FLOOR_INTAKE);
+
+  private final DoubleSolenoid m_FloorIntakeShort = new DoubleSolenoid(RobotMap.PCM_ZERO, RobotMap.FLOOR_INTAKE_SHORT_FORWARD, RobotMap.FLOOR_INTAKE_SHORT_REVERSE);
+  private final DoubleSolenoid m_FloorIntakeLong = new DoubleSolenoid(RobotMap.PCM_ZERO, RobotMap.FLOOR_INTAKE_LONG_FORWARD, RobotMap.FLOOR_INTAKE_LONG_REVERSE);
+
+  private final DoubleSolenoid m_DiscIntake = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.DISC_INTAKE_FORWARD, RobotMap.DISC_INTAKE_REVERSE);
+
+  
 
   public FloorIntake() {
 
@@ -82,5 +93,33 @@ public class FloorIntake extends Subsystem {
   public double getAverageCurrent() {
 
     return m_Floor1.getOutputCurrent();
+  }
+
+  public void setFloorIntakeShort (boolean on) {
+    if (on) {
+      m_FloorIntakeShort.set(Value.kForward);
+    }
+    else {
+      m_FloorIntakeShort.set(Value.kReverse);
+    }
+  }
+  public void setFloorIntakeLong (boolean on) {
+    if (on) {
+      m_FloorIntakeLong.set(Value.kForward);
+    }
+    else {
+      m_FloorIntakeLong.set(Value.kReverse);
+    }
+  }
+  public void setDiscIntake (boolean on) {
+    if (on) {
+      m_DiscIntake.set(Value.kForward);
+    }
+    else {
+      m_DiscIntake.set(Value.kReverse);
+    }
+  }
+  public void setFloorIntake(double percent) {
+    m_Floor1.set(percent);
   }
 }

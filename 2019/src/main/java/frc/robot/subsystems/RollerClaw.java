@@ -69,4 +69,7 @@ public class RollerClaw extends Subsystem {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
   }
+  public void setRollerClaw (double percent) {
+    m_Roller1.set(percent);
+  }
 }

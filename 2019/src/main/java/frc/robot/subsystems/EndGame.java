@@ -7,7 +7,10 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
@@ -17,6 +20,8 @@ public class EndGame extends Subsystem {
   // here. Call these from Commands.
 
   private static EndGame m_instance;
+
+  private final DoubleSolenoid m_EndGame = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.END_GAME_FORWARD, RobotMap.END_GAME_REVERSE);
 
   public EndGame() {
 
@@ -36,4 +41,14 @@ public class EndGame extends Subsystem {
     }
     return m_instance;
   }
+
+  public void setEndGame (boolean on) {
+    if (on) {
+      m_EndGame.set(Value.kForward);
+    }
+    else {
+      m_EndGame.set(Value.kReverse);
+    }
+  }
+
 }
