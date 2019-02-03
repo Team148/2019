@@ -18,7 +18,7 @@ public class CargoShipModeEasy extends AutoModeBase {
     public CargoShipModeEasy(boolean driveToLeftCargo) {
         mStartedLeft = driveToLeftCargo;
 
-        mLevel1ToCargoTwo = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level1ToCargoTwo.get(mStartedLeft), true);
+        mLevel1ToCargoTwo = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level1ToCargoOne.get(mStartedLeft), true);
     }
 
     @Override

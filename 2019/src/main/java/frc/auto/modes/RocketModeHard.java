@@ -18,7 +18,8 @@ public class RocketModeHard extends AutoModeBase {
     public RocketModeHard(boolean driveToLeftCargo) {
         mStartedLeft = driveToLeftCargo;
 
-        mLevel2ToRocketThree = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level2ToRocketThree.get(mStartedLeft), true);
+        // mLevel2ToRocketThree = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level2ToRocketThree.get(mStartedLeft), true);
+        mLevel2ToRocketThree = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToRocketThree.get(mStartedLeft), true);
     }
 
     @Override
