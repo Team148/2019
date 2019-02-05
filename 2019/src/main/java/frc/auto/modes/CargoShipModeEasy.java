@@ -13,12 +13,18 @@ public class CargoShipModeEasy extends AutoModeBase {
     private static final TrajectoryGenerator mTrajectoryGenerator = TrajectoryGenerator.getInstance();
 
     final boolean mStartedLeft;
-    private DriveTrajectory mLevel1ToCargoTwo;
+    private DriveTrajectory mLevel1ToCargoThree;
+    private DriveTrajectory mCargoThreeTo90Turn;
+    private DriveTrajectory mEndTurnToLoadingStation;
+    private DriveTrajectory mLoadingStationToCargoTwo;
 
     public CargoShipModeEasy(boolean driveToLeftCargo) {
         mStartedLeft = driveToLeftCargo;
 
-        mLevel1ToCargoTwo = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level1ToCargoOne.get(mStartedLeft), true);
+        mLevel1ToCargoThree = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level1ToCargoThree.get(mStartedLeft), true);
+        mCargoThreeTo90Turn = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoThreeTo90Turn.get(mStartedLeft));
+        mEndTurnToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endTurnToLoadingStation.get(mStartedLeft));
+        mLoadingStationToCargoTwo = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoTwo.get(mStartedLeft));
     }
 
     @Override
@@ -28,22 +34,36 @@ public class CargoShipModeEasy extends AutoModeBase {
         //Score First Hatch
         runAction(new ParallelAction (
             Arrays.asList(
-                mLevel1ToCargoTwo
+                mLevel1ToCargoThree
             )
         ));
 
-        // //Get Second Hatch
-        // runAction(new ParallelAction (
-        //     Arrays.asList(
+        //Turn 90 degrees
+        runAction(new ParallelAction (
+            Arrays.asList(
+                mCargoThreeTo90Turn
+            )
+        ));
 
-        //     )
-        // ));
+        //Get Second Hatch
+        runAction(new ParallelAction (
+            Arrays.asList(
+                mEndTurnToLoadingStation
+            )
+        ));
 
-        // //Score Second Hatch
-        // runAction(new ParallelAction (
-        //     Arrays.asList(
-                
-        //     )
-        // ));
+        //Score Second Hatch
+        runAction(new ParallelAction (
+            Arrays.asList(
+                mLoadingStationToCargoTwo
+            )
+        ));
+
+        //Score Second Hatch
+        runAction(new ParallelAction (
+            Arrays.asList(
+                new OpenLoopDrive(0.5, 0.5, 0.2, false)
+            )
+        ));
     }
 }

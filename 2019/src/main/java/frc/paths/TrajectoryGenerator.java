@@ -172,13 +172,17 @@ public class TrajectoryGenerator {
 
         //Score second game piece
         public final MirroredTrajectory loadingStationToCargoOne;
-        public final MirroredTrajectory loadingStationToCargoTwo;
+        // public final MirroredTrajectory loadingStationToCargoTwo;
         public final MirroredTrajectory loadingStationToCargoThree;
         public final MirroredTrajectory loadingStationToCargoFour;
 
         public final MirroredTrajectory loadingStationToRocketOne;
         public final MirroredTrajectory loadingStationToRocketTwo;
         public final MirroredTrajectory loadingStationToRocketThree;
+
+        public final MirroredTrajectory cargoThreeTo90Turn;
+        public final MirroredTrajectory endTurnToLoadingStation;
+        public final MirroredTrajectory loadingStationToCargoTwo;
 
         private TrajectorySet() {
 
@@ -206,13 +210,17 @@ public class TrajectoryGenerator {
 
             //Score second game piece
             loadingStationToCargoOne = new MirroredTrajectory(getLoadingStationToCargoOne());
-            loadingStationToCargoTwo = new MirroredTrajectory(getLoadingStationToCargoTwo());
+            // loadingStationToCargoTwo = new MirroredTrajectory(getLoadingStationToCargoTwo());
             loadingStationToCargoThree = new MirroredTrajectory(getLoadingStationToCargoThree());
             loadingStationToCargoFour = new MirroredTrajectory(getLoadingStationToCargoFour());
 
             loadingStationToRocketOne = new MirroredTrajectory(getLoadingStationToRocketOne());
             loadingStationToRocketTwo = new MirroredTrajectory(getLoadingStationToRocketTwo());
             loadingStationToRocketThree = new MirroredTrajectory(getLoadingStationToRocketThree());
+
+            cargoThreeTo90Turn = new MirroredTrajectory(getCargoThreeTo90Turn());
+            endTurnToLoadingStation = new MirroredTrajectory(getEndTurnToLoadingStation());
+            loadingStationToCargoTwo = new MirroredTrajectory(getLoadingStationToCargoTwo());
         }
 
         //Score first game piece trajectories
@@ -355,15 +363,15 @@ public class TrajectoryGenerator {
                 kMaxVelocity, kMaxAccel, kMaxVoltage);
         }
 
-        private Trajectory<TimedState<Pose2dWithCurvature>> getLoadingStationToCargoTwo() {
-            List<Pose2d> waypoints = new ArrayList<>();
-            waypoints.add(kRightLoadingStationPose);
-            waypoints.add(new Pose2d(new Translation2d(175.0, -100.0), Rotation2d.fromDegrees(0.0)));
-            waypoints.add(kRightCargoTwoPose);
+        // private Trajectory<TimedState<Pose2dWithCurvature>> getLoadingStationToCargoTwo() {
+        //     List<Pose2d> waypoints = new ArrayList<>();
+        //     waypoints.add(kRightLoadingStationPose);
+        //     waypoints.add(new Pose2d(new Translation2d(175.0, -100.0), Rotation2d.fromDegrees(0.0)));
+        //     waypoints.add(kRightCargoTwoPose);
 
-            return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
-                kMaxVelocity, kMaxAccel, kMaxVoltage);
-        }
+        //     return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
+        //         kMaxVelocity, kMaxAccel, kMaxVoltage);
+        // }
 
         private Trajectory<TimedState<Pose2dWithCurvature>> getLoadingStationToCargoThree() {
             List<Pose2d> waypoints = new ArrayList<>();
@@ -413,6 +421,37 @@ public class TrajectoryGenerator {
             waypoints.add(new Pose2d( new Translation2d(245.0, -140.0), Rotation2d.fromDegrees(210.0)));
 
             return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
+                kMaxVelocity, kMaxAccel, kMaxVoltage);
+        }
+
+        private Trajectory<TimedState<Pose2dWithCurvature>> getCargoThreeTo90Turn() {
+            List<Pose2d> waypoints = new ArrayList<>();
+            waypoints.add(kRightCargoTwoPose);
+            waypoints.add(new Pose2d(new Translation2d(301.0, -75.0), Rotation2d.fromDegrees(180.0)));
+
+            return generateTrajectory(true, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
+                kMaxVelocity, kMaxAccel, kMaxVoltage);
+        }
+
+        private Trajectory<TimedState<Pose2dWithCurvature>> getEndTurnToLoadingStation() {
+            List<Pose2d> waypoints = new ArrayList<>();
+            waypoints.add(new Pose2d(new Translation2d(301.0, -75.0), Rotation2d.fromDegrees(180.0)));
+            waypoints.add(new Pose2d(new Translation2d(25.0, -125.0), Rotation2d.fromDegrees(180.0)));
+
+            return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
+                kMaxVelocity, kMaxAccel, kMaxVoltage);
+        }
+
+        private Trajectory<TimedState<Pose2dWithCurvature>> getLoadingStationToCargoTwo() {
+            List<Pose2d> waypoints = new ArrayList<>();
+            // waypoints.add(kRightLoadingStationPose);
+            // waypoints.add(new Pose2d(new Translation2d(175.0, -100.0), Rotation2d.fromDegrees(0.0)));
+            // waypoints.add(kRightCargoTwoPose);
+            waypoints.add(new Pose2d(new Translation2d(25.0, -125.0), Rotation2d.fromDegrees(180.0)));
+            waypoints.add(new Pose2d(new Translation2d(200.0, -65.0), Rotation2d.fromDegrees(180.0)));
+            waypoints.add(new Pose2d(new Translation2d(270.0, -95.0), Rotation2d.fromDegrees(90.0)));
+
+            return generateTrajectory(true, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
                 kMaxVelocity, kMaxAccel, kMaxVoltage);
         }
     }
