@@ -16,7 +16,7 @@ public class CargoShipModeEasy extends AutoModeBase {
     private DriveTrajectory mLevel1ToCargoThree;
     private DriveTrajectory mCargoThreeTo90Turn;
     private DriveTrajectory mEndTurnToLoadingStation;
-    private DriveTrajectory mLoadingStationToCargoTwo;
+    private DriveTrajectory mLoadingStationToCargoFour;
 
     public CargoShipModeEasy(boolean driveToLeftCargo) {
         mStartedLeft = driveToLeftCargo;
@@ -24,7 +24,7 @@ public class CargoShipModeEasy extends AutoModeBase {
         mLevel1ToCargoThree = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level1ToCargoThree.get(mStartedLeft), true);
         mCargoThreeTo90Turn = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoThreeTo90Turn.get(mStartedLeft));
         mEndTurnToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endTurnToLoadingStation.get(mStartedLeft));
-        mLoadingStationToCargoTwo = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoTwo.get(mStartedLeft));
+        mLoadingStationToCargoFour = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoFour.get(mStartedLeft));
     }
 
     @Override
@@ -55,7 +55,7 @@ public class CargoShipModeEasy extends AutoModeBase {
         //Score Second Hatch
         runAction(new ParallelAction (
             Arrays.asList(
-                mLoadingStationToCargoTwo
+                mLoadingStationToCargoFour
             )
         ));
 
