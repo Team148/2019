@@ -41,6 +41,9 @@ public class RobotMap {
   //Map Pigeon CAN ID
   public static final int PIGEON_IMU = 0;
 
+  //Compressor Relay
+  public static final int COMPRESSOR = 0;
+
   //Pneumatic Control Module
   public static final int PCM_ZERO  = 0;
   public static final int PCM_ONE = 1;

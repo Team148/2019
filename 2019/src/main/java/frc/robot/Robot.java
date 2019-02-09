@@ -25,10 +25,12 @@ import frc.robot.subsystems.Beak;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.RollerClaw;
+import frc.robot.subsystems.Pneumatics;
 
 import frc.robot.SubsystemManager;
 
 //import Commands
+import frc.robot.commands.RunCompressor;
 
 //import 254
 import frc.auto.AutoModeBase;
@@ -56,6 +58,7 @@ public class Robot extends TimedRobot {
   public static Drivetrain m_driveTrain;
   public static Elevator m_elevator;
   public static RollerClaw m_RollerClaw;
+  public static Pneumatics m_Compressor;
 
   private TrajectoryGenerator mTrajectoryGenerator = TrajectoryGenerator.getInstance();;
   private AutoModeSelector mAutoModeSelector = new AutoModeSelector();
@@ -88,6 +91,7 @@ public class Robot extends TimedRobot {
     m_driveTrain = Drivetrain.getInstance();
     m_elevator = Elevator.getInstance();
     m_RollerClaw = RollerClaw.getInstance();
+    m_Compressor = Pneumatics.getInstance();
 
     mSubsystemManager.registerEnabledLoops(mEnabledLooper);
     mSubsystemManager.registerDisabledLoops(mDisabledLooper);
