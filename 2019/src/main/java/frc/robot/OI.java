@@ -73,7 +73,7 @@ public class OI {
   }
 
   public double getThrottle() {
-    return m_driveJoystick.getRawAxis(1) * -1;
+    return m_driveJoystick.getRawAxis(1);
   }
 
 
@@ -83,6 +83,42 @@ public class OI {
 
   public boolean getQuickTurn() {
     return m_driveJoystick.getRawButton(6);
+  }
+
+  public boolean getFloorIntake() {
+    return m_operatorJoystick.getRawButton(5);
+  }
+  
+  public boolean getDiscIntake() {
+    return m_operatorJoystick.getRawButton(6);
+  }
+
+  // public boolean getShortFloorSolenoid() {
+  //   return m_operatorJoystick.getRawButton(1);
+  // }
+
+  // public boolean getLongFloorSolenoid() {
+  //   return m_operatorJoystick.getRawButton(2);
+  // }
+
+  public boolean getPullIntakeIn() {
+    return m_operatorJoystick.getRawButton(4);
+  }
+
+  // public boolean getDiscIntakeSolenoid() {
+  //   return m_operatorJoystick.getRawButton(3);
+  // }
+
+  public boolean getBeakFourBar() {
+    return m_operatorJoystick.getRawButton(4);
+  }
+
+  public boolean getBeakGrabOut() {
+    return m_operatorJoystick.getRawButton(1);
+  }
+
+  public boolean getBeakGrabIn() {
+    return m_operatorJoystick.getRawButton(2);
   }
 
 }

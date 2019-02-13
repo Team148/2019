@@ -258,6 +258,58 @@ public class Robot extends TimedRobot {
             //     turn *= Constants.kLowSensitivityFactor;
             // }
             m_driveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle, turn));
+
+            if(m_oi.getFloorIntake()) {
+              m_Floor.setFloorIntakeMotor(0.8);
+            }
+            else if(m_oi.getDiscIntake()){
+              m_Floor.setFloorIntakeMotor(-0.8);
+            }
+            else {
+              m_Floor.setFloorIntakeMotor(0.0);
+            }
+
+            if(m_oi.getBeakFourBar()) {
+              m_beak.setBeakIn(true);
+            }
+            else{
+              m_beak.setBeakIn(false);
+            }
+            if(m_oi.getBeakGrabOut()) {
+              m_beak.setBeakGrab(true);
+            }
+            if(m_oi.getBeakGrabIn()) {
+              m_beak.setBeakGrab(false);
+            }
+
+            // if(m_oi.getShortFloorSolenoid()) {
+            //   m_Floor.setFloorShortCylinder(false);
+            //   m_Floor.setFloorLongCylinder(true);
+            //   m_Floor.setDiscIntakeCylinder(true); 
+            // }
+            // if(m_oi.getLongFloorSolenoid()) {
+            //   m_Floor.setFloorShortCylinder(false);
+            //   m_Floor.setFloorLongCylinder(false);
+            //   m_Floor.setDiscIntakeCylinder(true);
+            // }
+            // if(m_oi.getPullIntakeIn()) {
+            //   m_Floor.setFloorShortCylinder(true);
+            //   m_Floor.setFloorLongCylinder(true);
+            //   m_Floor.setDiscIntakeCylinder(true);
+            // }
+            // else {
+            //   m_Floor.setFloorShortCylinder(true);
+            //   m_Floor.setFloorLongCylinder(true );
+            //   m_Floor.setDiscInt akeCylinder(true);
+            // }
+
+            // if(m_oi.getDiscIntakeSolenoid()) {
+            //   m_Floor.setDiscIntakeCylinder(false);
+            // }
+            // else {
+            //   m_Floor.setDiscIntakeCylinder(true);
+            // }
+
             } catch (Throwable t) {
                 CrashTracker.logThrowableCrash(t);
                 throw t;

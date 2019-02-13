@@ -52,17 +52,17 @@ public class Drivetrain extends Subsystem {
 
   //Create Left Drive TalonSRXs
   private final WPI_TalonSRX m_driveLeft1= new WPI_TalonSRX(RobotMap.LEFT_DRIVE_MASTER);
-//   private final WPI_TalonSRX m_driveLeft2 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_TWO);
-//   private final WPI_TalonSRX m_driveLeft3 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_THREE);
-    private final WPI_VictorSPX m_driveLeft2 = new WPI_VictorSPX(RobotMap.LEFT_DRIVE_TWO);
-    private final WPI_VictorSPX m_driveLeft3 = new WPI_VictorSPX(RobotMap.LEFT_DRIVE_THREE);
+  private final WPI_TalonSRX m_driveLeft2 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_TWO);
+  private final WPI_TalonSRX m_driveLeft3 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_THREE);
+    // private final WPI_VictorSPX m_driveLeft2 = new WPI_VictorSPX(RobotMap.LEFT_DRIVE_TWO);
+    // private final WPI_VictorSPX m_driveLeft3 = new WPI_VictorSPX(RobotMap.LEFT_DRIVE_THREE);
 
   //Create Right Drive TalonSRXs
   private final WPI_TalonSRX m_driveRight1 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_MASTER);
-//   private final WPI_TalonSRX m_driveRight2 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_TWO);
-//   private final WPI_TalonSRX m_driveRight3 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_THREE);
-private final WPI_VictorSPX m_driveRight2 = new WPI_VictorSPX(RobotMap.RIGHT_DRIVE_TWO);
-private final WPI_VictorSPX m_driveRight3 = new WPI_VictorSPX(RobotMap.RIGHT_DRIVE_THREE);
+  private final WPI_TalonSRX m_driveRight2 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_TWO);
+  private final WPI_TalonSRX m_driveRight3 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_THREE);
+// private final WPI_VictorSPX m_driveRight2 = new WPI_VictorSPX(RobotMap.RIGHT_DRIVE_TWO);
+// private final WPI_VictorSPX m_driveRight3 = new WPI_VictorSPX(RobotMap.RIGHT_DRIVE_THREE);
 
   private final PigeonIMU m_driveGyro = new PigeonIMU(RobotMap.PIGEON_IMU);
   private double[] yawPitchRoll = new double[3];

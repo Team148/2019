@@ -21,8 +21,8 @@ public class Beak extends Subsystem {
 
   private static Beak m_instance;
 
-  // private final DoubleSolenoid m_beakIn = new DoubleSolenoid(RobotMap.PCM_ZERO, RobotMap.BEAK_IN_FORWARD, RobotMap.BEAK_IN_REVERSE);
-  // private final DoubleSolenoid m_beakGrab = new DoubleSolenoid(RobotMap.PCM_ZERO, RobotMap.BEAK_GRAB_FORWARD, RobotMap.BEAK_GRAB_REVERSE);
+  private final DoubleSolenoid m_beakIn = new DoubleSolenoid(RobotMap.PCM_ZERO, RobotMap.BEAK_IN_FORWARD, RobotMap.BEAK_IN_REVERSE);
+  private final DoubleSolenoid m_beakGrab = new DoubleSolenoid(RobotMap.PCM_ZERO, RobotMap.BEAK_GRAB_FORWARD, RobotMap.BEAK_GRAB_REVERSE);
 
   public Beak() {
 
@@ -43,21 +43,21 @@ public class Beak extends Subsystem {
     return m_instance;
   }
 
-  // public void setBeakIn (boolean on) {
-  //   if (on) {
-  //     m_beakIn.set(Value.kForward);
-  //   }
-  //   else {
-  //     m_beakIn.set(Value.kReverse);
-  //   }
-  // }
+  public void setBeakIn (boolean on) {
+    if (on) {
+      m_beakIn.set(Value.kForward);
+    }
+    else {
+      m_beakIn.set(Value.kReverse);
+    }
+  }
 
-  // public void setBeakGrab (boolean on) {
-  //   if (on) {
-  //     m_beakGrab.set(Value.kForward);
-  //   }
-  //   else {
-  //     m_beakGrab.set(Value.kReverse);
-  //   }
-  // }
+  public void setBeakGrab (boolean on) {
+    if (on) {
+      m_beakGrab.set(Value.kForward);
+    }
+    else {
+      m_beakGrab.set(Value.kReverse);
+    }
+  }
 }
