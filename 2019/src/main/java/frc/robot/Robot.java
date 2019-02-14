@@ -20,17 +20,17 @@ import edu.wpi.first.wpilibj.Timer;
 
 //import Subsystems
 import frc.robot.subsystems.*;
-import frc.robot.subsystems.FloorIntake;
+import frc.robot.subsystems.FloorBallIntake;
+import frc.robot.subsystems.FloorDiscIntake;
 import frc.robot.subsystems.Beak;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.RollerClaw;
-import frc.robot.subsystems.Pneumatics;
 
 import frc.robot.SubsystemManager;
 
 //import Commands
-import frc.robot.commands.RunCompressor;
+import frc.robot.commands.SetElevator;
 
 //import 254
 import frc.auto.AutoModeBase;
@@ -52,13 +52,13 @@ import lib.util.*;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static OI m_oi;
-  public static FloorIntake m_Floor;
-  public static Beak m_beak;
-  public static Drivetrain m_driveTrain;
-  public static Elevator m_elevator;
-  public static RollerClaw m_RollerClaw;
-  public static Pneumatics m_Compressor;
+  public static OI m_OI;
+  public static FloorBallIntake m_Ball;
+  public static Beak m_Beak;
+  public static FloorDiscIntake m_Disc;
+  public static Drivetrain m_DriveTrain;
+  public static Elevator m_Elevator;
+  public static RollerClaw m_Claw;
 
   private TrajectoryGenerator mTrajectoryGenerator = TrajectoryGenerator.getInstance();;
   private AutoModeSelector mAutoModeSelector = new AutoModeSelector();
@@ -68,7 +68,6 @@ public class Robot extends TimedRobot {
   private Looper mEnabledLooper = new Looper();
   private Looper mDisabledLooper = new Looper();
 
-  private CheesyDriveHelper mCheesyDriveHelper = new CheesyDriveHelper();
   private ArcadeDriveHelper mArcadeDriveHelper = new ArcadeDriveHelper();
 
   private final SubsystemManager mSubsystemManager = new SubsystemManager(
@@ -85,13 +84,13 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     
-    m_oi = OI.getInstance();
-    m_Floor = FloorIntake.getInstance();
-    m_beak = Beak.getInstance();
-    m_driveTrain = Drivetrain.getInstance();
-    m_elevator = Elevator.getInstance();
-    m_RollerClaw = RollerClaw.getInstance();
-    m_Compressor = Pneumatics.getInstance();
+    m_OI = OI.getInstance();
+    m_Ball = FloorBallIntake.getInstance();
+    m_Beak = Beak.getInstance();
+    m_Disc = FloorDiscIntake.getInstance();
+    m_DriveTrain = Drivetrain.getInstance();
+    m_Elevator = Elevator.getInstance();
+    m_Claw = RollerClaw.getInstance();
 
     mSubsystemManager.registerEnabledLoops(mEnabledLooper);
     mSubsystemManager.registerDisabledLoops(mDisabledLooper);
@@ -228,8 +227,8 @@ public class Robot extends TimedRobot {
 
       // mShootDelayed.update(false, Double.POSITIVE_INFINITY);
       // mPoopyShootDelayed.update(false, Double.POSITIVE_INFINITY);
-      m_driveTrain.setVelocity(DriveSignal.NEUTRAL, DriveSignal.NEUTRAL);
-      m_driveTrain.setOpenLoop(new DriveSignal(0.05, 0.05));
+      m_DriveTrain.setVelocity(DriveSignal.NEUTRAL, DriveSignal.NEUTRAL);
+      m_DriveTrain.setOpenLoop(new DriveSignal(0.05, 0.05));
 
       // mKickStandEngaged = true;
       // mKickStandReleased.update(true);
@@ -249,71 +248,127 @@ public class Robot extends TimedRobot {
     SmartDashboard.putString("Match Cycle", "TELEOP");
         double timestamp = Timer.getFPGATimestamp();
 
-        double throttle = m_oi.getThrottle();
-        double turn = m_oi.getTurn();
+        boolean ballMode = m_OI.getBallMode();
+        boolean discWithSensor = m_OI.getDiscGrabWithSensor();
+        boolean endGameSafety = m_OI.getEndgameSafety();
+        boolean FPGAEndgame = m_OI.getFPGAEndgame();
+
+        double throttle = m_OI.getThrottle();
+        double turn = m_OI.getTurn();
+
+        boolean beakGrab = false;
+        boolean beak4Bar = false;
+        boolean ballIntake = false;
+        boolean discIntake = false;
+        boolean endGame = false;
+
+        double ballIntakePercent = 0.0;
+        double discIntakePercent = 0.0;
+        double rollerClawPercent = 0.0;
 
         try {
-            // // When elevator is up, tune sensitivity on turn a little.
-            // if (mElevator.getInchesOffGround() > Constants.kElevatorLowSensitivityThreshold) {
-            //     turn *= Constants.kLowSensitivityFactor;
-            // }
-            m_driveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle, turn));
+            
+            //driver inputs
+            m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle, turn));
 
-            if(m_oi.getFloorIntake()) {
-              m_Floor.setFloorIntakeMotor(0.8);
+            //claw ball outtake (face buttons)
+            if(m_OI.getDriverQuarterSpeed()) {
+              rollerClawPercent = -0.25;
             }
-            else if(m_oi.getDiscIntake()){
-              m_Floor.setFloorIntakeMotor(-0.8);
+            else if(m_OI.getDriverHalfSpeed()) {
+              rollerClawPercent = -0.50;
             }
-            else {
-              m_Floor.setFloorIntakeMotor(0.0);
+            else if(m_OI.getDriverThreeQuarterSpeed()) {
+              rollerClawPercent = -0.75;
             }
-
-            if(m_oi.getBeakFourBar()) {
-              m_beak.setBeakIn(true);
-            }
-            else{
-              m_beak.setBeakIn(false);
-            }
-            if(m_oi.getBeakGrabOut()) {
-              m_beak.setBeakGrab(true);
-            }
-            if(m_oi.getBeakGrabIn()) {
-              m_beak.setBeakGrab(false);
+            else if(m_OI.getDriverFullSpeed()) {
+              rollerClawPercent = -1.0;
             }
 
-            // if(m_oi.getShortFloorSolenoid()) {
-            //   m_Floor.setFloorShortCylinder(false);
-            //   m_Floor.setFloorLongCylinder(true);
-            //   m_Floor.setDiscIntakeCylinder(true); 
-            // }
-            // if(m_oi.getLongFloorSolenoid()) {
-            //   m_Floor.setFloorShortCylinder(false);
-            //   m_Floor.setFloorLongCylinder(false);
-            //   m_Floor.setDiscIntakeCylinder(true);
-            // }
-            // if(m_oi.getPullIntakeIn()) {
-            //   m_Floor.setFloorShortCylinder(true);
-            //   m_Floor.setFloorLongCylinder(true);
-            //   m_Floor.setDiscIntakeCylinder(true);
-            // }
-            // else {
-            //   m_Floor.setFloorShortCylinder(true);
-            //   m_Floor.setFloorLongCylinder(true );
-            //   m_Floor.setDiscInt akeCylinder(true);
-            // }
-
-            // if(m_oi.getDiscIntakeSolenoid()) {
-            //   m_Floor.setDiscIntakeCylinder(false);
-            // }
-            // else {
-            //   m_Floor.setDiscIntakeCylinder(true);
-            // }
-
-            } catch (Throwable t) {
-                CrashTracker.logThrowableCrash(t);
-                throw t;
+            //left bumper
+            if(m_OI.getDriver5()) {
+              if(ballMode) {
+                rollerClawPercent = -0.8;
+              }
+              else {
+                beakGrab = true;
+              }
             }
+
+            //right bumper
+            if(m_OI.getDriver6()) {
+              if(ballMode) {
+                rollerClawPercent = 0.8;
+              }
+              else {
+                beakGrab = false;
+              }
+            }
+
+            //operator inputs
+            //face buttons
+            if(m_OI.getOperator4BarIn() || (m_OI.m_driveJoystick.getPOV() == 270)) {
+              beak4Bar = false;
+            }
+
+            if(m_OI.getOperator4BarOut() || (m_OI.m_driveJoystick.getPOV() == 90)) {
+              beak4Bar = true;
+            }
+
+            if(m_OI.getOperatorDiscIntakeUp()) {
+              discIntake = false;
+            }
+
+            //left bumper
+            if(m_OI.getFloorIntake()) {
+              if(ballMode) {
+                ballIntakePercent = 0.5;
+              }
+              else {
+                discIntakePercent = 0.5;
+              }
+            }
+
+            //right bumper
+            if(m_OI.getFloorOuttake()) {
+              if(ballMode) {
+                ballIntakePercent = -0.5;
+              }
+              else {
+                discIntakePercent = -0.5;
+              }
+            }
+
+            //elevator presets w/ dPad
+            // if(m_OI.m_operatorJoystick.getPOV() == 0) {
+            //   Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_HIGH));
+            // }
+            // if(m_OI.m_operatorJoystick.getPOV() == 90) {
+            //   Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_MIDDLE));
+            // }
+            // if(m_OI.m_operatorJoystick.getPOV() == 180) {
+            //   Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_ZERO));
+            // }
+
+            //deploy endgame
+            //ADD FPGA checks for an auto-deploy
+            if(!endGameSafety && (m_OI.getDriverEndgame() || m_OI.getOperatorEndgame())) {
+              endGame = true;
+            }
+
+            //set subsystems motors and solenoids from inputs
+            m_Ball.setBallIntakeCylinder(ballIntake);
+            m_Ball.setBallIntakeMotor(ballIntakePercent);
+            m_Beak.setBeakGrab(beakGrab);
+            m_Beak.setBeakIn(beak4Bar);
+            m_Claw.setRollerClaw(rollerClawPercent);
+            m_Disc.setDiscIntakeCylinder(discIntake);
+            m_Disc.setDiscIntakeMotor(discIntakePercent);
+
+        } catch (Throwable t) {
+            CrashTracker.logThrowableCrash(t);
+            throw t;
+        }
   }
 
   /**

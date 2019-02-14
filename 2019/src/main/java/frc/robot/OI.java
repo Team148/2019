@@ -22,10 +22,12 @@ public class OI {
   //Constants for the Joystick ports
   public static final int DRIVER_JOYSTICK_PORT = 0;
   public static final int OPERATOR_JOYSTICK_PORT = 1;
+  public static final int DRIVER_STATION_SWITCHES = 2;
 
   //Create the Joysticks for both Driver and Operator
   public final Joystick m_driveJoystick = new Joystick(DRIVER_JOYSTICK_PORT);
   public final Joystick m_operatorJoystick = new Joystick(OPERATOR_JOYSTICK_PORT);
+  public final Joystick m_driveStation = new Joystick(DRIVER_STATION_SWITCHES);
 
   public OI() {
 
@@ -61,8 +63,12 @@ public class OI {
     final POVButton m_operatorPOVLeft = new POVButton(m_operatorJoystick, 180);
     final POVButton m_operatorPOVRight = new POVButton(m_operatorJoystick, 0);
 
-
-    //Buttons to Commands
+    //Create Driver Station switches
+    final JoystickButton m_dsSwitch1 = new JoystickButton(m_driveStation, 12);
+    final JoystickButton m_dsSwitch2 = new JoystickButton(m_driveStation, 13);
+    final JoystickButton m_dsSwitch3 = new JoystickButton(m_driveStation, 14);
+    final JoystickButton m_dsSwitch4 = new JoystickButton(m_driveStation, 15);
+    final JoystickButton m_dsSwitch5 = new JoystickButton(m_driveStation, 16);
       }
 
   public static OI getInstance() {
@@ -72,53 +78,78 @@ public class OI {
     return m_instance;
   }
 
+  //Get DS Switches
+  public boolean getBallMode() {
+    return m_driveStation.getRawButton(12);
+  }
+  public boolean getDiscGrabWithSensor() {
+    return m_driveStation.getRawButton(13);
+  }
+  public boolean getEndgameSafety() {
+    return m_driveStation.getRawButton(15);
+  }
+  public boolean getFPGAEndgame() {
+    return m_driveStation.getRawButton(16);
+  }
+
+  //Get Driver
   public double getThrottle() {
     return m_driveJoystick.getRawAxis(1);
   }
-
-
   public double getTurn() {
-      return m_driveJoystick.getRawAxis(4);
+    return m_driveJoystick.getRawAxis(4);
   }
-
-  public boolean getQuickTurn() {
+  public boolean getDriverQuarterSpeed() {
+    return m_driveJoystick.getRawButton(1);
+  }
+  public boolean getDriverHalfSpeed() {
+    return m_driveJoystick.getRawButton(3);
+  }
+  public boolean getDriverThreeQuarterSpeed() {
+    return m_driveJoystick.getRawButton(2);
+  }
+  public boolean getDriverFullSpeed() {
+    return m_driveJoystick.getRawButton(4);
+  }
+  public boolean getDriver5() {
+    return m_driveJoystick.getRawButton(5);
+  }
+  public boolean getDriver6() {
     return m_driveJoystick.getRawButton(6);
   }
+  public boolean getDriverEndgame() {
+    return (m_driveJoystick.getRawButton(7) && m_driveJoystick.getRawButton(8));
+  }
 
+  //Get Operator
+  public double getElevatorManual() {
+    return m_operatorJoystick.getRawAxis(1);
+  }
+  public double getDeployIntakes() {
+    return m_operatorJoystick.getRawAxis(2);
+  }
+  public double getRetractIntakes() {
+    return m_operatorJoystick.getRawAxis(3);
+  }
+  public boolean getOperator4BarIn() {
+    return m_operatorJoystick.getRawButton(1);
+  }
+  public boolean getOperatorHandoff() {
+    return m_operatorJoystick.getRawButton(2);
+  }
+  public boolean getOperator4BarOut() {
+    return m_operatorJoystick.getRawButton(3);
+  }
+  public boolean getOperatorDiscIntakeUp() {
+    return m_operatorJoystick.getRawButton(4);
+  }
   public boolean getFloorIntake() {
     return m_operatorJoystick.getRawButton(5);
   }
-  
-  public boolean getDiscIntake() {
+  public boolean getFloorOuttake() {
     return m_operatorJoystick.getRawButton(6);
   }
-
-  // public boolean getShortFloorSolenoid() {
-  //   return m_operatorJoystick.getRawButton(1);
-  // }
-
-  // public boolean getLongFloorSolenoid() {
-  //   return m_operatorJoystick.getRawButton(2);
-  // }
-
-  public boolean getPullIntakeIn() {
-    return m_operatorJoystick.getRawButton(4);
+  public boolean getOperatorEndgame() {
+    return (m_operatorJoystick.getRawButton(7) && m_operatorJoystick.getRawButton(8));
   }
-
-  // public boolean getDiscIntakeSolenoid() {
-  //   return m_operatorJoystick.getRawButton(3);
-  // }
-
-  public boolean getBeakFourBar() {
-    return m_operatorJoystick.getRawButton(4);
-  }
-
-  public boolean getBeakGrabOut() {
-    return m_operatorJoystick.getRawButton(1);
-  }
-
-  public boolean getBeakGrabIn() {
-    return m_operatorJoystick.getRawButton(2);
-  }
-
 }

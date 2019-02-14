@@ -18,16 +18,7 @@ public class RobotMap {
   //Map PDP CAN ID
   public static final int POWER_DISTRO_PANEL = 0;
 
-  //Map LeftDrive CAN IDs
-  // public static final int LEFT_DRIVE_MASTER = 1;
-  // public static final int LEFT_DRIVE_TWO = 3;
-  // public static final int LEFT_DRIVE_THREE = 5;
-
-  // //Map RightDrive CAN IDs
-  // public static final int RIGHT_DRIVE_MASTER = 2;
-  // public static final int RIGHT_DRIVE_TWO = 4;
-  // public static final int RIGHT_DRIVE_THREE = 6;
-
+  // //Map Drive CAN IDs
   public static final int LEFT_DRIVE_MASTER = 1;
   public static final int LEFT_DRIVE_TWO = 2;
   public static final int LEFT_DRIVE_THREE = 3;
@@ -38,39 +29,38 @@ public class RobotMap {
 
 
   //Map Ball Floor Intake CAN IDs
-  public static final int FLOOR_INTAKE = 4 ;
+  public static final int BALL_INTAKE = 4 ;
+
+  //Map Disc Floor Intake CAN IDs
+  public static final int DISC_INTAKE = 5;
 
   //Map Roller Claw CAN IDs
-  public static final int ROLLER_ONE = 5;
+  public static final int ROLLER_ONE = 6;
 
   //Map Elevator CAN IDs
   public static final int ELEVATOR_ONE = 7;
-  public static final int ELEVATOR_TWO = 6;
 
   //Map Pigeon CAN ID
   public static final int PIGEON_IMU = 0;
-
-  //Compressor Relay
-  public static final int COMPRESSOR = 0;
 
   //Pneumatic Control Module
   public static final int PCM_ZERO  = 0;
   public static final int PCM_ONE = 1;
 
   //Solenoid Channels PCM = 0
-  public static final int FLOOR_INTAKE_SHORT_FORWARD = 0;
-  public static final int FLOOR_INTAKE_SHORT_REVERSE = 1;
-  public static final int FLOOR_INTAKE_LONG_FORWARD = 2;
-  public static final int FLOOR_INTAKE_LONG_REVERSE = 3;
+  public static final int BALL_INTAKE_FORWARD = 0;
+  public static final int BALL_INTAKE_REVERSE = 1;
+  public static final int DISC_INTAKE_FORWARD = 2;
+  public static final int DISC_INTAKE_REVERSE = 3;
   public static final int BEAK_IN_FORWARD = 4;
   public static final int BEAK_IN_REVERSE = 5;
   public static final int BEAK_GRAB_FORWARD = 6;
   public static final int BEAK_GRAB_REVERSE = 7;
 
   // Solenoid Channels PCM = 1
-  public static final int DISC_INTAKE_FORWARD = 0;
-  public static final int DISC_INTAKE_REVERSE = 1;
-  public static final int END_GAME_FORWARD = 2;
-  public static final int END_GAME_REVERSE = 3;
+  public static final int END_GAME_FORWARD = 0;
+  public static final int END_GAME_REVERSE = 1;
+  public static final int END_GAME_LATCH_FORWARD = 2;
+  public static final int END_GAME_LATCH_REVERSE = 3;
 
 }

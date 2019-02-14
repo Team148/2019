@@ -8,7 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
-import frc.robot.subsystems.FloorIntake;
+import frc.robot.subsystems.FloorBallIntake;
 
 /**
  * Add your docs here.
@@ -24,7 +24,7 @@ public class RunBallFloorIntake extends InstantCommand {
     super();
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(FloorIntake.getInstance());
+    requires(FloorBallIntake.getInstance());
 
     m_percent = percent;
   }
@@ -33,7 +33,7 @@ public class RunBallFloorIntake extends InstantCommand {
   @Override
   protected void initialize() {
 
-    FloorIntake.getInstance().setFloorIntakeMotor(m_percent);
+    FloorBallIntake.getInstance().setFloorIntakeMotor(m_percent);
   }
 
 }

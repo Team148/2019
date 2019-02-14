@@ -21,22 +21,20 @@ import frc.robot.RobotMap;
 /**
  * Add your docs here.
  */
-public class FloorIntake extends Subsystem {
+public class FloorBallIntake extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private static FloorIntake m_instance;
+  private static FloorBallIntake m_instance;
 
-  private final WPI_TalonSRX m_Floor1 = new WPI_TalonSRX(RobotMap.FLOOR_INTAKE);
+  private final WPI_TalonSRX m_Floor1 = new WPI_TalonSRX(RobotMap.BALL_INTAKE);
 
-  private final DoubleSolenoid m_FloorIntakeShort = new DoubleSolenoid(RobotMap.PCM_ZERO, RobotMap.FLOOR_INTAKE_SHORT_FORWARD, RobotMap.FLOOR_INTAKE_SHORT_REVERSE);
-  private final DoubleSolenoid m_FloorIntakeLong = new DoubleSolenoid(RobotMap.PCM_ZERO, RobotMap.FLOOR_INTAKE_LONG_FORWARD, RobotMap.FLOOR_INTAKE_LONG_REVERSE);
+  private final DoubleSolenoid m_FloorIntakeSolenoid = new DoubleSolenoid(RobotMap.PCM_ZERO, RobotMap.BALL_INTAKE_FORWARD, RobotMap.BALL_INTAKE_REVERSE);
 
-  private final DoubleSolenoid m_DiscIntake = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.DISC_INTAKE_FORWARD, RobotMap.DISC_INTAKE_REVERSE);
 
   
 
-  public FloorIntake() {
+  public FloorBallIntake() {
 
     super();
 
@@ -54,9 +52,9 @@ public class FloorIntake extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
 
-  public static FloorIntake getInstance() {
+  public static FloorBallIntake getInstance() {
     if (m_instance == null) {
-      m_instance = new FloorIntake();
+      m_instance = new FloorBallIntake();
     }
     return m_instance;
   }
@@ -85,7 +83,7 @@ public class FloorIntake extends Subsystem {
     m_Floor1.setSafetyEnabled(false);
   }
 
-  public void setFloorIntakeMotor(double percent) {
+  public void setBallIntakeMotor(double percent) {
 
     m_Floor1.set(ControlMode.PercentOutput, percent);
   }
@@ -95,28 +93,12 @@ public class FloorIntake extends Subsystem {
     return m_Floor1.getOutputCurrent();
   }
 
-  public void setFloorShortCylinder (boolean on) {
+  public void setBallIntakeCylinder (boolean on) {
     if (on) {
-      m_FloorIntakeShort.set(Value.kForward);
+      m_FloorIntakeSolenoid.set(Value.kForward);
     }
     else {
-      m_FloorIntakeShort.set(Value.kReverse);
-    }
-  }
-  public void setFloorLongCylinder (boolean on) {
-    if (on) {
-      m_FloorIntakeLong.set(Value.kForward);
-    }
-    else {
-      m_FloorIntakeLong.set(Value.kReverse);
-    }
-  }
-  public void setDiscIntakeCylinder (boolean on) {
-    if (on) {
-      m_DiscIntake.set(Value.kForward);
-    }
-    else {
-      m_DiscIntake.set(Value.kReverse);
+      m_FloorIntakeSolenoid.set(Value.kReverse);
     }
   }
 }

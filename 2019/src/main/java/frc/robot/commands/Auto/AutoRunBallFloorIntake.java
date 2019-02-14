@@ -9,7 +9,7 @@ package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.FloorIntake;
+import frc.robot.subsystems.FloorBallIntake;
 
 public class AutoRunBallFloorIntake extends Command {
 
@@ -27,7 +27,7 @@ public class AutoRunBallFloorIntake extends Command {
   public AutoRunBallFloorIntake(double percent, double runTime) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(FloorIntake.getInstance());
+    requires(FloorBallIntake.getInstance());
 
     m_percent = percent;
     m_runTime = runTime;
@@ -37,7 +37,7 @@ public class AutoRunBallFloorIntake extends Command {
   @Override
   protected void initialize() {
 
-    FloorIntake.getInstance().setFloorIntakeMotor(m_percent);
+    FloorBallIntake.getInstance().setFloorIntakeMotor(m_percent);
 
     m_totalCurrent = 0;
     m_timesExecuted = 0;
@@ -53,7 +53,7 @@ public class AutoRunBallFloorIntake extends Command {
   @Override
   protected void execute() {
 
-    FloorIntake.getInstance().setFloorIntakeMotor(m_percent);
+    FloorBallIntake.getInstance().setFloorIntakeMotor(m_percent);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -67,7 +67,7 @@ public class AutoRunBallFloorIntake extends Command {
   @Override
   protected void end() {
 
-    FloorIntake.getInstance().setFloorIntakeMotor(0.0);
+    FloorBallIntake.getInstance().setFloorIntakeMotor(0.0);
   }
 
   // Called when another command which requires one or more of the same
