@@ -202,6 +202,7 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
 
     SmartDashboard.putString("Match Cycle", "AUTONOMOUS");
+    SmartDashboard.putNumber("Time", Timer.getFPGATimestamp());
 
     RobotState.getInstance().outputToSmartDashboard();
     Drivetrain.getInstance().outputTelemetry();
@@ -246,7 +247,8 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
 
     SmartDashboard.putString("Match Cycle", "TELEOP");
-        double timestamp = Timer.getFPGATimestamp();
+    SmartDashboard.putNumer("Time", Timer.getFPGATimestamp());
+        // double timestamp = Timer.getFPGATimestamp();
 
         boolean ballMode = m_OI.getBallMode();
         boolean discWithSensor = m_OI.getDiscGrabWithSensor();
