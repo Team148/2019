@@ -33,7 +33,7 @@ public class RunBallFloorIntake extends InstantCommand {
   @Override
   protected void initialize() {
 
-    FloorBallIntake.getInstance().setFloorIntakeMotor(m_percent);
+    FloorBallIntake.getInstance().setBallIntakeMotor(m_percent);
   }
 
 }

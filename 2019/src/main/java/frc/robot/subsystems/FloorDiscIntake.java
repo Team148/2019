@@ -61,25 +61,22 @@ public class FloorDiscIntake extends Subsystem {
 
   public void setFactoryDefault(){
     m_Disc1.configFactoryDefault();
-    m_Disc1.configFactoryDefault();
-
   }
+
   public void setBrakeMode(boolean mode){
     if (mode == true) {
-      m_Disc1.setNeutralMode(NeutralMode.Brake);
       m_Disc1.setNeutralMode(NeutralMode.Brake);
     }
     else {
       m_Disc1.setNeutralMode(NeutralMode.Coast);
-      m_Disc1.setNeutralMode(NeutralMode.Coast);
     }
   }
+
   public void configureMotor(){
     m_Disc1.configOpenloopRamp(1.0, 0);
-    m_Disc1.configOpenloopRamp(1.0, 0);
   }
+  
   public void setMotorSafeties(){
-    m_Disc1.setSafetyEnabled(false);
     m_Disc1.setSafetyEnabled(false);
   }
 

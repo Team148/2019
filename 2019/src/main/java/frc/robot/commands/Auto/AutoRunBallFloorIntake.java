@@ -37,7 +37,7 @@ public class AutoRunBallFloorIntake extends Command {
   @Override
   protected void initialize() {
 
-    FloorBallIntake.getInstance().setFloorIntakeMotor(m_percent);
+    FloorBallIntake.getInstance().setBallIntakeMotor(m_percent);
 
     m_totalCurrent = 0;
     m_timesExecuted = 0;
@@ -53,7 +53,7 @@ public class AutoRunBallFloorIntake extends Command {
   @Override
   protected void execute() {
 
-    FloorBallIntake.getInstance().setFloorIntakeMotor(m_percent);
+    FloorBallIntake.getInstance().setBallIntakeMotor(m_percent);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -67,7 +67,7 @@ public class AutoRunBallFloorIntake extends Command {
   @Override
   protected void end() {
 
-    FloorBallIntake.getInstance().setFloorIntakeMotor(0.0);
+    FloorBallIntake.getInstance().setBallIntakeMotor(0.0);
   }
 
   // Called when another command which requires one or more of the same

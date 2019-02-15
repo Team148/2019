@@ -27,9 +27,9 @@ public class FloorBallIntake extends Subsystem {
 
   private static FloorBallIntake m_instance;
 
-  private final WPI_TalonSRX m_Floor1 = new WPI_TalonSRX(RobotMap.BALL_INTAKE);
+  private final WPI_TalonSRX m_Ball1 = new WPI_TalonSRX(RobotMap.BALL_INTAKE);
 
-  private final DoubleSolenoid m_FloorIntakeSolenoid = new DoubleSolenoid(RobotMap.PCM_ZERO, RobotMap.BALL_INTAKE_FORWARD, RobotMap.BALL_INTAKE_REVERSE);
+  private final DoubleSolenoid m_BallIntakeSolenoid = new DoubleSolenoid(RobotMap.PCM_ZERO, RobotMap.BALL_INTAKE_FORWARD, RobotMap.BALL_INTAKE_REVERSE);
 
 
   
@@ -60,45 +60,41 @@ public class FloorBallIntake extends Subsystem {
   }
 
   public void setFactoryDefault(){
-    m_Floor1.configFactoryDefault();
-    m_Floor1.configFactoryDefault();
-
+    m_Ball1.configFactoryDefault();
   }
+
   public void setBrakeMode(boolean mode){
     if (mode == true) {
-      m_Floor1.setNeutralMode(NeutralMode.Brake);
-      m_Floor1.setNeutralMode(NeutralMode.Brake);
+      m_Ball1.setNeutralMode(NeutralMode.Brake);
     }
     else {
-      m_Floor1.setNeutralMode(NeutralMode.Coast);
-      m_Floor1.setNeutralMode(NeutralMode.Coast);
+      m_Ball1.setNeutralMode(NeutralMode.Coast);
     }
   }
   public void configureMotor(){
-    m_Floor1.configOpenloopRamp(1.0, 0);
-    m_Floor1.configOpenloopRamp(1.0, 0);
+    m_Ball1.configOpenloopRamp(1.0, 0);
   }
+
   public void setMotorSafeties(){
-    m_Floor1.setSafetyEnabled(false);
-    m_Floor1.setSafetyEnabled(false);
+    m_Ball1.setSafetyEnabled(false);
   }
 
   public void setBallIntakeMotor(double percent) {
 
-    m_Floor1.set(ControlMode.PercentOutput, percent);
+    m_Ball1.set(ControlMode.PercentOutput, percent);
   }
 
   public double getAverageCurrent() {
 
-    return m_Floor1.getOutputCurrent();
+    return m_Ball1.getOutputCurrent();
   }
 
   public void setBallIntakeCylinder (boolean on) {
     if (on) {
-      m_FloorIntakeSolenoid.set(Value.kForward);
+      m_BallIntakeSolenoid.set(Value.kForward);
     }
     else {
-      m_FloorIntakeSolenoid.set(Value.kReverse);
+      m_BallIntakeSolenoid.set(Value.kReverse);
     }
   }
 }

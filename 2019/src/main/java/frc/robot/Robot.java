@@ -9,7 +9,7 @@ package frc.robot;
 
 import java.sql.Driver;
 import java.util.Arrays;
-import java.util.Optional;
+import java.util.Optional; 
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Timer;
-
+import edu.wpi.first.wpilibj.Watchdog;
 //import Subsystems
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.FloorBallIntake;
@@ -25,6 +25,7 @@ import frc.robot.subsystems.FloorDiscIntake;
 import frc.robot.subsystems.Beak;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.EndGame;
 import frc.robot.subsystems.RollerClaw;
 
 import frc.robot.SubsystemManager;
@@ -52,12 +53,14 @@ import lib.util.*;
  * project.
  */
 public class Robot extends TimedRobot {
+
   public static OI m_OI;
   public static FloorBallIntake m_Ball;
   public static Beak m_Beak;
   public static FloorDiscIntake m_Disc;
   public static Drivetrain m_DriveTrain;
   public static Elevator m_Elevator;
+  public static EndGame m_EndGame;
   public static RollerClaw m_Claw;
 
   private TrajectoryGenerator mTrajectoryGenerator = TrajectoryGenerator.getInstance();;
@@ -90,6 +93,7 @@ public class Robot extends TimedRobot {
     m_Disc = FloorDiscIntake.getInstance();
     m_DriveTrain = Drivetrain.getInstance();
     m_Elevator = Elevator.getInstance();
+    m_EndGame = EndGame.getInstance();
     m_Claw = RollerClaw.getInstance();
 
     mSubsystemManager.registerEnabledLoops(mEnabledLooper);
@@ -202,7 +206,6 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
 
     SmartDashboard.putString("Match Cycle", "AUTONOMOUS");
-    SmartDashboard.putNumber("Time", Timer.getFPGATimestamp());
 
     RobotState.getInstance().outputToSmartDashboard();
     Drivetrain.getInstance().outputTelemetry();
@@ -247,7 +250,6 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
 
     SmartDashboard.putString("Match Cycle", "TELEOP");
-    SmartDashboard.putNumer("Time", Timer.getFPGATimestamp());
         // double timestamp = Timer.getFPGATimestamp();
 
         boolean ballMode = m_OI.getBallMode();
@@ -258,11 +260,11 @@ public class Robot extends TimedRobot {
         double throttle = m_OI.getThrottle();
         double turn = m_OI.getTurn();
 
-        boolean beakGrab = false;
-        boolean beak4Bar = false;
-        boolean ballIntake = false;
-        boolean discIntake = false;
-        boolean endGame = false;
+        // boolean beakGrab = false;
+        // boolean beak4Bar = false;
+        // boolean ballIntake = false;
+        // boolean discIntake = false;
+        // boolean endGame = false;
 
         double ballIntakePercent = 0.0;
         double discIntakePercent = 0.0;
@@ -275,16 +277,16 @@ public class Robot extends TimedRobot {
 
             //claw ball outtake (face buttons)
             if(m_OI.getDriverQuarterSpeed()) {
-              rollerClawPercent = -0.25;
+              rollerClawPercent = 0.25;
             }
             else if(m_OI.getDriverHalfSpeed()) {
-              rollerClawPercent = -0.50;
+              rollerClawPercent = 0.50;
             }
             else if(m_OI.getDriverThreeQuarterSpeed()) {
-              rollerClawPercent = -0.75;
+              rollerClawPercent = 0.75;
             }
             else if(m_OI.getDriverFullSpeed()) {
-              rollerClawPercent = -1.0;
+              rollerClawPercent = 1.0;
             }
 
             //left bumper
@@ -293,7 +295,7 @@ public class Robot extends TimedRobot {
                 rollerClawPercent = -0.8;
               }
               else {
-                beakGrab = true;
+                m_Beak.setBeakGrab(true);
               }
             }
 
@@ -303,22 +305,22 @@ public class Robot extends TimedRobot {
                 rollerClawPercent = 0.8;
               }
               else {
-                beakGrab = false;
+                m_Beak.setBeakGrab(false);
               }
             }
 
             //operator inputs
             //face buttons
             if(m_OI.getOperator4BarIn() || (m_OI.m_driveJoystick.getPOV() == 270)) {
-              beak4Bar = false;
+              m_Beak.setBeakIn(false);
             }
 
             if(m_OI.getOperator4BarOut() || (m_OI.m_driveJoystick.getPOV() == 90)) {
-              beak4Bar = true;
+              m_Beak.setBeakIn(false);
             }
 
             if(m_OI.getOperatorDiscIntakeUp()) {
-              discIntake = false;
+              m_Disc.setDiscIntakeCylinder(false);
             }
 
             //left bumper
@@ -355,16 +357,12 @@ public class Robot extends TimedRobot {
             //deploy endgame
             //ADD FPGA checks for an auto-deploy
             if(!endGameSafety && (m_OI.getDriverEndgame() || m_OI.getOperatorEndgame())) {
-              endGame = true;
+              //add endgame deploy
             }
 
             //set subsystems motors and solenoids from inputs
-            m_Ball.setBallIntakeCylinder(ballIntake);
             m_Ball.setBallIntakeMotor(ballIntakePercent);
-            m_Beak.setBeakGrab(beakGrab);
-            m_Beak.setBeakIn(beak4Bar);
             m_Claw.setRollerClaw(rollerClawPercent);
-            m_Disc.setDiscIntakeCylinder(discIntake);
             m_Disc.setDiscIntakeMotor(discIntakePercent);
 
         } catch (Throwable t) {

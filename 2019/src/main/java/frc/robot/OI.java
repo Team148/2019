@@ -63,7 +63,7 @@ public class OI {
     final POVButton m_operatorPOVLeft = new POVButton(m_operatorJoystick, 180);
     final POVButton m_operatorPOVRight = new POVButton(m_operatorJoystick, 0);
 
-    //Create Driver Station switches
+    // //Create Driver Station switches
     final JoystickButton m_dsSwitch1 = new JoystickButton(m_driveStation, 12);
     final JoystickButton m_dsSwitch2 = new JoystickButton(m_driveStation, 13);
     final JoystickButton m_dsSwitch3 = new JoystickButton(m_driveStation, 14);
