@@ -11,6 +11,10 @@ package frc.robot;
  * Add your docs here.
  */
 public class Constants {
+
+    //DTs
+    public static final double AUTO_PERIODIC_DT = 0.010;
+    public static final double TELE_PERIODIC_DT = 0.020;
     
     //Drivetrain Constants
     public static final int DRIVE_ENCODER_TPR = 5000;

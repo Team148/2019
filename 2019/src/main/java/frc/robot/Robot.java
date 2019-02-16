@@ -234,6 +234,9 @@ public class Robot extends TimedRobot {
       m_DriveTrain.setVelocity(DriveSignal.NEUTRAL, DriveSignal.NEUTRAL);
       m_DriveTrain.setOpenLoop(new DriveSignal(0.05, 0.05));
 
+      if(!m_Elevator.isClosedLoop()) {
+        m_Elevator.configClosedLoop();
+      }
       // mKickStandEngaged = true;
       // mKickStandReleased.update(true);
     } catch (Throwable t) {
@@ -344,15 +347,15 @@ public class Robot extends TimedRobot {
             }
 
             //elevator presets w/ dPad
-            // if(m_OI.m_operatorJoystick.getPOV() == 0) {
-            //   Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_HIGH));
-            // }
-            // if(m_OI.m_operatorJoystick.getPOV() == 90) {
-            //   Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_MIDDLE));
-            // }
-            // if(m_OI.m_operatorJoystick.getPOV() == 180) {
-            //   Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_ZERO));
-            // }
+            if(m_OI.m_operatorJoystick.getPOV() == 0) {
+              Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_HIGH));
+            }
+            if(m_OI.m_operatorJoystick.getPOV() == 90) {
+              Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_MIDDLE));
+            }
+            if(m_OI.m_operatorJoystick.getPOV() == 180) {
+              Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_ZERO));
+            }
 
             //deploy endgame
             //ADD FPGA checks for an auto-deploy
