@@ -312,11 +312,11 @@ public class Robot extends TimedRobot {
             //operator inputs
             //face buttons
             if(m_OI.getOperator4BarIn() || (m_OI.m_driveJoystick.getPOV() == 270)) {
-              m_Beak.setBeakIn(false);
+              m_Beak.setBeakBar(false);
             }
 
             if(m_OI.getOperator4BarOut() || (m_OI.m_driveJoystick.getPOV() == 90)) {
-              m_Beak.setBeakIn(false);
+              m_Beak.setBeakBar(false);
             }
 
             if(m_OI.getOperatorDiscIntakeUp()) {

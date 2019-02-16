@@ -21,12 +21,12 @@ public class EndGame extends Subsystem {
 
   private static EndGame m_instance;
 
-  // private final DoubleSolenoid m_EndGame = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.END_GAME_FORWARD, RobotMap.END_GAME_REVERSE);
+  private final DoubleSolenoid m_endGameShock = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.ENDGAME_SHOCKS_FORWARD, RobotMap.ENDGAME_SHOCKS_REVERSE);
+  private final DoubleSolenoid m_endGameLatch = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.ENDGAME_LATCH_FORWARD, RobotMap.ENDGAME_LATCH_REVERSE);
 
   public EndGame() {
 
     super();
-
   }
 
   @Override
@@ -42,13 +42,22 @@ public class EndGame extends Subsystem {
     return m_instance;
   }
 
-  // public void setEndGame (boolean on) {
-  //   if (on) {
-  //     m_EndGame.set(Value.kForward);
-  //   }
-  //   else {
-  //     m_EndGame.set(Value.kReverse);
-  //   }
-  // }
+  public void setEndGameShocks (boolean on) {
+    if (on) {
+      m_endGameShock.set(Value.kForward);
+    }
+    else {
+      m_endGameShock.set(Value.kReverse);
+    }
+  }
+
+  public void setEndGameLatch (boolean on) {
+    if (on) {
+      m_endGameLatch.set(Value.kForward);
+    }
+    else {
+      m_endGameLatch.set(Value.kReverse);
+    }
+  }
 
 }

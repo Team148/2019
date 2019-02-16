@@ -13,8 +13,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
@@ -29,7 +28,7 @@ public class FloorBallIntake extends Subsystem {
 
   private final WPI_TalonSRX m_Ball1 = new WPI_TalonSRX(RobotMap.BALL_INTAKE);
 
-  private final DoubleSolenoid m_BallIntakeSolenoid = new DoubleSolenoid(RobotMap.PCM_ZERO, RobotMap.BALL_INTAKE_FORWARD, RobotMap.BALL_INTAKE_REVERSE);
+  private final Solenoid m_ballIntakeSolenoid = new Solenoid(RobotMap.PCM_ZERO, RobotMap.BALL_INTAKE_SOLENOID);
 
 
   
@@ -91,10 +90,10 @@ public class FloorBallIntake extends Subsystem {
 
   public void setBallIntakeCylinder (boolean on) {
     if (on) {
-      m_BallIntakeSolenoid.set(Value.kForward);
+      m_ballIntakeSolenoid.set(true);
     }
     else {
-      m_BallIntakeSolenoid.set(Value.kReverse);
+      m_ballIntakeSolenoid.set(false);
     }
   }
 }

@@ -7,8 +7,7 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
@@ -21,8 +20,8 @@ public class Beak extends Subsystem {
 
   private static Beak m_instance;
 
-  private final DoubleSolenoid m_beakIn = new DoubleSolenoid(RobotMap.PCM_ZERO, RobotMap.BEAK_IN_FORWARD, RobotMap.BEAK_IN_REVERSE);
-  private final DoubleSolenoid m_beakGrab = new DoubleSolenoid(RobotMap.PCM_ZERO, RobotMap.BEAK_GRAB_FORWARD, RobotMap.BEAK_GRAB_REVERSE);
+  private final Solenoid m_beakBar = new Solenoid(RobotMap.PCM_ZERO, RobotMap.BEAK_4BAR_SOLENOID);
+  private final Solenoid m_beakGrab = new Solenoid(RobotMap.PCM_ZERO, RobotMap.BEAK_GRAB_SOLENOID);
 
   public Beak() {
 
@@ -43,21 +42,21 @@ public class Beak extends Subsystem {
     return m_instance;
   }
 
-  public void setBeakIn (boolean on) {
+  public void setBeakBar (boolean on) {
     if (on) {
-      m_beakIn.set(Value.kForward);
+      m_beakBar.set(true);
     }
     else {
-      m_beakIn.set(Value.kReverse);
+      m_beakBar.set(false);
     }
   }
 
   public void setBeakGrab (boolean on) {
     if (on) {
-      m_beakGrab.set(Value.kForward);
+      m_beakGrab.set(true);
     }
     else {
-      m_beakGrab.set(Value.kReverse);
+      m_beakGrab.set(false);
     }
   }
 }

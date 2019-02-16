@@ -13,8 +13,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
@@ -29,7 +28,7 @@ public class FloorDiscIntake extends Subsystem {
 
   private final WPI_TalonSRX m_Disc1 = new WPI_TalonSRX(RobotMap.DISC_INTAKE);
 
-  private final DoubleSolenoid m_DiscIntakeSolenoid = new DoubleSolenoid(RobotMap.PCM_ZERO, RobotMap.DISC_INTAKE_FORWARD, RobotMap.DISC_INTAKE_REVERSE);
+  private final Solenoid m_discIntakeSolenoid = new Solenoid(RobotMap.PCM_ZERO, RobotMap.DISC_INTAKE_SOLENOID);
 
 
   
@@ -92,10 +91,10 @@ public class FloorDiscIntake extends Subsystem {
 
   public void setDiscIntakeCylinder (boolean on) {
     if (on) {
-      m_DiscIntakeSolenoid.set(Value.kForward);
+      m_discIntakeSolenoid.set(true);
     }
     else {
-      m_DiscIntakeSolenoid.set(Value.kReverse);
+      m_discIntakeSolenoid.set(false);
     }
   }
 }
