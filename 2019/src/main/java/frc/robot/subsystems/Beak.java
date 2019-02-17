@@ -20,8 +20,8 @@ public class Beak extends Subsystem {
 
   private static Beak m_instance;
 
-  private final Solenoid m_beakBar = new Solenoid(RobotMap.PCM_ZERO, RobotMap.BEAK_4BAR_SOLENOID);
-  private final Solenoid m_beakGrab = new Solenoid(RobotMap.PCM_ZERO, RobotMap.BEAK_GRAB_SOLENOID);
+  private final Solenoid m_beakBar = new Solenoid(RobotMap.BEAK_4BAR_SOLENOID);
+  private final Solenoid m_beakGrab = new Solenoid(RobotMap.BEAK_GRAB_SOLENOID);
 
   public Beak() {
 
@@ -52,8 +52,10 @@ public class Beak extends Subsystem {
   }
 
   public void setBeakGrab (boolean on) {
+    System.out.println("Settings Beak Fingers!!!!!!!!!!!!!");
     if (on) {
       m_beakGrab.set(true);
+      System.out.println("!!!!Beak set to On");
     }
     else {
       m_beakGrab.set(false);

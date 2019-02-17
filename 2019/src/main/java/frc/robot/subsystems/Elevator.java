@@ -76,6 +76,7 @@ public class Elevator extends Subsystem {
   private void configureMotors() {
     m_elevator1.configOpenloopRamp(1.0, 0);
     m_elevator1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+    m_elevator1.setSensorPhase(true);
     m_elevator1.setSelectedSensorPosition(0, 0, 0);
     
   }
@@ -103,7 +104,7 @@ public class Elevator extends Subsystem {
 
     m_elevator1.set(ControlMode.Position, 0.0);
     m_elevator1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-    m_elevator1.setSensorPhase(false);
+    // m_elevator1.setSensorPhase(false);
 
     m_elevator1.configClosedloopRamp(0.10, 0);
 
@@ -121,7 +122,7 @@ public class Elevator extends Subsystem {
 
     m_elevator1.set(ControlMode.MotionMagic, 0.0);
     m_elevator1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-    m_elevator1.setSensorPhase(false);
+    // m_elevator1.setSensorPhase(false);
 
     m_elevator1.configNominalOutputForward(0.0, 0);
     m_elevator1.configNominalOutputReverse(0.0, 0);
@@ -182,7 +183,7 @@ public class Elevator extends Subsystem {
       m_position = 0;
     }
 
-    m_elevator1.set(ControlMode.MotionMagic, m_position, DemandType.ArbitraryFeedForward, feedforward);
+    m_elevator1.set(ControlMode.Position, m_position, DemandType.ArbitraryFeedForward, feedforward);
   }
 
   public void setElevatorPositionMagic(double position, double feedforward) {

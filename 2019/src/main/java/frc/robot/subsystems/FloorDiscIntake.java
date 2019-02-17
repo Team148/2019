@@ -28,7 +28,7 @@ public class FloorDiscIntake extends Subsystem {
 
   private final WPI_TalonSRX m_Disc1 = new WPI_TalonSRX(RobotMap.DISC_INTAKE);
 
-  private final Solenoid m_discIntakeSolenoid = new Solenoid(RobotMap.PCM_ZERO, RobotMap.DISC_INTAKE_SOLENOID);
+  private final Solenoid m_discIntakeSolenoid = new Solenoid(RobotMap.DISC_INTAKE_SOLENOID);
 
 
   

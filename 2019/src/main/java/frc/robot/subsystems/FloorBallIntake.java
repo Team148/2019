@@ -28,7 +28,7 @@ public class FloorBallIntake extends Subsystem {
 
   private final WPI_TalonSRX m_Ball1 = new WPI_TalonSRX(RobotMap.BALL_INTAKE);
 
-  private final Solenoid m_ballIntakeSolenoid = new Solenoid(RobotMap.PCM_ZERO, RobotMap.BALL_INTAKE_SOLENOID);
+  private final Solenoid m_ballIntakeSolenoid = new Solenoid(RobotMap.BALL_INTAKE_SOLENOID);
 
 
   
