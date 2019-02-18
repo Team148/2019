@@ -38,16 +38,17 @@ public class Constants {
     public static final double ELEVATOR_AUX_F_VELOCITY = 0.1367;
 
     public static final double ELEVATOR_ZERO = 0.0;
-    public static final double ELEVATOR_MIDDLE = 15000;
-    public static final double ELEVATOR_HIGH = 30000;
-    public static final double ELEVATOR_MAX_HEIGHT = 34000;
+    public static final double ELEVATOR_MIDDLE = 17000;
+    public static final double ELEVATOR_HIGH = 35000;
+    public static final double ELEVATOR_MAX_HEIGHT = 36000;
 
     public static final double ELEVATOR_ZERO_NEUTRAL_POSITION = 3000.0;
     public static final double ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND = 1000.0;
 
     public static final double ELEVATOR_ERROR_TOLERANCE = 2000.0;
-    public static final double ELEVATOR_MANUAL_DEADBAND = 0.2;
-    public static final double ELEVATOR_MANUAL_DPOS_SCALAR = 12000.0;
+    public static final double ELEVATOR_MANUAL_DEADBAND_UP = 0.2;
+    public static final double ELEVATOR_MANUAL_DEADBAND_DOWN = -0.2;
+    public static final double ELEVATOR_MANUAL_DPOS_SCALAR = 10000.0;
 
     //Output Percents
     public static final double ELEVATOR_OUTPUT_PERCENT = 1.0;

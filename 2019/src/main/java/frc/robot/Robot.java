@@ -33,6 +33,7 @@ import frc.robot.commands.DeployFloorIntakes;
 import frc.robot.commands.RetractFloorIntakes;
 //import Commands
 import frc.robot.commands.SetElevator;
+import frc.robot.commands.SetElevatorManual;
 
 //import 254
 import frc.auto.AutoModeBase;
@@ -126,6 +127,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+
+    m_Ball.getInstance().setMotorSafeties();
+    m_Disc.getInstance().setMotorSafeties();
+    m_Claw.getInstance().setMotorSafeties();
+    m_Elevator.getInstance().setMotorSafeties();
+    m_DriveTrain.getInstance().setMotorSafeties();
 
       try {
         CrashTracker.logDisabledInit();
@@ -239,6 +246,8 @@ public class Robot extends TimedRobot {
       if(!m_Elevator.isClosedLoop()) {
         m_Elevator.configClosedLoop();
       }
+
+      Scheduler.getInstance().add(new SetElevatorManual());
       // mKickStandEngaged = true;
       // mKickStandReleased.update(true);
     } catch (Throwable t) {
@@ -263,10 +272,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Elevator Encoder", m_Elevator.getElevatorPosition());
 
 
-    boolean ballMode = m_OI.getBallMode();
-    boolean discWithSensor = m_OI.getDiscGrabWithSensor();
-    boolean endGameSafety = m_OI.getEndgameSafety();
-    boolean FPGAEndgame = m_OI.getFPGAEndgame();
+    // boolean ballMode = m_OI.getBallMode();
+    // boolean discWithSensor = m_OI.getDiscGrabWithSensor();
+    // boolean endGameSafety = m_OI.getEndgameSafety();
+    // boolean FPGAEndgame = m_OI.getFPGAEndgame();
 
     double throttle = m_OI.getThrottle();
     double turn = m_OI.getTurn();
@@ -302,24 +311,13 @@ public class Robot extends TimedRobot {
 
         //left bumper
         if(m_OI.getDriver5()) {
-          if(ballMode) {
-            rollerClawPercent = -0.8;
-          }
-          else {
             m_Beak.setBeakGrab(true);
-            // m_Ball.setBallIntakeCylinder(true);
-          }
+            m_Beak.setBeakBar(true);
         }
 
         //right bumper
         if(m_OI.getDriver6()) {
-          if(ballMode) {
-            rollerClawPercent = 0.8;
-          }
-          else {
             m_Beak.setBeakGrab(false);
-            // m_Ball.setBallIntakeCylinder(false);
-          }
         }
 
         // if(m_OI.m_operatorJoystick.getRawAxis(2) > 0.3) {
@@ -330,17 +328,19 @@ public class Robot extends TimedRobot {
         //   Scheduler.getInstance().add(new RetractFloorIntakes());
         // }
         if(m_OI.m_driveJoystick.getRawAxis(2) > 0.3) {
-          m_Ball.setBallIntakeCylinder(true);
+          rollerClawPercent = 1.0;
         }
         if(m_OI.m_driveJoystick.getRawAxis(3) > 0.3) {
-          m_Ball.setBallIntakeCylinder(false);
+          rollerClawPercent = -1.0;
         }
 
         if(m_OI.m_operatorJoystick.getRawAxis(2) > 0.3) {
-          m_Disc.setDiscIntakeCylinder(true);
+          m_Ball.setBallIntakeCylinder(true);
+          m_Beak.setBeakBar(true);
         }
         if(m_OI.m_operatorJoystick.getRawAxis(3) > 0.3) {
-          m_Disc.setDiscIntakeCylinder(false);
+          m_Ball.setBallIntakeCylinder(false);
+          m_Beak.setBeakGrab(false);
         }
 
         //operator inputs
@@ -355,28 +355,19 @@ public class Robot extends TimedRobot {
           // m_Disc.setDiscIntakeCylinder(true);
         }
 
-        if(m_OI.getOperatorDiscIntakeUp()) {
-          m_Disc.setDiscIntakeCylinder(false);
-        }
+        // if(m_OI.getOperatorDiscIntakeUp()) {
+        //   m_Disc.setDiscIntakeCylinder(false);
+        // }
 
         //left bumper
         if(m_OI.getFloorIntake()) {
-          if(ballMode) {
-            ballIntakePercent = 0.8;
-          }
-          else {
-            discIntakePercent = 0.8;
-          }
+            ballIntakePercent = 1.0;
+            rollerClawPercent = 1.0;
         }
-
         //right bumper
         if(m_OI.getFloorOuttake()) {
-          if(ballMode) {
-            ballIntakePercent = -0.8;
-          }
-          else {
-            discIntakePercent = -0.8 ;
-          }
+            ballIntakePercent = -1.0;
+            rollerClawPercent = -1.0;
         }
 
         //elevator presets w/ dPad
@@ -392,9 +383,9 @@ public class Robot extends TimedRobot {
 
         //deploy endgame
         //ADD FPGA checks for an auto-deploy
-        if(!endGameSafety && (m_OI.getDriverEndgame() || m_OI.getOperatorEndgame())) {
-          //add endgame deploy
-        }
+        // if(!endGameSafety && (m_OI.getDriverEndgame() || m_OI.getOperatorEndgame())) {
+        //   //add endgame deploy
+        // }
 
         //set subsystems motors and solenoids from inputs
         m_Ball.setBallIntakeMotor(ballIntakePercent);

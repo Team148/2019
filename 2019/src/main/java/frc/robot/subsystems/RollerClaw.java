@@ -56,7 +56,7 @@ public class RollerClaw extends Subsystem {
     }
   }
 
-  private void setMotorSafeties() {
+  public void setMotorSafeties() {
     m_Roller1.setSafetyEnabled(false);
   }
 

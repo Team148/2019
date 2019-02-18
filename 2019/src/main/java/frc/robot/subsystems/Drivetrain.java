@@ -182,7 +182,7 @@ public class Drivetrain extends Subsystem {
     m_driveRight1.configPeakOutputReverse(-1.0, 0);
   }
 
-  private void setMotorSafeties() {
+  public void setMotorSafeties() {
     m_driveLeft1.setSafetyEnabled(false);
     m_driveLeft2.setSafetyEnabled(false);
     m_driveLeft3.setSafetyEnabled(false);

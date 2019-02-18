@@ -69,7 +69,7 @@ public class Elevator extends Subsystem {
     }
   }
 
-  private void setMotorSafeties() {
+  public void setMotorSafeties() {
     m_elevator1.setSafetyEnabled(false);
   }
 
@@ -169,6 +169,16 @@ public class Elevator extends Subsystem {
   public int getElevatorVelocity() {
 
     return m_elevator1.getSelectedSensorVelocity(0);
+  }
+
+  public void setPositionManual(double position, double feedforward) {
+    if (!m_isClosedLoop) {
+      configClosedLoop();
+    }
+
+    m_position += position;
+
+    m_elevator1.set(ControlMode.Position, m_position, DemandType.ArbitraryFeedForward, feedforward);
   }
 
   public void setElevatorPosition(double position, double feedforward) {
