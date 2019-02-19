@@ -26,6 +26,7 @@ import frc.robot.subsystems.Beak;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.EndGame;
+import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.RollerClaw;
 
 import frc.robot.SubsystemManager;
@@ -34,6 +35,7 @@ import frc.robot.commands.RetractFloorIntakes;
 //import Commands
 import frc.robot.commands.SetElevator;
 import frc.robot.commands.SetElevatorManual;
+import frc.robot.commands.UpdateLimeLight;
 
 //import 254
 import frc.auto.AutoModeBase;
@@ -63,6 +65,7 @@ public class Robot extends TimedRobot {
   public static Drivetrain m_DriveTrain;
   public static Elevator m_Elevator;
   public static EndGame m_EndGame;
+  public static Limelight m_Limelight;
   public static RollerClaw m_Claw;
 
   private TrajectoryGenerator mTrajectoryGenerator = TrajectoryGenerator.getInstance();;
@@ -96,6 +99,7 @@ public class Robot extends TimedRobot {
     m_DriveTrain = Drivetrain.getInstance();
     m_Elevator = Elevator.getInstance();
     m_EndGame = EndGame.getInstance();
+    m_Limelight = Limelight.getInstance();
     m_Claw = RollerClaw.getInstance();
 
     mSubsystemManager.registerEnabledLoops(mEnabledLooper);
