@@ -132,11 +132,11 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
 
-    m_Ball.getInstance().setMotorSafeties();
-    m_Disc.getInstance().setMotorSafeties();
-    m_Claw.getInstance().setMotorSafeties();
-    m_Elevator.getInstance().setMotorSafeties();
-    m_DriveTrain.getInstance().setMotorSafeties();
+    m_Ball.setMotorSafeties();
+    m_Disc.setMotorSafeties();
+    m_Claw.setMotorSafeties();
+    m_Elevator.setMotorSafeties();
+    m_DriveTrain.setMotorSafeties();
 
       try {
         CrashTracker.logDisabledInit();
