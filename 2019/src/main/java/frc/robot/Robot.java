@@ -233,17 +233,9 @@ public class Robot extends TimedRobot {
           mAutoModeExecutor.stop();
       }
 
-      // mInfrastructure.setIsDuringAuto(false);
-      // mWrist.setRampRate(Constants.kWristRampRate);
-
       RobotState.getInstance().reset(Timer.getFPGATimestamp(), Pose2d.identity());
       mEnabledLooper.start();
-      // mLED.setEnableFaults(false);
-      // mInHangMode = false;
-      // mForklift.retract();
 
-      // mShootDelayed.update(false, Double.POSITIVE_INFINITY);
-      // mPoopyShootDelayed.update(false, Double.POSITIVE_INFINITY);
       m_DriveTrain.setVelocity(DriveSignal.NEUTRAL, DriveSignal.NEUTRAL);
       m_DriveTrain.setOpenLoop(new DriveSignal(0.05, 0.05));
 
@@ -252,8 +244,7 @@ public class Robot extends TimedRobot {
       }
 
       Scheduler.getInstance().add(new SetElevatorManual());
-      // mKickStandEngaged = true;
-      // mKickStandReleased.update(true);
+
     } catch (Throwable t) {
         CrashTracker.logThrowableCrash(t);
         throw t;
@@ -275,20 +266,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putString("Match Cycle", "TELEOP");
     SmartDashboard.putNumber("Elevator Encoder", m_Elevator.getElevatorPosition());
 
-
-    // boolean ballMode = m_OI.getBallMode();
-    // boolean discWithSensor = m_OI.getDiscGrabWithSensor();
-    // boolean endGameSafety = m_OI.getEndgameSafety();
-    // boolean FPGAEndgame = m_OI.getFPGAEndgame();
-
     double throttle = m_OI.getThrottle();
     double turn = m_OI.getTurn();
-
-    // boolean beakGrab = false;
-    // boolean beak4Bar = false;
-    // boolean ballIntake = false;
-    // boolean discIntake = false;
-    // boolean endGame = false;
 
     double ballIntakePercent = 0.0;
     double discIntakePercent = 0.0;
@@ -301,16 +280,16 @@ public class Robot extends TimedRobot {
 
         //claw ball outtake (face buttons)
         if(m_OI.getDriverQuarterSpeed()) {
-          rollerClawPercent = 0.25;
+          rollerClawPercent = -0.25;
         }
         else if(m_OI.getDriverHalfSpeed()) {
-          rollerClawPercent = 0.50;
+          rollerClawPercent = -0.50;
         }
         else if(m_OI.getDriverThreeQuarterSpeed()) {
-          rollerClawPercent = 0.75;
+          rollerClawPercent = -0.75;
         }
         else if(m_OI.getDriverFullSpeed()) {
-          rollerClawPercent = 1.0; 
+          rollerClawPercent = -1.0; 
         }
 
         //left bumper
@@ -324,18 +303,12 @@ public class Robot extends TimedRobot {
             m_Beak.setBeakGrab(false);
         }
 
-        // if(m_OI.m_operatorJoystick.getRawAxis(2) > 0.3) {
-        //   Scheduler.getInstance().add(new DeployFloorIntakes());
-        // }
-
-        // if(m_OI.m_operatorJoystick.getRawAxis(3) > 0.3) {
-        //   Scheduler.getInstance().add(new RetractFloorIntakes());
-        // }
+        //driver and operator triggers
         if(m_OI.m_driveJoystick.getRawAxis(2) > 0.3) {
-          rollerClawPercent = 1.0;
+          rollerClawPercent = -1.0;
         }
         if(m_OI.m_driveJoystick.getRawAxis(3) > 0.3) {
-          rollerClawPercent = -1.0;
+          rollerClawPercent = 1.0;
         }
 
         if(m_OI.m_operatorJoystick.getRawAxis(2) > 0.3) {
@@ -359,19 +332,15 @@ public class Robot extends TimedRobot {
           // m_Disc.setDiscIntakeCylinder(true);
         }
 
-        // if(m_OI.getOperatorDiscIntakeUp()) {
-        //   m_Disc.setDiscIntakeCylinder(false);
-        // }
-
         //left bumper
         if(m_OI.getFloorIntake()) {
-            ballIntakePercent = 1.0;
-            rollerClawPercent = 1.0;
+            ballIntakePercent = -1.0;
+            rollerClawPercent = -0.75  ;
         }
         //right bumper
         if(m_OI.getFloorOuttake()) {
-            ballIntakePercent = -1.0;
-            rollerClawPercent = -1.0;
+            ballIntakePercent = 1.0;
+            rollerClawPercent = 1.0;
         }
 
         //elevator presets w/ dPad
@@ -384,12 +353,6 @@ public class Robot extends TimedRobot {
         if(m_OI.m_operatorJoystick.getPOV() == 180) {
           Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_ZERO));
         }
-
-        //deploy endgame
-        //ADD FPGA checks for an auto-deploy
-        // if(!endGameSafety && (m_OI.getDriverEndgame() || m_OI.getOperatorEndgame())) {
-        //   //add endgame deploy
-        // }
 
         //set subsystems motors and solenoids from inputs
         m_Ball.setBallIntakeMotor(ballIntakePercent);

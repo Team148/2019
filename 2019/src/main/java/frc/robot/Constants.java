@@ -15,12 +15,13 @@ public class Constants {
     //DTs
     public static final double AUTO_PERIODIC_DT = 0.010;
     public static final double TELE_PERIODIC_DT = 0.020;
+    public static final double kLooperDt = 0.01;
     
     //Drivetrain Constants
     public static final int DRIVE_ENCODER_TPR = 5000;
 
     //Elevator Constants
-    public static final int ELEVATOR_SOFT_LIMIT = 36500;
+    public static final int ELEVATOR_SOFT_LIMIT = 39000;
     public static final double ELEVATOR_UP_OUTPUT_PERCENT = 1.0;
     public static final double ELEVATOR_DOWN_OUTPUT_PERCENT = -0.4;
 
@@ -39,8 +40,8 @@ public class Constants {
 
     public static final double ELEVATOR_ZERO = 0.0;
     public static final double ELEVATOR_MIDDLE = 17000;
-    public static final double ELEVATOR_HIGH = 35000;
-    public static final double ELEVATOR_MAX_HEIGHT = 36000;
+    public static final double ELEVATOR_HIGH = 36000;
+    public static final double ELEVATOR_MAX_HEIGHT = 40000;
 
     public static final double ELEVATOR_ZERO_NEUTRAL_POSITION = 3000.0;
     public static final double ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND = 1000.0;
@@ -94,106 +95,7 @@ public class Constants {
     public static final int kDriveLowGearVelocityIZone = 0;
     public static final double kDriveVoltageRampRate = 0.0;
 
-    // PID gains for elevator velocity loop (HIGH GEAR)
-    // Units: setpoint, error, and output are in native units per 100ms.
-    // Elevator encoder is CTRE mag encoder which is 4096 native units per revolution.
-    public static final double kElevatorHighGearKp = 0.15;
-    public static final double kElevatorHighGearKi = 0.0;//0.0;
-    public static final double kElevatorHighGearKd = 4.0;
-    public static final double kElevatorHighGearKf = 0.06; // lower speed:  0.08;
-    public static final double kElevatorJogKp = 0.1;
-    public static final double kElevatorJogKd = 3.0;
-    public static final double kElevatorFeedforwardNoCube = -0.06;//33000;
-    public static final double kElevatorFeedforwardWithCube = -0.07;//33000;
-
-    public static final int kElevatorHighGearMaxIntegralAccumulator = 500000; //todo: tune me
-    public static final int kElevatorHighGearIZone = 0;
-    public static final int kElevatorHighGearDeadband = 0;
-    public static final int kElevatorHighGearCruiseVelocity = 12500;
-    public static final int kElevatorHighGearAcceleration = 27000;//33000;
-    public static final double kElevatorEpsilon = 1.0;//33000;
-    public static final double kElevatorRampRate = 0.1;
-
-    public static final double kWristKp = 3.0;
-    public static final double kWristKi = 0.0;
-    public static final double kWristKd = 50.0;
-    public static final double kWristKf = 1.05;
-    public static final double kWristJogKp = 2.0;
-    public static final double kWristJogKd = 40.0;
-    public static final double kWristKaWithCube = 0.006;
-    public static final double kWristKaWithoutCube = 0.003;
-    public static final double kWristKfMultiplierWithCube = 0.15;
-    public static final double kWristKfMultiplierWithoutCube = 0.1;
-    public static final double kWristElevatorAccelerationMultiplier = -1.0;
-    public static final double kWristEpsilon = 2.0;
-
-    public static final int kWristMaxIntegralAccumulator = 500000; //todo: tune me
-    public static final int kWristIZone = 500; //todo: tune me
-    public static final int kWristDeadband = 5; //todo: tune me
-    public static final int kWristCruiseVelocity = 2500; //todo: tune me
-    public static final int kWristAcceleration = 2500; //2000 //todo: tune me
-    public static final double kWristRampRate = 0.001;
-    public static final double kAutoWristRampRate = 0.01;
-
-    /* I/O */
-    // (Note that if multiple talons are dedicated to a mechanism, any sensors
-    // are attached to the master)
-
-    public static final double kLooperDt = 0.01;
-
+    //CAN timeouts
     public static final int kCANTimeoutMs = 10; //use for on the fly updates
     public static final int kLongCANTimeoutMs = 100; //use for constructors
-
-    // Elevator
-    public static final int kElevatorMasterId = 10;
-    public static final int kElevatorRightSlaveId = 11;
-//    public static final int kElevatorLeftSlaveAId = 1;
-//    public static final int kElevatorLeftSlaveBId = 2;
-
-    // Wrist
-    public static final int KWristMasterId = 15;
-
-    // // Control Board
-    // public static final boolean kUseGamepadForDriving = true;
-    // public static final boolean kUseGamepadForButtons = false;
-
-    public static final int kDriveGamepadPort = 0;
-    public static final int kButtonGamepadPort = 2;
-    public static final int kMainThrottleJoystickPort = 0;
-    public static final int kMainTurnJoystickPort = 1;
-    public static final double kJoystickThreshold = 0.5;
-    public static final double kJoystickJogThreshold = 0.4;
-
-    // Height in in after applying turn factor.
-    public static final double kElevatorLowSensitivityThreshold = 50.0;
-    public static final double kLowSensitivityFactor = 1.0 / 4.0;
-
-    public static final double kElevatorThrottleDeadband = 0.3;
-    public static final double kMinShootTimeSec = 0.2;
-    public static final double kJazzHandsEpsilon = 2.5;
-
-    public static final double kKickstandToggleRumbleTime = 0.5;
-    public static final double kKickstandDelay = 1.0;
-
-    // // Pose of the LIDAR frame w.r.t. the robot frame
-    // // TODO measure in CAD/on robot!
-    // public static final double kLidarXOffset = -3.3211;
-    // public static final double kLidarYOffset = 0.0;
-    // public static final double kLidarYawAngleDegrees = 0.0;
-
-    // /* LIDAR CONSTANTS */
-    // public static final int kChezyLidarScanSize = 400;
-    // public static final int kChezyLidarNumScansToStore = 10;
-    // public static final String kChezyLidarPath = "/home/root/chezy_lidar";
-    // public static final double kChezyLidarRestartTime = 2.5;
-
-    // public static final String kLidarLogDir = "/home/lvuser/lidarLogs/";
-    // public static final int kNumLidarLogsToKeep = 10;
-    // public static final double kLidarICPTranslationEpsilon = 0.01; // convergence threshold for tx,ty
-    // public static final double kLidarICPAngleEpsilon = 0.01;       // convergence threshold for theta
-
-    public static final int kCameraStreamPort = 5810;
-
-    /* LIDAR CONSTANTS */
-    public static final double kScaleTrackerTimeout = 0.6;
 }
