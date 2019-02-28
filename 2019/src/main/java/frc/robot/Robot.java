@@ -58,7 +58,6 @@ import lib.util.*;
  */
 public class Robot extends TimedRobot {
 
-  public static OI m_OI;
   public static FloorBallIntake m_Ball;
   public static Beak m_Beak;
   public static FloorDiscIntake m_Disc;
@@ -67,6 +66,7 @@ public class Robot extends TimedRobot {
   public static EndGame m_EndGame;
   public static Limelight m_Limelight;
   public static RollerClaw m_Claw;
+  public static OI m_OI;
 
   private TrajectoryGenerator mTrajectoryGenerator = TrajectoryGenerator.getInstance();;
   private AutoModeSelector mAutoModeSelector = new AutoModeSelector();
@@ -92,7 +92,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     
-    m_OI = OI.getInstance();
     m_Ball = FloorBallIntake.getInstance();
     m_Beak = Beak.getInstance();
     m_Disc = FloorDiscIntake.getInstance();
@@ -101,6 +100,7 @@ public class Robot extends TimedRobot {
     m_EndGame = EndGame.getInstance();
     m_Limelight = Limelight.getInstance();
     m_Claw = RollerClaw.getInstance();
+    m_OI = OI.getInstance();
 
     mSubsystemManager.registerEnabledLoops(mEnabledLooper);
     mSubsystemManager.registerDisabledLoops(mDisabledLooper);
