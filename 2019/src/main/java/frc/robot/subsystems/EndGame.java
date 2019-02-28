@@ -7,6 +7,9 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -21,12 +24,18 @@ public class EndGame extends Subsystem {
 
   private static EndGame m_instance;
 
-  private final DoubleSolenoid m_endGameShock = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.ENDGAME_SHOCKS_FORWARD, RobotMap.ENDGAME_SHOCKS_REVERSE);
-  private final DoubleSolenoid m_endGameLatch = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.ENDGAME_LATCH_FORWARD, RobotMap.ENDGAME_LATCH_REVERSE);
+  private final WPI_TalonSRX m_endGame1 = new WPI_TalonSRX(RobotMap.ENDGAME_DRIVE);
+
+  private final DoubleSolenoid m_endGameShift = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.ENDGAME_SHIFT_FORWARD, RobotMap.ENDGAME_SHIFT_REVERSE);
+  private final DoubleSolenoid m_endGameFoot = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.ENDGAME_FOOT_FORWARD, RobotMap.ENDGAME_FOOT_REVERSE);
 
   public EndGame() {
 
     super();
+
+    setFactoryDefault();
+    setBrakeMode(true);
+    setMotorSafeties();
   }
 
   @Override
@@ -42,21 +51,38 @@ public class EndGame extends Subsystem {
     return m_instance;
   }
 
-  public void setEndGameShocks (boolean on) {
-    if (on) {
-      m_endGameShock.set(Value.kForward);
+  private void setFactoryDefault() {
+    m_endGame1.configFactoryDefault();
+  }
+
+  private void setBrakeMode(boolean mode) {
+    if (mode == true) {
+      m_endGame1.setNeutralMode(NeutralMode.Brake);
     }
     else {
-      m_endGameShock.set(Value.kReverse);
+      m_endGame1.setNeutralMode(NeutralMode.Coast);
+    }
+  }
+
+  public void setMotorSafeties() {
+    m_endGame1.setSafetyEnabled(false);
+  }
+
+  public void setEndGameShift (boolean on) {
+    if (on) {
+      m_endGameShift.set(Value.kForward);
+    }
+    else {
+      m_endGameShift.set(Value.kReverse);
     }
   }
 
   public void setEndGameLatch (boolean on) {
     if (on) {
-      m_endGameLatch.set(Value.kForward);
+      m_endGameFoot.set(Value.kForward);
     }
     else {
-      m_endGameLatch.set(Value.kReverse);
+      m_endGameFoot.set(Value.kReverse);
     }
   }
 

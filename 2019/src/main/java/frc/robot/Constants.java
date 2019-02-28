@@ -38,7 +38,8 @@ public class Constants {
     public static final double ELEVATOR_D_VELOCITY = 4.0;
     public static final double ELEVATOR_AUX_F_VELOCITY = 0.1367;
 
-    public static final double ELEVATOR_ZERO = 0.0;
+    public static final double ELEVATOR_ZERO = 0;
+    public static final double ELEVATOR_CARGO = 5000;
     public static final double ELEVATOR_MIDDLE = 17000;
     public static final double ELEVATOR_HIGH = 36000;
     public static final double ELEVATOR_MAX_HEIGHT = 40000;

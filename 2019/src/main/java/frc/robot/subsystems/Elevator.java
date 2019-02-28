@@ -31,7 +31,7 @@ public class Elevator extends Subsystem {
   private double m_position = 1.0;
 
   //Declare Elevator TalonSRXs
-  private final WPI_TalonSRX m_elevator1 = new WPI_TalonSRX(RobotMap.ELEVATOR_ONE);
+  private final WPI_TalonSRX m_elevator1 = new WPI_TalonSRX(RobotMap.ELEVATOR_MASTER);
 
   public Elevator() {
 
@@ -81,12 +81,7 @@ public class Elevator extends Subsystem {
     
   }
 
-  public void joystickControl(double yStick) {
-    m_elevator1.set(ControlMode.PercentOutput, yStick * Constants.ELEVATOR_OUTPUT_PERCENT);
-  }
-
   public void configOpenLoop() {
-
   }
 
   public void configClosedLoop() {
@@ -118,37 +113,6 @@ public class Elevator extends Subsystem {
     m_isClosedLoop = true;
   }
 
-  public void configClosedLoopMagic(int cruiseVelocity, int acceleration) {
-
-    m_elevator1.set(ControlMode.MotionMagic, 0.0);
-    m_elevator1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-    // m_elevator1.setSensorPhase(false);
-
-    m_elevator1.configNominalOutputForward(0.0, 0);
-    m_elevator1.configNominalOutputReverse(0.0, 0);
-
-    m_elevator1.configPeakOutputForward(1.0, 0);
-    m_elevator1.configPeakOutputReverse(-1.0, 0);
-
-    m_elevator1.configVoltageCompSaturation(12.0, 0);
-    m_elevator1.enableVoltageCompensation(true);
-
-    m_elevator1.configClosedloopRamp(0.0, 0);
-
-    m_elevator1.config_kF(0, Constants.ELEVATOR_F_VELOCITY, 0);
-    m_elevator1.config_kP(0, Constants.ELEVATOR_P_VELOCITY, 0);
-    m_elevator1.config_kI(0, Constants.ELEVATOR_I_VELOCITY, 0);
-    m_elevator1.config_kD(0, Constants.ELEVATOR_D_VELOCITY, 0);
-
-    m_elevator1.configVelocityMeasurementWindow(32, 0);
-    m_elevator1.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_5Ms, 0);
-
-    m_elevator1.configMotionCruiseVelocity(cruiseVelocity, 0);
-    m_elevator1.configMotionAcceleration(acceleration, 0);
-
-    m_elevator1.setNeutralMode(NeutralMode.Brake);
-  }
-
   public void configNeutralClosedLoop() {
 
     m_elevator1.config_kP(0, Constants.ELEVATOR_P, 0);
@@ -171,16 +135,6 @@ public class Elevator extends Subsystem {
     return m_elevator1.getSelectedSensorVelocity(0);
   }
 
-  public void setPositionManual(double position, double feedforward) {
-    if (!m_isClosedLoop) {
-      configClosedLoop();
-    }
-
-    m_position += position;
-
-    m_elevator1.set(ControlMode.Position, m_position, DemandType.ArbitraryFeedForward, feedforward);
-  }
-
   public void setElevatorPosition(double position, double feedforward) {
 
     if (!m_isClosedLoop) {
@@ -194,17 +148,6 @@ public class Elevator extends Subsystem {
     }
 
     m_elevator1.set(ControlMode.Position, m_position, DemandType.ArbitraryFeedForward, feedforward);
-  }
-
-  public void setElevatorPositionMagic(double position, double feedforward) {
-
-    m_position = position;
-
-    if (m_position < 1) {
-      m_position = 0;
-    }
-
-    m_elevator1.set(ControlMode.MotionMagic, m_position, DemandType.ArbitraryFeedForward, feedforward);
   }
 
   public void setElevatorEncoderZero() {
@@ -226,5 +169,9 @@ public class Elevator extends Subsystem {
     }
 
     setElevatorPosition(localPosition, Constants.ELEVATOR_F_UP);
+  }
+
+  public void setElevatorMotor(double percent) {
+    m_elevator1.set(percent);
   }
 }

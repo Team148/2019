@@ -28,7 +28,8 @@ public class RobotMap {
   public static final int RIGHT_DRIVE_THREE = 8;
 
   //Map Elevator CAN IDs
-  public static final int ELEVATOR_ONE = 4;
+  public static final int ELEVATOR_MASTER = 4;
+  public static final int ELEVATOR_FOLLOW = 7;
    
   //Map Roller Claw CAN IDs
   public static final int ROLLER_ONE = 5;
@@ -36,8 +37,8 @@ public class RobotMap {
   //Map Ball Floor Intake CAN IDs
   public static final int BALL_INTAKE = 6;
 
-  //Map Disc Floor Intake CAN IDs
-  public static final int DISC_INTAKE = 7;
+  //Map EndGame CAN IDs
+  public static final int ENDGAME_DRIVE = 11;
 
   //Map Pigeon CAN ID
   public static final int PIGEON_IMU = 0;
@@ -51,10 +52,10 @@ public class RobotMap {
   public static final int DISC_INTAKE_SOLENOID = 1;
   public static final int BEAK_4BAR_SOLENOID = 2;
   public static final int BEAK_GRAB_SOLENOID = 3;
-  public static final int ENDGAME_SHOCKS_FORWARD = 4;
-  public static final int ENDGAME_SHOCKS_REVERSE = 5;
-  public static final int ENDGAME_LATCH_FORWARD = 6;
-  public static final int ENDGAME_LATCH_REVERSE = 7;
+  public static final int ENDGAME_SHIFT_FORWARD = 4;
+  public static final int ENDGAME_SHIFT_REVERSE = 5;
+  public static final int ENDGAME_FOOT_FORWARD = 6;
+  public static final int ENDGAME_FOOT_REVERSE = 7;
 
   // Solenoid Channels PCM = 1
 

@@ -85,10 +85,10 @@ public class OI {
   public boolean getDiscGrabWithSensor() {
     return m_driveStation.getRawButton(13);
   }
-  public boolean getEndgameSafety() {
+  public boolean getElevatorEndgameManual() {
     return m_driveStation.getRawButton(15);
   }
-  public boolean getFPGAEndgame() {
+  public boolean getEndgameSafety() {
     return m_driveStation.getRawButton(16);
   }
 

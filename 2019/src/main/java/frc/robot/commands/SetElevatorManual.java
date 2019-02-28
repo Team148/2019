@@ -27,9 +27,6 @@ public class SetElevatorManual extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if((OI.getInstance().m_operatorJoystick.getRawAxis(1) > Constants.ELEVATOR_MANUAL_DEADBAND_UP) || (OI.getInstance().m_operatorJoystick.getRawAxis(1) < Constants.ELEVATOR_MANUAL_DEADBAND_DOWN)) {
-      Elevator.getInstance().setPositionManual((OI.getInstance().m_operatorJoystick.getRawAxis(1) * Constants.ELEVATOR_MANUAL_DPOS_SCALAR), Constants.ELEVATOR_F_UP);
-    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
