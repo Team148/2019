@@ -52,7 +52,7 @@ public class Limelight extends Subsystem {
 
     m_LEDMode = 1.0;		//set LEDs to default to off
     m_pipeline = 0.0;		//sort by largest
-    m_camMode = 1.0;		//vision processing ON
+    m_camMode = 1.0;		//vision processing OFF
 
   }
 

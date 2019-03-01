@@ -14,6 +14,7 @@ import java.util.Optional;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Timer;
@@ -84,6 +85,8 @@ public class Robot extends TimedRobot {
                     Drivetrain.getInstance()
             )
     );
+
+  private final Compressor comp = new Compressor(1);
 
   /**
    * This function is run when the robot is first started up and should be
@@ -317,7 +320,7 @@ public class Robot extends TimedRobot {
         }
         if(m_OI.m_operatorJoystick.getRawAxis(3) > 0.3) {
           m_Ball.setBallIntakeCylinder(false);
-          m_Beak.setBeakGrab(false);
+          m_Beak.setBeakGrab(true   );
         }
 
         //operator inputs

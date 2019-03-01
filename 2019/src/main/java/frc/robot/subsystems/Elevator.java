@@ -74,9 +74,10 @@ public class Elevator extends Subsystem {
   }
 
   private void configureMotors() {
+    m_elevator1.setInverted(true);
     m_elevator1.configOpenloopRamp(1.0, 0);
     m_elevator1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-    m_elevator1.setSensorPhase(true);
+    m_elevator1.setSensorPhase(false);
     m_elevator1.setSelectedSensorPosition(0, 0, 0);
     
   }
