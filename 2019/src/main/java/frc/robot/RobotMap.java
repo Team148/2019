@@ -29,6 +29,7 @@ public class RobotMap {
 
   //Map Elevator CAN IDs
   public static final int ELEVATOR_ONE = 4;
+  public static final int ELEVATOR_TWO = 7;
    
   //Map Roller Claw CAN IDs
   public static final int ROLLER_ONE = 5;
@@ -37,7 +38,7 @@ public class RobotMap {
   public static final int BALL_INTAKE = 6;
 
   //Map Disc Floor Intake CAN IDs
-  public static final int DISC_INTAKE = 7;
+  // public static final int DISC_INTAKE = 7;
 
   //Map Pigeon CAN ID
   public static final int PIGEON_IMU = 0;

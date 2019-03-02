@@ -32,12 +32,14 @@ public class Elevator extends Subsystem {
 
   //Declare Elevator TalonSRXs
   private final WPI_TalonSRX m_elevator1 = new WPI_TalonSRX(RobotMap.ELEVATOR_ONE);
+  private final WPI_TalonSRX m_elevator2 = new WPI_TalonSRX(RobotMap.ELEVATOR_TWO);
 
   public Elevator() {
 
     super();
 
     setFactoryDefault();
+    setFollower();
     setBrakeMode(true);
     configureMotors();
     setMotorSafeties();
@@ -58,19 +60,28 @@ public class Elevator extends Subsystem {
 
   private void setFactoryDefault() {
     m_elevator1.configFactoryDefault();
+    m_elevator2.configFactoryDefault();
+  }
+
+  private void setFollower() {
+    m_elevator2.follow(m_elevator1);
+    m_elevator2.configOpenloopRamp(0.0, 0);
   }
 
   private void setBrakeMode(boolean mode) {
     if (mode == true) {
       m_elevator1.setNeutralMode(NeutralMode.Brake);
+      m_elevator2.setNeutralMode(NeutralMode.Brake);
     }
     else {
       m_elevator1.setNeutralMode(NeutralMode.Coast);
+      m_elevator2.setNeutralMode(NeutralMode.Coast);
     }
   }
 
   public void setMotorSafeties() {
     m_elevator1.setSafetyEnabled(false);
+    m_elevator2.setSafetyEnabled(false);
   }
 
   private void configureMotors() {

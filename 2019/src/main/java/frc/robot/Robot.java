@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.Watchdog;
 //import Subsystems
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.FloorBallIntake;
-import frc.robot.subsystems.FloorDiscIntake;
+// import frc.robot.subsystems.FloorDiscIntake;
 import frc.robot.subsystems.Beak;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
@@ -31,8 +31,8 @@ import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.RollerClaw;
 
 import frc.robot.SubsystemManager;
-import frc.robot.commands.DeployFloorIntakes;
-import frc.robot.commands.RetractFloorIntakes;
+// import frc.robot.commands.DeployFloorIntakes;
+// import frc.robot.commands.RetractFloorIntakes;
 //import Commands
 import frc.robot.commands.SetElevator;
 import frc.robot.commands.SetElevatorManual;
@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
 
   public static FloorBallIntake m_Ball;
   public static Beak m_Beak;
-  public static FloorDiscIntake m_Disc;
+  // public static FloorDiscIntake m_Disc;
   public static Drivetrain m_DriveTrain;
   public static Elevator m_Elevator;
   public static EndGame m_EndGame;
@@ -97,7 +97,7 @@ public class Robot extends TimedRobot {
     
     m_Ball = FloorBallIntake.getInstance();
     m_Beak = Beak.getInstance();
-    m_Disc = FloorDiscIntake.getInstance();
+    // m_Disc = FloorDiscIntake.getInstance();
     m_DriveTrain = Drivetrain.getInstance();
     m_Elevator = Elevator.getInstance();
     m_EndGame = EndGame.getInstance();
@@ -136,7 +136,7 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
 
     m_Ball.setMotorSafeties();
-    m_Disc.setMotorSafeties();
+    // m_Disc.setMotorSafeties();
     m_Claw.setMotorSafeties();
     m_Elevator.setMotorSafeties();
     m_DriveTrain.setMotorSafeties();
@@ -273,7 +273,7 @@ public class Robot extends TimedRobot {
     double turn = m_OI.getTurn();
 
     double ballIntakePercent = 0.0;
-    double discIntakePercent = 0.0;
+    // double discIntakePercent = 0.0;
     double rollerClawPercent = 0.0;
 
     try {
@@ -320,7 +320,6 @@ public class Robot extends TimedRobot {
         }
         if(m_OI.m_operatorJoystick.getRawAxis(3) > 0.3) {
           m_Ball.setBallIntakeCylinder(false);
-          m_Beak.setBeakGrab(true   );
         }
 
         //operator inputs
@@ -348,19 +347,21 @@ public class Robot extends TimedRobot {
 
         //elevator presets w/ dPad
         if(m_OI.m_operatorJoystick.getPOV() == 0) {
+          m_Beak.setBeakBar(false);
           Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_HIGH));
         }
         if(m_OI.m_operatorJoystick.getPOV() == 90) {
+          m_Beak.setBeakBar(false);
           Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_MIDDLE));
         }
         if(m_OI.m_operatorJoystick.getPOV() == 180) {
           Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_ZERO));
         }
 
-        //set subsystems motors and solenoids from inputs
+        //set subsystems motors and soleno ids from inputs
         m_Ball.setBallIntakeMotor(ballIntakePercent);
         m_Claw.setRollerClaw(rollerClawPercent);
-        m_Disc.setDiscIntakeMotor(discIntakePercent);
+        // m_Disc.setDiscIntakeMotor(discIntakePercent);
 
     } catch (Throwable t) {
         CrashTracker.logThrowableCrash(t);
