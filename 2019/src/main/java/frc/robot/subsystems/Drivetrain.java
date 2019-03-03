@@ -79,7 +79,7 @@ public class Drivetrain extends Subsystem {
   private boolean mIsBrakeMode;
 
   private static final int kLowGearVelocityControlSlot = 0;
-  private static final double DRIVE_ENCODER_PPR = 5000.0;
+  private static final double DRIVE_ENCODER_PPR = 6956.0;
 
 
   private final Loop mLoop = new Loop() {
@@ -180,6 +180,9 @@ public class Drivetrain extends Subsystem {
 
     m_driveRight1.configPeakOutputForward(1.0, 0);
     m_driveRight1.configPeakOutputReverse(-1.0, 0);
+
+    m_driveLeft1.setSensorPhase(true);
+    m_driveRight1.setSensorPhase(true);
   }
 
   public void setMotorSafeties() {

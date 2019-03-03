@@ -13,19 +13,24 @@ public class RocketModeEasy extends AutoModeBase {
     private static final TrajectoryGenerator mTrajectoryGenerator = TrajectoryGenerator.getInstance();
 
     final boolean mStartedLeft;
-    private DriveTrajectory mLevel1ToRocketThree;
+    private DriveTrajectory mLevel1ToRocketOne;
     private DriveTrajectory mEndRocketToTurn;
     private DriveTrajectory mEndTurnToLoadingStation;
     private DriveTrajectory mLoadingStationToRocketTwo;
 
-    public RocketModeEasy(boolean driveToLeftCargo) {
-        mStartedLeft = driveToLeftCargo;
+    public RocketModeEasy(boolean driveToLeftRocket) {
+        mStartedLeft = driveToLeftRocket;
 
+        if (mStartedLeft) {
+            mLevel1ToRocketOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().leftLevel1toRocketOne, true);
+        } else {
+            mLevel1ToRocketOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rightLevel1toRocketOne, true);
+        }
         // mLevel1ToRocketThree = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level1ToRocketThree.get(mStartedLeft), true);
-        mLevel1ToRocketThree = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level1ToRocketThree.get(mStartedLeft), true);
-        mEndRocketToTurn = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endRocketToTurn.get(mStartedLeft));
-        mEndTurnToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endRocketTurnToLoadingStation.get(mStartedLeft));
-        mLoadingStationToRocketTwo = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToRocketTwo.get(mStartedLeft));
+        // mLevel1ToRocketOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level1ToRocketOne.get(mStartedLeft), true);
+        // mEndRocketToTurn = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endRocketToTurn.get(mStartedLeft));
+        // mEndTurnToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endRocketTurnToLoadingStation.get(mStartedLeft));
+        // mLoadingStationToRocketTwo = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToRocketTwo.get(mStartedLeft));
     }
 
     @Override
@@ -35,30 +40,30 @@ public class RocketModeEasy extends AutoModeBase {
         //Score First Hatch
         runAction(new ParallelAction (
             Arrays.asList(
-                mLevel1ToRocketThree
+                mLevel1ToRocketOne
             )
         ));
 
-        // //Get Second Hatch
-        runAction(new ParallelAction (
-            Arrays.asList(
-                mEndRocketToTurn
-            )
-        ));
+        // // //Get Second Hatch
+        // runAction(new ParallelAction (
+        //     Arrays.asList(
+        //         mEndRocketToTurn
+        //     )
+        // ));
 
-        // //Score Second Hatch
-        runAction(new ParallelAction (
-            Arrays.asList(
-                mEndTurnToLoadingStation
-            )
-        ));
+        // // //Score Second Hatch
+        // runAction(new ParallelAction (
+        //     Arrays.asList(
+        //         mEndTurnToLoadingStation
+        //     )
+        // ));
 
-        // //Score Second Hatch
-        runAction(new ParallelAction (
-            Arrays.asList(
-                mLoadingStationToRocketTwo
-            )
-        ));
+        // // //Score Second Hatch
+        // runAction(new ParallelAction (
+        //     Arrays.asList(
+        //         mLoadingStationToRocketTwo
+        //     )
+        // ));
 
         //Score Second Hatch
         runAction(new ParallelAction (

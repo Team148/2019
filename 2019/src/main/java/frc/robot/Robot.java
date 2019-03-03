@@ -198,6 +198,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     
     try {
+      comp.setClosedLoopControl(false);
+
       CrashTracker.logAutoInit();
       mDisabledLooper.stop();
 
@@ -232,6 +234,9 @@ public class Robot extends TimedRobot {
     try {
       CrashTracker.logTeleopInit();
       mDisabledLooper.stop();
+      
+      comp.setClosedLoopControl(true);
+
       if (mAutoModeExecutor != null) {
           mAutoModeExecutor.stop();
       }
@@ -279,7 +284,14 @@ public class Robot extends TimedRobot {
     try {
         
         //driver inputs
-        m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle, turn));
+
+        if(m_OI.m_driveJoystick.getRawButton(10)) {
+          m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn));
+        }
+        else {
+          m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn * 0.7));
+        }
+        
 
         //claw ball outtake (face buttons)
         if(m_OI.getDriverQuarterSpeed()) {

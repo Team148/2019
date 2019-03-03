@@ -19,13 +19,13 @@ public class RobotMap {
   public static final int POWER_DISTRO_PANEL = 0;
 
   // //Map Drive CAN IDs
-  public static final int LEFT_DRIVE_MASTER = 1;
-  public static final int LEFT_DRIVE_TWO = 2;
-  public static final int LEFT_DRIVE_THREE = 3;
+  public static final int LEFT_DRIVE_MASTER = 10;
+  public static final int LEFT_DRIVE_TWO = 9;
+  public static final int LEFT_DRIVE_THREE = 8;
 
-  public static final int RIGHT_DRIVE_MASTER = 10;
-  public static final int RIGHT_DRIVE_TWO = 9;
-  public static final int RIGHT_DRIVE_THREE = 8;
+  public static final int RIGHT_DRIVE_MASTER = 1;
+  public static final int RIGHT_DRIVE_TWO = 2;
+  public static final int RIGHT_DRIVE_THREE = 3;
 
   //Map Elevator CAN IDs
   public static final int ELEVATOR_ONE = 4;

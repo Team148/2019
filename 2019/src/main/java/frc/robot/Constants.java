@@ -31,7 +31,7 @@ public class Constants {
     // public static final double ELEVATOR_ZERO_F = 0.0;
     public static final double ELEVATOR_P = 0.05;
     public static final double ELEVATOR_I = 0.0;
-    public static final double ELEVATOR_D = 0.50; 
+    public static final double ELEVATOR_D = 0.50;
 
     public static final double ELEVATOR_F_VELOCITY = 0.26;
     public static final double ELEVATOR_P_VELOCITY = 0.7;
@@ -58,10 +58,10 @@ public class Constants {
     /* ROBOT PHYSICAL CONSTANTS */
 
     // Wheels
-    public static final double kDriveWheelTrackWidthInches = 24.9;
-    public static final double kDriveWheelDiameterInches = 5.912;// * 0.99;
+    public static final double kDriveWheelTrackWidthInches = 18.9;
+    public static final double kDriveWheelDiameterInches = 3.8;// * 0.99;
     public static final double kDriveWheelRadiusInches = kDriveWheelDiameterInches / 2.0;
-    public static final double kTrackScrubFactor = 1.0;  // Tune me!
+    public static final double kTrackScrubFactor = 1.2;  //Tune me!
 
     // Tuned dynamics
     public static final double kRobotLinearInertia = 44.9;  // kg TODO tune
@@ -72,9 +72,12 @@ public class Constants {
     public static final double kDriveKa = 0.012;  // V per rad/s^2
 
     // Geometry
-    public static final double kCenterToFrontBumperDistance = 14.99;	//34.473 / 2.0;
-    public static final double kCenterToRearBumperDistance = 19.48;		//34.473 / 2.0;
-    public static final double kCenterToSideBumperDistance = 32.47 / 2.0;
+    // public static final double kCenterToFrontBumperDistance = 14.99;	//34.473 / 2.0;
+    // public static final double kCenterToRearBumperDistance = 19.48;		//34.473 / 2.0;
+    // public static final double kCenterToSideBumperDistance = 32.47 / 2.0;
+    public static final double kCenterToFrontBumperDistance = 18.64;	//34.473 / 2.0;
+    public static final double kCenterToRearBumperDistance = 18.64;		//34.473 / 2.0;
+    public static final double kCenterToSideBumperDistance = 28.12 / 2.0;
 
     /* CONTROL LOOP GAINS */
 
