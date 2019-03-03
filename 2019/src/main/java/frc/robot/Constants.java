@@ -25,7 +25,7 @@ public class Constants {
     public static final double ELEVATOR_UP_OUTPUT_PERCENT = 1.0;
     public static final double ELEVATOR_DOWN_OUTPUT_PERCENT = -0.4;
 
-    public static final double ELEVATOR_F_UP = 0.2;
+    public static final double ELEVATOR_F_UP = 0.1367;
     public static final double ELEVATOR_F_DOWN = ELEVATOR_F_UP - 0.025;
     public static final double ELEVATOR_ZERO_F = -0.0732;
     // public static final double ELEVATOR_ZERO_F = 0.0;
@@ -40,8 +40,9 @@ public class Constants {
     public static final double ELEVATOR_AUX_F_VELOCITY = 0.1367;
 
     public static final double ELEVATOR_ZERO = 0.0;
-    public static final double ELEVATOR_MIDDLE = 20000;
-    public static final double ELEVATOR_HIGH = 38000;
+    public static final double ELEVATOR_CARGO = 8000;
+    public static final double ELEVATOR_MIDDLE = 17000;
+    public static final double ELEVATOR_HIGH = 35000;
     public static final double ELEVATOR_MAX_HEIGHT = 39000;
 
     public static final double ELEVATOR_ZERO_NEUTRAL_POSITION = 3000.0;

@@ -21,8 +21,8 @@ public class EndGame extends Subsystem {
 
   private static EndGame m_instance;
 
-  private final DoubleSolenoid m_endGameShock = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.ENDGAME_SHOCKS_FORWARD, RobotMap.ENDGAME_SHOCKS_REVERSE);
-  private final DoubleSolenoid m_endGameLatch = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.ENDGAME_LATCH_FORWARD, RobotMap.ENDGAME_LATCH_REVERSE);
+  private final DoubleSolenoid m_endGameShock = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.ENDGAME_SHIFT_FORWARD, RobotMap.ENDGAME_SHIFT_REVERSE);
+  private final DoubleSolenoid m_endGameLatch = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.ENDGAME_FEET_FORWARD, RobotMap.ENDGAME_FEET_REVERSE);
 
   public EndGame() {
 

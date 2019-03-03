@@ -309,7 +309,7 @@ public class Robot extends TimedRobot {
 
         //left bumper
         if(m_OI.getDriver5()) {
-            m_Beak.setBeakGrab(true);
+            m_Beak.setBeakGrab(true); //beak grab true means let go/open
             m_Beak.setBeakBar(true);
         }
 
@@ -329,6 +329,7 @@ public class Robot extends TimedRobot {
         if(m_OI.m_operatorJoystick.getRawAxis(2) > 0.3) {
           m_Ball.setBallIntakeCylinder(true);
           m_Beak.setBeakBar(true);
+          m_Beak.setBeakGrab(false); //beak grab false means hang on/close
         }
         if(m_OI.m_operatorJoystick.getRawAxis(3) > 0.3) {
           m_Ball.setBallIntakeCylinder(false);
@@ -349,7 +350,7 @@ public class Robot extends TimedRobot {
         //left bumper
         if(m_OI.getFloorIntake()) {
             ballIntakePercent = -1.0;
-            rollerClawPercent = -0.75  ;
+            rollerClawPercent = -0.4;
         }
         //right bumper
         if(m_OI.getFloorOuttake()) {
@@ -359,15 +360,16 @@ public class Robot extends TimedRobot {
 
         //elevator presets w/ dPad
         if(m_OI.m_operatorJoystick.getPOV() == 0) {
-          m_Beak.setBeakBar(false);
           Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_HIGH));
         }
         if(m_OI.m_operatorJoystick.getPOV() == 90) {
-          m_Beak.setBeakBar(false);
           Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_MIDDLE));
         }
         if(m_OI.m_operatorJoystick.getPOV() == 180) {
           Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_ZERO));
+        }
+        if(m_OI.m_operatorJoystick.getPOV() == 270) {
+          Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_CARGO));
         }
 
         //set subsystems motors and soleno ids from inputs

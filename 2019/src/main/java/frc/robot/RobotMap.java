@@ -52,10 +52,10 @@ public class RobotMap {
   public static final int DISC_INTAKE_SOLENOID = 1;
   public static final int BEAK_4BAR_SOLENOID = 2;
   public static final int BEAK_GRAB_SOLENOID = 3;
-  public static final int ENDGAME_SHOCKS_FORWARD = 4;
-  public static final int ENDGAME_SHOCKS_REVERSE = 5;
-  public static final int ENDGAME_LATCH_FORWARD = 6;
-  public static final int ENDGAME_LATCH_REVERSE = 7;
+  public static final int ENDGAME_SHIFT_FORWARD = 4;
+  public static final int ENDGAME_SHIFT_REVERSE = 5;
+  public static final int ENDGAME_FEET_FORWARD = 6;
+  public static final int ENDGAME_FEET_REVERSE = 7;
 
   // Solenoid Channels PCM = 1
 
