@@ -118,8 +118,8 @@ public class TrajectoryGenerator {
     public static final Pose2d kLevel1LeftRocketOnePose = new Pose2d(new Translation2d(200.0, 138.0), Rotation2d.fromDegrees(30.0));
     public static final Pose2d kLevel1RightRocketOnePose = new Pose2d(new Translation2d(200.0, -138.0), Rotation2d.fromDegrees(330.0));
 
-    public static final Pose2d kLevel2LeftRocketOnePose = new Pose2d(new Translation2d(200.0, 140.0), Rotation2d.fromDegrees(30.0));
-    public static final Pose2d kLevel2RightRocketOnePose = new Pose2d(new Translation2d(200.0, -140.0), Rotation2d.fromDegrees(330.0));
+    public static final Pose2d kLevel2LeftRocketOnePose = new Pose2d(new Translation2d(202.0, 132.0), Rotation2d.fromDegrees(30.0));
+    public static final Pose2d kLevel2RightRocketOnePose = new Pose2d(new Translation2d(200.0, -139.0), Rotation2d.fromDegrees(330.0));
 
     //Rocket Two
     public static final Pose2d kLeftRocketTwoPose = new Pose2d(new Translation2d(228.0, 115.0), Rotation2d.fromDegrees(90.0));
@@ -256,7 +256,8 @@ public class TrajectoryGenerator {
 
         private Trajectory<TimedState<Pose2dWithCurvature>> getRightLevel2toRocketOne() {
             List<Pose2d> waypoints = new ArrayList<>();
-            waypoints.add(kRightLevel1StartPose);
+            waypoints.add(kRightLevel2StartPose);
+            waypoints.add(new Pose2d(new Translation2d(120.0, -50.0), Rotation2d.fromDegrees(0.0)));
             waypoints.add(kLevel2RightRocketOnePose);
 
             return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
@@ -275,6 +276,7 @@ public class TrajectoryGenerator {
         private Trajectory<TimedState<Pose2dWithCurvature>> getLeftLevel2toRocketOne() {
             List<Pose2d> waypoints = new ArrayList<>();
             waypoints.add(kLeftLevel2StartPose);
+            waypoints.add(new Pose2d(new Translation2d(120.0, 50.0), Rotation2d.fromDegrees(0.0)));
             waypoints.add(kLevel2LeftRocketOnePose);
 
             return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
