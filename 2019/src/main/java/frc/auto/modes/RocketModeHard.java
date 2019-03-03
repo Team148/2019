@@ -41,7 +41,25 @@ public class RocketModeHard extends AutoModeBase {
         //Score First Hatch
         runAction(new ParallelAction (
             Arrays.asList(
-                mLevel2ToRocketOne
+                mLevel2ToRocketOne,
+                new SeriesAction(
+                    Arrays.asList(
+                        new WaitAction(2.0),
+                        new ExtendRetract4Bar(true)
+                    )
+                )
+            )
+        ));
+
+        runAction(new SeriesAction (
+            Arrays.asList(
+                new OpenCloseBeak(true),
+                new SeriesAction(
+                    Arrays.asList(
+                        new WaitAction(0.25),
+                        new OpenLoopDrive(-0.5, -0.5, 0.5)
+                    )
+                )
             )
         ));
 

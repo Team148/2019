@@ -14,7 +14,7 @@ public class CargoShipModeHard extends AutoModeBase {
 
     final boolean mStartedLeft;
 
-    private DriveTrajectory mLevel2ToCargoThree;
+    private DriveTrajectory mLevel2ToCargoOne;
     private DriveTrajectory mCargoThreeTo90Turn;
     private DriveTrajectory mEndTurnToLoadingStation;
     private DriveTrajectory mLoadingStationToCargoFour;
@@ -22,11 +22,17 @@ public class CargoShipModeHard extends AutoModeBase {
     public CargoShipModeHard(boolean driveToLeftCargo) {
         mStartedLeft = driveToLeftCargo;
 
+        if (mStartedLeft) {
+            mLevel2ToCargoOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().leftLevel2toCargoOne, true);
+        } else {
+            mLevel2ToCargoOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rightLevel2toCargoOne, true);
+        }
+
         // mLevel2ToCargoTwo = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level2ToCargoTwo.get(mStartedLeft), true);
-        mLevel2ToCargoThree = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level2ToCargoThree.get(mStartedLeft), true);
-        mCargoThreeTo90Turn = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoThreeTo90Turn.get(mStartedLeft));
-        mEndTurnToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endTurnToLoadingStation.get(mStartedLeft));
-        mLoadingStationToCargoFour = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoFour.get(mStartedLeft));
+        // mLevel2ToCargoOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level2ToCargoThree.get(mStartedLeft), true);
+        // mCargoThreeTo90Turn = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoThreeTo90Turn.get(mStartedLeft));
+        // mEndTurnToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endTurnToLoadingStation.get(mStartedLeft));
+        // mLoadingStationToCargoFour = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoFour.get(mStartedLeft));
     }
 
     @Override
@@ -36,36 +42,54 @@ public class CargoShipModeHard extends AutoModeBase {
         //Score First Hatch
         runAction(new ParallelAction (
             Arrays.asList(
-                mLevel2ToCargoThree
+                mLevel2ToCargoOne,
+                new SeriesAction(
+                    Arrays.asList(
+                        new WaitAction(2.0),
+                        new ExtendRetract4Bar(true)
+                    )
+                )
             )
         ));
 
-        //Turn 90 degrees
-        runAction(new ParallelAction (
+        runAction(new SeriesAction (
             Arrays.asList(
-                mCargoThreeTo90Turn
+                new OpenCloseBeak(true),
+                new SeriesAction(
+                    Arrays.asList(
+                        new WaitAction(0.25),
+                        new OpenLoopDrive(-0.5, -0.5, 0.5)
+                    )
+                )
             )
         ));
 
-        //Get Second Hatch
-        runAction(new ParallelAction (
-            Arrays.asList(
-                mEndTurnToLoadingStation
-            )
-        ));
+        // //Turn 90 degrees
+        // runAction(new ParallelAction (
+        //     Arrays.asList(
+        //         mCargoThreeTo90Turn
+        //     )
+        // ));
 
-        //Score Second Hatch
-        runAction(new ParallelAction (
-            Arrays.asList(
-                mLoadingStationToCargoFour
-            )
-        ));
+        // //Get Second Hatch
+        // runAction(new ParallelAction (
+        //     Arrays.asList(
+        //         mEndTurnToLoadingStation
+        //     )
+        // ));
 
-        //Score Second Hatch
-        runAction(new ParallelAction (
-            Arrays.asList(
-                new OpenLoopDrive(0.5, 0.5, 0.2, false)
-            )
-        ));
+        // //Score Second Hatch
+        // runAction(new ParallelAction (
+        //     Arrays.asList(
+        //         mLoadingStationToCargoFour
+        //     )
+        // ));
+
+        // //Score Second Hatch
+        // runAction(new ParallelAction (
+        //     Arrays.asList(
+        //         new OpenLoopDrive(0.5, 0.5, 0.2)
+        //     )
+        // ));
     }
 }

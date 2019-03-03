@@ -9,18 +9,16 @@ public class OpenLoopDrive implements Action {
 
     private double mStartTime;
     private final double mDuration, mLeft, mRight;
-    private final boolean mFinishWhenSeesCube;
 
-    public OpenLoopDrive(double left, double right, double duration, boolean finishWhenSeesCube) {
+    public OpenLoopDrive(double left, double right, double duration) {
         mDuration = duration;
         mLeft = left;
         mRight = right;
-        mFinishWhenSeesCube = finishWhenSeesCube;
     }
 
     @Override
     public boolean isFinished() {
-        return Timer.getFPGATimestamp() - mStartTime > mDuration || mFinishWhenSeesCube;
+        return Timer.getFPGATimestamp() - mStartTime > mDuration;
     }
 
     @Override

@@ -68,7 +68,7 @@ public class RocketModeEasy extends AutoModeBase {
         //Score Second Hatch
         runAction(new ParallelAction (
             Arrays.asList(
-                new OpenLoopDrive(0.5, 0.5, 0.2, false)
+                new OpenLoopDrive(0.5, 0.5, 0.2)
             )
         ));
     }
