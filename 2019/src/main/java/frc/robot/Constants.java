@@ -49,12 +49,11 @@ public class Constants {
     public static final double ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND = 1000.0;
 
     public static final double ELEVATOR_ERROR_TOLERANCE = 2000.0;
-    public static final double ELEVATOR_MANUAL_DEADBAND_UP = 0.2;
-    public static final double ELEVATOR_MANUAL_DEADBAND_DOWN = -0.2;
+    public static final double ELEVATOR_MANUAL_DEADBAND = 0.2;
     public static final double ELEVATOR_MANUAL_DPOS_SCALAR = 10000.0;
 
     //Output Percents
-    public static final double ELEVATOR_OUTPUT_PERCENT = 1.0;
+    public static final double ELEVATOR_OUTPUT_PERCENT = 0.5;
 
     /* ROBOT PHYSICAL CONSTANTS */
 

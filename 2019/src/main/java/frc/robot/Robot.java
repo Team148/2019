@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Watchdog;
+
 //import Subsystems
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.FloorBallIntake;
@@ -33,9 +34,10 @@ import frc.robot.subsystems.RollerClaw;
 import frc.robot.SubsystemManager;
 // import frc.robot.commands.DeployFloorIntakes;
 // import frc.robot.commands.RetractFloorIntakes;
+
 //import Commands
 import frc.robot.commands.SetElevator;
-import frc.robot.commands.SetElevatorManual;
+import frc.robot.commands.OIRefresh;
 import frc.robot.commands.UpdateLimeLight;
 
 //import 254
@@ -251,7 +253,7 @@ public class Robot extends TimedRobot {
         m_Elevator.configClosedLoop();
       }
 
-      Scheduler.getInstance().add(new SetElevatorManual());
+      Scheduler.getInstance().add(new OIRefresh());
 
     } catch (Throwable t) {
         CrashTracker.logThrowableCrash(t);
