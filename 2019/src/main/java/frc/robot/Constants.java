@@ -20,6 +20,9 @@ public class Constants {
     //Drivetrain Constants
     public static final int DRIVE_ENCODER_TPR = 5000;
 
+    public static final double HEADING_P = -0.1;
+    public static final double DRIVE_FEEDFORWARD = 0.05;
+
     //Elevator Constants
     public static final int ELEVATOR_SOFT_LIMIT = 39000;
     public static final double ELEVATOR_UP_OUTPUT_PERCENT = 1.0;
@@ -42,7 +45,7 @@ public class Constants {
     public static final double ELEVATOR_ZERO = 0.0;
     public static final double ELEVATOR_CARGO = 8000;
     public static final double ELEVATOR_MIDDLE = 17000;
-    public static final double ELEVATOR_HIGH = 35000;
+    public static final double ELEVATOR_HIGH = 36000;
     public static final double ELEVATOR_MAX_HEIGHT = 39000;
 
     public static final double ELEVATOR_ZERO_NEUTRAL_POSITION = 3000.0;

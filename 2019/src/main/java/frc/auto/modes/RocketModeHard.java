@@ -53,6 +53,13 @@ public class RocketModeHard extends AutoModeBase {
 
         runAction(new SeriesAction (
             Arrays.asList(
+                new TurnToTarget(0.5),
+                new OpenLoopDrive(0.25, 0.25, 0.5)
+            )
+        ));
+
+        runAction(new SeriesAction (
+            Arrays.asList(
                 new OpenCloseBeak(true),
                 new SeriesAction(
                     Arrays.asList(
