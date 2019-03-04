@@ -30,6 +30,10 @@ public class RobotMap {
   //Map Elevator CAN IDs
   public static final int ELEVATOR_ONE = 4;
   public static final int ELEVATOR_TWO = 7;
+  public static final int ELEVATOR_THREE = 12;
+
+  //Map End Game CAN IDs
+  public static final int ENDGAME_DRIVE = 11;
    
   //Map Roller Claw CAN IDs
   public static final int ROLLER_ONE = 5;

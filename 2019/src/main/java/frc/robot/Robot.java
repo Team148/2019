@@ -35,6 +35,7 @@ import frc.robot.SubsystemManager;
 // import frc.robot.commands.RetractFloorIntakes;
 //import Commands
 import frc.robot.commands.SetElevator;
+import frc.robot.commands.SetEndGame;
 import frc.robot.commands.SetElevatorManual;
 import frc.robot.commands.UpdateLimeLight;
 
@@ -359,17 +360,38 @@ public class Robot extends TimedRobot {
         }
 
         //elevator presets w/ dPad
-        if(m_OI.m_operatorJoystick.getPOV() == 0) {
-          Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_HIGH));
+
+        if(m_OI.getEndgameSafety())
+        {
+          if(m_OI.m_operatorJoystick.getPOV() == 180) {
+            Scheduler.getInstance().add(new SetEndGame(Constants.ENDGAME_TOP));
+          }
+          if(m_OI.m_operatorJoystick.getPOV() == 90) {
+           EndGame.getInstance().setDriveForward(true);
+          }
+          else{
+            EndGame.getInstance().setDriveForward(false);
+          }
+          if(m_OI.m_operatorJoystick.getPOV() == 0) {
+            EndGame.getInstance().setAnklesReleased(true);
+          }
+          if(m_OI.m_operatorJoystick.getPOV() == 270) {
+            Scheduler.getInstance().add(new SetEndGame(Constants.ENDGAME_CHILL));
+          }
         }
-        if(m_OI.m_operatorJoystick.getPOV() == 90) {
-          Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_MIDDLE));
-        }
-        if(m_OI.m_operatorJoystick.getPOV() == 180) {
-          Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_ZERO));
-        }
-        if(m_OI.m_operatorJoystick.getPOV() == 270) {
-          Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_CARGO));
+        else{
+          if(m_OI.m_operatorJoystick.getPOV() == 0) {
+            Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_HIGH));
+          }
+          if(m_OI.m_operatorJoystick.getPOV() == 90) {
+            Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_MIDDLE));
+          }
+          if(m_OI.m_operatorJoystick.getPOV() == 180) {
+            Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_ZERO));
+          }
+          if(m_OI.m_operatorJoystick.getPOV() == 270) {
+            Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_CARGO));
+          }
         }
 
         //set subsystems motors and soleno ids from inputs

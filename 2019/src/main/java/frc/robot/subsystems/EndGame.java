@@ -10,6 +10,9 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import frc.robot.Constants;
 import frc.robot.RobotMap;
 
 /**
@@ -21,8 +24,14 @@ public class EndGame extends Subsystem {
 
   private static EndGame m_instance;
 
-  private final DoubleSolenoid m_endGameShock = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.ENDGAME_SHIFT_FORWARD, RobotMap.ENDGAME_SHIFT_REVERSE);
-  private final DoubleSolenoid m_endGameLatch = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.ENDGAME_FEET_FORWARD, RobotMap.ENDGAME_FEET_REVERSE);
+  private boolean m_EndGameShifted = false;
+  private boolean m_AnklesReleased = false;
+
+
+  private final DoubleSolenoid m_endGameShifter = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.ENDGAME_SHIFT_FORWARD, RobotMap.ENDGAME_SHIFT_REVERSE);
+  private final DoubleSolenoid m_endGameAnkles = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.ENDGAME_FEET_FORWARD, RobotMap.ENDGAME_FEET_REVERSE);
+
+  private final WPI_TalonSRX m_EndGameDrive = new WPI_TalonSRX(RobotMap.ENDGAME_DRIVE);
 
   public EndGame() {
 
@@ -42,22 +51,60 @@ public class EndGame extends Subsystem {
     return m_instance;
   }
 
-  public void setEndGameShocks (boolean on) {
+  private void setFactoryDefault() {
+    m_EndGameDrive.configFactoryDefault();
+  }
+
+  private void configureMotors() {
+
+    m_EndGameDrive.set(ControlMode.PercentOutput, 0.0);
+
+    m_EndGameDrive.configOpenloopRamp(1.0, 0);
+
+    m_EndGameDrive.configVoltageCompSaturation(12.0, 0);
+    m_EndGameDrive.enableVoltageCompensation(true);
+
+    m_EndGameDrive.configNominalOutputForward(0.0, 0);
+    m_EndGameDrive.configNominalOutputReverse(0.0, 0);
+    
+  }
+
+  public void setEndGameShifted (boolean on) {
+
+
     if (on) {
       m_endGameShock.set(Value.kForward);
+      m_EndGameShifted = true;
     }
     else {
       m_endGameShock.set(Value.kReverse);
     }
   }
 
-  public void setEndGameLatch (boolean on) {
+  public void setDriveForward(bool on){
+    if(on)
+      m_EndGameDrive.set(ControlMode.PercentOutput, Constants.ENDGAME_DRIVE_SPEED);
+    else
+      m_EndGameDrive.set(ControlMode.PercentOutput, 0);
+  }
+
+  public void setAnklesReleased (boolean on) {
+
     if (on) {
       m_endGameLatch.set(Value.kForward);
+      m_AnklesReleased = true;
     }
     else {
       m_endGameLatch.set(Value.kReverse);
     }
+  }
+
+  public boolean getEndGameShifted(){
+    return m_EndGameShifted;
+  }
+
+  public boolean getAnklesReleased(){
+    return m_AnklesReleased;
   }
 
 }
