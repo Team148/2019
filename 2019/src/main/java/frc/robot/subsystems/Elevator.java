@@ -33,6 +33,7 @@ public class Elevator extends Subsystem {
   //Declare Elevator TalonSRXs
   private final WPI_TalonSRX m_elevator1 = new WPI_TalonSRX(RobotMap.ELEVATOR_ONE);
   private final WPI_TalonSRX m_elevator2 = new WPI_TalonSRX(RobotMap.ELEVATOR_TWO);
+  private final WPI_TalonSRX m_elevator3 = new WPI_TalonSRX(RobotMap.ELEVATOR_THREE);
 
   public Elevator() {
 
@@ -61,34 +62,40 @@ public class Elevator extends Subsystem {
   private void setFactoryDefault() {
     m_elevator1.configFactoryDefault();
     m_elevator2.configFactoryDefault();
+    m_elevator3.configFactoryDefault();
   }
 
   private void setFollower() {
     m_elevator2.follow(m_elevator1);
+    m_elevator3.follow(m_elevator1);
     m_elevator2.configOpenloopRamp(0.0, 0);
+    m_elevator3.configOpenloopRamp(0.0, 0);
   }
 
   private void setBrakeMode(boolean mode) {
     if (mode == true) {
       m_elevator1.setNeutralMode(NeutralMode.Brake);
       m_elevator2.setNeutralMode(NeutralMode.Brake);
+      m_elevator3.setNeutralMode(NeutralMode.Brake);
     }
     else {
       m_elevator1.setNeutralMode(NeutralMode.Coast);
       m_elevator2.setNeutralMode(NeutralMode.Coast);
+      m_elevator3.setNeutralMode(NeutralMode.Coast);
     }
   }
 
   public void setMotorSafeties() {
     m_elevator1.setSafetyEnabled(false);
     m_elevator2.setSafetyEnabled(false);
+    m_elevator3.setSafetyEnabled(false);
   }
 
   private void configureMotors() {
-    m_elevator1.setInverted(true);
+    m_elevator1.setInverted(false);
     m_elevator1.configOpenloopRamp(1.0, 0);
     m_elevator1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-    m_elevator1.setSensorPhase(false);
+    m_elevator1.setSensorPhase(true);
     m_elevator1.setSelectedSensorPosition(0, 0, 0);
     
   }
