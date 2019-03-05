@@ -36,7 +36,6 @@ import frc.robot.SubsystemManager;
 //import Commands
 import frc.robot.commands.SetElevator;
 import frc.robot.commands.SetEndGame;
-import frc.robot.commands.SetElevatorManual;
 import frc.robot.commands.UpdateLimeLight;
 
 //import 254
@@ -251,8 +250,6 @@ public class Robot extends TimedRobot {
       if(!m_Elevator.isClosedLoop()) {
         m_Elevator.configClosedLoop();
       }
-
-      Scheduler.getInstance().add(new SetElevatorManual());
 
     } catch (Throwable t) {
         CrashTracker.logThrowableCrash(t);

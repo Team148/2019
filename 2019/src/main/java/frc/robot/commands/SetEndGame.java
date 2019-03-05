@@ -39,9 +39,8 @@ public class SetEndGame extends Command {
   @Override
   protected void execute() {
 
-    if(abs(Elevator.getInstance().getElevatorPosition()-m_position) < (double)(Constants.ENDGAME_FINISH_TOLERANCE)){
+    if(Math.abs(Elevator.getInstance().getElevatorPosition()-m_position) < (double)(Constants.ENDGAME_FINISH_TOLERANCE)){
       m_isFinished = true;
-      break;
     }
     else
       Elevator.getInstance().setEndGamePosition(m_position, Constants.ENDGAME_F_UP);

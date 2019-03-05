@@ -214,7 +214,7 @@ public class Elevator extends Subsystem {
   }
 
   public boolean isClosedLoopEndGame() {
-    reutrn m_isClosedLoopEndGame;
+    return m_isClosedLoopEndGame;
   }
 
   public int getElevatorPosition() {

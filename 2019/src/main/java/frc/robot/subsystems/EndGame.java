@@ -10,6 +10,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import frc.robot.Constants;
@@ -73,15 +75,15 @@ public class EndGame extends Subsystem {
 
 
     if (on) {
-      m_endGameShock.set(Value.kForward);
+      m_endGameShifter.set(Value.kForward);
       m_EndGameShifted = true;
     }
     else {
-      m_endGameShock.set(Value.kReverse);
+      m_endGameShifter.set(Value.kReverse);
     }
   }
 
-  public void setDriveForward(bool on){
+  public void setDriveForward(boolean on){
     if(on)
       m_EndGameDrive.set(ControlMode.PercentOutput, Constants.ENDGAME_DRIVE_SPEED);
     else
@@ -91,11 +93,11 @@ public class EndGame extends Subsystem {
   public void setAnklesReleased (boolean on) {
 
     if (on) {
-      m_endGameLatch.set(Value.kForward);
+      m_endGameAnkles.set(Value.kForward);
       m_AnklesReleased = true;
     }
     else {
-      m_endGameLatch.set(Value.kReverse);
+      m_endGameAnkles.set(Value.kReverse);
     }
   }
 
