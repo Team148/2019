@@ -85,7 +85,7 @@ public class EndGame extends Subsystem {
 
   public void setDriveForward(boolean on){
     if(on)
-      m_EndGameDrive.set(ControlMode.PercentOutput, Constants.ENDGAME_DRIVE_SPEED);
+      m_EndGameDrive.set(ControlMode.PercentOutput, -Constants.ENDGAME_DRIVE_SPEED);
     else
       m_EndGameDrive.set(ControlMode.PercentOutput, 0);
   }

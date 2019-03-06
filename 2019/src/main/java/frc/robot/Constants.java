@@ -57,9 +57,9 @@ public class Constants {
     //ENDGAME Constants
 
     public static final double ENDGAME_F_UP = -0.10;
-    public static final double ENDGAME_P = 0.037;
+    public static final double ENDGAME_P = 0.05;
     public static final double ENDGAME_I = 0.0;
-    public static final double ENDGAME_D = 0.37;
+    public static final double ENDGAME_D = 0.50;
 
     public static final double ENDGAME_UP_OUTPUT_PERCENT = 0.6;
     public static final double ENDGAME_DOWN_OUTPUT_PERCENT = -0.6;
