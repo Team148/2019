@@ -24,7 +24,9 @@ public class Constants {
     public static final double DRIVE_FEEDFORWARD = 0.05;
 
     //Elevator Constants
+
     public static final int ELEVATOR_SOFT_LIMIT = 52650;
+
     public static final double ELEVATOR_UP_OUTPUT_PERCENT = 1.0;
     public static final double ELEVATOR_DOWN_OUTPUT_PERCENT = -0.4;
 
@@ -32,6 +34,7 @@ public class Constants {
     public static final double ELEVATOR_F_DOWN = ELEVATOR_F_UP - 0.030;
     public static final double ELEVATOR_ZERO_F = -0.0732;
     // public static final double ELEVATOR_ZERO_F = 0.0;
+
     public static final double ELEVATOR_P = 0.04;
     public static final double ELEVATOR_I = 0.0;
     public static final double ELEVATOR_D = 0.4;
@@ -56,6 +59,29 @@ public class Constants {
     public static final double ELEVATOR_MANUAL_DEADBAND_UP = 0.2;
     public static final double ELEVATOR_MANUAL_DEADBAND_DOWN = -0.2;
     public static final double ELEVATOR_MANUAL_DPOS_SCALAR = 10000.0;
+
+
+    //ENDGAME Constants
+
+    public static final double ENDGAME_F_UP = -0.10;
+    public static final double ENDGAME_P = 0.05;
+    public static final double ENDGAME_I = 0.0;
+    public static final double ENDGAME_D = 0.50;
+
+    public static final double ENDGAME_UP_OUTPUT_PERCENT = 0.6;
+    public static final double ENDGAME_DOWN_OUTPUT_PERCENT = -0.6;
+
+    public static final int ENDGAME_ZERO = -4350; //if feet are slightly out since they can't go all the way back in
+    public static final int ENDGAME_ZERO_ANKLES = -33500; //if ankles are deployed, zero is even lower to ensure we don't damage the robot
+
+    public static final int ENDGAME_TOP = -74500;
+    public static final int ENDGAME_CHILL = -66700;
+    public static final int ENDGAME_CHILL2 = -60000;
+
+    public static final int ENDGAME_FINISH_TOLERANCE  = 5000; //guess
+
+    public static final double ENDGAME_DRIVE_SPEED = 0.25;
+
 
     //Output Percents
     public static final double ELEVATOR_OUTPUT_PERCENT = 1.0;

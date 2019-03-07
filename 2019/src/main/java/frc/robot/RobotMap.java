@@ -32,8 +32,8 @@ public class RobotMap {
   public static final int ELEVATOR_TWO = 7;
   public static final int ELEVATOR_THREE = 11;
 
-  //Map Feet CAN IDs
-  public static final int FEET = 12;
+  //Map End Game CAN IDs
+  public static final int ENDGAME_DRIVE = 12;
    
   //Map Roller Claw CAN IDs
   public static final int ROLLER_ONE = 5;
@@ -56,8 +56,8 @@ public class RobotMap {
   public static final int DISC_INTAKE_SOLENOID = 1;
   public static final int BEAK_4BAR_SOLENOID = 2;
   public static final int BEAK_GRAB_SOLENOID = 3;
-  public static final int ENDGAME_SHIFT_FORWARD = 4;
-  public static final int ENDGAME_SHIFT_REVERSE = 5;
+  public static final int ENDGAME_SHIFT_FORWARD = 5;
+  public static final int ENDGAME_SHIFT_REVERSE = 4;
   public static final int ENDGAME_FEET_FORWARD = 6;
   public static final int ENDGAME_FEET_REVERSE = 7;
 
