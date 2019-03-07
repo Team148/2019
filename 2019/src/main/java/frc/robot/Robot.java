@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-import java.sql.Driver;
 import java.util.Arrays;
 import java.util.Optional; 
 
@@ -19,20 +18,18 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Watchdog;
+
 //import Subsystems
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.FloorBallIntake;
-// import frc.robot.subsystems.FloorDiscIntake;
 import frc.robot.subsystems.Beak;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.EndGame;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.RollerClaw;
-
 import frc.robot.SubsystemManager;
-// import frc.robot.commands.DeployFloorIntakes;
-// import frc.robot.commands.RetractFloorIntakes;
+
 //import Commands
 import frc.robot.commands.SetElevator;
 import frc.robot.commands.SetElevatorShifter;
@@ -66,7 +63,6 @@ public class Robot extends TimedRobot {
 
   public static FloorBallIntake m_Ball;
   public static Beak m_Beak;
-  // public static FloorDiscIntake m_Disc;
   public static Drivetrain m_DriveTrain;
   public static Elevator m_Elevator;
   public static EndGame m_EndGame;
@@ -102,7 +98,6 @@ public class Robot extends TimedRobot {
     
     m_Ball = FloorBallIntake.getInstance();
     m_Beak = Beak.getInstance();
-    // m_Disc = FloorDiscIntake.getInstance();
     m_DriveTrain = Drivetrain.getInstance();
     m_Elevator = Elevator.getInstance();
     m_EndGame = EndGame.getInstance();
@@ -113,7 +108,6 @@ public class Robot extends TimedRobot {
 
     mSubsystemManager.registerEnabledLoops(mEnabledLooper);
     mSubsystemManager.registerDisabledLoops(mDisabledLooper);
-
 
     mTrajectoryGenerator.generateTrajectories();
     mAutoModeSelector.updateModeCreator();
@@ -142,7 +136,6 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
 
     m_Ball.setMotorSafeties();
-    // m_Disc.setMotorSafeties();
     m_Claw.setMotorSafeties();
     m_Elevator.setMotorSafeties();
     m_DriveTrain.setMotorSafeties();
@@ -179,7 +172,7 @@ public class Robot extends TimedRobot {
     Optional<AutoModeBase> autoMode = mAutoModeSelector.getAutoMode();
     
     if (autoMode.isPresent() && autoMode.get() != mAutoModeExecutor.getAutoMode()) {
-      System.out.println("Set auto mode to: " + autoMode.get().getClass().toString());
+      // System.out.println("Set auto mode to: " + autoMode.get().getClass().toString());
       mAutoModeExecutor.setAutoMode(autoMode.get());
     }
     System.gc();
@@ -204,13 +197,11 @@ public class Robot extends TimedRobot {
     
     try {
       comp.setClosedLoopControl(false);
-      m_Limelight.SetEnableVision(true);
 
       CrashTracker.logAutoInit();
       mDisabledLooper.stop();
 
       RobotState.getInstance().reset(Timer.getFPGATimestamp(), Pose2d.identity());
-
       Drivetrain.getInstance().zeroSensors();
 
       mAutoModeExecutor.start();
@@ -242,7 +233,6 @@ public class Robot extends TimedRobot {
       mDisabledLooper.stop();
       
       comp.setClosedLoopControl(true);
-      m_Limelight.SetEnableVision(false);
 
       if (mAutoModeExecutor != null) {
           mAutoModeExecutor.stop();
@@ -271,8 +261,8 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
 
-    double timestamp = Timer.getFPGATimestamp();
-    SmartDashboard.putNumber("Match Time", timestamp);
+    // double timestamp = Timer.getFPGATimestamp();
+    // SmartDashboard.putNumber("Match Time", timestamp);
 
     SmartDashboard.putString("Match Cycle", "TELEOP");
     SmartDashboard.putNumber("Elevator Encoder", m_Elevator.getElevatorPosition());
@@ -281,7 +271,6 @@ public class Robot extends TimedRobot {
     double turn = m_OI.getTurn();
 
     double ballIntakePercent = 0.0;
-    // double discIntakePercent = 0.0;
     double rollerClawPercent = 0.0;
 
     try {
@@ -342,12 +331,10 @@ public class Robot extends TimedRobot {
         //face buttons
         if(m_OI.getOperator4BarIn() || (m_OI.m_driveJoystick.getPOV() == 270)) {
           m_Beak.setBeakBar(false);
-          // m_Disc.setDiscIntakeCylinder(false);
         }
 
         if(m_OI.getOperator4BarOut() || (m_OI.m_driveJoystick.getPOV() == 90)) {
           m_Beak.setBeakBar(true);
-          // m_Disc.setDiscIntakeCylinder(true);
         }
 
         //left bumper
@@ -362,7 +349,6 @@ public class Robot extends TimedRobot {
         }
 
         //elevator presets w/ dPad
-
         if(m_OI.m_operatorJoystick.getRawButtonPressed(7) && m_OI.m_operatorJoystick.getRawButton(8)){
           Scheduler.getInstance().add(new AutoHang());
         }
@@ -384,7 +370,6 @@ public class Robot extends TimedRobot {
         //set subsystems motors and soleno ids from inputs
         m_Ball.setBallIntakeMotor(ballIntakePercent);
         m_Claw.setRollerClaw(rollerClawPercent);
-        // m_Disc.setDiscIntakeMotor(discIntakePercent);
 
     } catch (Throwable t) {
         CrashTracker.logThrowableCrash(t);
