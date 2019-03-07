@@ -24,17 +24,17 @@ public class Constants {
     public static final double DRIVE_FEEDFORWARD = 0.05;
 
     //Elevator Constants
-    public static final int ELEVATOR_SOFT_LIMIT = 39000;
+    public static final int ELEVATOR_SOFT_LIMIT = 52650;
     public static final double ELEVATOR_UP_OUTPUT_PERCENT = 1.0;
     public static final double ELEVATOR_DOWN_OUTPUT_PERCENT = -0.4;
 
-    public static final double ELEVATOR_F_UP = 0.1367;
-    public static final double ELEVATOR_F_DOWN = ELEVATOR_F_UP - 0.025;
+    public static final double ELEVATOR_F_UP = 0.08;
+    public static final double ELEVATOR_F_DOWN = ELEVATOR_F_UP - 0.030;
     public static final double ELEVATOR_ZERO_F = -0.0732;
     // public static final double ELEVATOR_ZERO_F = 0.0;
-    public static final double ELEVATOR_P = 0.05;
+    public static final double ELEVATOR_P = 0.04;
     public static final double ELEVATOR_I = 0.0;
-    public static final double ELEVATOR_D = 0.50;
+    public static final double ELEVATOR_D = 0.4;
 
     public static final double ELEVATOR_F_VELOCITY = 0.26;
     public static final double ELEVATOR_P_VELOCITY = 0.7;
@@ -43,10 +43,11 @@ public class Constants {
     public static final double ELEVATOR_AUX_F_VELOCITY = 0.1367;
 
     public static final double ELEVATOR_ZERO = 0.0;
-    public static final double ELEVATOR_CARGO = 8000;
-    public static final double ELEVATOR_MIDDLE = 17000;
-    public static final double ELEVATOR_HIGH = 36000;
-    public static final double ELEVATOR_MAX_HEIGHT = 39000;
+
+    public static final double ELEVATOR_CARGO = 11500;
+    public static final double ELEVATOR_MIDDLE = 22950;
+    public static final double ELEVATOR_HIGH = 47250;
+    public static final double ELEVATOR_MAX_HEIGHT = 52650;
 
     public static final double ELEVATOR_ZERO_NEUTRAL_POSITION = 3000.0;
     public static final double ELEVATOR_ZERO_NEUTRAL_POSITION_DEADBAND = 1000.0;
