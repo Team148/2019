@@ -54,6 +54,13 @@ public class CargoShipModeHard extends AutoModeBase {
 
         runAction(new SeriesAction (
             Arrays.asList(
+                // new TurnToTarget(0.5),
+                new OpenLoopDrive(0.5, 0.5, 0.5)
+            )
+        ));
+
+        runAction(new SeriesAction (
+            Arrays.asList(
                 new OpenCloseBeak(true),
                 new SeriesAction(
                     Arrays.asList(

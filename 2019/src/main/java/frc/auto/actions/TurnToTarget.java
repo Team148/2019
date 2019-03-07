@@ -6,8 +6,6 @@ import frc.robot.subsystems.Limelight;
 
 import lib.util.DriveSignal;
 
-import static org.junit.jupiter.api.DynamicTest.stream;
-
 import edu.wpi.first.wpilibj.Timer;
 
 public class TurnToTarget implements Action {
@@ -47,16 +45,23 @@ public class TurnToTarget implements Action {
 
     @Override
     public void start() {
+        System.out.println("INSIDE TURNTOTARGET!!!!!!");
         if(offsetAngle > 1.0) {
             steeringAdjust = Constants.HEADING_P * headingError - minimumCommand;
+
+            System.out.println("TURNING LEFT TO TARGET!!!!!!");
         }
         else if(offsetAngle < 1.0) {
             steeringAdjust = Constants.HEADING_P * headingError + minimumCommand;
+
+            System.out.println("TURNING RIGHT TO TARGET!!!!!!");
         }
         leftCommand += steeringAdjust;
         rightCommand -= steeringAdjust;
 
         mDrive.setOpenLoop(new DriveSignal(leftCommand, rightCommand));
         mStartTime = Timer.getFPGATimestamp();
+
+        System.out.println("STARTED THE TURN TIMEOUT!!!!!!");
     }
 }

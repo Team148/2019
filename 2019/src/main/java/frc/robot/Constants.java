@@ -20,7 +20,7 @@ public class Constants {
     //Drivetrain Constants
     public static final int DRIVE_ENCODER_TPR = 5000;
 
-    public static final double HEADING_P = -0.1;
+    public static final double HEADING_P = 0.7;
     public static final double DRIVE_FEEDFORWARD = 0.05;
 
     //Elevator Constants

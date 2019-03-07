@@ -23,8 +23,12 @@ public class RocketModeHard extends AutoModeBase {
 
         if (mStartedLeft) {
             mLevel2ToRocketOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().leftLevel2toRocketOne, true);
+            mEndRocketToTurn = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().leftRocketOneToTurn, false);
+            mEndTurnToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endLeftTurnToLoadingStation, false);
         } else {
             mLevel2ToRocketOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rightLevel2toRocketOne, true);
+            mEndRocketToTurn = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rightRocketOneToTurn, false);
+            mEndTurnToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endRightTurnToLoadingStation, false);
         }
 
         // mLevel1ToRocketThree = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level1ToRocketThree.get(mStartedLeft), true);
@@ -53,36 +57,38 @@ public class RocketModeHard extends AutoModeBase {
 
         runAction(new SeriesAction (
             Arrays.asList(
-                new TurnToTarget(0.5),
-                new OpenLoopDrive(0.25, 0.25, 0.5)
+                new OpenLoopDrive(0.5, 0.5, 0.5)
             )
         ));
 
         runAction(new SeriesAction (
             Arrays.asList(
                 new OpenCloseBeak(true),
-                new SeriesAction(
-                    Arrays.asList(
-                        new WaitAction(0.25),
-                        new OpenLoopDrive(-0.5, -0.5, 0.5)
-                    )
-                )
+                new WaitAction(0.25)
             )
         ));
 
-        // // //Get Second Hatch
-        // runAction(new ParallelAction (
-        //     Arrays.asList(
-        //         mEndRocketToTurn
-        //     )
-        // ));
+        // //Get Second Hatch
+        runAction(new ParallelAction (
+            Arrays.asList(
+                mEndRocketToTurn
+            )
+        ));
 
-        // // //Score Second Hatch
-        // runAction(new ParallelAction (
-        //     Arrays.asList(
-        //         mEndTurnToLoadingStation
-        //     )
-        // ));
+        runAction(new ParallelAction (
+            Arrays.asList(
+                mEndTurnToLoadingStation
+            )
+        ));
+
+        runAction(new SeriesAction (
+            Arrays.asList(
+                new OpenCloseBeak(false),
+                new WaitAction(0.25),
+                new OpenLoopDrive(-0.5, -0.5, 2.0)
+
+            )
+        ));
 
         // // //Score Second Hatch
         // runAction(new ParallelAction (
