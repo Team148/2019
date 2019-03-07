@@ -140,7 +140,7 @@ public class Limelight extends Subsystem {
   
   public double GetOffsetAngle() {
  
-    System.out.println(xOffSet.getDouble(0));
+    // System.out.println(xOffSet.getDouble(0));
     return xOffSet.getDouble(0);
   
   }
@@ -160,7 +160,7 @@ public class Limelight extends Subsystem {
       return false;
   }
   
-  void SetEnableVision(boolean on) {
+  public void SetEnableVision(boolean on) {
     if(on)
       m_camMode = 0.0;
     else

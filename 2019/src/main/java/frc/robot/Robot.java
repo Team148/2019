@@ -199,6 +199,7 @@ public class Robot extends TimedRobot {
     
     try {
       comp.setClosedLoopControl(false);
+      m_Limelight.SetEnableVision(true);
 
       CrashTracker.logAutoInit();
       mDisabledLooper.stop();
@@ -236,6 +237,7 @@ public class Robot extends TimedRobot {
       mDisabledLooper.stop();
       
       comp.setClosedLoopControl(true);
+      m_Limelight.SetEnableVision(false);
 
       if (mAutoModeExecutor != null) {
           mAutoModeExecutor.stop();
