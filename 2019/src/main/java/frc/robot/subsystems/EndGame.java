@@ -26,11 +26,11 @@ public class EndGame extends Subsystem {
 
   private static EndGame m_instance;
 
-  private boolean m_EndGameShifted = false;
+
   private boolean m_AnklesReleased = false;
 
 
-  private final DoubleSolenoid m_endGameShifter = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.ENDGAME_SHIFT_FORWARD, RobotMap.ENDGAME_SHIFT_REVERSE);
+ 
   private final DoubleSolenoid m_endGameAnkles = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.ENDGAME_FEET_FORWARD, RobotMap.ENDGAME_FEET_REVERSE);
 
   private final WPI_TalonSRX m_EndGameDrive = new WPI_TalonSRX(RobotMap.ENDGAME_DRIVE);
@@ -38,6 +38,10 @@ public class EndGame extends Subsystem {
   public EndGame() {
 
     super();
+
+    this.configureMotors();
+    this.setAnklesReleased(false);
+
   }
 
   @Override
@@ -51,6 +55,8 @@ public class EndGame extends Subsystem {
       m_instance = new EndGame();
     }
     return m_instance;
+
+
   }
 
   private void setFactoryDefault() {
@@ -59,50 +65,43 @@ public class EndGame extends Subsystem {
 
   private void configureMotors() {
 
+    setFactoryDefault();    
+
     m_EndGameDrive.set(ControlMode.PercentOutput, 0.0);
 
-    m_EndGameDrive.configOpenloopRamp(1.0, 0);
+    m_EndGameDrive.configOpenloopRamp(0.5, 0);
 
-    m_EndGameDrive.configVoltageCompSaturation(12.0, 0);
+    m_EndGameDrive.configVoltageCompSaturation(10.0, 0);
     m_EndGameDrive.enableVoltageCompensation(true);
 
     m_EndGameDrive.configNominalOutputForward(0.0, 0);
     m_EndGameDrive.configNominalOutputReverse(0.0, 0);
+    m_EndGameDrive.setInverted(true);
     
   }
 
-  public void setEndGameShifted (boolean on) {
 
+  public void setEndGameDriveSpeed(double speed){
 
-    if (on) {
-      m_endGameShifter.set(Value.kForward);
-      m_EndGameShifted = true;
-    }
-    else {
-      m_endGameShifter.set(Value.kReverse);
-    }
+    //note only positive values
+
+      m_EndGameDrive.set(ControlMode.PercentOutput, speed);
+    // if(on)
+    //   m_EndGameDrive.set(ControlMode.PercentOutput, -Constants.ENDGAME_DRIVE_SPEED);
+    // else
+    //   m_EndGameDrive.set(ControlMode.PercentOutput, 0);
   }
 
-  public void setDriveForward(boolean on){
-    if(on)
-      m_EndGameDrive.set(ControlMode.PercentOutput, -Constants.ENDGAME_DRIVE_SPEED);
-    else
-      m_EndGameDrive.set(ControlMode.PercentOutput, 0);
-  }
+  public void setAnklesReleased (boolean isBroken) {
 
-  public void setAnklesReleased (boolean on) {
-
-    if (on) {
+    if (isBroken) {
       m_endGameAnkles.set(Value.kForward);
       m_AnklesReleased = true;
     }
     else {
       m_endGameAnkles.set(Value.kReverse);
+      m_AnklesReleased = false;
     }
-  }
-
-  public boolean getEndGameShifted(){
-    return m_EndGameShifted;
   }
 
   public boolean getAnklesReleased(){

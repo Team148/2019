@@ -35,8 +35,13 @@ import frc.robot.SubsystemManager;
 // import frc.robot.commands.RetractFloorIntakes;
 //import Commands
 import frc.robot.commands.SetElevator;
-import frc.robot.commands.SetEndGame;
+import frc.robot.commands.SetElevatorShifter;
+import frc.robot.commands.AutoHang;
+import frc.robot.commands.SetEndGameHeight;
+import frc.robot.commands.SetAnkle;
+import frc.robot.commands.EndGameDrive;
 import frc.robot.commands.UpdateLimeLight;
+
 
 //import 254
 import frc.auto.AutoModeBase;
@@ -105,6 +110,7 @@ public class Robot extends TimedRobot {
     m_Claw = RollerClaw.getInstance();
     m_OI = OI.getInstance();
 
+
     mSubsystemManager.registerEnabledLoops(mEnabledLooper);
     mSubsystemManager.registerDisabledLoops(mDisabledLooper);
 
@@ -166,7 +172,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    System.out.println("Encoder Position: " + m_Elevator.getElevatorPosition());
+  //  System.out.println("Encoder Position: " + m_Elevator.getElevatorPosition());
     Scheduler.getInstance().run();
 
     mAutoModeSelector.updateModeCreator();
@@ -264,7 +270,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
 
-    System.out.println("Encoder Position: " + m_Elevator.getElevatorPosition());
+ //   System.out.println("Encoder Position: " + m_Elevator.getElevatorPosition());
 
     double timestamp = Timer.getFPGATimestamp();
     SmartDashboard.putNumber("Match Time", timestamp);
@@ -358,23 +364,41 @@ public class Robot extends TimedRobot {
 
         //elevator presets w/ dPad
 
-        if(m_OI.getEndgameSafety())
+        if(true)
         {
-          if(m_OI.m_operatorJoystick.getPOV() == 180) {
-            Scheduler.getInstance().add(new SetEndGame(Constants.ENDGAME_TOP));
+          // if(m_OI.m_operatorJoystick.getRawButtonPressed(1)){
+          //   Scheduler.getInstance().add(new EndGameDrive(0.75, 3.0));
+          // }
+
+          // if(m_OI.m_operatorJoystick.getPOV() == 0) {
+          //   Scheduler.getInstance().add(new SetEndGameHeight(Constants.ENDGAME_TOP));
+          // }
+
+          // if(m_OI.m_operatorJoystick.getPOV() == 90) {
+          //   Scheduler.getInstance().add(new SetAnkle(true));
+          // }
+
+          // if(m_OI.m_operatorJoystick.getPOV() == 180) {
+          //   Scheduler.getInstance().add(new EndGameDrive(0.5, 1.0));
+          // }
+          if(m_OI.m_operatorJoystick.getRawButtonPressed(1)){
+            Scheduler.getInstance().add(new AutoHang());
           }
-          if(m_OI.m_operatorJoystick.getPOV() == 90) {
-           EndGame.getInstance().setDriveForward(true);
-          }
-          else{
-            EndGame.getInstance().setDriveForward(false);
-          }
-          if(m_OI.m_operatorJoystick.getPOV() == 0) {
-            EndGame.getInstance().setAnklesReleased(true);
-          }
-          if(m_OI.m_operatorJoystick.getPOV() == 270) {
-            Scheduler.getInstance().add(new SetEndGame(Constants.ENDGAME_CHILL));
-          }
+
+          
+          //
+        //  EndGame.getInstance().setEndGameDriveSpeed(-m_OI.m_operatorJoystick.getRawAxis(5)*0.5);
+  //        Elevator.getInstance().setElevatorOpenLoop(-m_OI.m_operatorJoystick.getRawAxis(1)*0.5, true);
+
+
+        //   if(m_OI.m_operatorJoystick.getPOV() == 90) {
+        //   }
+        //   if(m_OI.m_operatorJoystick.getPOV() == 0) {
+        //     EndGame.getInstance().setAnklesReleased(true);
+        //   }
+        //   if(m_OI.m_operatorJoystick.getPOV() == 270) {
+        //  //   Scheduler.getInstance().add(new SetEndGame(Constants.ENDGAME_CHILL));
+        //   }
         }
         else{
           if(m_OI.m_operatorJoystick.getPOV() == 0) {
