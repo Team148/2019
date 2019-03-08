@@ -85,10 +85,10 @@ public class OI {
   public boolean getDiscGrabWithSensor() {
     return m_driveStation.getRawButton(13);
   }
-  public boolean getEndgameSafety() {
+  public boolean getEndgameManual() {
     return m_driveStation.getRawButton(15);
   }
-  public boolean getFPGAEndgame() {
+  public boolean getEndgameSafety() {
     return m_driveStation.getRawButton(16);
   }
 
@@ -131,18 +131,31 @@ public class OI {
   public double getRetractIntakes() {
     return m_operatorJoystick.getRawAxis(3);
   }
-  public boolean getOperator4BarIn() {
-    return m_operatorJoystick.getRawButton(1);
+  public boolean getOperator1() {
+    // return m_operatorJoystick.getRawButton(1);
+    return m_operatorJoystick.getRawButtonPressed(1);
   }
-  public boolean getOperatorHandoff() {
+  public boolean getOperator2() {
     return m_operatorJoystick.getRawButton(2);
   }
-  public boolean getOperator4BarOut() {
+  public boolean getOperator3() {
     return m_operatorJoystick.getRawButton(3);
   }
-  public boolean getOperatorDiscIntakeUp() {
+  public boolean getOperator4() {
     return m_operatorJoystick.getRawButton(4);
   }
+  // public boolean getOperator4BarIn() {
+  //   return m_operatorJoystick.getRawButton(1);
+  // }
+  // public boolean getOperatorHandoff() {
+  //   return m_operatorJoystick.getRawButton(2);
+  // }
+  // public boolean getOperator4BarOut() {
+  //   return m_operatorJoystick.getRawButton(3);
+  // }
+  // public boolean getOperatorDiscIntakeUp() {
+  //   return m_operatorJoystick.getRawButton(4);
+  // }
   public boolean getFloorIntake() {
     return m_operatorJoystick.getRawButton(5);
   }
