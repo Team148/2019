@@ -39,7 +39,6 @@ public class FloorBallIntake extends Subsystem {
 
     setFactoryDefault();
     setBrakeMode(true);
-    configureMotor();
     setMotorSafeties();
 
   }
@@ -70,9 +69,9 @@ public class FloorBallIntake extends Subsystem {
       m_Ball1.setNeutralMode(NeutralMode.Coast);
     }
   }
-  public void configureMotor(){
-    m_Ball1.configOpenloopRamp(1.0, 0);
-  }
+  
+  // public void configureMotor(){
+  // }
 
   public void setMotorSafeties(){
     m_Ball1.setSafetyEnabled(false);

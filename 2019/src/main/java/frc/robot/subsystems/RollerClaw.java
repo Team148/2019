@@ -31,7 +31,6 @@ public class RollerClaw extends Subsystem {
 
     setFactoryDefault();
     setBrakeMode(true);
-    configureMotor();
     setMotorSafeties();
 
 
@@ -60,9 +59,9 @@ public class RollerClaw extends Subsystem {
     m_Roller1.setSafetyEnabled(false);
   }
 
-  private void configureMotor() {
-    m_Roller1.configOpenloopRamp(1.0, 0);
-  }
+  // private void configureMotor() {
+  //   m_Roller1.configOpenloopRamp(1.0, 0);
+  // }
 
   @Override
   public void initDefaultCommand() {
