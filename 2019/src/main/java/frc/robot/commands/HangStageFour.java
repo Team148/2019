@@ -9,7 +9,7 @@ public class HangStageFour extends CommandGroup {
 
   public HangStageFour() {
     addSequential(new SetEndGameHeight(Constants.ENDGAME_CHILL));
-    addSequential(new WaitCommand(1.0));
+    addSequential(new WaitCommand(0.25));
     addSequential(new SetEndGameHeight(Constants.ENDGAME_CHILL2));
   }
 }

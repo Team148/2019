@@ -182,7 +182,7 @@ public class Drivetrain extends Subsystem {
     m_driveRight1.configPeakOutputReverse(-1.0, 0);
 
     m_driveLeft1.setSensorPhase(true);
-    m_driveRight1.setSensorPhase(true);
+    m_driveRight1.setSensorPhase(false);
   }
 
   public void setMotorSafeties() {

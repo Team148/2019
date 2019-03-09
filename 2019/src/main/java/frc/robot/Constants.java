@@ -32,7 +32,8 @@ public class Constants {
 
     public static final double ELEVATOR_F_UP = 0.08;
     public static final double ELEVATOR_F_DOWN = ELEVATOR_F_UP - 0.030;
-    public static final double ELEVATOR_ZERO_F = -0.0732;
+    // public static final double ELEVATOR_ZERO_F = -0.0732;
+    public static final double ELEVATOR_ZERO_F = -0.01;
     // public static final double ELEVATOR_ZERO_F = 0.0;
 
     public static final double ELEVATOR_P = 0.04;

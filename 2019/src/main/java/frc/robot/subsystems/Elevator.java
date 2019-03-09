@@ -42,7 +42,7 @@ public class Elevator extends Subsystem {
   private final WPI_TalonSRX m_elevator3 = new WPI_TalonSRX(RobotMap.ELEVATOR_THREE);
 
   //declare Elevator Shifter Solenoids
-  private final DoubleSolenoid m_elevatorShifter = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.ENDGAME_SHIFT_FORWARD, RobotMap.ENDGAME_SHIFT_REVERSE);
+  private final DoubleSolenoid m_elevatorShifter = new DoubleSolenoid(0,RobotMap.ENDGAME_SHIFT_REVERSE, RobotMap.ENDGAME_SHIFT_FORWARD);
 
   public Elevator() {
 

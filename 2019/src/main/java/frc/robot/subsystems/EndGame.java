@@ -31,7 +31,7 @@ public class EndGame extends Subsystem {
 
 
  
-  private final DoubleSolenoid m_endGameAnkles = new DoubleSolenoid(RobotMap.PCM_ONE, RobotMap.ENDGAME_FEET_FORWARD, RobotMap.ENDGAME_FEET_REVERSE);
+  private final DoubleSolenoid m_endGameAnkles = new DoubleSolenoid(0, RobotMap.ENDGAME_FEET_FORWARD, RobotMap.ENDGAME_FEET_REVERSE);
 
   private final WPI_TalonSRX m_EndGameDrive = new WPI_TalonSRX(RobotMap.ENDGAME_DRIVE);
 

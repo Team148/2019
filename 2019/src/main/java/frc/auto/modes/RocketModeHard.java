@@ -45,24 +45,20 @@ public class RocketModeHard extends AutoModeBase {
         //Score First Hatch
         runAction(new ParallelAction (
             Arrays.asList(
-                mLevel2ToRocketOne,
-                new SeriesAction(
-                    Arrays.asList(
-                        new WaitAction(2.0),
-                        new ExtendRetract4Bar(true)
-                    )
-                )
+                mLevel2ToRocketOne
             )
         ));
 
         runAction(new SeriesAction (
             Arrays.asList(
+                new ExtendRetract4Bar(true),
                 new OpenLoopDrive(0.5, 0.5, 0.5)
             )
         ));
 
         runAction(new SeriesAction (
             Arrays.asList(
+                new ExtendRetractBallIntake(true),
                 new OpenCloseBeak(true),
                 new WaitAction(0.25)
             )
@@ -71,7 +67,8 @@ public class RocketModeHard extends AutoModeBase {
         // //Get Second Hatch
         runAction(new ParallelAction (
             Arrays.asList(
-                mEndRocketToTurn
+                mEndRocketToTurn,
+                new ExtendRetractBallIntake(false)
             )
         ));
 
@@ -81,14 +78,14 @@ public class RocketModeHard extends AutoModeBase {
             )
         ));
 
-        runAction(new SeriesAction (
-            Arrays.asList(
-                new OpenCloseBeak(false),
-                new WaitAction(0.25),
-                new OpenLoopDrive(-0.5, -0.5, 2.0)
+        // runAction(new SeriesAction (
+        //     Arrays.asList(
+        //         new OpenCloseBeak(false),
+        //         new WaitAction(0.25),
+        //         new OpenLoopDrive(-0.5, -0.5, 2.0)
 
-            )
-        ));
+        //     )
+        // ));
 
         // // //Score Second Hatch
         // runAction(new ParallelAction (

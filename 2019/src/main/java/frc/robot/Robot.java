@@ -348,9 +348,9 @@ public class Robot extends TimedRobot {
               Scheduler.getInstance().add(new HangStageOne());
             }
 
-            if(m_OI.getOperator2()) {
-              Scheduler.getInstance().add(new HangStageTwo());
-            }
+            // if(m_OI.getOperator2()) {
+            //   Scheduler.getInstance().add(new HangStageTwo());
+            // }
     
             if(m_OI.getOperator3()) {
               Scheduler.getInstance().add(new HangStageThree());
@@ -359,8 +359,8 @@ public class Robot extends TimedRobot {
             if(m_OI.getOperator4()) {
               Scheduler.getInstance().add(new HangStageFour());
             }
-            if(m_OI.m_operatorJoystick.getRawAxis(5) > 0.2) {
-              feetPercent = Math.abs(m_OI.m_operatorJoystick.getRawAxis(5) * 0.5);
+            if(m_OI.m_operatorJoystick.getRawAxis(5) < -0.2) {
+              feetPercent = -1 * (Math.abs(m_OI.m_operatorJoystick.getRawAxis(5) * 0.5));
             }
           }
           else {
