@@ -124,9 +124,9 @@ public class TrajectoryGenerator {
     public static final Pose2d kLevel1LeftRocketOnePose = new Pose2d(new Translation2d(200.0, 138.0), Rotation2d.fromDegrees(30.0));
     public static final Pose2d kLevel1RightRocketOnePose = new Pose2d(new Translation2d(200.0, -138.0), Rotation2d.fromDegrees(330.0));
 
-    public static final Pose2d kLevel2LeftRocketOnePose = new Pose2d(new Translation2d(195.0, 132.0), Rotation2d.fromDegrees(30.0));
+    public static final Pose2d kLevel2LeftRocketOnePose = new Pose2d(new Translation2d(195.0, 130.0), Rotation2d.fromDegrees(30.0));
     // public static final Pose2d kLevel2RightRocketOnePose = new Pose2d(new Translation2d(200.0, -139.0), Rotation2d.fromDegrees(315.0));
-    public static final Pose2d kLevel2RightRocketOnePose = new Pose2d(new Translation2d(195.0, -132.0), Rotation2d.fromDegrees(330.0));
+    public static final Pose2d kLevel2RightRocketOnePose = new Pose2d(new Translation2d(195.0, -130.0), Rotation2d.fromDegrees(330.0));
 
 
 
@@ -142,8 +142,8 @@ public class TrajectoryGenerator {
     // public static final Pose2d kLevel2RocketThreePose = new Pose2d(new Translation2d(280.0, -125.0), Rotation2d.fromDegrees(210.0));
 
     //Loading Station Poses
-    public static final Pose2d kLeftLoadingStationPose = new Pose2d(new Translation2d(25.0, 128.0), Rotation2d.fromDegrees(180.0));
-    public static final Pose2d kRightLoadingStationPose = new Pose2d(new Translation2d(25.0, -128.0), Rotation2d.fromDegrees(180.0)); 
+    public static final Pose2d kLeftLoadingStationPose = new Pose2d(new Translation2d(25.0, 132.0), Rotation2d.fromDegrees(180.0));
+    public static final Pose2d kRightLoadingStationPose = new Pose2d(new Translation2d(25.0, -132.0), Rotation2d.fromDegrees(180.0)); 
 
     public class TrajectorySet {
         public class MirroredTrajectory {

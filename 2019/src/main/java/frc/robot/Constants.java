@@ -77,7 +77,7 @@ public class Constants {
 
     public static final int ENDGAME_TOP = -74500;
     public static final int ENDGAME_CHILL = -66700;
-    public static final int ENDGAME_CHILL2 = -60000;
+    public static final int ENDGAME_CHILL2 = -55000; //60000
 
     public static final int ENDGAME_FINISH_TOLERANCE  = 5000; //guess
 

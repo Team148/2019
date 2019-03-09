@@ -383,7 +383,7 @@ public class Robot extends TimedRobot {
         //left bumper
         if(m_OI.getFloorIntake()) {
             ballIntakePercent = -1.0;
-            rollerClawPercent = -0.4;
+            rollerClawPercent = -0.6;
         }
         //right bumper
         if(m_OI.getFloorOuttake()) {

@@ -58,9 +58,10 @@ public class RocketModeHard extends AutoModeBase {
 
         runAction(new SeriesAction (
             Arrays.asList(
-                new ExtendRetractBallIntake(true),
                 new OpenCloseBeak(true),
-                new WaitAction(0.25)
+                new WaitAction(0.25),
+                new ExtendRetractBallIntake(true),
+                new WaitAction(0.5)
             )
         ));
 
