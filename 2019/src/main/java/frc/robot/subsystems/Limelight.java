@@ -50,9 +50,9 @@ public class Limelight extends Subsystem {
 
     System.out.println("Creating Limelight");
 
-    m_LEDMode = 1.0;		//set LEDs to default to off
-    m_pipeline = 0.0;		//sort by largest
-    m_camMode = 1.0;		//vision processing OFF
+    m_LEDMode = 0.0;		//set LEDs to default to off
+    m_pipeline = 0.0;		//2019 target, dual, closest
+    m_camMode = 0.0;		//vision processing ON
 
   }
 

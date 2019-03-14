@@ -92,6 +92,7 @@ public class Robot extends TimedRobot {
   public static OI m_OI;
 
   private final Compressor comp = new Compressor(1);
+  private boolean autoInterrupted = false;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -215,10 +216,29 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
 
+    double throttle = m_OI.getThrottle();
+    double turn = m_OI.getTurn();
+
     SmartDashboard.putString("Match Cycle", "AUTONOMOUS");
 
-    RobotState.getInstance().outputToSmartDashboard();
-    Drivetrain.getInstance().outputTelemetry();
+    if (m_OI.m_driveJoystick.getRawButton(7) && m_OI.m_driveJoystick.getRawButton(8)) {
+      mAutoModeExecutor.stop();
+      autoInterrupted = true;
+    }
+
+    if (autoInterrupted) {
+      if(m_OI.m_driveJoystick.getRawButton(10)) {
+        m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn));
+      }
+      else {
+        m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn * 0.7));
+      }
+
+      
+    }
+
+    // RobotState.getInstance().outputToSmartDashboard();
+    // Drivetrain.getInstance().outputTelemetry();
   }
 
   @Override
@@ -259,8 +279,8 @@ public class Robot extends TimedRobot {
     // double timestamp = Timer.getFPGATimestamp();
     // SmartDashboard.putNumber("Match Time", timestamp);
 
-    SmartDashboard.putString("Match Cycle", "TELEOP");
-    SmartDashboard.putNumber("Elevator Encoder", m_Elevator.getElevatorPosition());
+    // SmartDashboard.putString("Match Cycle", "TELEOP");
+    // SmartDashboard.putNumber("Elevator Encoder", m_Elevator.getElevatorPosition());
 
     double throttle = m_OI.getThrottle();
     double turn = m_OI.getTurn();

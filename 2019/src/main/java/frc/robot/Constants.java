@@ -131,6 +131,9 @@ public class Constants {
     public static final int kDriveLowGearVelocityIZone = 0;
     public static final double kDriveVoltageRampRate = 0.0;
 
+    //Aiming gains
+    public static final double kP_aim = 0.7;
+
     //CAN timeouts
     public static final int kCANTimeoutMs = 10; //use for on the fly updates
     public static final int kLongCANTimeoutMs = 100; //use for constructors

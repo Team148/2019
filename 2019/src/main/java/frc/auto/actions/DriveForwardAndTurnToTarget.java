@@ -1,5 +1,3 @@
-//Action to turn to line up with a valid limelight target.
-//This assumes that we stop very short of a valid target without checking.
 package frc.auto.actions;
 
 import frc.robot.Constants;
@@ -10,7 +8,7 @@ import lib.util.DriveSignal;
 
 import edu.wpi.first.wpilibj.Timer;
 
-public class TurnToTarget implements Action {
+public class DriveForwardAndTurnToTarget implements Action {
     private static final Drivetrain mDrive = Drivetrain.getInstance();
 
     private double mStartTime;
@@ -22,11 +20,12 @@ public class TurnToTarget implements Action {
     private double steeringAdjust;
 
     private double minimumCommand = Constants.DRIVE_FEEDFORWARD;
+    private double testForwardPercent = 0.2;
 
     private double leftCommand = 0.0;
     private double rightCommand = 0.0;
 
-    public TurnToTarget(double duration) {
+    public DriveForwardAndTurnToTarget(double duration) {
         mDuration = duration;
     }
 
@@ -50,8 +49,8 @@ public class TurnToTarget implements Action {
             mFinished = true;
         }
 
-        leftCommand += steeringAdjust;
-        rightCommand -= steeringAdjust;
+        leftCommand += steeringAdjust + testForwardPercent;
+        rightCommand -= steeringAdjust + testForwardPercent;
 
         mDrive.setOpenLoop(new DriveSignal(leftCommand, rightCommand));
 
