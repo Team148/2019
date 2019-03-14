@@ -71,7 +71,7 @@ public class AutoModeSelector {
         DesiredMode desiredMode = mModeChooser.getSelected();
 
         if (mCachedDesiredMode != desiredMode || mCachedStartingHeight != startingHeight || mCachedStartingPosition != startingPosition) {
-            System.out.println("Auto selection changed, updating creator! Desired Mode->" + desiredMode.name() + ", Starting Height->" + startingHeight.name() + ", Starting Position->" + startingPosition.name());
+            //System.out.println("Auto selection changed, updating creator! Desired Mode->" + desiredMode.name() + ", Starting Height->" + startingHeight.name() + ", Starting Position->" + startingPosition.name());
             mCreator = getCreatorForParams(desiredMode, startingHeight, startingPosition);
         }
 
@@ -96,8 +96,7 @@ public class AutoModeSelector {
             default:
                 break;
         }
-
-        System.err.println("No valid auto mode found for  " + mode);
+        //System.err.println("No valid auto mode found for  " + mode);
         return Optional.empty();
     }
 

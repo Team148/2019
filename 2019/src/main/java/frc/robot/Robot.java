@@ -98,8 +98,7 @@ public class Robot extends TimedRobot {
    * used for any initialization code.
    */
   @Override
-  public void robotInit() {
-    
+  public void robotInit() { 
     m_Ball = FloorBallIntake.getInstance();
     m_Beak = Beak.getInstance();
     m_DriveTrain = Drivetrain.getInstance();
