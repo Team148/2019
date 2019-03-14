@@ -65,6 +65,23 @@ import lib.util.*;
  */
 public class Robot extends TimedRobot {
 
+  private Looper mEnabledLooper = new Looper();
+  private Looper mDisabledLooper = new Looper();
+
+  private ArcadeDriveHelper mArcadeDriveHelper = new ArcadeDriveHelper();
+
+  private TrajectoryGenerator mTrajectoryGenerator = TrajectoryGenerator.getInstance();;
+  private AutoModeSelector mAutoModeSelector = new AutoModeSelector();
+
+  private AutoModeExecutor mAutoModeExecutor;
+
+  private final SubsystemManager mSubsystemManager = new SubsystemManager(
+    Arrays.asList(
+      RobotStateEstimator.getInstance(),
+      Drivetrain.getInstance()
+    )
+  );
+
   public static FloorBallIntake m_Ball;
   public static Beak m_Beak;
   public static Drivetrain m_DriveTrain;
@@ -73,23 +90,6 @@ public class Robot extends TimedRobot {
   public static Limelight m_Limelight;
   public static RollerClaw m_Claw;
   public static OI m_OI;
-
-  private TrajectoryGenerator mTrajectoryGenerator = TrajectoryGenerator.getInstance();;
-  private AutoModeSelector mAutoModeSelector = new AutoModeSelector();
-
-  private AutoModeExecutor mAutoModeExecutor;
-
-  private Looper mEnabledLooper = new Looper();
-  private Looper mDisabledLooper = new Looper();
-
-  private ArcadeDriveHelper mArcadeDriveHelper = new ArcadeDriveHelper();
-
-  private final SubsystemManager mSubsystemManager = new SubsystemManager(
-            Arrays.asList(
-                    RobotStateEstimator.getInstance(),
-                    Drivetrain.getInstance()
-            )
-    );
 
   private final Compressor comp = new Compressor(1);
 
@@ -108,7 +108,6 @@ public class Robot extends TimedRobot {
     m_Limelight = Limelight.getInstance();
     m_Claw = RollerClaw.getInstance();
     m_OI = OI.getInstance();
-
 
     mSubsystemManager.registerEnabledLoops(mEnabledLooper);
     mSubsystemManager.registerDisabledLoops(mDisabledLooper);
@@ -139,28 +138,21 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
 
-    m_Ball.setMotorSafeties();
-    m_Claw.setMotorSafeties();
-    m_Elevator.setMotorSafeties();
-    m_DriveTrain.setMotorSafeties();
-
-      try {
-        CrashTracker.logDisabledInit();
-        mEnabledLooper.stop();
-        if (mAutoModeExecutor != null) {
-          mAutoModeExecutor.stop();
+    try {
+      CrashTracker.logDisabledInit();
+      mEnabledLooper.stop();
+      if (mAutoModeExecutor != null) {
+        mAutoModeExecutor.stop();
       }
 
-        Drivetrain.getInstance().zeroSensors();
-        RobotState.getInstance().reset(Timer.getFPGATimestamp(), Pose2d.identity());
+      Drivetrain.getInstance().zeroSensors();
+      RobotState.getInstance().reset(Timer.getFPGATimestamp(), Pose2d.identity());
 
-        mAutoModeSelector.reset();
-        mAutoModeSelector.updateModeCreator();
-        mAutoModeExecutor = new AutoModeExecutor();
+      mAutoModeSelector.reset();
+      mAutoModeSelector.updateModeCreator();
+      mAutoModeExecutor = new AutoModeExecutor();
 
-        mEnabledLooper.start();
-
-        mDisabledLooper.start();
+      mDisabledLooper.start();
     } catch (Throwable t) {
       CrashTracker.logThrowableCrash(t);
       throw t;
@@ -420,6 +412,5 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
-
   }
 }
