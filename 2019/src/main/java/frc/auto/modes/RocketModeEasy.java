@@ -14,6 +14,7 @@ public class RocketModeEasy extends AutoModeBase {
 
     final boolean mStartedLeft;
     private DriveTrajectory mLevel1ToRocketOne;
+    private DriveTrajectory mLevel1ToRocketOneStop;
     private DriveTrajectory mEndRocketToTurn;
     private DriveTrajectory mEndTurnToLoadingStation;
     private DriveTrajectory mLoadingStationToRocketTwo;
@@ -24,7 +25,9 @@ public class RocketModeEasy extends AutoModeBase {
         if (mStartedLeft) {
             mLevel1ToRocketOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().leftLevel1toRocketOne, true);
         } else {
-            mLevel1ToRocketOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rightLevel1toRocketOne, true);
+            // mLevel1ToRocketOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rightLevel1toRocketOne, true);
+
+            mLevel1ToRocketOneStop = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet.rightLevel1toRocketOneStop, true)''
         }
         // mLevel1ToRocketThree = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level1ToRocketThree.get(mStartedLeft), true);
         // mLevel1ToRocketOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level1ToRocketOne.get(mStartedLeft), true);

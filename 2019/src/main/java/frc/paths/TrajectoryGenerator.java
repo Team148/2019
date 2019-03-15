@@ -120,13 +120,29 @@ public class TrajectoryGenerator {
     public static final Pose2d kLeftCargoFourPose = new Pose2d(new Translation2d(302.0, 45.0), Rotation2d.fromDegrees(270.0));
     public static final Pose2d kRightCargoFourPose = new Pose2d(new Translation2d(302.0, -45.0), Rotation2d.fromDegrees(90.0));
 
+    //Rocket One Stop
+    public static final Pose2d kLevel1LeftRocketOneStopPose = new Pose2d(new Translation2d(200.0-15.8, 138.0-8.6), Rotation2d.fromDegrees(30.0));
+    public static final Pose2d kLevel1RightRocketOneStopPose = new Pose2d(new Translation2d(200.0-15.8, -138.0+8.6), Rotation2d.fromDegrees(330.0));
+
+    public static final Pose2d kLevel2LeftRocketOneStopPose = new Pose2d(new Translation2d(195.0-15.8, 130.0-8.6), Rotation2d.fromDegrees(30.0));
+    public static final Pose2d kLevel2RightRocketOneStopPose = new Pose2d(new Translation2d(195.0-15.8, -130.0+8.6), Rotation2d.fromDegrees(330.0));
+
+
     //Rocket One
     public static final Pose2d kLevel1LeftRocketOnePose = new Pose2d(new Translation2d(200.0, 138.0), Rotation2d.fromDegrees(30.0));
     public static final Pose2d kLevel1RightRocketOnePose = new Pose2d(new Translation2d(200.0, -138.0), Rotation2d.fromDegrees(330.0));
 
+    
+
     public static final Pose2d kLevel2LeftRocketOnePose = new Pose2d(new Translation2d(195.0, 130.0), Rotation2d.fromDegrees(30.0));
     // public static final Pose2d kLevel2RightRocketOnePose = new Pose2d(new Translation2d(200.0, -139.0), Rotation2d.fromDegrees(315.0));
     public static final Pose2d kLevel2RightRocketOnePose = new Pose2d(new Translation2d(195.0, -130.0), Rotation2d.fromDegrees(330.0));
+
+    //Rocket One Stop Plus Minus
+
+    public static final Pose2d kRightRocketOneStopRocketOneMinusOnePose = kLevel1RightRocketOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.96,-1.75)));
+    public static final Pose2d kRightRocketOneStopRocketOnePlusOnePose = kLevel1RightRocketOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.96,1.75)));
+
 
 
 
@@ -196,6 +212,10 @@ public class TrajectoryGenerator {
         public final Trajectory<TimedState<Pose2dWithCurvature>> endLeftTurnToLoadingStation;
         public final Trajectory<TimedState<Pose2dWithCurvature>> endRightTurnToLoadingStation;
 
+        public final Trajectory<TimedState<Pose2dWithCurvature>> rightLevel1toRocketOneStop;
+        public final Trajectory<TimedState<Pose2dWithCurvature>> RocketOneStoptoRocketOneMinus1;
+        public final Trajectory<TimedState<Pose2dWithCurvature>> RocketOneStoptoRocketOnePlus1;
+
         public final MirroredTrajectory level1ToRocketTwo;
         public final MirroredTrajectory level2ToRocketTwo;
 
@@ -233,6 +253,11 @@ public class TrajectoryGenerator {
 
             endRightTurnToLoadingStation = getEndRightTurnToLoadStation();
             endLeftTurnToLoadingStation = getEndLeftTurnToLoadStation();
+
+
+            rightLevel1toRocketOneStop =getRightLevel1toRocketOneStop;
+            RocketOneStoptoRocketOneMinus1 = getRightRocketOneStoptoRocketOneMinus1;
+            RocketOneStoptoRocketOnePlus1 = getRightRocketOneStoptoRocketOnePlus1;
 
             //Score first game piece
             level1ToCargoOne = new MirroredTrajectory(getLevel1ToCargoOne());
@@ -320,6 +345,33 @@ public class TrajectoryGenerator {
             List<Pose2d> waypoints = new ArrayList<>();
             waypoints.add(kRightLevel1StartPose);
             waypoints.add(kLevel1RightRocketOnePose);
+
+            return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
+                kMaxVelocity, kMaxAccel, kMaxVoltage);
+        }
+
+        private Trajectory<TimedState<Pose2dWithCurvature>> getRightLevel1toRocketOneStop() {
+            List<Pose2d> waypoints = new ArrayList<>();
+            waypoints.add(kRightLevel1StartPose);
+            waypoints.add(kLevel1RightRocketOneStopPose);
+
+            return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
+                kMaxVelocity, kMaxAccel, kMaxVoltage);
+        }
+
+        private Trajectory<TimedState<Pose2dWithCurvature>> getRightRocketOneStoptoRocketOneMinus1() {
+            List<Pose2d> waypoints = new ArrayList<>();
+            waypoints.add(kLevel1RightRocketOneStopPose);
+            waypoints.add(kRightRocketOneStopRocketOneMinusOnePose);
+
+            return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
+                kMaxVelocity, kMaxAccel, kMaxVoltage);
+        }
+
+        private Trajectory<TimedState<Pose2dWithCurvature>> getRightRocketOneStoptoRocketOnePlus1() {
+            List<Pose2d> waypoints = new ArrayList<>();
+            waypoints.add(kLevel1RightRocketOneStopPose);
+            waypoints.add(kRightRocketOneStopRocketOnePlusOnePose);
 
             return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
                 kMaxVelocity, kMaxAccel, kMaxVoltage);
