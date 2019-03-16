@@ -174,6 +174,7 @@ public class Robot extends TimedRobot {
 
     RobotState.getInstance().outputToSmartDashboard();
     Drivetrain.getInstance().outputTelemetry();
+    SmartDashboard.putNumber("Elevator Encoder", m_Elevator.getElevatorPosition());
   }
 
   /**

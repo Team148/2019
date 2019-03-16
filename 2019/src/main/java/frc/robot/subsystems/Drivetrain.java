@@ -181,6 +181,9 @@ public class Drivetrain extends Subsystem {
     m_driveRight1.configPeakOutputForward(1.0, 0);
     m_driveRight1.configPeakOutputReverse(-1.0, 0);
 
+    m_driveLeft1.overrideLimitSwitchesEnable(false);
+    m_driveRight1.overrideLimitSwitchesEnable(false);
+
     m_driveLeft1.setSensorPhase(true);
     m_driveRight1.setSensorPhase(false);
   }
