@@ -33,11 +33,15 @@ public class Limelight extends Subsystem {
   double m_LEDMode = 0.0;
   double m_pipeline = 0.0;
   double m_camMode = 0.0;
+  double xOffSet = 0.0;
+  double yOffset = 0.0;
+  double validObject = 0.0;
+  double targetArea = 0.0;
 
-  NetworkTableEntry validObject;
-	NetworkTableEntry xOffSet;
-	NetworkTableEntry yOffSet;
-	NetworkTableEntry targetArea;
+  // NetworkTableEntry validObject;
+	// NetworkTableEntry xOffSet;
+	// NetworkTableEntry yOffSet;
+	// NetworkTableEntry targetArea;
 	NetworkTableEntry skew;
 	NetworkTableEntry latency;
 	NetworkTableEntry ledMode;
@@ -83,8 +87,8 @@ public class Limelight extends Subsystem {
       NetworkTableEntry cammode = table.getEntry("camMode");
 
       //read values periodically
-      double validObject = tv.getDouble(-1);
-      double xOffSet = tx.getDouble(0.0);
+      validObject = tv.getDouble(-1);
+      xOffSet = tx.getDouble(0.0);
 //      double yOffSet = ty.getDouble(0.0);
       double m_LEDMode = ledMode.getDouble(0.0);
       double m_pipeline = pipeline.getDouble(0.0);
@@ -101,7 +105,7 @@ public class Limelight extends Subsystem {
   }
 
   public boolean CheckConnection() {  //??? this depends on return of null, -1?
-    if(validObject.getDouble(-1) == -1) {
+    if(validObject == -1.0) {
       System.out.println("Lost Connection to Limelight");
       table = NetworkTableInstance.getDefault().getTable("limelight");
       return false;
@@ -141,7 +145,7 @@ public class Limelight extends Subsystem {
   public double GetOffsetAngle() {
  
     // System.out.println(xOffSet.getDouble(0));
-    return xOffSet.getDouble(0);
+    return xOffSet;
   
   }
   public double GetTargetHeading() {
@@ -154,7 +158,7 @@ public class Limelight extends Subsystem {
   }
   
   public boolean IsTargeting() {
-    if(validObject.getDouble(0.0) > 0)
+    if(validObject > 0.0)
       return true;
     else
       return false;

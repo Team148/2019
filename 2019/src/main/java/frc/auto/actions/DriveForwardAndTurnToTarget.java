@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class DriveForwardAndTurnToTarget implements Action {
     private static final Drivetrain mDrive = Drivetrain.getInstance();
+    private static final Limelight mLL = Limelight.getInstance();
 
     private double mStartTime;
     private final double mDuration;
@@ -36,8 +37,8 @@ public class DriveForwardAndTurnToTarget implements Action {
 
     @Override
     public void update() {
-        validTarget = Limelight.getInstance().IsTargeting();
-        headingError = Limelight.getInstance().GetOffsetAngle();
+        validTarget = mLL.IsTargeting();
+        headingError = mLL.GetOffsetAngle();
         
         if (validTarget && headingError > 0.5) {
             steeringAdjust = Constants.kP_aim * headingError - minimumCommand;

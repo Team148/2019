@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class TurnToTarget implements Action {
     private static final Drivetrain mDrive = Drivetrain.getInstance();
+    private static final Limelight mLL = Limelight.getInstance();
 
     private double mStartTime;
     private final double mDuration;
@@ -37,24 +38,15 @@ public class TurnToTarget implements Action {
 
     @Override
     public void update() {
-        validTarget = Limelight.getInstance().IsTargeting();
-        headingError = Limelight.getInstance().GetOffsetAngle();
+        validTarget = mLL.IsTargeting();
+        headingError = mLL.GetOffsetAngle();
         
-        if (validTarget && headingError > 0.5) {
-            steeringAdjust = Constants.kP_aim * headingError - minimumCommand;
-        }
-        else if(validTarget && headingError < 0.5) {
-            steeringAdjust = Constants.kP_aim * headingError + minimumCommand;
-        }
-        else {
-            mFinished = true;
-        }
+        steeringAdjust = Constants.kP_aim * headingError;
 
         leftCommand += steeringAdjust;
         rightCommand -= steeringAdjust;
 
         mDrive.setOpenLoop(new DriveSignal(leftCommand, rightCommand));
-
     }
 
     @Override
@@ -66,4 +58,9 @@ public class TurnToTarget implements Action {
     public void start() {
         mStartTime = Timer.getFPGATimestamp();
     }
+
+    // public void correctHeading() {
+
+       
+    // }
 }

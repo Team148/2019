@@ -51,33 +51,35 @@ public class RocketModeHard extends AutoModeBase {
 
         runAction(new SeriesAction (
             Arrays.asList(
-                new ExtendRetract4Bar(true),
-                new OpenLoopDrive(0.5, 0.5, 0.5)
+                new TurnToTarget(0.25),
+                new WaitAction(1.0)
+                // new ExtendRetract4Bar(true),
+                // new OpenLoopDrive(0.5, 0.5, 0.5)
             )
         ));
 
-        runAction(new SeriesAction (
-            Arrays.asList(
-                new OpenCloseBeak(true),
-                new WaitAction(0.25),
-                new ExtendRetractBallIntake(true),
-                new WaitAction(0.5)
-            )
-        ));
+        // runAction(new SeriesAction (
+        //     Arrays.asList(
+        //         new OpenCloseBeak(true),
+        //         new WaitAction(0.25),
+        //         new ExtendRetractBallIntake(true),
+        //         new WaitAction(0.5)
+        //     )
+        // ));
 
         // //Get Second Hatch
-        runAction(new ParallelAction (
-            Arrays.asList(
-                mEndRocketToTurn,
-                new ExtendRetractBallIntake(false)
-            )
-        ));
+        // runAction(new ParallelAction (
+        //     Arrays.asList(
+        //         mEndRocketToTurn,
+        //         new ExtendRetractBallIntake(false)
+        //     )
+        // ));
 
-        runAction(new ParallelAction (
-            Arrays.asList(
-                mEndTurnToLoadingStation
-            )
-        ));
+        // runAction(new ParallelAction (
+        //     Arrays.asList(
+        //         mEndTurnToLoadingStation
+        //     )
+        // ));
 
         // runAction(new SeriesAction (
         //     Arrays.asList(
