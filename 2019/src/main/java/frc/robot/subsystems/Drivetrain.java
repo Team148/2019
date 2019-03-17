@@ -185,7 +185,7 @@ public class Drivetrain extends Subsystem {
     m_driveRight1.overrideLimitSwitchesEnable(false);
 
     m_driveLeft1.setSensorPhase(true);
-    m_driveRight1.setSensorPhase(false);
+    m_driveRight1.setSensorPhase(true);
   }
 
   public void setMotorSafeties() {
