@@ -174,67 +174,67 @@ public class TrajectoryGenerator {
     public static final Pose2d kRocketThreeMinusFour = kRocketThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.92, 3.5)));
     public static final Pose2d kRocketThreeMinusFive = kRocketThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-2.5, 4.375)));
 
+    //Cargo Corrections
+    public static final Pose2d kCargoOnePlusOne = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.0, 1.0)));
+    public static final Pose2d kCargoOnePlusTwo = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.0, 2.0)));
+    public static final Pose2d kCargoOnePlusThree = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.0, 3.0)));
+    public static final Pose2d kCargoOnePlusFour = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.0, 4.0)));
+    public static final Pose2d kCargoOnePlusFive = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.0, 5.0)));
 
-    public static final Pose2d kCargoOnePlusOne = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.48, 0.875)));
-    public static final Pose2d kCargoOnePlusTwo = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.96, 1.75)));
-    public static final Pose2d kCargoOnePlusThree = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(1.44, 2.625)));
-    public static final Pose2d kCargoOnePlusFour = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(1.92, 3.5)));
-    public static final Pose2d kCargoOnePlusFive = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(2.5, 4.375)));
+    public static final Pose2d kCargoOneMinusOne = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.0, -1.0)));
+    public static final Pose2d kCargoOneMinusTwo = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.0, -2.0)));
+    public static final Pose2d kCargoOneMinusThree = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.0, -3.0)));
+    public static final Pose2d kCargoOneMinusFour = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.0, -4.0)));
+    public static final Pose2d kCargoOneMinusFive = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.0, -5.0)));
 
-    public static final Pose2d kCargoOneMinusOne = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.48, 0.875)));
-    public static final Pose2d kCargoOneMinusTwo = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.96, 1.75)));
-    public static final Pose2d kCargoOneMinusThree = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.44, 2.625)));
-    public static final Pose2d kCargoOneMinusFour = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.92, 3.5)));
-    public static final Pose2d kCargoOneMinusFive = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-2.5, 4.375)));
+    public static final Pose2d kOppositeCargoOnePlusOne = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.0, -1.0)));
+    public static final Pose2d kOppositeCargoOnePlusTwo = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.0, -2.0)));
+    public static final Pose2d kOppositeCargoOnePlusThree = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.0, -3.0)));
+    public static final Pose2d kOppositeCargoOnePlusFour = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.0, -4.0)));
+    public static final Pose2d kOppositeCargoOnePlusFive = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.0, -5.0)));
 
-    public static final Pose2d kOppositeCargoOnePlusOne = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.48, 0.875)));
-    public static final Pose2d kOppositeCargoOnePlusTwo = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.96, 1.75)));
-    public static final Pose2d kOppositeCargoOnePlusThree = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(1.44, 2.625)));
-    public static final Pose2d kOppositeCargoOnePlusFour = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(1.92, 3.5)));
-    public static final Pose2d kOppositeCargoOnePlusFive = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(2.5, 4.375)));
+    public static final Pose2d kOppositeCargoOneMinusOne = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.0, 1.0)));
+    public static final Pose2d kOppositeCargoOneMinusTwo = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.0, 2.0)));
+    public static final Pose2d kOppositeCargoOneMinusThree = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.0, 3.0)));
+    public static final Pose2d kOppositeCargoOneMinusFour = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.0, 4.0)));
+    public static final Pose2d kOppositeCargoOneMinusFive = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.0, 5.0)));
 
-    public static final Pose2d kOppositeCargoOneMinusOne = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.48, 0.875)));
-    public static final Pose2d kOppositeCargoOneMinusTwo = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.96, 1.75)));
-    public static final Pose2d kOppositeCargoOneMinusThree = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.44, 2.625)));
-    public static final Pose2d kOppositeCargoOneMinusFour = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.92, 3.5)));
-    public static final Pose2d kOppositeCargoOneMinusFive = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-2.5, 4.375)));
+    public static final Pose2d kCargoTwoPlusOne = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(1.0, 0.0)));
+    public static final Pose2d kCargoTwoPlusTwo = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(2.0, 0.0)));
+    public static final Pose2d kCargoTwoPlusThree = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(3.0, 0.0)));
+    public static final Pose2d kCargoTwoPlusFour = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(4.0, 0.0)));
+    public static final Pose2d kCargoTwoPlusFive = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(5.0, 0.0)));
 
-    public static final Pose2d kCargoTwoPlusOne = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(0.48, 0.875)));
-    public static final Pose2d kCargoTwoPlusTwo = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(0.96, 1.75)));
-    public static final Pose2d kCargoTwoPlusThree = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(1.44, 2.625)));
-    public static final Pose2d kCargoTwoPlusFour = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(1.92, 3.5)));
-    public static final Pose2d kCargoTwoPlusFive = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(2.5, 4.375)));
-
-    public static final Pose2d kCargoTwoMinusOne = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.48, 0.875)));
-    public static final Pose2d kCargoTwoMinusTwo = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.96, 1.75)));
-    public static final Pose2d kCargoTwoMinusThree = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.44, 2.625)));
-    public static final Pose2d kCargoTwoMinusFour = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.92, 3.5)));
-    public static final Pose2d kCargoTwoMinusFive = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(-2.5, 4.375)));
+    public static final Pose2d kCargoTwoMinusOne = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.0, 0.0)));
+    public static final Pose2d kCargoTwoMinusTwo = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(-2.0, 0.0)));
+    public static final Pose2d kCargoTwoMinusThree = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(-3.0, 0.0)));
+    public static final Pose2d kCargoTwoMinusFour = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(-4.0, 0.0)));
+    public static final Pose2d kCargoTwoMinusFive = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(-5.0, 0.0)));
 
 
-    public static final Pose2d kCargoThreePlusOne = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.48, 0.875)));
-    public static final Pose2d kCargoThreePlusTwo = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.96, 1.75)));
-    public static final Pose2d kCargoThreePlusThree = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(1.44, 2.625)));
-    public static final Pose2d kCargoThreePlusFour = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(1.92, 3.5)));
-    public static final Pose2d kCargoThreePlusFive = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(2.5, 4.375)));
+    public static final Pose2d kCargoThreePlusOne = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(1.0, 0.0)));
+    public static final Pose2d kCargoThreePlusTwo = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(2.0, 0.0)));
+    public static final Pose2d kCargoThreePlusThree = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(3.0, 0.0)));
+    public static final Pose2d kCargoThreePlusFour = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(4.0, 0.0)));
+    public static final Pose2d kCargoThreePlusFive = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(5.0, 0.0)));
 
-    public static final Pose2d kCargoThreeMinusOne = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.48, 0.875)));
-    public static final Pose2d kCargoThreeMinusTwo = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.96, 1.75)));
-    public static final Pose2d kCargoThreeMinusThree = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.44, 2.625)));
-    public static final Pose2d kCargoThreeMinusFour = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.92, 3.5)));
-    public static final Pose2d kCargoThreeMinusFive = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-2.5, 4.375)));
+    public static final Pose2d kCargoThreeMinusOne = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.0, 0.0)));
+    public static final Pose2d kCargoThreeMinusTwo = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-2.0, 0.0)));
+    public static final Pose2d kCargoThreeMinusThree = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-3.0, 0.0)));
+    public static final Pose2d kCargoThreeMinusFour = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-4.0, 0.0)));
+    public static final Pose2d kCargoThreeMinusFive = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-5.0, 0.0)));
 
-    public static final Pose2d kCargoFourPlusOne = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(0.48, 0.875)));
-    public static final Pose2d kCargoFourPlusTwo = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(0.96, 1.75)));
-    public static final Pose2d kCargoFourPlusThree = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(1.44, 2.625)));
-    public static final Pose2d kCargoFourPlusFour = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(1.92, 3.5)));
-    public static final Pose2d kCargoFourPlusFive = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(2.5, 4.375)));
+    public static final Pose2d kCargoFourPlusOne = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(1.0, 0.0)));
+    public static final Pose2d kCargoFourPlusTwo = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(2.0, 0.0)));
+    public static final Pose2d kCargoFourPlusThree = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(3.0, 0.0)));
+    public static final Pose2d kCargoFourPlusFour = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(4.0, 0.0)));
+    public static final Pose2d kCargoFourPlusFive = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(5.0, 0.0)));
 
-    public static final Pose2d kCargoFourMinusOne = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.48, 0.875)));
-    public static final Pose2d kCargoFourMinusTwo = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.96, 1.75)));
-    public static final Pose2d kCargoFourMinusThree = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.44, 2.625)));
-    public static final Pose2d kCargoFourMinusFour = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.92, 3.5)));
-    public static final Pose2d kCargoFourMinusFive = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(-2.5, 4.375)));
+    public static final Pose2d kCargoFourMinusOne = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.0, 0.0)));
+    public static final Pose2d kCargoFourMinusTwo = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(-2.0, 0.0)));
+    public static final Pose2d kCargoFourMinusThree = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(-3.0, 0.0)));
+    public static final Pose2d kCargoFourMinusFour = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(-4.0, 0.0)));
+    public static final Pose2d kCargoFourMinusFive = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(-5.0, 0.0)));
     
     public class TrajectorySet {
         public class MirroredTrajectory {
@@ -256,155 +256,214 @@ public class TrajectoryGenerator {
         public final MirroredTrajectory levelOneToOppositeCargoOneLineup;
         public final MirroredTrajectory levelTwoToOppositeCargoOneLineup;
 
-        public final MirroredTrajectory levelOneToCargoTwoLineup;
-        public final MirroredTrajectory levelTwoToCargoTwoLineup;
+        public final MirroredTrajectory levelOneToCargoThreeLineup;
+        public final MirroredTrajectory levelTwoToCargoThreeLineup;
         
         public final MirroredTrajectory levelOneToRocketThreeLineup;
         public final MirroredTrajectory levelTwoToRocketThreeLineup;
 
-
-
-        // public final MirroredTrajectory straightTest;
-
-        // public final MirroredTrajectory level1ToCargoOne;
-        // public final MirroredTrajectory level2ToCargoOne;
+        public final MirroredTrajectory oppositeCargoOneCorrectionPlusOne;
+        public final MirroredTrajectory oppositeCargoOneCorrectionPlusTwo;
+        public final MirroredTrajectory oppositeCargoOneCorrectionPlusThree;
+        public final MirroredTrajectory oppositeCargoOneCorrectionPlusFour;
+        public final MirroredTrajectory oppositeCargoOneCorrectionPlusFive;
         
-        // public final MirroredTrajectory level1ToCargoTwo;
-        // public final MirroredTrajectory level2ToCargoTwo;
+        public final MirroredTrajectory oppositeCargoOneCorrectionMinusOne;
+        public final MirroredTrajectory oppositeCargoOneCorrectionMinusTwo;
+        public final MirroredTrajectory oppositeCargoOneCorrectionMinusThree;
+        public final MirroredTrajectory oppositeCargoOneCorrectionMinusFour;
+        public final MirroredTrajectory oppositeCargoOneCorrectionMinusFive;
+        
+        public final MirroredTrajectory cargoOneCorrectionPlusOne;
+        public final MirroredTrajectory cargoOneCorrectionPlusTwo;
+        public final MirroredTrajectory cargoOneCorrectionPlusThree;
+        public final MirroredTrajectory cargoOneCorrectionPlusFour;
+        public final MirroredTrajectory cargoOneCorrectionPlusFive;
+        
+        public final MirroredTrajectory cargoOneCorrectionMinusOne;
+        public final MirroredTrajectory cargoOneCorrectionMinusTwo;
+        public final MirroredTrajectory cargoOneCorrectionMinusThree;
+        public final MirroredTrajectory cargoOneCorrectionMinusFour;
+        public final MirroredTrajectory cargoOneCorrectionMinusFive;
 
-        // public final MirroredTrajectory level1ToCargoThree;
-        // public final MirroredTrajectory level2ToCargoThree;
+        public final MirroredTrajectory cargoTwoCorrectionPlusOne;
+        public final MirroredTrajectory cargoTwoCorrectionPlusTwo;
+        public final MirroredTrajectory cargoTwoCorrectionPlusThree;
+        public final MirroredTrajectory cargoTwoCorrectionPlusFour;
+        public final MirroredTrajectory cargoTwoCorrectionPlusFive;
+        
+        public final MirroredTrajectory cargoTwoCorrectionMinusOne;
+        public final MirroredTrajectory cargoTwoCorrectionMinusTwo;
+        public final MirroredTrajectory cargoTwoCorrectionMinusThree;
+        public final MirroredTrajectory cargoTwoCorrectionMinusFour;
+        public final MirroredTrajectory cargoTwoCorrectionMinusFive;
 
-        // public final MirroredTrajectory level1ToCargoFour;
-        // public final MirroredTrajectory level2ToCargoFour;
+        public final MirroredTrajectory cargoThreeCorrectionPlusOne;
+        public final MirroredTrajectory cargoThreeCorrectionPlusTwo;
+        public final MirroredTrajectory cargoThreeCorrectionPlusThree;
+        public final MirroredTrajectory cargoThreeCorrectionPlusFour;
+        public final MirroredTrajectory cargoThreeCorrectionPlusFive;
+        
+        public final MirroredTrajectory cargoThreeCorrectionMinusOne;
+        public final MirroredTrajectory cargoThreeCorrectionMinusTwo;
+        public final MirroredTrajectory cargoThreeCorrectionMinusThree;
+        public final MirroredTrajectory cargoThreeCorrectionMinusFour;
+        public final MirroredTrajectory cargoThreeCorrectionMinusFive;
 
-        // public final MirroredTrajectory level1ToRocketOne;
-        // public final MirroredTrajectory level2ToRocketOne;
+        public final MirroredTrajectory cargoFourCorrectionPlusOne;
+        public final MirroredTrajectory cargoFourCorrectionPlusTwo;
+        public final MirroredTrajectory cargoFourCorrectionPlusThree;
+        public final MirroredTrajectory cargoFourCorrectionPlusFour;
+        public final MirroredTrajectory cargoFourCorrectionPlusFive;
+        
+        public final MirroredTrajectory cargoFourCorrectionMinusOne;
+        public final MirroredTrajectory cargoFourCorrectionMinusTwo;
+        public final MirroredTrajectory cargoFourCorrectionMinusThree;
+        public final MirroredTrajectory cargoFourCorrectionMinusFour;
+        public final MirroredTrajectory cargoFourCorrectionMinusFive;
 
-        // public final Trajectory<TimedState<Pose2dWithCurvature>> rightLevel1toCargoOne;
-        // public final Trajectory<TimedState<Pose2dWithCurvature>> rightLevel2toCargoOne;
+        public final MirroredTrajectory rocketThreeCorrectionPlusOne;
+        public final MirroredTrajectory rocketThreeCorrectionPlusTwo;
+        public final MirroredTrajectory rocketThreeCorrectionPlusThree;
+        public final MirroredTrajectory rocketThreeCorrectionPlusFour;
+        public final MirroredTrajectory rocketThreeCorrectionPlusFive;
+        
+        public final MirroredTrajectory rocketThreeCorrectionMinusOne;
+        public final MirroredTrajectory rocketThreeCorrectionMinusTwo;
+        public final MirroredTrajectory rocketThreeCorrectionMinusThree;
+        public final MirroredTrajectory rocketThreeCorrectionMinusFour;
+        public final MirroredTrajectory rocketThreeCorrectionMinusFive;
 
-        // public final Trajectory<TimedState<Pose2dWithCurvature>> leftLevel1toCargoOne;
-        // public final Trajectory<TimedState<Pose2dWithCurvature>> leftLevel2toCargoOne;
+        public final MirroredTrajectory loadingStationCorrectionPlusOne;
+        public final MirroredTrajectory loadingStationCorrectionPlusTwo;
+        public final MirroredTrajectory loadingStationCorrectionPlusThree;
+        public final MirroredTrajectory loadingStationCorrectionPlusFour;
+        public final MirroredTrajectory loadingStationCorrectionPlusFive;
+        
+        public final MirroredTrajectory loadingStationCorrectionMinusOne;
+        public final MirroredTrajectory loadingStationCorrectionMinusTwo;
+        public final MirroredTrajectory loadingStationCorrectionMinusThree;
+        public final MirroredTrajectory loadingStationCorrectionMinusFour;
+        public final MirroredTrajectory loadingStationCorrectionMinusFive;
 
-        // public final Trajectory<TimedState<Pose2dWithCurvature>> rightLevel1toRocketOne;
-        // public final Trajectory<TimedState<Pose2dWithCurvature>> rightLevel2toRocketOne;
+        public final MirroredTrajectory rocketThreeTurnAway;
+        public final MirroredTrajectory oppositeCargoOneTurnAway;
+        public final MirroredTrajectory cargoThreeTurnAway;
 
-        // public final Trajectory<TimedState<Pose2dWithCurvature>> leftLevel1toRocketOne;
-        // public final Trajectory<TimedState<Pose2dWithCurvature>> leftLevel2toRocketOne;
+        public final MirroredTrajectory endRocketTurnToLoadingStationLineup;
+        public final MirroredTrajectory endOppositeCargoTurnToLoadingStationLineup;
+        public final MirroredTrajectory endCargoThreeTurnToLoadingStationLineup;
 
-        // public final Trajectory<TimedState<Pose2dWithCurvature>> leftLevel1toRocketThree;
-
-        // public final Trajectory<TimedState<Pose2dWithCurvature>> rightLevel1toRocketThree;
-        // public final Trajectory<TimedState<Pose2dWithCurvature>> rightLevel2toRocketThree;
-
-        // public final Trajectory<TimedState<Pose2dWithCurvature>> leftRocketOneToTurn;
-        // public final Trajectory<TimedState<Pose2dWithCurvature>> rightRocketOneToTurn;
-
-        // public final Trajectory<TimedState<Pose2dWithCurvature>> endLeftTurnToLoadingStation;
-        // public final Trajectory<TimedState<Pose2dWithCurvature>> endRightTurnToLoadingStation;
-
-        // public final MirroredTrajectory rocketThreeWithCorrectionPlus1;
-        // public final MirroredTrajectory rocketThreeWithCorrectionPlus2;
-        // public final MirroredTrajectory rocketThreeWithCorrectionPlus3;
-        // public final MirroredTrajectory rocketThreeWithCorrectionPlus4;
-        // public final MirroredTrajectory rocketThreeWithCorrectionPlus5;
-
-        // public final MirroredTrajectory rocketThreeWithCorrectionMinus1;
-        // public final MirroredTrajectory rocketThreeWithCorrectionMinus2;
-        // public final MirroredTrajectory rocketThreeWithCorrectionMinus3;
-        // public final MirroredTrajectory rocketThreeWithCorrectionMinus4;
-        // public final MirroredTrajectory rocketThreeWithCorrectionMinus5;
-
-        // public final MirroredTrajectory rocketThree;
-
-        // public final MirroredTrajectory level1ToRocketTwo;
-        // public final MirroredTrajectory level2ToRocketTwo;
-
-        // public final MirroredTrajectory level1ToRocketThree;
-        // public final MirroredTrajectory level2ToRocketThree;
-
-        // //Score second game piece
-        // public final MirroredTrajectory loadingStationToRocketTwo;
-
-        // public final MirroredTrajectory cargoThreeTo90Turn;
-        // public final MirroredTrajectory endTurnToLoadingStation;
-        // public final MirroredTrajectory loadingStationToCargoFour;
-
-        // public final MirroredTrajectory endRocketToTurn;
-        // public final MirroredTrajectory endRocketTurnToLoadingStation;
+        public final MirroredTrajectory loadingStationToRocketThreeLineup;
+        public final MirroredTrajectory loadingStationToCargoOneLineup;
+        public final MirroredTrajectory loadingStationToCargoTwoLineup;
 
         private TrajectorySet() {
 
-            straightTest = new MirroredTrajectory(getStraightTest());
+            levelOneToOppositeCargoOneLineup = new MirroredTrajectory(getLevelOneToOppositeCargoOneLineup());
+            levelTwoToOppositeCargoOneLineup = new MirroredTrajectory(getLevelTwoToOppositeCargoOneLineup());
 
-            rightLevel1toCargoOne = getRightLevel1toCargoOne();
-            rightLevel2toCargoOne = getRightLevel2toCargoOne();
+            levelOneToCargoThreeLineup = new MirroredTrajectory(getLevelOneToCargoThreeLineup());
+            levelTwoToCargoThreeLineup = new MirroredTrajectory(getLevelTwoToCargoThreeLineup());
 
-            leftLevel1toCargoOne = getLeftLevel1toCargoOne();
-            leftLevel2toCargoOne = getLeftLevel2toCargoOne();
+            levelOneToRocketThreeLineup = new MirroredTrajectory(getLevelOneToRocketThreeLineup());
+            levelTwoToRocketThreeLineup = new MirroredTrajectory(getLevelTwoToRocketThreeLineup());
 
-            rightLevel1toRocketOne = getRightLevel1toRocketOne();
-            rightLevel2toRocketOne = getRightLevel2toRocketOne();
+            oppositeCargoOneCorrectionPlusOne = new MirroredTrajectory(getOppositeCargoOneCorrectionPlusOne());
+            oppositeCargoOneCorrectionPlusTwo = new MirroredTrajectory(getOppositeCargoOneCorrectionPlusTwo());
+            oppositeCargoOneCorrectionPlusThree = new MirroredTrajectory(getOppositeCargoOneCorrectionPlusThree());
+            oppositeCargoOneCorrectionPlusFour = new MirroredTrajectory(getOppositeCargoOneCorrectionPlusFour());
+            oppositeCargoOneCorrectionPlusFive = new MirroredTrajectory(getOppositeCargoOneCorrectionPlusFive());
 
-            leftLevel1toRocketThree = getLeftLevel1toRocketThree();
+            oppositeCargoOneCorrectionMinusOne = new MirroredTrajectory(getOppositeCargoOneCorrectionMinusOne());
+            oppositeCargoOneCorrectionMinusTwo = new MirroredTrajectory(getOppositeCargoOneCorrectionMinusTwo());
+            oppositeCargoOneCorrectionMinusThree = new MirroredTrajectory(getOppositeCargoOneCorrectionMinusThree());
+            oppositeCargoOneCorrectionMinusFour = new MirroredTrajectory(getOppositeCargoOneCorrectionMinusFour());
+            oppositeCargoOneCorrectionMinusFive = new MirroredTrajectory(getOppositeCargoOneCorrectionMinusFive());
 
-            rightLevel1toRocketThree = getRightLevel1toRocketThree();
-            rightLevel2toRocketThree = getRightLevel2toRocketThree();
+            cargoOneCorrectionPlusOne = new MirroredTrajectory(getCargoOneCorrectionPlusOne());
+            cargoOneCorrectionPlusTwo = new MirroredTrajectory(getCargoOneCorrectionPlusTwo());
+            cargoOneCorrectionPlusThree = new MirroredTrajectory(getCargoOneCorrectionPlusThree());
+            cargoOneCorrectionPlusFour = new MirroredTrajectory(getargoOneCorrectionPlusFour());
+            cargoOneCorrectionPlusFive = new MirroredTrajectory(getCargoOneCorrectionPlusFive());
 
-            leftLevel1toRocketOne = getLeftLevel1toRocketOne();
-            leftLevel2toRocketOne = getLeftLevel2toRocketOne();
+            cargoOneCorrectionMinusOne = new MirroredTrajectory(getCargoOneCorrectionMinusOne());
+            cargoOneCorrectionMinusTwo = new MirroredTrajectory(getCargoOneCorrectionMinusTwo());
+            cargoOneCorrectionMinusThree = new MirroredTrajectory(getCargoOneCorrectionMinusThree());
+            cargoOneCorrectionMinusFour = new MirroredTrajectory(getCargoOneCorrectionMinusFour());
+            cargoOneCorrectionMinusFive = new MirroredTrajectory(getCargoOneCorrectionMinusFive());
 
-            rightRocketOneToTurn = getRightRocketOneToTurn();
-            leftRocketOneToTurn = getLeftRocketOneToTurn();
+            cargoTwoCorrectionPlusOne = new MirroredTrajectory(getCargoTwoCorrectionPlusOne());
+            cargoTwoCorrectionPlusTwo = new MirroredTrajectory(getCargoTwoCorrectionPlusTwo());
+            cargoTwoCorrectionPlusThree = new MirroredTrajectory(getCargoTwoCorrectionPlusThree());
+            cargoTwoCorrectionPlusFour = new MirroredTrajectory(getCargoTwoCorrectionPlusFour());
+            cargoTwoCorrectionPlusFive = new MirroredTrajectory(getCargoTwoCorrectionPlusFive());
 
-            endRightTurnToLoadingStation = getEndRightTurnToLoadStation();
-            endLeftTurnToLoadingStation = getEndLeftTurnToLoadStation();
+            cargoTwoCorrectionMinusOne = new MirroredTrajectory(getCargoTwoCorrectionMinusOne());
+            cargoTwoCorrectionMinusTwo = new MirroredTrajectory(getCargoTwoCorrectionMinusTwo());
+            cargoTwoCorrectionMinusThree = new MirroredTrajectory(getCargoTwoCorrectionMinusThree());
+            cargoTwoCorrectionMinusFour = new MirroredTrajectory(getCargoTwoCorrectionMinusFour());
+            cargoTwoCorrectionMinusFive = new MirroredTrajectory(getCargoTwoCorrectionMinusFive());
+            
+            cargoThreeCorrectionPlusOne = new MirroredTrajectory(getCargoThreeCorrectionPlusOne());
+            cargoThreeCorrectionPlusTwo = new MirroredTrajectory(getCargoThreeCorrectionPlusTwo());
+            cargoThreeCorrectionPlusThree = new MirroredTrajectory(getCargoThreeCorrectionPlusThree());
+            cargoThreeCorrectionPlusFour = new MirroredTrajectory(getargoThreeCorrectionPlusFour());
+            cargoThreeCorrectionPlusFive = new MirroredTrajectory(getCargoThreeCorrectionPlusFive());
 
-            rocketThreeWithCorrectionPlus1 = new MirroredTrajectory(getRocketThreeWithCorrectionPlus1());
-            rocketThreeWithCorrectionPlus2 = new MirroredTrajectory(getRocketThreeWithCorrectionPlus2());
-            rocketThreeWithCorrectionPlus3 = new MirroredTrajectory(getRocketThreeWithCorrectionPlus3());
-            rocketThreeWithCorrectionPlus4 = new MirroredTrajectory(getRocketThreeWithCorrectionPlus4());
-            rocketThreeWithCorrectionPlus5 = new MirroredTrajectory(getRocketThreeWithCorrectionPlus5());
-            rocketThreeWithCorrectionMinus1 = new MirroredTrajectory(getRocketThreeWithCorrectionMinus1());
-            rocketThreeWithCorrectionMinus2 = new MirroredTrajectory(getRocketThreeWithCorrectionMinus2());
-            rocketThreeWithCorrectionMinus3 = new MirroredTrajectory(getRocketThreeWithCorrectionMinus3());
-            rocketThreeWithCorrectionMinus4 = new MirroredTrajectory(getRocketThreeWithCorrectionMinus4());
-            rocketThreeWithCorrectionMinus5 = new MirroredTrajectory(getRocketThreeWithCorrectionMinus5());
+            cargoThreeCorrectionMinusOne = new MirroredTrajectory(getCargoThreeCorrectionMinusOne());
+            cargoThreeCorrectionMinusTwo = new MirroredTrajectory(getCargoThreeCorrectionMinusTwo());
+            cargoThreeCorrectionMinusThree = new MirroredTrajectory(getCargoThreeCorrectionMinusThree());
+            cargoThreeCorrectionMinusFour = new MirroredTrajectory(getCargoThreeCorrectionMinusFour());
+            cargoThreeCorrectionMinusFive = new MirroredTrajectory(getCargoThreeCorrectionMinusFive());
 
-            rocketThree = new MirroredTrajectory(getRocketThree());
+            cargoFourCorrectionPlusOne = new MirroredTrajectory(getCargoFourCorrectionPlusOne());
+            cargoFourCorrectionPlusTwo = new MirroredTrajectory(getCargoFourCorrectionPlusTwo());
+            cargoFourCorrectionPlusThree = new MirroredTrajectory(getCargoFourCorrectionPlusThree());
+            cargoFourCorrectionPlusFour = new MirroredTrajectory(getCargoFourCorrectionPlusFour());
+            cargoFourCorrectionPlusFive = new MirroredTrajectory(getCargoFourCorrectionPlusFive());
 
-            //Score first game piece
-            level1ToCargoOne = new MirroredTrajectory(getLevel1ToCargoOne());
-            level2ToCargoOne = new MirroredTrajectory(getLevel2ToCargoOne());
+            cargoFourCorrectionMinusOne = new MirroredTrajectory(getCargoFourCorrectionMinusOne());
+            cargoFourCorrectionMinusTwo = new MirroredTrajectory(getCargoFourCorrectionMinusTwo());
+            cargoFourCorrectionMinusThree = new MirroredTrajectory(getCargoFourCorrectionMinusThree());
+            cargoFourCorrectionMinusFour = new MirroredTrajectory(getCargoFourCorrectionMinusFour());
+            cargoFourCorrectionMinusFive = new MirroredTrajectory(getCargoFourCorrectionMinusFive());
 
-            level1ToCargoTwo = new MirroredTrajectory(getLevel1ToCargoTwo());
-            level2ToCargoTwo = new MirroredTrajectory(getLevel2ToCargoTwo());
+            rocketThreeCorrectionPlusOne = new MirroredTrajectory(getRocketThreeCorrectionPlusOne());
+            rocketThreeCorrectionPlusTwo = new MirroredTrajectory(getRocketThreeCorrectionPlusTwo());
+            rocketThreeCorrectionPlusThree = new MirroredTrajectory(getRocketThreeCorrectionPlusThree());
+            rocketThreeCorrectionPlusFour = new MirroredTrajectory(getRocketThreeCorrectionPlusFour());
+            rocketThreeCorrectionPlusFive = new MirroredTrajectory(getRocketThreeCorrectionPlusFive());
 
-            level1ToCargoThree = new MirroredTrajectory(getLevel1ToCargoThree());
-            level2ToCargoThree = new MirroredTrajectory(getLevel2ToCargoThree());
+            rocketThreeCorrectionMinusOne = new MirroredTrajectory(getRocketThreeCorrectionMinusOne());
+            rocketThreeCorrectionMinusTwo = new MirroredTrajectory(getRocketThreeCorrectionMinusTwo());
+            rocketThreeCorrectionMinusThree = new MirroredTrajectory(getRocketThreeCorrectionMinusThree());
+            rocketThreeCorrectionMinusFour = new MirroredTrajectory(getRocketThreeCorrectionMinusFour());
+            rocketThreeCorrectionMinusFive = new MirroredTrajectory(getRocketThreeCorrectionMinusFive());
 
-            level1ToCargoFour = new MirroredTrajectory(getLevel1ToCargoFour());
-            level2ToCargoFour = new MirroredTrajectory(getLevel2ToCargoFour());
+            loadingStationCorrectionPlusOne = new MirroredTrajectory(getLoadingStationCorrectionPlusOne());
+            loadingStationCorrectionPlusTwo = new MirroredTrajectory(getLoadingStationCorrectionPlusTwo());
+            loadingStationCorrectionPlusThree = new MirroredTrajectory(getLoadingStationCorrectionPlusThree());
+            loadingStationCorrectionPlusFour = new MirroredTrajectory(getLoadingStationCorrectionPlusFour());
+            loadingStationCorrectionPlusFive = new MirroredTrajectory(getLoadingStationCorrectionPlusFive());
 
-            level1ToRocketOne = new MirroredTrajectory(getLevel1ToRocketOne());
-            level2ToRocketOne = new MirroredTrajectory(getLevel2ToRocketOne());
+            loadingStationCorrectionMinusOne = new MirroredTrajectory(getLoadingStationCorrectionMinusOne());
+            loadingStationCorrectionMinusTwo = new MirroredTrajectory(getLoadingStationCorrectionMinusTwo());
+            loadingStationCorrectionMinusThree = new MirroredTrajectory(getLoadingStationCorrectionMinusThree());
+            loadingStationCorrectionMinusFour = new MirroredTrajectory(getLoadingStationCorrectionMinusFour());
+            loadingStationCorrectionMinusFive = new MirroredTrajectory(getLoadingStationCorrectionMinusFive());
 
-            level1ToRocketTwo = new MirroredTrajectory(getLevel1ToRocketTwo());
-            level2ToRocketTwo = new MirroredTrajectory(getLevel2ToRocketTwo());
+            rocketThreeTurnAway = new MirroredTrajectory(getRocketThreeTurnAway());
+            oppositeCargoOneTurnAway = new MirroredTrajectory(getOppositeCargoOneTurnAway());
+            cargoThreeTurnAway = new MirroredTrajectory(getCargoThreeTurnAway());
 
-            level1ToRocketThree = new MirroredTrajectory(getLevel1ToRocketThree());
-            level2ToRocketThree = new MirroredTrajectory(getLevel2ToRocketThree());
+            endRocketTurnToLoadingStationLineup = new MirroredTrajectory(getEndRocketTurnToLoadingStationLineup());
+            endOppositeCargoTurnToLoadingStationLineup = new MirroredTrajectory(getEndOppositeCargoTurnToLoadingStationLineup());
+            endCargoThreeTurnToLoadingStationLineup = new MirroredTrajectory(getEndCargoThreeTurnToLoadingStationLineup());
 
-            //Score second game piece
-            loadingStationToRocketTwo = new MirroredTrajectory(getLoadingStationToRocketTwo());
-
-            cargoThreeTo90Turn = new MirroredTrajectory(getCargoThreeTo90Turn());
-            endTurnToLoadingStation = new MirroredTrajectory(getEndTurnToLoadingStation());
-            loadingStationToCargoFour = new MirroredTrajectory(getLoadingStationToCargoFour());
-
-            endRocketToTurn = new MirroredTrajectory(getRocketThreeToTurn());
-            endRocketTurnToLoadingStation = new MirroredTrajectory(getEndRocketTurnToLoadingStation());
+            loadingStationToRocketThreeLineup = new MirroredTrajectory(getLoadingStationToRocketThreeLineup());
+            loadingStationToCargoOneLineup = new MirroredTrajectory(getLoadingStationToCargoOneLineup());
+            loadingStationToCargoTwoLineup = new MirroredTrajectory(getLoadingStationToCargoTwoLineup());
         }
 
         //Score first game piece trajectories
