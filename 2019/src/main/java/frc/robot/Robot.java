@@ -320,7 +320,6 @@ public class Robot extends TimedRobot {
         if(m_OI.m_operatorJoystick.getRawAxis(2) > 0.3) {
           m_Ball.setBallIntakeCylinder(true);
           m_Beak.setBeakBar(true);
-          m_Beak.setBeakGrab(false); //beak grab false means hang on/close
         }
         if(m_OI.m_operatorJoystick.getRawAxis(3) > 0.3) {
           m_Ball.setBallIntakeCylinder(false);
