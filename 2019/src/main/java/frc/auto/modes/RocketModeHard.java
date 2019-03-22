@@ -26,7 +26,8 @@ public class RocketModeHard extends AutoModeBase {
             mEndRocketToTurn = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().leftRocketOneToTurn, false);
             mEndTurnToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endLeftTurnToLoadingStation, false);
         } else {
-            mLevel2ToRocketOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rightLevel2toRocketOne, true);
+            // mLevel2ToRocketOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rightLevel2toRocketOne, true);
+            mLevel2ToRocketOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rightLevel1toRocketThree, true);
             mEndRocketToTurn = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rightRocketOneToTurn, false);
             mEndTurnToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endRightTurnToLoadingStation, false);
         }
@@ -42,21 +43,21 @@ public class RocketModeHard extends AutoModeBase {
     protected void routine() throws AutoModeEndedException {
         System.out.println("Running Rocket Mode");
 
-        //Score First Hatch
-        runAction(new ParallelAction (
-            Arrays.asList(
-                mLevel2ToRocketOne
-            )
-        ));
+        // //Score First Hatch
+        // runAction(new ParallelAction (
+        //     Arrays.asList(
+        //         mLevel2ToRocketOne
+        //     )
+        // ));
 
-        runAction(new SeriesAction (
-            Arrays.asList(
-                new TurnToTarget(0.25),
-                new WaitAction(1.0)
-                // new ExtendRetract4Bar(true),
-                // new OpenLoopDrive(0.5, 0.5, 0.5)
-            )
-        ));
+        // runAction(new SeriesAction (
+        //     Arrays.asList(
+        //         new TurnToTarget(0.25),
+        //         new WaitAction(1.0)
+        //         // new ExtendRetract4Bar(true),
+        //         // new OpenLoopDrive(0.5, 0.5, 0.5)
+        //     )
+        // ));
 
         // runAction(new SeriesAction (
         //     Arrays.asList(
