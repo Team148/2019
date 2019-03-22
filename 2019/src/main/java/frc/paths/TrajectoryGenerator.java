@@ -90,19 +90,13 @@ public class TrajectoryGenerator {
     //Level 1
     public static final Pose2d kLevelOneStartPose = new Pose2d(new Translation2d(66.0, -50.0), Rotation2d.fromDegrees(0.0));
     public static final Pose2d kLevelOneStartBackwardPose = new Pose2d(new Translation2d(66.0, -50.0), Rotation2d.fromDegrees(180.0));
-    // public static final Pose2d kLeftLevel1StartPose = new Pose2d(new Translation2d(66.0, 50.0), Rotation2d.fromDegrees(0.0));
-    // public static final Pose2d kRightLevel1StartPose = new Pose2d(new Translation2d(66.0, -50.0), Rotation2d.fromDegrees(0.0));
 
     // //Level 2
     public static final Pose2d kLevelTwoStartPose = new Pose2d(new Translation2d(18.0, -50.0), Rotation2d.fromDegrees(0.0));
     public static final Pose2d kLevelTwoStartBackwardPose = new Pose2d(new Translation2d(18.0, -50.0), Rotation2d.fromDegrees(180.0));
-    // public static final Pose2d kLeftLevel2StartPose = new Pose2d(new Translation2d(18.0, 50.0), Rotation2d.fromDegrees(0.0));
-    // public static final Pose2d kRightLevel2StartPose = new Pose2d(new Translation2d(18.0, -50.0), Rotation2d.fromDegrees(0.0));
  
     // //Off Level 2
     public static final Pose2d kOffHabPlatform = new Pose2d(new Translation2d(120.0, -50.0), Rotation2d.fromDegrees(180.0));
-    // public static final Pose2d kLeftOffLevel2Pose = new Pose2d(new Translation2d(120.0, 50.0), Rotation2d.fromDegrees(0.0));
-    // public static final Pose2d kRightOffLevel2Pose = new Pose2d(new Translation2d(120.0, -50.0), Rotation2d.fromDegrees(0.0));
 
     // //Scoring Poses
     // //Cargo One
@@ -110,57 +104,138 @@ public class TrajectoryGenerator {
 
     // // Opposite Side Cargo One
     public static final Pose2d kOppositeCargoOnePose = new Pose2d(new Translation2d(205.0, 11.0), Rotation2d.fromDegrees(0.0));
-    // public static final Pose2d kLevel1LeftCargoOnePose = new Pose2d(new Translation2d(205.0, 20.0), Rotation2d.fromDegrees(0.0));
-    // public static final Pose2d kLevel1RightCargoOnePose = new Pose2d(new Translation2d(205.0, -20.0), Rotation2d.fromDegrees(0.0));
-
-    // public static final Pose2d kLevel2LeftCargoOnePose = new Pose2d(new Translation2d(205.0, 13.0), Rotation2d.fromDegrees(0.0));
-    // public static final Pose2d kLevel2RightCargoOnePose = new Pose2d(new Translation2d(205.0, -11.0), Rotation2d.fromDegrees(0.0));
-
-    // public static final Pose2d kLeftCargoOnePose = new Pose2d(new Translation2d(205.0, 20.0), Rotation2d.fromDegrees(0.0));
-    // public static final Pose2d kRightCargoOnePose = new Pose2d(new Translation2d(205.0, -20.0), Rotation2d.fromDegrees(0.0));
 
     // //Cargo Two
     public static final Pose2d kCargoTwoPose = new Pose2d(new Translation2d(260.0, -40.0), Rotation2d.fromDegrees(90.0));
-    // public static final Pose2d kLeftCargoTwoPose = new Pose2d(new Translation2d(259.0, 45.0), Rotation2d.fromDegrees(270.0));
-    // public static final Pose2d kRightCargoTwoPose = new Pose2d(new Translation2d(259.0, -45.0), Rotation2d.fromDegrees(90.0));
 
     // //Cargo Three
     public static final Pose2d kCargoThreePose = new Pose2d(new Translation2d(281.0, -40.0), Rotation2d.fromDegrees(90.0));
-    // public static final Pose2d kLeftCargoThreePose = new Pose2d(new Translation2d(281.0, 45.0), Rotation2d.fromDegrees(270.0));
-    // public static final Pose2d kRightCargoThreePose = new Pose2d(new Translation2d(281.0, -45.0), Rotation2d.fromDegrees(90.0));
 
     // //Cargo Four
     public static final Pose2d kCargoFourPose = new Pose2d(new Translation2d(303.0, -40.0), Rotation2d.fromDegrees(90.0));
-    // public static final Pose2d kLeftCargoFourPose = new Pose2d(new Translation2d(302.0, 45.0), Rotation2d.fromDegrees(270.0));
-    // public static final Pose2d kRightCargoFourPose = new Pose2d(new Translation2d(302.0, -45.0), Rotation2d.fromDegrees(90.0));
 
     // //Rocket One
     public static final Pose2d kRocketOnePose = new Pose2d(new Translation2d(198.0, -135.0), Rotation2d.fromDegrees(330.0));
-    // public static final Pose2d kLevel1LeftRocketOnePose = new Pose2d(new Translation2d(200.0, 138.0), Rotation2d.fromDegrees(30.0));
-    // public static final Pose2d kLevel1RightRocketOnePose = new Pose2d(new Translation2d(200.0, -138.0), Rotation2d.fromDegrees(330.0));
-
-    // public static final Pose2d kLevel2LeftRocketOnePose = new Pose2d(new Translation2d(180.0, 120.0), Rotation2d.fromDegrees(30.0));
-    // // public static final Pose2d kLevel2RightRocketOnePose = new Pose2d(new Translation2d(200.0, -139.0), Rotation2d.fromDegrees(315.0));
-    // public static final Pose2d kLevel2RightRocketOnePose = new Pose2d(new Translation2d(195.0, -130.0), Rotation2d.fromDegrees(330.0));
 
     // //Rocket Three
     public static final Pose2d kRocketThreePose = new Pose2d(new Translation2d(260.0, -135.0), Rotation2d.fromDegrees(210.0));
-    // public static final Pose2d kLeftRocketThreePose = new Pose2d(new Translation2d(260.0, 125.0), Rotation2d.fromDegrees(150.0));
-    // public static final Pose2d kRightRocketThreePose = new Pose2d(new Translation2d(260.0, -135.0), Rotation2d.fromDegrees(210.0));
-
-    // public static final Pose2d kRightRocketThreePlusOne = kRightRocketThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.48, 0.875)));
-
-    // public static final Pose2d kLevel2RocketThreePose = new Pose2d(new Translation2d(280.0, 125.0), Rotation2d.fromDegrees(150.0));
-    // // public static final Pose2d kLevel2RocketThreePose = new Pose2d(new Translation2d(280.0, -125.0), Rotation2d.fromDegrees(210.0));
 
     // //Loading Station Poses
-    public static final Pose2d kLoadingStationPose = new Pose2d(new Translation2d(18.0, -135.0), Rotation2d.fromDegrees(180.0));
-    // public static final Pose2d kLeftLoadingStationPose = new Pose2d(new Translation2d(25.0, 132.0), Rotation2d.fromDegrees(180.0));
-    // public static final Pose2d kRightLoadingStationPose = new Pose2d(new Translation2d(25.0, -132.0), Rotation2d.fromDegrees(180.0)); 
+    public static final Pose2d kLoadingStationPose = new Pose2d(new Translation2d(18.0, -135.0), Rotation2d.fromDegrees(180.0)); 
+
+    // //Cargo One Lineup (for Vision Tracking)
+    public static final Pose2d kCargoOneLineupPose = new Pose2d(new Translation2d(175.0, -11.0), Rotation2d.fromDegrees(0.0));
+
+    // //Opposite Cargo One Lineup (for Vision Tracking)
+    public static final Pose2d kOppositeCargoOneLineupPose = new Pose2d(new Translation2d(175.0, 11.0), Rotation2d.fromDegrees(0.0));
+
+    // //Cargo Two Lineup (for Vision Tracking)
+    public static final Pose2d kCargoTwoLineupPose = new Pose2d(new Translation2d(260.0, -70.0), Rotation2d.fromDegrees(90.0));
+
+    // //Cargo Three Lineup (for Vision Tracking)
+    public static final Pose2d kCargoThreeLineupPose = new Pose2d(new Translation2d(281.0, -70.0), Rotation2d.fromDegrees(90.0));
+
+    // //Cargo Four Lineup (for Vision Tracking)
+    public static final Pose2d kCargoFourLineupPose = new Pose2d(new Translation2d(303.0, -70.0), Rotation2d.fromDegrees(90.0));
+
+    // //Rocket One Lineup (for Vision Tracking)
+    public static final Pose2d kRocketOneLineupPose = new Pose2d(new Translation2d(171.0, -119.0), Rotation2d.fromDegrees(330.0));
 
     // //Rocket Three Lineup (for Vision Tracking)
-    public static final Pose2d kRocketThreeLineup = new Pose2d(new Translation2d(66.0, -50.0), Rotation2d.fromDegrees(180.0));
+    public static final Pose2d kRocketThreeLineupPose = new Pose2d(new Translation2d(286.0, -119.0), Rotation2d.fromDegrees(210.0));
 
+    // //Loading Station Lineup (for Vision Tracking)
+    public static final Pose2d kLoadingStationLineupPose = new Pose2d(new Translation2d(48.0, -135.0), Rotation2d.fromDegrees(180.0));
+
+    // //Correction Poses (Minus 1 is 1 inch left, Plus 1 is 1 inch right)
+    // //Rocket Corrections
+    public static final Pose2d kRocketOnePlusOne = kRocketOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.48, 0.875)));
+    public static final Pose2d kRocketOnePlusTwo = kRocketOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.96, 1.75)));
+    public static final Pose2d kRocketOnePlusThree = kRocketOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(1.44, 2.625)));
+    public static final Pose2d kRocketOnePlusFour = kRocketThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(1.92, 3.5)));
+    public static final Pose2d kRocketOnePlusFive = kRocketThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(2.5, 4.375)));
+
+    public static final Pose2d kRocketOneMinusOne = kRocketOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.48, 0.875)));
+    public static final Pose2d kRocketoneMinusTwo = kRocketOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.96, 1.75)));
+    public static final Pose2d kRocketOneMinusThree = kRocketOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.44, 2.625)));
+    public static final Pose2d kRocketOneMinusFour = kRocketOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.92, 3.5)));
+    public static final Pose2d kRocketOneMinusFive = kRocketOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-2.5, 4.375)));
+
+
+    public static final Pose2d kRocketThreePlusOne = kRocketThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.48, 0.875)));
+    public static final Pose2d kRocketThreePlusTwo = kRocketThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.96, 1.75)));
+    public static final Pose2d kRocketThreePlusThree = kRocketThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(1.44, 2.625)));
+    public static final Pose2d kRocketThreePlusFour = kRocketThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(1.92, 3.5)));
+    public static final Pose2d kRocketThreePlusFive = kRocketThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(2.5, 4.375)));
+
+    public static final Pose2d kRocketThreeMinusOne = kRocketThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.48, 0.875)));
+    public static final Pose2d kRocketThreeMinusTwo = kRocketThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.96, 1.75)));
+    public static final Pose2d kRocketThreeMinusThree = kRocketThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.44, 2.625)));
+    public static final Pose2d kRocketThreeMinusFour = kRocketThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.92, 3.5)));
+    public static final Pose2d kRocketThreeMinusFive = kRocketThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-2.5, 4.375)));
+
+
+    public static final Pose2d kCargoOnePlusOne = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.48, 0.875)));
+    public static final Pose2d kCargoOnePlusTwo = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.96, 1.75)));
+    public static final Pose2d kCargoOnePlusThree = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(1.44, 2.625)));
+    public static final Pose2d kCargoOnePlusFour = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(1.92, 3.5)));
+    public static final Pose2d kCargoOnePlusFive = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(2.5, 4.375)));
+
+    public static final Pose2d kCargoOneMinusOne = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.48, 0.875)));
+    public static final Pose2d kCargoOneMinusTwo = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.96, 1.75)));
+    public static final Pose2d kCargoOneMinusThree = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.44, 2.625)));
+    public static final Pose2d kCargoOneMinusFour = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.92, 3.5)));
+    public static final Pose2d kCargoOneMinusFive = kCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-2.5, 4.375)));
+
+    public static final Pose2d kOppositeCargoOnePlusOne = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.48, 0.875)));
+    public static final Pose2d kOppositeCargoOnePlusTwo = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.96, 1.75)));
+    public static final Pose2d kOppositeCargoOnePlusThree = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(1.44, 2.625)));
+    public static final Pose2d kOppositeCargoOnePlusFour = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(1.92, 3.5)));
+    public static final Pose2d kOppositeCargoOnePlusFive = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(2.5, 4.375)));
+
+    public static final Pose2d kOppositeCargoOneMinusOne = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.48, 0.875)));
+    public static final Pose2d kOppositeCargoOneMinusTwo = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.96, 1.75)));
+    public static final Pose2d kOppositeCargoOneMinusThree = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.44, 2.625)));
+    public static final Pose2d kOppositeCargoOneMinusFour = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.92, 3.5)));
+    public static final Pose2d kOppositeCargoOneMinusFive = kOppositeCargoOnePose.transformBy(Pose2d.fromTranslation(new Translation2d(-2.5, 4.375)));
+
+    public static final Pose2d kCargoTwoPlusOne = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(0.48, 0.875)));
+    public static final Pose2d kCargoTwoPlusTwo = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(0.96, 1.75)));
+    public static final Pose2d kCargoTwoPlusThree = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(1.44, 2.625)));
+    public static final Pose2d kCargoTwoPlusFour = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(1.92, 3.5)));
+    public static final Pose2d kCargoTwoPlusFive = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(2.5, 4.375)));
+
+    public static final Pose2d kCargoTwoMinusOne = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.48, 0.875)));
+    public static final Pose2d kCargoTwoMinusTwo = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.96, 1.75)));
+    public static final Pose2d kCargoTwoMinusThree = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.44, 2.625)));
+    public static final Pose2d kCargoTwoMinusFour = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.92, 3.5)));
+    public static final Pose2d kCargoTwoMinusFive = kCargoTwoPose.transformBy(Pose2d.fromTranslation(new Translation2d(-2.5, 4.375)));
+
+
+    public static final Pose2d kCargoThreePlusOne = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.48, 0.875)));
+    public static final Pose2d kCargoThreePlusTwo = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(0.96, 1.75)));
+    public static final Pose2d kCargoThreePlusThree = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(1.44, 2.625)));
+    public static final Pose2d kCargoThreePlusFour = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(1.92, 3.5)));
+    public static final Pose2d kCargoThreePlusFive = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(2.5, 4.375)));
+
+    public static final Pose2d kCargoThreeMinusOne = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.48, 0.875)));
+    public static final Pose2d kCargoThreeMinusTwo = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.96, 1.75)));
+    public static final Pose2d kCargoThreeMinusThree = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.44, 2.625)));
+    public static final Pose2d kCargoThreeMinusFour = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.92, 3.5)));
+    public static final Pose2d kCargoThreeMinusFive = kCargoThreePose.transformBy(Pose2d.fromTranslation(new Translation2d(-2.5, 4.375)));
+
+    public static final Pose2d kCargoFourPlusOne = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(0.48, 0.875)));
+    public static final Pose2d kCargoFourPlusTwo = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(0.96, 1.75)));
+    public static final Pose2d kCargoFourPlusThree = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(1.44, 2.625)));
+    public static final Pose2d kCargoFourPlusFour = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(1.92, 3.5)));
+    public static final Pose2d kCargoFourPlusFive = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(2.5, 4.375)));
+
+    public static final Pose2d kCargoFourMinusOne = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.48, 0.875)));
+    public static final Pose2d kCargoFourMinusTwo = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(-0.96, 1.75)));
+    public static final Pose2d kCargoFourMinusThree = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.44, 2.625)));
+    public static final Pose2d kCargoFourMinusFour = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(-1.92, 3.5)));
+    public static final Pose2d kCargoFourMinusFive = kCargoFourPose.transformBy(Pose2d.fromTranslation(new Translation2d(-2.5, 4.375)));
+    
     public class TrajectorySet {
         public class MirroredTrajectory {
             public MirroredTrajectory(Trajectory<TimedState<Pose2dWithCurvature>> right) {
@@ -176,8 +251,19 @@ public class TrajectoryGenerator {
             public final Trajectory<TimedState<Pose2dWithCurvature>> right;
         }
 
-        //Score first game piece
-        public final MirroredTrajectory 
+        //Lineup to First Goal Trajectories
+
+        public final MirroredTrajectory levelOneToOppositeCargoOneLineup;
+        public final MirroredTrajectory levelTwoToOppositeCargoOneLineup;
+
+        public final MirroredTrajectory levelOneToCargoTwoLineup;
+        public final MirroredTrajectory levelTwoToCargoTwoLineup;
+        
+        public final MirroredTrajectory levelOneToRocketThreeLineup;
+        public final MirroredTrajectory levelTwoToRocketThreeLineup;
+
+
+
         // public final MirroredTrajectory straightTest;
 
         // public final MirroredTrajectory level1ToCargoOne;
