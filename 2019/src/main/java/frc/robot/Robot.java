@@ -273,13 +273,7 @@ public class Robot extends TimedRobot {
     try {
         
         //driver inputs
-
-        if(m_OI.m_driveJoystick.getRawButton(10)) {
-          m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn));
-        }
-        else {
-          m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn * 0.7));
-        }
+        m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn));
         
 
         //claw ball outtake (face buttons)
