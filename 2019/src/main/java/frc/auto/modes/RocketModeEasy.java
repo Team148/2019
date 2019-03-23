@@ -4,6 +4,7 @@ import frc.auto.AutoModeBase;
 import frc.auto.AutoModeEndedException;
 import frc.auto.actions.*;
 import frc.paths.TrajectoryGenerator;
+import lib.geometry.Rotation2d;
 import lib.geometry.Translation2d;
 import frc.robot.subsystems.Limelight;
 
@@ -65,11 +66,11 @@ public class RocketModeEasy extends AutoModeBase {
         runAction(new SeriesAction (
             Arrays.asList(
                 mLevel1ToRocketThreeLineup,
+                new TurnToHeading(Rotation2d.fromDegrees(210.0)),
                 new WaitAction(0.25)
             )
         ));
 
-        System.out.println("Finished Rocket Three Path");
         angleOffset = LL.GetOffsetAngle();
         inchOffset = (int) Math.floor(angleOffset / 1.3);
         if (mStartedLeft) {
@@ -79,6 +80,7 @@ public class RocketModeEasy extends AutoModeBase {
         if (inchOffset == 1) {
             runAction(new SeriesAction (
                 Arrays.asList(
+                    new ExtendRetract4Bar(true),
                     mRocketThreeCorrectPlus1
                 )
             ));
@@ -86,6 +88,7 @@ public class RocketModeEasy extends AutoModeBase {
         else if (inchOffset == 2) {
             runAction(new SeriesAction (
                 Arrays.asList(
+                    new ExtendRetract4Bar(true),
                     mRocketThreeCorrectPlus2
                 )
             ));
@@ -93,6 +96,7 @@ public class RocketModeEasy extends AutoModeBase {
         else if (inchOffset == 3) {
             runAction(new SeriesAction (
                 Arrays.asList(
+                    new ExtendRetract4Bar(true),
                     mRocketThreeCorrectPlus3
                 )
             ));
@@ -100,6 +104,7 @@ public class RocketModeEasy extends AutoModeBase {
         else if (inchOffset == 4) {
             runAction(new SeriesAction (
                 Arrays.asList(
+                    new ExtendRetract4Bar(true),
                     mRocketThreeCorrectPlus4
                 )
             ));
@@ -107,6 +112,7 @@ public class RocketModeEasy extends AutoModeBase {
         else if (inchOffset >= 5) {
             runAction(new SeriesAction (
                 Arrays.asList(
+                    new ExtendRetract4Bar(true),
                     mRocketThreeCorrectPlus5
                 )
             ));
@@ -114,6 +120,7 @@ public class RocketModeEasy extends AutoModeBase {
         else if (inchOffset == -1) {
             runAction(new SeriesAction (
                 Arrays.asList(
+                    new ExtendRetract4Bar(true),
                     mRocketThreeCorrectMinus1
                 )
             ));
@@ -121,6 +128,7 @@ public class RocketModeEasy extends AutoModeBase {
         else if (inchOffset == -2) {
             runAction(new SeriesAction (
                 Arrays.asList(
+                    new ExtendRetract4Bar(true),
                     mRocketThreeCorrectMinus2
                 )
             ));
@@ -128,6 +136,7 @@ public class RocketModeEasy extends AutoModeBase {
         else if (inchOffset == -3) {
             runAction(new SeriesAction (
                 Arrays.asList(
+                    new ExtendRetract4Bar(true),
                     mRocketThreeCorrectMinus3
                 )
             ));
@@ -135,6 +144,7 @@ public class RocketModeEasy extends AutoModeBase {
         else if (inchOffset == -4) {
             runAction(new SeriesAction (
                 Arrays.asList(
+                    new ExtendRetract4Bar(true),
                     mRocketThreeCorrectMinus4
                 )
             ));
@@ -142,6 +152,7 @@ public class RocketModeEasy extends AutoModeBase {
         else if (inchOffset <= -5) {
             runAction(new SeriesAction (
                 Arrays.asList(
+                    new ExtendRetract4Bar(true),
                     mRocketThreeCorrectMinus5
                 )
             ));
@@ -149,85 +160,19 @@ public class RocketModeEasy extends AutoModeBase {
         else {
             runAction(new SeriesAction (
                 Arrays.asList(
+                    new ExtendRetract4Bar(true),
                     mRocketThreeNoCorrection
                 )
             ));
         }
 
-        // if(offset > 1.64) {
-        //     System.out.println("Stepped into the if statement!");
-        //     runAction(new SeriesAction (
-        //     Arrays.asList(
-        //         mRocketOneCorrectPlus1
-        //     )
-        // ));
-        //     if(offset > 3.07) {
-        //         runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             // mRocketOneOffsetCorrectMinus2
-        //         )
-        //     ));
-        //         if(offset > 4.71) {
-        //             runAction(new SeriesAction (
-        //             Arrays.asList(
-        //                 // mRocketOneOffsetCorrectMinus3
-        //             )
-        //             )); 
-        //             if(offset > 6.13) {
-        //                 runAction(new SeriesAction (
-        //                 Arrays.asList(
-        //                     // mRocketOneOffsetCorrectMinus4
-        //                 )
-        //             ));
-        //                 if(offset > 7.64){
-        //                     runAction(new SeriesAction (
-        //                     Arrays.asList(
-        //                         // mRocketOneOffsetCorrectMinus5
-        //                     )
-        //                 ));
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-        // else if(offset < -1.64) {
-        //     runAction(new SeriesAction (
-        //     Arrays.asList(
-        //         // mRocketOneOffsetCorrectPlus1
-        //     )
-        // ));
-        //     if(offset < -3.07) {
-        //         runAction(new SeriesAction (
-        //             Arrays.asList(
-        //                 // mRocketOneOffsetCorrectPlus2
-        //             )
-        //         ));
-        //         if(offset < -4.71) {
-        //             runAction(new SeriesAction (
-        //                 Arrays.asList(
-        //                     // mRocketOneOffsetCorrectPlus3
-        //                 )
-        //             ));
-        //             if(offset < -6.13) {
-        //                 runAction(new SeriesAction (
-        //                     Arrays.asList(
-        //                         // mRocketOneOffsetCorrectPlus4
-        //                     )
-        //                 ));
-        //                 if(offset < 7.64) {
-        //                     runAction(new SeriesAction (
-        //                         Arrays.asList(
-        //                             // mRocketOneOffsetCorrectPlus5
-        //                         )
-        //                     ));
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-        // else {
-            
-        // }
+        runAction(new SeriesAction (
+            Arrays.asList(
+                new OpenLoopDrive(0.3, 0.3, 0.3),
+                new OpenCloseBeak(true),
+                new WaitAction(0.25)
+            )
+        ));
 
         // // //Get Second Hatch
         // runAction(new ParallelAction (
