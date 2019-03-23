@@ -71,108 +71,108 @@ public class RocketModeEasy extends AutoModeBase {
             )
         ));
 
-        angleOffset = LL.GetOffsetAngle();
-        inchOffset = (int) Math.floor(angleOffset / 1.3);
-        if (mStartedLeft) {
-            inchOffset *= -1;
-        }
+        // angleOffset = LL.GetOffsetAngle();
+        // inchOffset = (int) Math.floor(angleOffset / 1.3);
+        // if (mStartedLeft) {
+        //     inchOffset *= -1;
+        // }
 
-        if (inchOffset == 1) {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketThreeCorrectPlus1
-                )
-            ));
-        }
-        else if (inchOffset == 2) {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketThreeCorrectPlus2
-                )
-            ));
-        }
-        else if (inchOffset == 3) {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketThreeCorrectPlus3
-                )
-            ));
-        }
-        else if (inchOffset == 4) {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketThreeCorrectPlus4
-                )
-            ));
-        }
-        else if (inchOffset >= 5) {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketThreeCorrectPlus5
-                )
-            ));
-        }
-        else if (inchOffset == -1) {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketThreeCorrectMinus1
-                )
-            ));
-        }
-        else if (inchOffset == -2) {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketThreeCorrectMinus2
-                )
-            ));
-        }
-        else if (inchOffset == -3) {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketThreeCorrectMinus3
-                )
-            ));
-        }
-        else if (inchOffset == -4) {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketThreeCorrectMinus4
-                )
-            ));
-        }
-        else if (inchOffset <= -5) {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketThreeCorrectMinus5
-                )
-            ));
-        }
-        else {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketThreeNoCorrection
-                )
-            ));
-        }
+        // if (inchOffset == 1) {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketThreeCorrectPlus1
+        //         )
+        //     ));
+        // }
+        // else if (inchOffset == 2) {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketThreeCorrectPlus2
+        //         )
+        //     ));
+        // }
+        // else if (inchOffset == 3) {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketThreeCorrectPlus3
+        //         )
+        //     ));
+        // }
+        // else if (inchOffset == 4) {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketThreeCorrectPlus4
+        //         )
+        //     ));
+        // }
+        // else if (inchOffset >= 5) {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketThreeCorrectPlus5
+        //         )
+        //     ));
+        // }
+        // else if (inchOffset == -1) {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketThreeCorrectMinus1
+        //         )
+        //     ));
+        // }
+        // else if (inchOffset == -2) {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketThreeCorrectMinus2
+        //         )
+        //     ));
+        // }
+        // else if (inchOffset == -3) {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketThreeCorrectMinus3
+        //         )
+        //     ));
+        // }
+        // else if (inchOffset == -4) {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketThreeCorrectMinus4
+        //         )
+        //     ));
+        // }
+        // else if (inchOffset <= -5) {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketThreeCorrectMinus5
+        //         )
+        //     ));
+        // }
+        // else {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketThreeNoCorrection
+        //         )
+        //     ));
+        // }
 
-        runAction(new SeriesAction (
-            Arrays.asList(
-                new OpenLoopDrive(0.3, 0.3, 0.3),
-                new OpenCloseBeak(true),
-                new WaitAction(0.25)
-            )
-        ));
+        // runAction(new SeriesAction (
+        //     Arrays.asList(
+        //         new OpenLoopDrive(0.3, 0.3, 0.3),
+        //         new OpenCloseBeak(true),
+        //         new WaitAction(0.25)
+        //     )
+        // ));
 
         // // //Get Second Hatch
         // runAction(new ParallelAction (

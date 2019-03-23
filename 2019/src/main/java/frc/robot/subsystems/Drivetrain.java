@@ -165,6 +165,9 @@ public class Drivetrain extends Subsystem {
     m_driveRight1.configPeakOutputForward(1.0, 0);
     m_driveRight1.configPeakOutputReverse(-1.0, 0);
 
+    m_driveLeft1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+    m_driveRight1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+    
     m_driveLeft1.setSensorPhase(true);
     m_driveRight1.setSensorPhase(true);
   }
@@ -311,11 +314,13 @@ public class Drivetrain extends Subsystem {
      * Configures the drivebase to turn to a desired heading
      */
     public synchronized void setWantTurnToHeading(Rotation2d heading) {
+        System.out.println("IN SETWANTTURNTOHEADING!!!");
         mDriveControlState = DriveControlState.TURN_TO_HEADING;
         updatePositionSetpoint(getLeftEncoderDistance(), getRightEncoderDistance());
 
         if (Math.abs(heading.inverse().rotateBy(mTargetHeading).getDegrees()) > 1E-3) {
             mTargetHeading = heading;
+            System.out.println("TARGET HEADING IS   " + mTargetHeading);
             mIsOnTarget = false;
         }
     }
@@ -337,7 +342,9 @@ public class Drivetrain extends Subsystem {
      * Is called periodically when the robot is auto-aiming towards the boiler.
      */
     private void updateTurnToHeading(double timestamp) {
-        final Rotation2d field_to_robot = mRobotState.getLatestFieldToVehicle().getValue().getRotation();
+        System.out.println("IN UPDATETURNTOHEADING!!!!");
+        final Rotation2d field_to_robot = getHeading();
+        System.out.println("FIELD TO VEHICLE IS  " + field_to_robot);
 
         // Figure out the rotation necessary to turn to face the goal.
         final Rotation2d robot_to_target = field_to_robot.inverse().rotateBy(mTargetHeading);
