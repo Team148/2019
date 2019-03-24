@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -30,7 +31,8 @@ public class EndGame extends Subsystem {
   private boolean m_AnklesReleased = false;
 
 
- 
+ private final DigitalInput m_mexicoSensor = new DigitalInput(RobotMap.MEXICO_SENSOR_ONE);
+
   private final DoubleSolenoid m_endGameAnkles = new DoubleSolenoid(0, RobotMap.ENDGAME_FEET_FORWARD, RobotMap.ENDGAME_FEET_REVERSE);
 
   private final WPI_TalonSRX m_EndGameDrive = new WPI_TalonSRX(RobotMap.ENDGAME_DRIVE);
@@ -106,6 +108,10 @@ public class EndGame extends Subsystem {
 
   public boolean getAnklesReleased(){
     return m_AnklesReleased;
+  }
+
+  public boolean getMexicoSensor(){
+    return m_mexicoSensor.get();
   }
 
 }

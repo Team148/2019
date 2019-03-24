@@ -63,4 +63,8 @@ public class RobotMap {
 
   // Solenoid Channels PCM = 1
   public static final int WEDGE_SOLENOID = 0;
+
+  //Mexico Sensor
+
+  public static final int MEXICO_SENSOR_ONE = 0;
 }
