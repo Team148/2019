@@ -237,8 +237,8 @@ public class Robot extends TimedRobot {
       
     }
 
-    // RobotState.getInstance().outputToSmartDashboard();
-    // Drivetrain.getInstance().outputTelemetry();
+    RobotState.getInstance().outputToSmartDashboard();
+    Drivetrain.getInstance().outputTelemetry();
   }
 
   @Override

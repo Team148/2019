@@ -22,7 +22,7 @@ public class CargoShipModeHard extends AutoModeBase {
     public CargoShipModeHard(boolean driveToLeftCargo) {
         mStartedLeft = driveToLeftCargo;
 
-        mLevel2ToCargoThree = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelTwoToCargoThreeLineup.get(mStartedLeft), true);
+        mLevel2ToCargoThree = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelTwoToCargoTwoLineup.get(mStartedLeft), true);
 
         // mLevel2ToCargoTwo = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level2ToCargoTwo.get(mStartedLeft), true);
         // mLevel2ToCargoOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level2ToCargoThree.get(mStartedLeft), true);

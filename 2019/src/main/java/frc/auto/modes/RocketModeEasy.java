@@ -43,8 +43,9 @@ public class RocketModeEasy extends AutoModeBase {
     // private DriveTrajectory mRocketThreeCorrectMinus3;
     // private DriveTrajectory mRocketThreeCorrectMinus4;
     // private DriveTrajectory mRocketThreeCorrectMinus5;
-    private DriveTrajectory mRocketThreeAway;
+    private DriveTrajectory mRocketOneAway;
     private DriveTrajectory mToLoadingStation;
+    private DriveTrajectory mLoadingStationToRocketThreeLineup;
     private DriveTrajectory mLoadingStationCorrectPlus1;
     private DriveTrajectory mLoadingStationCorrectPlus2;
     private DriveTrajectory mLoadingStationCorrectPlus3;
@@ -66,16 +67,16 @@ public class RocketModeEasy extends AutoModeBase {
         // mRocketThreeNoCorrection = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketThreeLineupToRocketThree.get(mStartedLeft));
         mLoadingStationNoCorrection = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationLineupToLoadingStation.get(mStartedLeft));
 
-        mRocketOneCorrectPlus1 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketOneCorrectionPlusOne.get(mStartedLeft));
-        mRocketOneCorrectPlus2 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketOneCorrectionPlusTwo.get(mStartedLeft));
-        mRocketOneCorrectPlus3 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketOneCorrectionPlusThree.get(mStartedLeft));
-        mRocketOneCorrectPlus4 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketOneCorrectionPlusFour.get(mStartedLeft));
-        mRocketOneCorrectPlus5 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketOneCorrectionPlusFive.get(mStartedLeft));
-        mRocketOneCorrectMinus1 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketOneCorrectionMinusOne.get(mStartedLeft));
-        mRocketOneCorrectMinus2 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketOneCorrectionMinusTwo.get(mStartedLeft));
-        mRocketOneCorrectMinus3 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketOneCorrectionMinusThree.get(mStartedLeft));
-        mRocketOneCorrectMinus4 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketOneCorrectionMinusFour.get(mStartedLeft));
-        mRocketOneCorrectMinus5 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketOneCorrectionMinusFive.get(mStartedLeft));
+        mRocketOneCorrectPlus1 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketOneCorrectionPlusOne.get(mStartedLeft), true);
+        mRocketOneCorrectPlus2 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketOneCorrectionPlusTwo.get(mStartedLeft), true);
+        mRocketOneCorrectPlus3 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketOneCorrectionPlusThree.get(mStartedLeft), true);
+        mRocketOneCorrectPlus4 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketOneCorrectionPlusFour.get(mStartedLeft), true);
+        mRocketOneCorrectPlus5 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketOneCorrectionPlusFive.get(mStartedLeft), true);
+        mRocketOneCorrectMinus1 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketOneCorrectionMinusOne.get(mStartedLeft), true);
+        mRocketOneCorrectMinus2 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketOneCorrectionMinusTwo.get(mStartedLeft), true);
+        mRocketOneCorrectMinus3 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketOneCorrectionMinusThree.get(mStartedLeft), true);
+        mRocketOneCorrectMinus4 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketOneCorrectionMinusFour.get(mStartedLeft), true);
+        mRocketOneCorrectMinus5 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketOneCorrectionMinusFive.get(mStartedLeft), true);
         // mRocketThreeCorrectPlus1 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketThreeCorrectionPlusOne.get(mStartedLeft));
         // mRocketThreeCorrectPlus2 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketThreeCorrectionPlusTwo.get(mStartedLeft));
         // mRocketThreeCorrectPlus3 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketThreeCorrectionPlusThree.get(mStartedLeft));
@@ -88,9 +89,9 @@ public class RocketModeEasy extends AutoModeBase {
         // mRocketThreeCorrectMinus5 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketThreeCorrectionMinusFive.get(mStartedLeft));
         // mLevel1ToRocketThree = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level1ToRocketThree.get(mStartedLeft), true);
         // mLevel1ToRocketOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level1ToRocketOne.get(mStartedLeft), true);
-        mRocketThreeAway = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromRocketThree.get(mStartedLeft));
-        mToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketThreeLineupToLoadingStationLineup.get(mStartedLeft));
-        // mLoadingStationToRocketTwo = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToRocketTwo.get(mStartedLeft));
+        mRocketOneAway = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromRocketOne.get(mStartedLeft));
+        mToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromRocketOneToLoadingStationLineup.get(mStartedLeft));
+        mLoadingStationToRocketThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToRocketThreeLineup.get(mStartedLeft));
 
         mLoadingStationCorrectPlus1 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationCorrectionPlusOne.get(mStartedLeft));
         mLoadingStationCorrectPlus2 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationCorrectionPlusTwo.get(mStartedLeft));
@@ -111,14 +112,14 @@ public class RocketModeEasy extends AutoModeBase {
         //Score First Hatch
         runAction(new SeriesAction (
             Arrays.asList(
-                mLevel1ToRocketOneLineup,
+                mLevel1ToRocketOneLineup
                 // new TurnToHeading(Rotation2d.fromDegrees(180.0)),
-                new WaitAction(0.25)
+                // new WaitAction(0.25)
             )
         ));
 
         angleOffset = LL.GetOffsetAngle();
-        inchOffset = (int) Math.floor(angleOffset / 1.3);
+        inchOffset = (int) Math.floor(angleOffset / 1.64);
         if (mStartedLeft) {
             inchOffset *= -1;
         }
@@ -214,20 +215,28 @@ public class RocketModeEasy extends AutoModeBase {
             ));
         }
 
-        // runAction(new SeriesAction (
-        //     Arrays.asList(
-        //         new OpenLoopDrive(0.3, 0.3, 0.3),
-        //         new OpenCloseBeak(true)
-        //     )
-        // ));
+        runAction(new SeriesAction (
+            Arrays.asList(
+                new OpenLoopDrive(0.2, 0.2, 0.4),
+                new OpenCloseBeak(true)
+            )
+        ));
 
-        // // //Get Second Hatch
-        // runAction(new SeriesAction (
-        //     Arrays.asList(
-        //         mRocketThreeAway,
-        //         mToLoadingStation
-        //     )
-        // ));
+        // //Get Second Hatch
+        runAction(new SeriesAction (
+            Arrays.asList(
+                mRocketOneAway,
+                mToLoadingStation,
+                new OpenCloseBeak(false),
+                new WaitAction(0.25)
+            )
+        ));
+
+        runAction(new SeriesAction (
+            Arrays.asList(
+                mLoadingStationToRocketThreeLineup
+            )
+        ));
 
         // angleOffset = LL.GetOffsetAngle();
         // inchOffset = (int) Math.floor(angleOffset / 1.3);
