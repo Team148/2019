@@ -28,6 +28,7 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.EndGame;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.RollerClaw;
+import frc.robot.subsystems.Wedge;
 import frc.robot.SubsystemManager;
 
 //import Commands
@@ -89,6 +90,7 @@ public class Robot extends TimedRobot {
   public static EndGame m_EndGame;
   public static Limelight m_Limelight;
   public static RollerClaw m_Claw;
+  public static Wedge m_Wedge;
   public static OI m_OI;
 
   private final Compressor comp = new Compressor(1);
@@ -106,6 +108,7 @@ public class Robot extends TimedRobot {
     m_EndGame = EndGame.getInstance();
     m_Limelight = Limelight.getInstance();
     m_Claw = RollerClaw.getInstance();
+    m_Wedge = Wedge.getInstance();
     m_OI = OI.getInstance();
 
     mSubsystemManager.registerEnabledLoops(mEnabledLooper);
@@ -318,6 +321,7 @@ public class Robot extends TimedRobot {
         }
 
         if(m_OI.m_operatorJoystick.getRawAxis(2) > 0.3) {
+          m_Wedge.setWedge(false);
           m_Ball.setBallIntakeCylinder(true);
           m_Beak.setBeakBar(true);
         }
@@ -358,9 +362,17 @@ public class Robot extends TimedRobot {
           if(m_OI.getOperator1()) {
             m_Beak.setBeakBar(false);
           }
+
+          if(m_OI.getOperator2()) {
+            m_Wedge.setWedge(false);
+          }
   
           if(m_OI.getOperator3()) {
             m_Beak.setBeakBar(true);
+          }
+
+          if(m_OI.getOperator4()) {
+            m_Wedge.setWedge(true);
           }
         }
         

@@ -13,7 +13,7 @@ public class Wedge extends Subsystem {
 
   private static Wedge m_instance;
 
-  private final Solenoid m_wedge = new Solenoid(RobotMap.PCM_ONE, RobotMap.WEDGE_SOLENOID);
+  private final Solenoid m_wedge = new Solenoid(RobotMap.WEDGE_SOLENOID);
 
   public Wedge() {
 
@@ -34,7 +34,7 @@ public class Wedge extends Subsystem {
     return m_instance;
   }
 
-  public void setBWedge (boolean on) {
+  public void setWedge (boolean on) {
     if (on) {
       m_wedge.set(true);
     }
