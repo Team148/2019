@@ -25,7 +25,7 @@ public class Constants {
 
     //Turn to LimeLight Constants
 
-    public static final double LL_K_P = 0.04;
+    public static final double LL_K_P = 0.03;
     public static final double LL_K_I = 0;
     public static final double LL_K_D = 0.0;//LL_K_P * 0.25;
 

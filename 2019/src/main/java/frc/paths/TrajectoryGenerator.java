@@ -136,6 +136,7 @@ public class TrajectoryGenerator {
 
     // //Cargo Two Lineup (for Vision Tracking)
     public static final Pose2d kCargoTwoLineupPose = new Pose2d(new Translation2d(253.0, -80.0), Rotation2d.fromDegrees(90.0));
+    public static final Pose2d kCargoTwoBackupPose = new Pose2d(new Translation2d(253.0, -100.0), Rotation2d.fromDegrees(90.0));
 
     // //Cargo Three Lineup (for Vision Tracking)
     public static final Pose2d kCargoThreeLineupPose = new Pose2d(new Translation2d(280.0, -80.0), Rotation2d.fromDegrees(90.0));
@@ -153,6 +154,7 @@ public class TrajectoryGenerator {
 
     // //Loading Station Lineup (for Vision Tracking)
     public static final Pose2d kLoadingStationLineupPose = new Pose2d(new Translation2d(48.0, -138.0), Rotation2d.fromDegrees(180.0));
+    public static final Pose2d kComingToLoadingStation = kLoadingStationLineupPose.transformBy(Pose2d.fromTranslation(new Translation2d(30.0, 0.0)));
 
     // //Correction Poses (Minus 1 is 1 inch left, Plus 1 is 1 inch right)
     //Cargo Corrections
@@ -600,7 +602,7 @@ public class TrajectoryGenerator {
             // waypoints.add(kRocketThreeLineupPose);
 
             return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(50.0)),
-                50.0, 50.0, kMaxVoltage);
+                0.0, 20.0, kMaxVelocity, kMaxAccel, kMaxVoltage);
         }
 
         private Trajectory<TimedState<Pose2dWithCurvature>> getLevelTwoToRocketOneLineup() {
@@ -1373,21 +1375,22 @@ public class TrajectoryGenerator {
         private Trajectory<TimedState<Pose2dWithCurvature>> getAwayFromCargoTwo() {
             List<Pose2d> waypoints = new ArrayList<>();
             waypoints.add(kCargoTwoPose);
-            waypoints.add(kCargoTwoLineupPose);
-
+            waypoints.add(kCargoTwoBackupPose);
             return generateTrajectory(true, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
                 kMaxVelocity, kMaxAccel, kMaxVoltage);
         }
 
         private Trajectory<TimedState<Pose2dWithCurvature>> getCargoTwoLineupToLoadingStation() {
             List<Pose2d> waypoints = new ArrayList<>();
-            waypoints.add(kCargoTwoLineupPose);
+            // waypoints.add(kCargoTwoLineupPose);
+            waypoints.add(kCargoTwoBackupPose);
             waypoints.add(new Pose2d(new Translation2d(200.0, -55.0), Rotation2d.fromDegrees(180.0)));
+            waypoints.add(kComingToLoadingStation);
             waypoints.add(kLoadingStationLineupPose);
-            waypoints.add(kLoadingStationPose);
+            // waypoints.add(kLoadingStationPose);
 
-            return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
-                kMaxVelocity, kMaxAccel, kMaxVoltage);
+            return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(80.0)),
+                0.0, 20.0, kMaxVelocity, kMaxAccel, kMaxVoltage);
         }
 
         // private Trajectory<TimedState<Pose2dWithCurvature>> getAwayFromCargoThree() {
@@ -1439,10 +1442,10 @@ public class TrajectoryGenerator {
         private Trajectory<TimedState<Pose2dWithCurvature>> getAwayFromRocketOneToLoadingStationLineup() {
             List<Pose2d> waypoints = new ArrayList<>();
             waypoints.add(new Pose2d(new Translation2d(165.0, -90.0), Rotation2d.fromDegrees(250.0)));
-            waypoints.add(kLoadingStationPose);
+            waypoints.add(kLoadingStationLineupPose);
 
             return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
-                kMaxVelocity, kMaxAccel, kMaxVoltage);
+                0.0, 20.0, kMaxVelocity, kMaxAccel, kMaxVoltage);
         }
 
         private Trajectory<TimedState<Pose2dWithCurvature>> getRocketThreeLineupToLoadingStationLineup() {
@@ -1481,7 +1484,7 @@ public class TrajectoryGenerator {
             waypoints.add(new Pose2d(new Translation2d(265.0, -55.0), Rotation2d.fromDegrees(180.0)));
             waypoints.add(kCargoThreeLineupPose);
 
-            return generateTrajectory(true, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(60.0)),
+            return generateTrajectory(true, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(60.0 )),
                 kMaxVelocity, kMaxAccel, kMaxVoltage);
         }
 

@@ -222,20 +222,24 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putString("Match Cycle", "AUTONOMOUS");
 
-    if (m_OI.m_driveJoystick.getRawButton(7) && m_OI.m_driveJoystick.getRawButton(8)) {
-      mAutoModeExecutor.stop();
+    if (m_OI.m_driveJoystick.getRawButton(7) && m_OI.m_driveJoystick.getRawButton(8) && !autoInterrupted) {
+     // mAutoModeExecutor.stop();
       autoInterrupted = true;
+      disabledInit();
+      disabledPeriodic();
+      teleopInit();
+
     }
 
     if (autoInterrupted) {
-      if(m_OI.m_driveJoystick.getRawButton(10)) {
-        m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn));
-      }
-      else {
-        m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn * 0.7));
-      }
+      // if(m_OI.m_driveJoystick.getRawButton(10)) {
+      //   m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn));
+      // }
+      // else {
+      //   m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn * 0.7));
+      // }
 
-      
+      teleopPeriodic();
     }
 
     RobotState.getInstance().outputToSmartDashboard();

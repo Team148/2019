@@ -112,112 +112,113 @@ public class RocketModeEasy extends AutoModeBase {
         //Score First Hatch
         runAction(new SeriesAction (
             Arrays.asList(
+                new ExtendRetract4Bar(true),
                 mLevel1ToRocketOneLineup
                 // new TurnToHeading(Rotation2d.fromDegrees(180.0)),
                 // new WaitAction(0.25)
             )
         ));
 
-        angleOffset = LL.GetOffsetAngle();
-        inchOffset = (int) Math.floor(angleOffset / 1.64);
-        if (mStartedLeft) {
-            inchOffset *= -1;
-        }
+        // angleOffset = LL.GetOffsetAngle();
+        // inchOffset = (int) Math.floor(angleOffset / 1.64);
+        // if (mStartedLeft) {
+        //     inchOffset *= -1;
+        // }
 
-        System.out.println("I AM " + inchOffset + " INCHES OFF!!!!!!!!!!!");
+        // System.out.println("I AM " + inchOffset + " INCHES OFF!!!!!!!!!!!");
 
-        if (inchOffset == 1) {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketOneCorrectPlus1
-                )
-            ));
-        }
-        else if (inchOffset == 2) {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketOneCorrectPlus2
-                )
-            ));
-        }
-        else if (inchOffset == 3) {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketOneCorrectPlus3
-                )
-            ));
-        }
-        else if (inchOffset == 4) {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketOneCorrectPlus4
-                )
-            ));
-        }
-        else if (inchOffset >= 5) {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketOneCorrectPlus5
-                )
-            ));
-        }
-        else if (inchOffset == -1) {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketOneCorrectMinus1
-                )
-            ));
-        }
-        else if (inchOffset == -2) {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketOneCorrectMinus2
-                )
-            ));
-        }
-        else if (inchOffset == -3) {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketOneCorrectMinus3
-                )
-            ));
-        }
-        else if (inchOffset == -4) {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketOneCorrectMinus4
-                )
-            ));
-        }
-        else if (inchOffset <= -5) {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketOneCorrectMinus5
-                )
-            ));
-        }
-        else {
-            runAction(new SeriesAction (
-                Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mRocketOneNoCorrection
-                )
-            ));
-        }
+        // if (inchOffset == 1) {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketOneCorrectPlus1
+        //         )
+        //     ));
+        // }
+        // else if (inchOffset == 2) {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketOneCorrectPlus2
+        //         )
+        //     ));
+        // }
+        // else if (inchOffset == 3) {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketOneCorrectPlus3
+        //         )
+        //     ));
+        // }
+        // else if (inchOffset == 4) {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketOneCorrectPlus4
+        //         )
+        //     ));
+        // }
+        // else if (inchOffset >= 5) {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketOneCorrectPlus5
+        //         )
+        //     ));
+        // }
+        // else if (inchOffset == -1) {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketOneCorrectMinus1
+        //         )
+        //     ));
+        // }
+        // else if (inchOffset == -2) {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketOneCorrectMinus2
+        //         )
+        //     ));
+        // }
+        // else if (inchOffset == -3) {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketOneCorrectMinus3
+        //         )
+        //     ));
+        // }
+        // else if (inchOffset == -4) {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketOneCorrectMinus4
+        //         )
+        //     ));
+        // }
+        // else if (inchOffset <= -5) {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketOneCorrectMinus5
+        //         )
+        //     ));
+        // }
+        // else {
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mRocketOneNoCorrection
+        //         )
+        //     ));
+        // }
 
         runAction(new SeriesAction (
             Arrays.asList(
-                new OpenLoopDrive(0.2, 0.2, 0.4),
+                new DriveForwardAndTurnToTarget(0.3, 1.0),
                 new OpenCloseBeak(true)
             )
         ));
@@ -227,14 +228,16 @@ public class RocketModeEasy extends AutoModeBase {
             Arrays.asList(
                 mRocketOneAway,
                 mToLoadingStation,
-                new OpenCloseBeak(false),
-                new WaitAction(0.25)
+                new DriveForwardAndTurnToTarget(0.3, 1.0),
+                new OpenCloseBeak(false)
             )
         ));
 
         runAction(new SeriesAction (
             Arrays.asList(
-                mLoadingStationToRocketThreeLineup
+                mLoadingStationToRocketThreeLineup,
+                new DriveForwardAndTurnToTarget(0.3, 1.0),
+                new OpenCloseBeak(true)
             )
         ));
 
