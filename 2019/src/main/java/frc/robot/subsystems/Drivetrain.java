@@ -165,6 +165,9 @@ public class Drivetrain extends Subsystem {
     m_driveRight1.configPeakOutputForward(1.0, 0);
     m_driveRight1.configPeakOutputReverse(-1.0, 0);
 
+    m_driveLeft1.overrideLimitSwitchesEnable(false);
+    m_driveRight1.overrideLimitSwitchesEnable(false);
+	
     m_driveLeft1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
     m_driveRight1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 

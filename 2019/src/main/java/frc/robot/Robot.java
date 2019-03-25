@@ -175,6 +175,7 @@ public class Robot extends TimedRobot {
 
     RobotState.getInstance().outputToSmartDashboard();
     Drivetrain.getInstance().outputTelemetry();
+    SmartDashboard.putNumber("Elevator Encoder", m_Elevator.getElevatorPosition());
   }
 
   /**
@@ -292,13 +293,7 @@ public class Robot extends TimedRobot {
     try {
         
         //driver inputs
-
-        if(m_OI.m_driveJoystick.getRawButton(10)) {
-          m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn));
-        }
-        else {
-          m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn * 0.7));
-        }
+        m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn));
         
 
         //claw ball outtake (face buttons)
@@ -345,7 +340,6 @@ public class Robot extends TimedRobot {
         if(m_OI.m_operatorJoystick.getRawAxis(2) > 0.3) {
           m_Ball.setBallIntakeCylinder(true);
           m_Beak.setBeakBar(true);
-          m_Beak.setBeakGrab(false); //beak grab false means hang on/close
         }
         if(m_OI.m_operatorJoystick.getRawAxis(3) > 0.3) {
           m_Ball.setBallIntakeCylinder(false);

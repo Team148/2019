@@ -29,6 +29,8 @@ public class Limelight extends Subsystem {
   
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
+
+
   boolean m_connected = false;
   double m_LEDMode = 0.0;
   double m_pipeline = 0.0;
@@ -170,4 +172,11 @@ public class Limelight extends Subsystem {
     else
       m_camMode = 1.0;
   }
+
+  public void SetFastNT(boolean on){
+    if(on)
+      NetworkTableInstance.getDefault().setUpdateRate(0.01);
+    else
+      NetworkTableInstance.getDefault().setUpdateRate(0.05);
+    }
 }

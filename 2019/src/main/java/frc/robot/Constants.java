@@ -23,6 +23,12 @@ public class Constants {
     public static final double HEADING_P = 0.7;
     public static final double DRIVE_FEEDFORWARD = 0.05;
 
+    //Turn to LimeLight Constants
+
+    public static final double LL_K_P = 0.04;
+    public static final double LL_K_I = 0;
+    public static final double LL_K_D = 0.0;//LL_K_P * 0.25;
+
     //Elevator Constants
 
     public static final int ELEVATOR_SOFT_LIMIT = 52650;
