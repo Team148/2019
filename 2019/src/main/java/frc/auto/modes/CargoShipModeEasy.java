@@ -21,7 +21,7 @@ public class CargoShipModeEasy extends AutoModeBase {
     private DriveTrajectory mLevel1ToCargoTwoLineup;
     private DriveTrajectory mCargoTwoNoCorrection;
     // private DriveTrajectory mRocketThreeNoCorrection;
-    private DriveTrajectory mLoadingStationNoCorrection;
+    private DriveTrajectory mCargoThreeNoCorrection;
 
     private DriveTrajectory mCargoTwoCorrectPlus1;
     private DriveTrajectory mCargoTwoCorrectPlus2;
@@ -33,29 +33,19 @@ public class CargoShipModeEasy extends AutoModeBase {
     private DriveTrajectory mCargoTwoCorrectMinus3;
     private DriveTrajectory mCargoTwoCorrectMinus4;
     private DriveTrajectory mCargoTwoCorrectMinus5;
-    // private DriveTrajectory mRocketThreeCorrectPlus1;
-    // private DriveTrajectory mRocketThreeCorrectPlus2;
-    // private DriveTrajectory mRocketThreeCorrectPlus3;
-    // private DriveTrajectory mRocketThreeCorrectPlus4;
-    // private DriveTrajectory mRocketThreeCorrectPlus5;
-    // private DriveTrajectory mRocketThreeCorrectMinus1;
-    // private DriveTrajectory mRocketThreeCorrectMinus2;
-    // private DriveTrajectory mRocketThreeCorrectMinus3;
-    // private DriveTrajectory mRocketThreeCorrectMinus4;
-    // private DriveTrajectory mRocketThreeCorrectMinus5;
     private DriveTrajectory mCargoTwoAway;
     private DriveTrajectory mToLoadingStation;
-    private DriveTrajectory mLoadingStationCorrectPlus1;
-    private DriveTrajectory mLoadingStationCorrectPlus2;
-    private DriveTrajectory mLoadingStationCorrectPlus3;
-    private DriveTrajectory mLoadingStationCorrectPlus4;
-    private DriveTrajectory mLoadingStationCorrectPlus5;
-    private DriveTrajectory mLoadingStationCorrectMinus1;
-    private DriveTrajectory mLoadingStationCorrectMinus2;
-    private DriveTrajectory mLoadingStationCorrectMinus3;
-    private DriveTrajectory mLoadingStationCorrectMinus4;
-    private DriveTrajectory mLoadingStationCorrectMinus5;
     private DriveTrajectory mLoadingStationToCargoThreeLineup;
+    private DriveTrajectory mCargoThreeCorrectPlus1;
+    private DriveTrajectory mCargoThreeCorrectPlus2;
+    private DriveTrajectory mCargoThreeCorrectPlus3;
+    private DriveTrajectory mCargoThreeCorrectPlus4;
+    private DriveTrajectory mCargoThreeCorrectPlus5;
+    private DriveTrajectory mCargoThreeCorrectMinus1;
+    private DriveTrajectory mCargoThreeCorrectMinus2;
+    private DriveTrajectory mCargoThreeCorrectMinus3;
+    private DriveTrajectory mCargoThreeCorrectMinus4;
+    private DriveTrajectory mCargoThreeCorrectMinus5;
 
     public CargoShipModeEasy(boolean driveToLeftRocket) {
         mStartedLeft = driveToLeftRocket;
@@ -64,7 +54,7 @@ public class CargoShipModeEasy extends AutoModeBase {
 
         mCargoTwoNoCorrection = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoTwoLineupToCargoTwo.get(mStartedLeft));
         // mRocketThreeNoCorrection = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rocketThreeLineupToRocketThree.get(mStartedLeft));
-        mLoadingStationNoCorrection = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationLineupToLoadingStation.get(mStartedLeft));
+        mCargoThreeNoCorrection = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoThreeLineupToCargoThree.get(mStartedLeft));
 
         mCargoTwoCorrectPlus1 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoTwoCorrectionPlusOne.get(mStartedLeft));
         mCargoTwoCorrectPlus2 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoTwoCorrectionPlusTwo.get(mStartedLeft));
@@ -80,18 +70,18 @@ public class CargoShipModeEasy extends AutoModeBase {
         mCargoTwoAway = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromCargoTwo.get(mStartedLeft));
         mToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoTwoLineupToLoadingStation.get(mStartedLeft));
 
-        mLoadingStationToCargoThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoThreeLineup.get(mStartedLeft));
+        mLoadingStationToCargoThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoThreeLineup.get(mStartedLeft), true);
 
-        // mLoadingStationCorrectPlus1 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationCorrectionPlusOne.get(mStartedLeft));
-        // mLoadingStationCorrectPlus2 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationCorrectionPlusTwo.get(mStartedLeft));
-        // mLoadingStationCorrectPlus3 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationCorrectionPlusThree.get(mStartedLeft));
-        // mLoadingStationCorrectPlus4 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationCorrectionPlusFour.get(mStartedLeft));
-        // mLoadingStationCorrectPlus5 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationCorrectionPlusFive.get(mStartedLeft));
-        // mLoadingStationCorrectMinus1 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationCorrectionMinusOne.get(mStartedLeft));
-        // mLoadingStationCorrectMinus2 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationCorrectionMinusTwo.get(mStartedLeft));
-        // mLoadingStationCorrectMinus3 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationCorrectionMinusThree.get(mStartedLeft));
-        // mLoadingStationCorrectMinus4 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationCorrectionMinusFour.get(mStartedLeft));
-        // mLoadingStationCorrectMinus5 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationCorrectionMinusFive.get(mStartedLeft));
+        mCargoThreeCorrectPlus1 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoThreeCorrectionPlusOne.get(mStartedLeft));
+        mCargoThreeCorrectPlus2 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoThreeCorrectionPlusTwo.get(mStartedLeft));
+        mCargoThreeCorrectPlus3 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoThreeCorrectionPlusThree.get(mStartedLeft));
+        mCargoThreeCorrectPlus4 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoThreeCorrectionPlusFour.get(mStartedLeft));
+        mCargoThreeCorrectPlus5 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoThreeCorrectionPlusFive.get(mStartedLeft));
+        mCargoThreeCorrectMinus1 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoThreeCorrectionMinusOne.get(mStartedLeft));
+        mCargoThreeCorrectMinus2 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoThreeCorrectionMinusTwo.get(mStartedLeft));
+        mCargoThreeCorrectMinus3 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoThreeCorrectionMinusThree.get(mStartedLeft));
+        mCargoThreeCorrectMinus4 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoThreeCorrectionMinusFour.get(mStartedLeft));
+        mCargoThreeCorrectMinus5 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoThreeCorrectionMinusFive.get(mStartedLeft));
     }
 
     @Override
@@ -101,9 +91,9 @@ public class CargoShipModeEasy extends AutoModeBase {
         //Score First Hatch
         runAction(new SeriesAction (
             Arrays.asList(
-                mLevel1ToCargoTwoLineup,
+                mLevel1ToCargoTwoLineup
                 // new TurnToHeading(Rotation2d.fromDegrees(180.0)),
-                new WaitAction(0.25)
+                // new WaitAction(0.25)
             )
         ));
 
@@ -231,81 +221,79 @@ public class CargoShipModeEasy extends AutoModeBase {
         // if (inchOffset == 1) {
         //     runAction(new SeriesAction (
         //         Arrays.asList(
-        //             mLoadingStationCorrectMinus1
+        //             mCargoThreeCorrectPlus1
         //         )
         //     ));
         // }
         // else if (inchOffset == 2) {
         //     runAction(new SeriesAction (
         //         Arrays.asList(
-        //             mLoadingStationCorrectMinus2
+        //             mCargoThreeCorrectPlus2
         //         )
         //     ));
         // }
         // else if (inchOffset == 3) {
         //     runAction(new SeriesAction (
         //         Arrays.asList(
-        //             mLoadingStationCorrectMinus3
+        //             mCargoThreeCorrectPlus3
         //         )
         //     ));
         // }
         // else if (inchOffset == 4) {
         //     runAction(new SeriesAction (
         //         Arrays.asList(
-        //             mLoadingStationCorrectMinus4
+        //             mCargoThreeCorrectPlus4
         //         )
         //     ));
         // }
         // else if (inchOffset >= 5) {
         //     runAction(new SeriesAction (
         //         Arrays.asList(
-        //             mLoadingStationCorrectMinus5
+        //             mCargoThreeCorrectPlus5
         //         )
         //     ));
         // }
         // else if (inchOffset == -1) {
         //     runAction(new SeriesAction (
         //         Arrays.asList(
-        //             mLoadingStationCorrectPlus1
+        //             mCargoThreeCorrectMinus1
         //         )
         //     ));
         // }
         // else if (inchOffset == -2) {
         //     runAction(new SeriesAction (
         //         Arrays.asList(
-        //             mLoadingStationCorrectPlus2
+        //             mCargoThreeCorrectMinus2
         //         )
         //     ));
         // }
         // else if (inchOffset == -3) {
         //     runAction(new SeriesAction (
         //         Arrays.asList(
-        //             mLoadingStationCorrectPlus3
+        //             mCargoThreeCorrectMinus3
         //         )
         //     ));
         // }
         // else if (inchOffset == -4) {
         //     runAction(new SeriesAction (
         //         Arrays.asList(
-        //             mLoadingStationCorrectPlus4
+        //             mCargoThreeCorrectMinus4
         //         )
         //     ));
         // }
         // else if (inchOffset <= -5) {
         //     runAction(new SeriesAction (
         //         Arrays.asList(
-        //             mLoadingStationCorrectPlus5
+        //             mCargoThreeCorrectMinus5
         //         )
         //     ));
         // }
         // else {
-            // runAction(new SeriesAction (
-            //     Arrays.asList(
-            //         mLoadingStationNoCorrection,
-            //         new OpenCloseBeak(false),
-            //         new OpenLoopDrive(-0.3, -0.3, -0.3)
-            //     )
-            // ));
+        //     runAction(new SeriesAction (
+        //         Arrays.asList(
+        //             mCargoThreeNoCorrection
+        //         )
+        //     ));
         // }
     }
 }
