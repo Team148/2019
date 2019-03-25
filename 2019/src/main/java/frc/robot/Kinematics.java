@@ -40,4 +40,28 @@ public class Kinematics {
                                                     Twist2d forward_kinematics) {
         return current_pose.transformBy(Pose2d.exp(forward_kinematics));
     }
+
+    /**
+     * Class that contains left and right wheel velocities
+     */
+    public static class DriveVelocity {
+        public final double left;
+        public final double right;
+
+        public DriveVelocity(double left, double right) {
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    /**
+     * Uses inverse kinematics to convert a Twist2d into left and right wheel velocities
+     */
+    public static DriveVelocity inverseKinematics(Twist2d velocity) {
+        if (Math.abs(velocity.dtheta) < kEpsilon) {
+            return new DriveVelocity(velocity.dx, velocity.dx);
+        }
+        double delta_v = Constants.kDriveWheelTrackWidthInches * velocity.dtheta / (2 * Constants.kTrackScrubFactor);
+        return new DriveVelocity(velocity.dx - delta_v, velocity.dx + delta_v);
+    }
 }

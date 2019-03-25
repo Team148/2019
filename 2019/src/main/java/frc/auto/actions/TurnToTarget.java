@@ -1,3 +1,5 @@
+//Action to turn to line up with a valid limelight target.
+//This assumes that we stop very short of a valid target without checking.
 package frc.auto.actions;
 
 import frc.robot.Constants;
@@ -10,12 +12,14 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class TurnToTarget implements Action {
     private static final Drivetrain mDrive = Drivetrain.getInstance();
+    private static final Limelight mLL = Limelight.getInstance();
 
     private double mStartTime;
     private final double mDuration;
+    private boolean mFinished;
 
-    private double offsetAngle = Limelight.getInstance().GetOffsetAngle();
-    private double headingError = -1 * offsetAngle;
+    private boolean validTarget;
+    private double headingError;
     private double steeringAdjust;
 
     private double minimumCommand = Constants.DRIVE_FEEDFORWARD;
@@ -29,13 +33,20 @@ public class TurnToTarget implements Action {
 
     @Override
     public boolean isFinished() {
-        return Timer.getFPGATimestamp() - mStartTime > mDuration;
+        return Timer.getFPGATimestamp() - mStartTime > mDuration || mFinished; 
     }
 
     @Override
     public void update() {
-        System.out.println((Timer.getFPGATimestamp() - mStartTime) + " > " + mDuration);
+        validTarget = mLL.IsTargeting();
+        headingError = mLL.GetOffsetAngle();
+        
+        steeringAdjust = Constants.kP_aim * headingError;
 
+        leftCommand += steeringAdjust;
+        rightCommand -= steeringAdjust;
+
+        mDrive.setOpenLoop(new DriveSignal(leftCommand, rightCommand));
     }
 
     @Override
@@ -45,23 +56,11 @@ public class TurnToTarget implements Action {
 
     @Override
     public void start() {
-        System.out.println("INSIDE TURNTOTARGET!!!!!!");
-        if(offsetAngle > 1.0) {
-            steeringAdjust = Constants.HEADING_P * headingError - minimumCommand;
-
-            System.out.println("TURNING LEFT TO TARGET!!!!!!");
-        }
-        else if(offsetAngle < 1.0) {
-            steeringAdjust = Constants.HEADING_P * headingError + minimumCommand;
-
-            System.out.println("TURNING RIGHT TO TARGET!!!!!!");
-        }
-        leftCommand += steeringAdjust;
-        rightCommand -= steeringAdjust;
-
-        mDrive.setOpenLoop(new DriveSignal(leftCommand, rightCommand));
         mStartTime = Timer.getFPGATimestamp();
-
-        System.out.println("STARTED THE TURN TIMEOUT!!!!!!");
     }
+
+    // public void correctHeading() {
+
+       
+    // }
 }

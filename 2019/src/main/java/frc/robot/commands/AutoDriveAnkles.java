@@ -57,7 +57,7 @@ public class AutoDriveAnkles extends Command {
         m_EndGame.getInstance().setAnklesReleased(true);
         m_tripTime = Timer.getFPGATimestamp();
       }
-      if(Timer.getFPGATimestamp - m_tripTime > m_timeAfterAnkles);
+      if((Timer.getFPGATimestamp() - m_tripTime) > m_timeAfterAnkles && m_EndGame.getAnklesReleased());
     }
 
 

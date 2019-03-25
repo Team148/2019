@@ -23,6 +23,12 @@ public class Constants {
     public static final double HEADING_P = 0.7;
     public static final double DRIVE_FEEDFORWARD = 0.05;
 
+    //Turn to LimeLight Constants
+
+    public static final double LL_K_P = 0.04;
+    public static final double LL_K_I = 0;
+    public static final double LL_K_D = 0.0;//LL_K_P * 0.25;
+
     //Elevator Constants
 
     public static final int ELEVATOR_SOFT_LIMIT = 52650;
@@ -130,6 +136,9 @@ public class Constants {
     public static final double kDriveLowGearVelocityKf = 0.0;
     public static final int kDriveLowGearVelocityIZone = 0;
     public static final double kDriveVoltageRampRate = 0.0;
+
+    //Aiming gains
+    public static final double kP_aim = 0.002;
 
     //CAN timeouts
     public static final int kCANTimeoutMs = 10; //use for on the fly updates
