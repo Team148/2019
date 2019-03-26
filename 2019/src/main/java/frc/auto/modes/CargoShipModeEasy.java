@@ -68,9 +68,9 @@ public class CargoShipModeEasy extends AutoModeBase {
         // mCargoTwoCorrectMinus5 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoTwoCorrectionMinusFive.get(mStartedLeft));
         
         mCargoTwoAway = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromCargoTwo.get(mStartedLeft));
-        mToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoTwoLineupToLoadingStation.get(mStartedLeft),true);
+        mToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoTwoLineupToLoadingStation.get(mStartedLeft));
 
-        mLoadingStationToCargoThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoThreeLineup.get(mStartedLeft), true);
+        mLoadingStationToCargoThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoThreeLineup.get(mStartedLeft));
 
         // mCargoThreeCorrectPlus1 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoThreeCorrectionPlusOne.get(mStartedLeft));
         // mCargoThreeCorrectPlus2 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoThreeCorrectionPlusTwo.get(mStartedLeft));

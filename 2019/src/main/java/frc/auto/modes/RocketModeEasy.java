@@ -223,12 +223,24 @@ public class RocketModeEasy extends AutoModeBase {
             )
         ));
 
-        // //Get Second Hatch
-        runAction(new SeriesAction (
+        runAction(new ParallelAction (
             Arrays.asList(
                 mRocketOneAway,
-                mToLoadingStation,
-                new DriveForwardAndTurnToTarget(0.3, 1.0),
+                new ExtendRetractBallIntake(true)
+            )
+        ));
+
+        // //Get Second Hatch
+        runAction(new ParallelAction (
+            Arrays.asList(
+                new ExtendRetractBallIntake(false),
+                mToLoadingStation
+            )
+        ));
+
+        runAction(new SeriesAction (
+            Arrays.asList(
+                new DriveForwardAndTurnToTarget(0.3, 0.5),
                 new OpenCloseBeak(false)
             )
         ));
@@ -236,8 +248,9 @@ public class RocketModeEasy extends AutoModeBase {
         runAction(new SeriesAction (
             Arrays.asList(
                 mLoadingStationToRocketThreeLineup,
-                new DriveForwardAndTurnToTarget(0.3, 1.0),
-                new OpenCloseBeak(true)
+                new OpenLoopDrive(0.3, 0.3, 0.5)
+                // new DriveForwardAndTurnToTarget(0.3, 1.0),
+                // new OpenCloseBeak(true)
             )
         ));
 
