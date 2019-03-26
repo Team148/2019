@@ -135,7 +135,7 @@ public class TrajectoryGenerator {
     public static final Pose2d kOppositeCargoOneLineupPose = new Pose2d(new Translation2d(175.0, 11.0), Rotation2d.fromDegrees(0.0));
 
     // //Cargo Two Lineup (for Vision Tracking)
-    public static final Pose2d kCargoTwoLineupPose = new Pose2d(new Translation2d(253.0, -80.0), Rotation2d.fromDegrees(90.0));
+    public static final Pose2d kCargoTwoLineupPose = new Pose2d(new Translation2d(253.0, -100.0), Rotation2d.fromDegrees(90.0));
     public static final Pose2d kCargoTwoBackupPose = new Pose2d(new Translation2d(253.0, -100.0), Rotation2d.fromDegrees(90.0));
 
     // //Cargo Three Lineup (for Vision Tracking)
@@ -1389,8 +1389,8 @@ public class TrajectoryGenerator {
             waypoints.add(kLoadingStationLineupPose);
             // waypoints.add(kLoadingStationPose);
 
-            return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(80.0)),
-                0.0, 20.0, kMaxVelocity, kMaxAccel, kMaxVoltage);
+            return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
+                0.0, 20.0, 50.0, 50.0, kMaxVoltage);
         }
 
         // private Trajectory<TimedState<Pose2dWithCurvature>> getAwayFromCargoThree() {

@@ -67,7 +67,7 @@ public class CargoShipModeEasy extends AutoModeBase {
         // mCargoTwoCorrectMinus4 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoTwoCorrectionMinusFour.get(mStartedLeft));
         // mCargoTwoCorrectMinus5 = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoTwoCorrectionMinusFive.get(mStartedLeft));
         
-        mCargoTwoAway = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromCargoTwo.get(mStartedLeft));
+        mCargoTwoAway = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromCargoTwo.get(mStartedLeft), true);
         mToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoTwoLineupToLoadingStation.get(mStartedLeft));
 
         mLoadingStationToCargoThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoThreeLineup.get(mStartedLeft));
@@ -197,7 +197,7 @@ public class CargoShipModeEasy extends AutoModeBase {
 
         runAction(new SeriesAction (
             Arrays.asList(
-                new DriveForwardAndTurnToTarget(0.3, 1.0),
+                new DriveForwardAndTurnToTarget(0.3, 2.0),
                 new OpenCloseBeak(true)
             )
         ));
