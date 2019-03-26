@@ -258,6 +258,8 @@ public class Drivetrain extends Subsystem {
           m_driveLeft1.selectProfileSlot(kLowGearVelocityControlSlot, 0);
           m_driveRight1.selectProfileSlot(kLowGearVelocityControlSlot, 0);
 
+          System.out.println("Switching to velocity");
+
           mDriveControlState = DriveControlState.PATH_FOLLOWING;
       }
       mPeriodicIO.left_demand = signal.getLeft();
@@ -265,6 +267,25 @@ public class Drivetrain extends Subsystem {
       mPeriodicIO.left_feedforward = feedforward.getLeft();
       mPeriodicIO.right_feedforward = feedforward.getRight();
   }
+
+    /**
+   * Configures talons for velocity control
+   */
+  public synchronized void setVelocityInchesPerSecond(DriveSignal signal) {
+    if (mDriveControlState != DriveControlState.PATH_FOLLOWING) {
+        // We entered a velocity control state.
+        setBrakeMode(true);
+        m_driveLeft1.selectProfileSlot(kLowGearVelocityControlSlot, 0);
+        m_driveRight1.selectProfileSlot(kLowGearVelocityControlSlot, 0);
+
+        mDriveControlState = DriveControlState.PATH_FOLLOWING;
+    }
+    mPeriodicIO.left_demand = radiansPerSecondToTicksPer100ms(inchesToRotations(signal.getLeft())*(2*Math.PI));
+    mPeriodicIO.right_demand =  radiansPerSecondToTicksPer100ms(inchesToRotations(signal.getRight()*(2*Math.PI)));
+    mPeriodicIO.left_feedforward = signal.getLeft() * (1 / Constants.kDriveKv);
+    mPeriodicIO.right_feedforward = signal.getRight() * (1 / Constants.kDriveKv);
+}
+  
 
   public synchronized void setTrajectory(TrajectoryIterator<TimedState<Pose2dWithCurvature>> trajectory) {
       if (mMotionPlanner != null) {
@@ -515,14 +536,14 @@ public class Drivetrain extends Subsystem {
       mPeriodicIO.right_velocity_ticks_per_100ms = m_driveRight1.getSelectedSensorVelocity(0);
       mPeriodicIO.gyro_heading = Rotation2d.fromDegrees(m_driveGyro.getFusedHeading()).rotateBy(mGyroOffset);
 
-      double deltaLeftTicks = ((mPeriodicIO.left_position_ticks - prevLeftTicks) / 4096.0) * Math.PI;
+      double deltaLeftTicks = ((mPeriodicIO.left_position_ticks - prevLeftTicks) / DRIVE_ENCODER_PPR) * Math.PI;
       if (deltaLeftTicks > 0.0) {
           mPeriodicIO.left_distance += deltaLeftTicks * Constants.kDriveWheelDiameterInches;
       } else {
           mPeriodicIO.left_distance += deltaLeftTicks * Constants.kDriveWheelDiameterInches;
       }
 
-      double deltaRightTicks = ((mPeriodicIO.right_position_ticks - prevRightTicks) / 4096.0) * Math.PI;
+      double deltaRightTicks = ((mPeriodicIO.right_position_ticks - prevRightTicks) / DRIVE_ENCODER_PPR) * Math.PI;
       if (deltaRightTicks > 0.0) {
           mPeriodicIO.right_distance += deltaRightTicks * Constants.kDriveWheelDiameterInches;
       } else {
@@ -538,14 +559,16 @@ public class Drivetrain extends Subsystem {
 
   @Override
   public synchronized void writePeriodicOutputs() {
+
+    // System.out.println("Left Demand: " + mPeriodicIO.left_demand + "Left Arbitrary: " + mPeriodicIO.left_feedforward);
       if (mDriveControlState == DriveControlState.OPEN_LOOP) {
           m_driveLeft1.set(ControlMode.PercentOutput, mPeriodicIO.left_demand, DemandType.ArbitraryFeedForward, 0.0);
           m_driveRight1.set(ControlMode.PercentOutput, mPeriodicIO.right_demand, DemandType.ArbitraryFeedForward, 0.0);
       } else {
           m_driveLeft1.set(ControlMode.Velocity, mPeriodicIO.left_demand, DemandType.ArbitraryFeedForward,
-                  mPeriodicIO.left_feedforward + Constants.kDriveLowGearVelocityKd * mPeriodicIO.left_accel / 1023.0);
+                  mPeriodicIO.left_feedforward + Constants.kDriveLowGearVelocityKd * mPeriodicIO.left_accel / (DRIVE_ENCODER_PPR/4.0));
           m_driveRight1.set(ControlMode.Velocity, mPeriodicIO.right_demand, DemandType.ArbitraryFeedForward,
-                  mPeriodicIO.right_feedforward + Constants.kDriveLowGearVelocityKd * mPeriodicIO.right_accel / 1023.0);
+                  mPeriodicIO.right_feedforward + Constants.kDriveLowGearVelocityKd * mPeriodicIO.right_accel / (DRIVE_ENCODER_PPR/4.0));
       }
   }
 
