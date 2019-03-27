@@ -225,8 +225,8 @@ public class RocketModeEasy extends AutoModeBase {
 
         runAction(new SeriesAction (
             Arrays.asList(
-                mLoadingStationToRocketThreeLineup,
-                new OpenLoopDrive(0.3, 0.3, 0.5)
+                mLoadingStationToRocketThreeLineup
+                // new OpenLoopDrive(0.3, 0.3, 0.5)
                 // new DriveForwardAndTurnToTarget(0.3, 1.0),
                 // new OpenCloseBeak(true)
             )
