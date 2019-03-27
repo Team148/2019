@@ -94,6 +94,8 @@ public class Robot extends TimedRobot {
   public static OI m_OI;
 
   private final Compressor comp = new Compressor(1);
+  private int spam_counter;
+  private int last_pov;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -228,6 +230,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     try {
+      spam_counter = 0;
+      last_pov = -1;
       CrashTracker.logTeleopInit();
       mDisabledLooper.stop();
       
@@ -390,17 +394,25 @@ public class Robot extends TimedRobot {
         
         if(m_OI.m_operatorJoystick.getPOV() == 0) {
           Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_HIGH));
+
         }
         if(m_OI.m_operatorJoystick.getPOV() == 90) {
           Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_MIDDLE));
         }
         if(m_OI.m_operatorJoystick.getPOV() == 180) {
           Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_ZERO));
+          spam_counter = 0;
         }
-        if(m_OI.m_operatorJoystick.getPOV() == 270) {
+        if((m_OI.m_operatorJoystick.getPOV() == 270) && (spam_counter == 1)&& last_pov != 270){
           Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_CARGO));
         }
+        if((m_OI.m_operatorJoystick.getPOV() == 270) && (spam_counter == 0) && last_pov != 270){
+          Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_LOW_GOAL));
+          spam_counter = 1;
+        }
 
+
+        last_pov = m_OI.m_operatorJoystick.getPOV();
         //set subsystems motors and soleno ids from inputs
         m_Ball.setBallIntakeMotor(ballIntakePercent);
         m_Claw.setRollerClaw(rollerClawPercent);
