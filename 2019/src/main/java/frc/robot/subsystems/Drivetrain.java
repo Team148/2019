@@ -156,6 +156,12 @@ public class Drivetrain extends Subsystem {
     m_driveRight2.setInverted(true);
     m_driveRight3.setInverted(true);
 
+    m_driveLeft1.enableVoltageCompensation(true);
+    m_driveRight1.enableVoltageCompensation(true);
+
+    m_driveLeft1.configVoltageCompSaturation(12.0, Constants.kCANTimeoutMs);
+    m_driveRight1.configVoltageCompSaturation(12.0, Constants.kCANTimeoutMs);
+
     m_driveLeft1.configNominalOutputForward(0.0, 0);
     m_driveRight2.configNominalOutputForward(0.0, 0);
 
