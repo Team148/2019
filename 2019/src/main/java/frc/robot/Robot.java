@@ -297,7 +297,44 @@ public class Robot extends TimedRobot {
     try {
         
         //driver inputs
-        m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn));
+        if(m_OI.getDriverVision()){
+          m_Limelight.setLimelightPipeline(1);
+          if(m_Limelight.IsTargeting()){
+            double limeX = m_Limelight.GetOffsetAngle();
+            double cameraSteer = 0;
+
+            double kCameraDrive = Constants.kCameraDriveClose;
+
+            if (Math.abs(limeX) <= Constants.kCameraClose) {
+
+                kCameraDrive = Constants.kCameraDriveClose;
+
+            } else if (Math.abs(limeX) < Constants.kCameraMid) {
+
+                kCameraDrive = Constants.kCameraDriveMid;
+
+            } else if (Math.abs(limeX) < Constants.kCameraFar) {
+
+                kCameraDrive = Constants.kCameraDriveFar;
+
+            }
+
+            cameraSteer = limeX * kCameraDrive;
+        
+            m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, cameraSteer)); 
+            }
+          else{
+            m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn)); 
+          }
+            
+        }
+
+        //driver inputs - default case manual driving
+        else{
+          m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn));
+          m_Limelight.setLimelightPipeline(0);
+        }
+        
         
 
         //claw ball outtake (face buttons)

@@ -91,6 +91,8 @@ public class Drivetrain extends Subsystem {
                 case TURN_TO_HEADING:
                     updateTurnToHeading(timestamp);
                     return;
+                case DRIVE_VELOCITY:
+                    break;
                 default:
                     System.out.println("Unexpected drive control state: " + mDriveControlState);
                     break;
@@ -278,18 +280,21 @@ public class Drivetrain extends Subsystem {
    * Configures talons for velocity control
    */
   public synchronized void setVelocityInchesPerSecond(DriveSignal signal) {
-    if (mDriveControlState != DriveControlState.PATH_FOLLOWING) {
+    if (mDriveControlState != DriveControlState.DRIVE_VELOCITY) {
         // We entered a velocity control state.
         setBrakeMode(true);
         m_driveLeft1.selectProfileSlot(kLowGearVelocityControlSlot, 0);
         m_driveRight1.selectProfileSlot(kLowGearVelocityControlSlot, 0);
 
-        mDriveControlState = DriveControlState.PATH_FOLLOWING;
+        mDriveControlState = DriveControlState.DRIVE_VELOCITY;   
     }
-    mPeriodicIO.left_demand = radiansPerSecondToTicksPer100ms(inchesToRotations(signal.getLeft())*(2*Math.PI));
-    mPeriodicIO.right_demand =  radiansPerSecondToTicksPer100ms(inchesToRotations(signal.getRight()*(2*Math.PI)));
-    mPeriodicIO.left_feedforward = signal.getLeft() * (1 / Constants.kDriveKv);
-    mPeriodicIO.right_feedforward = signal.getRight() * (1 / Constants.kDriveKv);
+    double left_velocity_rev = inchesToRotations(signal.getLeft())*(2*Math.PI);
+    double right_velocity_rev = inchesToRotations(signal.getRight())*(2*Math.PI);
+
+    mPeriodicIO.left_demand = radiansPerSecondToTicksPer100ms(left_velocity_rev);
+    mPeriodicIO.right_demand =  radiansPerSecondToTicksPer100ms(right_velocity_rev);
+    mPeriodicIO.left_feedforward = left_velocity_rev * Constants.kDriveKv;
+    mPeriodicIO.right_feedforward = right_velocity_rev * Constants.kDriveKv;
 }
   
 
@@ -599,7 +604,8 @@ public class Drivetrain extends Subsystem {
   public enum DriveControlState {
       OPEN_LOOP, // open loop voltage control
       PATH_FOLLOWING, // velocity PID control
-      TURN_TO_HEADING // turn in place
+      TURN_TO_HEADING, // turn in place
+      DRIVE_VELOCITY // drive velocity
   }
 
   public enum ShifterState {
