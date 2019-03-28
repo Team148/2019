@@ -61,6 +61,7 @@ public class Constants {
 
     public static final double ELEVATOR_ZERO = 0.0;
 
+    public static final double ELEVATOR_LOW_GOAL = 2700;
     public static final double ELEVATOR_CARGO = 11500;
     public static final double ELEVATOR_MIDDLE = 22950;
     public static final double ELEVATOR_HIGH = 47250;
