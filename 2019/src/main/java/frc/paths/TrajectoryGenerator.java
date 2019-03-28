@@ -281,6 +281,8 @@ public class TrajectoryGenerator {
         public final MirroredTrajectory levelOneToCargoTwoLineup;
         public final MirroredTrajectory levelTwoToCargoTwoLineup;
 
+        public final MirroredTrajectory levelOneToCargoTwoLineupForward;
+
         public final MirroredTrajectory levelOneToRocketOneLineup;
         public final MirroredTrajectory levelTwoToRocketOneLineup;
         
@@ -347,6 +349,8 @@ public class TrajectoryGenerator {
 
             levelOneToCargoTwoLineup = new MirroredTrajectory(getLevelOneToCargoTwoLineup());
             levelTwoToCargoTwoLineup = new MirroredTrajectory(getLevelTwoToCargoTwoLineup());
+
+            levelOneToCargoTwoLineupForward = new MirroredTrajectory(getLevelOneToCargoTwoLineupForward());
 
             levelOneToRocketOneLineup = new MirroredTrajectory(getLevelOneToRocketOneLineup());
             levelTwoToRocketOneLineup = new MirroredTrajectory(getLevelTwoToRocketOneLineup());
@@ -424,6 +428,16 @@ public class TrajectoryGenerator {
             waypoints.add(kCargoTwoLineupPose);
 
             return generateTrajectory(true, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
+                kMaxVelocity, kMaxAccel, kMaxVoltage);
+        }
+
+        private Trajectory<TimedState<Pose2dWithCurvature>> getLevelOneToCargoTwoLineupForward() {
+            List<Pose2d> waypoints = new ArrayList<>();
+            waypoints.add(kLevelOneStartPose);
+            waypoints.add(kOffHabPlatform);
+            waypoints.add(kCargoTwoLineupPose);
+
+            return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
                 kMaxVelocity, kMaxAccel, kMaxVoltage);
         }
 

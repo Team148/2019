@@ -19,6 +19,7 @@ public class CargoShipModeEasy extends AutoModeBase {
 
     final boolean mStartedLeft;
     private DriveTrajectory mLevel1ToCargoTwoLineup;
+    private DriveTrajectory mLevel1ToCargoTwoLineupForward;
     private DriveTrajectory mCargoTwoNoCorrection;
     // private DriveTrajectory mRocketThreeNoCorrection;
     private DriveTrajectory mCargoThreeNoCorrection;
@@ -51,7 +52,8 @@ public class CargoShipModeEasy extends AutoModeBase {
     public CargoShipModeEasy(boolean driveToLeftRocket) {
         mStartedLeft = driveToLeftRocket;
 
-        mLevel1ToCargoTwoLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelOneToCargoTwoLineup.get(mStartedLeft), true);
+        // mLevel1ToCargoTwoLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelOneToCargoTwoLineup.get(mStartedLeft), true);
+        mLevel1ToCargoTwoLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelOneToCargoTwoLineupForward.get(mStartedLeft), true);
 
         mCargoTwoNoCorrection = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoTwoLineupToCargoTwo.get(mStartedLeft));
         mCargoThreeNoCorrection = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoThreeLineupToCargoThree.get(mStartedLeft));
@@ -83,7 +85,8 @@ public class CargoShipModeEasy extends AutoModeBase {
         runAction(new SeriesAction (
             Arrays.asList(
                 new ExtendRetract4Bar(true),
-                mLevel1ToCargoTwoLineup
+                // mLevel1ToCargoTwoLineup
+                mLevel1ToCargoTwoLineupForward
                 // new TurnToHeading(Rotation2d.fromDegrees(180.0)),
                 // new WaitAction(0.25)
             )
