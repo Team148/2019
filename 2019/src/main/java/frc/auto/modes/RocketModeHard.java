@@ -13,7 +13,7 @@ public class RocketModeHard extends AutoModeBase {
     private static final TrajectoryGenerator mTrajectoryGenerator = TrajectoryGenerator.getInstance();
 
     final boolean mStartedLeft;
-    private DriveTrajectory mLevel2ToRocketOne;
+    private DriveTrajectory mLevel2ToRocketThree;
     private DriveTrajectory mEndRocketToTurn;
     private DriveTrajectory mEndTurnToLoadingStation;
     private DriveTrajectory mLoadingStationToRocketTwo;
@@ -21,15 +21,7 @@ public class RocketModeHard extends AutoModeBase {
     public RocketModeHard(boolean driveToLeftRocket) {
         mStartedLeft = driveToLeftRocket;
 
-        if (mStartedLeft) {
-            mLevel2ToRocketOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().leftLevel2toRocketOne, true);
-            mEndRocketToTurn = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().leftRocketOneToTurn, false);
-            mEndTurnToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endLeftTurnToLoadingStation, false);
-        } else {
-            mLevel2ToRocketOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rightLevel2toRocketOne, true);
-            mEndRocketToTurn = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rightRocketOneToTurn, false);
-            mEndTurnToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endRightTurnToLoadingStation, false);
-        }
+        mLevel2ToRocketThree = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelTwoToRocketThreeLineup.get(mStartedLeft), true);
 
         // mLevel1ToRocketThree = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level1ToRocketThree.get(mStartedLeft), true);
         // mLevel2ToRocketOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level2ToRocketOne.get(mStartedLeft), true);
@@ -42,42 +34,44 @@ public class RocketModeHard extends AutoModeBase {
     protected void routine() throws AutoModeEndedException {
         System.out.println("Running Rocket Mode");
 
-        //Score First Hatch
-        runAction(new ParallelAction (
-            Arrays.asList(
-                mLevel2ToRocketOne
-            )
-        ));
+        // //Score First Hatch
+        // runAction(new ParallelAction (
+        //     Arrays.asList(
+        //         mLevel2ToRocketOne
+        //     )
+        // ));
 
-        runAction(new SeriesAction (
-            Arrays.asList(
-                new ExtendRetract4Bar(true),
-                new OpenLoopDrive(0.5, 0.5, 0.5)
-            )
-        ));
+        // runAction(new SeriesAction (
+        //     Arrays.asList(
+        //         new TurnToTarget(0.25),
+        //         new WaitAction(1.0)
+        //         // new ExtendRetract4Bar(true),
+        //         // new OpenLoopDrive(0.5, 0.5, 0.5)
+        //     )
+        // ));
 
-        runAction(new SeriesAction (
-            Arrays.asList(
-                new OpenCloseBeak(true),
-                new WaitAction(0.25),
-                new ExtendRetractBallIntake(true),
-                new WaitAction(0.5)
-            )
-        ));
+        // runAction(new SeriesAction (
+        //     Arrays.asList(
+        //         new OpenCloseBeak(true),
+        //         new WaitAction(0.25),
+        //         new ExtendRetractBallIntake(true),
+        //         new WaitAction(0.5)
+        //     )
+        // ));
 
         // //Get Second Hatch
-        runAction(new ParallelAction (
-            Arrays.asList(
-                mEndRocketToTurn,
-                new ExtendRetractBallIntake(false)
-            )
-        ));
+        // runAction(new ParallelAction (
+        //     Arrays.asList(
+        //         mEndRocketToTurn,
+        //         new ExtendRetractBallIntake(false)
+        //     )
+        // ));
 
-        runAction(new ParallelAction (
-            Arrays.asList(
-                mEndTurnToLoadingStation
-            )
-        ));
+        // runAction(new ParallelAction (
+        //     Arrays.asList(
+        //         mEndTurnToLoadingStation
+        //     )
+        // ));
 
         // runAction(new SeriesAction (
         //     Arrays.asList(

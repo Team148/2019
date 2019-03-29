@@ -2,7 +2,10 @@ package frc.auto.actions;
 
 import frc.robot.RobotState;
 import frc.robot.subsystems.Drivetrain;
+import lib.geometry.Pose2d;
 import lib.geometry.Pose2dWithCurvature;
+import lib.geometry.Rotation2d;
+import lib.geometry.Translation2d;
 import lib.trajectory.TimedView;
 import lib.trajectory.Trajectory;
 import lib.trajectory.TrajectoryIterator;
@@ -15,6 +18,8 @@ public class DriveTrajectory implements Action {
 
     private final TrajectoryIterator<TimedState<Pose2dWithCurvature>> mTrajectory;
     private final boolean mResetPose;
+    private final boolean mResetTransform;
+    private final boolean mResetHeading;
 
     public DriveTrajectory(Trajectory<TimedState<Pose2dWithCurvature>> trajectory) {
         this(trajectory, false);
@@ -24,6 +29,16 @@ public class DriveTrajectory implements Action {
     public DriveTrajectory(Trajectory<TimedState<Pose2dWithCurvature>> trajectory, boolean resetPose) {
         mTrajectory = new TrajectoryIterator<>(new TimedView<>(trajectory));
         mResetPose = resetPose;
+        mResetTransform = false;
+        mResetHeading = false;
+    }
+
+    public DriveTrajectory(Trajectory<TimedState<Pose2dWithCurvature>> trajectory, boolean resetTransform, boolean resetHeading) {
+        mTrajectory = new TrajectoryIterator<>(new TimedView<>(trajectory));
+        mResetPose = false;
+        mResetTransform = resetTransform;
+        mResetHeading = resetTransform;
+         
     }
 
     @Override
@@ -49,6 +64,18 @@ public class DriveTrajectory implements Action {
         if (mResetPose) {
             mRobotState.reset(Timer.getFPGATimestamp(), mTrajectory.getState().state().getPose());
         }
+
+        if(mResetHeading && mResetTransform)
+        {
+            mRobotState.reset(Timer.getFPGATimestamp(), mTrajectory.getState().state().getPose());
+        }
+        if(mResetTransform && !mResetHeading){
+            Translation2d temp_translation = mTrajectory.getState().state().getPose().getTranslation();
+            Rotation2d current_rotation = mDrive.getHeading();
+
+            mRobotState.reset(Timer.getFPGATimestamp(), new Pose2d(temp_translation, current_rotation));
+        }
+            
         mDrive.setTrajectory(mTrajectory);
     }
 }

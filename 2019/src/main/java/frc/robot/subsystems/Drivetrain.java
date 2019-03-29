@@ -1,22 +1,14 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
 import frc.robot.subsystems.Subsystem;
 import frc.robot.Constants;
+import frc.robot.Kinematics;
 import frc.robot.RobotMap;
 import frc.robot.RobotState;
 
-// import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.ctre.phoenix.sensors.PigeonIMU_StatusFrame;
 
@@ -25,13 +17,12 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-// import frc.robot.commands.DriveWithJoystick;
 import frc.planners.DriveMotionPlanner;
 
 import lib.geometry.Pose2d;
 import lib.geometry.Pose2dWithCurvature;
 import lib.geometry.Rotation2d;
-
+import lib.geometry.Twist2d;
 import lib.trajectory.TrajectoryIterator;
 import lib.trajectory.timing.TimedState;
 
@@ -54,29 +45,25 @@ public class Drivetrain extends Subsystem {
   private final WPI_TalonSRX m_driveLeft1= new WPI_TalonSRX(RobotMap.LEFT_DRIVE_MASTER);
   private final WPI_TalonSRX m_driveLeft2 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_TWO);
   private final WPI_TalonSRX m_driveLeft3 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_THREE);
-    // private final WPI_VictorSPX m_driveLeft2 = new WPI_VictorSPX(RobotMap.LEFT_DRIVE_TWO);
-    // private final WPI_VictorSPX m_driveLeft3 = new WPI_VictorSPX(RobotMap.LEFT_DRIVE_THREE);
 
   //Create Right Drive TalonSRXs
   private final WPI_TalonSRX m_driveRight1 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_MASTER);
   private final WPI_TalonSRX m_driveRight2 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_TWO);
   private final WPI_TalonSRX m_driveRight3 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_THREE);
-// private final WPI_VictorSPX m_driveRight2 = new WPI_VictorSPX(RobotMap.RIGHT_DRIVE_TWO);
-// private final WPI_VictorSPX m_driveRight3 = new WPI_VictorSPX(RobotMap.RIGHT_DRIVE_THREE);
 
   private final PigeonIMU m_driveGyro = new PigeonIMU(RobotMap.PIGEON_IMU);
-  private double[] yawPitchRoll = new double[3];
 
   private DifferentialDrive m_drive;
-
+  private RobotState mRobotState = RobotState.getInstance();
   private PeriodicIO mPeriodicIO;
   private ReflectingCSVWriter<PeriodicIO> mCSVWriter = null;
   private DriveMotionPlanner mMotionPlanner;
   private DriveControlState mDriveControlState;
   private Rotation2d mGyroOffset = Rotation2d.identity();
+  private Rotation2d mTargetHeading = new Rotation2d();
   private boolean mOverrideTrajectory = false;
-
   private boolean mIsBrakeMode;
+  private boolean mIsOnTarget = false;
 
   private static final int kLowGearVelocityControlSlot = 0;
   private static final double DRIVE_ENCODER_PPR = 6956.0;
@@ -100,6 +87,11 @@ public class Drivetrain extends Subsystem {
                     break;
                 case PATH_FOLLOWING:
                     updatePathFollower();
+                    break;
+                case TURN_TO_HEADING:
+                    updateTurnToHeading(timestamp);
+                    return;
+                case DRIVE_VELOCITY:
                     break;
                 default:
                     System.out.println("Unexpected drive control state: " + mDriveControlState);
@@ -135,12 +127,6 @@ public class Drivetrain extends Subsystem {
     mMotionPlanner = new DriveMotionPlanner();
   }
 
-//   @Override
-//   public void initDefaultCommand() {
-//     // Set the default command for a subsystem here.
-//     setDefaultCommand(new DriveWithJoystick());
-//   }
-
   public static Drivetrain getInstance() {
     if (m_instance == null) {
       m_instance = new Drivetrain();
@@ -172,6 +158,12 @@ public class Drivetrain extends Subsystem {
     m_driveRight2.setInverted(true);
     m_driveRight3.setInverted(true);
 
+    m_driveLeft1.enableVoltageCompensation(true);
+    m_driveRight1.enableVoltageCompensation(true);
+
+    m_driveLeft1.configVoltageCompSaturation(12.0, Constants.kCANTimeoutMs);
+    m_driveRight1.configVoltageCompSaturation(12.0, Constants.kCANTimeoutMs);
+
     m_driveLeft1.configNominalOutputForward(0.0, 0);
     m_driveRight2.configNominalOutputForward(0.0, 0);
 
@@ -183,9 +175,14 @@ public class Drivetrain extends Subsystem {
 
     m_driveLeft1.overrideLimitSwitchesEnable(false);
     m_driveRight1.overrideLimitSwitchesEnable(false);
+	
+    m_driveLeft1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+    m_driveRight1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 
     m_driveLeft1.setSensorPhase(true);
-    m_driveRight1.setSensorPhase(false);
+    //SET FOR COMPBOT PLZ
+    // m_driveRight1.setSensorPhase(false);
+    m_driveRight1.setSensorPhase(true);
   }
 
   public void setMotorSafeties() {
@@ -200,27 +197,6 @@ public class Drivetrain extends Subsystem {
   private void setPigeonStatusFrame() {
     m_driveGyro.setStatusFramePeriod(PigeonIMU_StatusFrame.CondStatus_1_General, 5, 0);
   }
-
-  //imported from 148 2018, using 254 code
-//   private double getGyroYaw() {
-//     m_driveGyro.getYawPitchRoll(yawPitchRoll);
-//     return yawPitchRoll[0];
-//   }
-
-//   private double getGyroPitch() {
-//     m_driveGyro.getYawPitchRoll(yawPitchRoll);
-//     return yawPitchRoll[1];
-//   }
-
-//   private double getGyroRoll() {
-//     m_driveGyro.getYawPitchRoll(yawPitchRoll);
-//     return yawPitchRoll[2];
-//   }
-
-//   private double updatePigeon() {
-//     m_driveGyro.getRawGyro(yawPitchRoll);
-//     return yawPitchRoll[0];
-//   }
 
   public void getPigeonStatus() {
     PigeonIMU.GeneralStatus generalStatus = new PigeonIMU.GeneralStatus();
@@ -292,6 +268,8 @@ public class Drivetrain extends Subsystem {
           m_driveLeft1.selectProfileSlot(kLowGearVelocityControlSlot, 0);
           m_driveRight1.selectProfileSlot(kLowGearVelocityControlSlot, 0);
 
+          System.out.println("Switching to velocity");
+
           mDriveControlState = DriveControlState.PATH_FOLLOWING;
       }
       mPeriodicIO.left_demand = signal.getLeft();
@@ -299,6 +277,29 @@ public class Drivetrain extends Subsystem {
       mPeriodicIO.left_feedforward = feedforward.getLeft();
       mPeriodicIO.right_feedforward = feedforward.getRight();
   }
+
+    /**
+   * Configures talons for velocity control
+   */
+  public synchronized void setVelocityInchesPerSecond(DriveSignal signal) {
+    if (mDriveControlState != DriveControlState.DRIVE_VELOCITY || mDriveControlState !=DriveControlState.PATH_FOLLOWING) {
+        // We entered a velocity control state.
+        setBrakeMode(true);
+        m_driveLeft1.selectProfileSlot(kLowGearVelocityControlSlot, 0);
+        m_driveRight1.selectProfileSlot(kLowGearVelocityControlSlot, 0);
+    }
+    if (mDriveControlState != DriveControlState.DRIVE_VELOCITY){
+        mDriveControlState = DriveControlState.DRIVE_VELOCITY;   
+    }
+    double left_velocity_rev = inchesToRotations(signal.getLeft())*(2*Math.PI);
+    double right_velocity_rev = inchesToRotations(signal.getRight())*(2*Math.PI);
+
+    mPeriodicIO.left_demand = radiansPerSecondToTicksPer100ms(left_velocity_rev);
+    mPeriodicIO.right_demand =  radiansPerSecondToTicksPer100ms(right_velocity_rev);
+    mPeriodicIO.left_feedforward = left_velocity_rev * Constants.kDriveKv;
+    mPeriodicIO.right_feedforward = right_velocity_rev * Constants.kDriveKv;
+}
+  
 
   public synchronized void setTrajectory(TrajectoryIterator<TimedState<Pose2dWithCurvature>> trajectory) {
       if (mMotionPlanner != null) {
@@ -346,6 +347,73 @@ public class Drivetrain extends Subsystem {
 
       mPeriodicIO.gyro_heading = heading;
   }
+
+    /**
+     * Configures the drivebase to turn to a desired heading
+     */
+    public synchronized void setWantTurnToHeading(Rotation2d heading) {
+        mDriveControlState = DriveControlState.TURN_TO_HEADING;
+        updatePositionSetpoint(getLeftEncoderDistance(), getRightEncoderDistance());
+
+        if (Math.abs(heading.inverse().rotateBy(mTargetHeading).getDegrees()) > 1E-3) {
+            mTargetHeading = heading;
+            mIsOnTarget = false;
+        }
+    }
+
+    /**
+     * Adjust position setpoint (if already in position mode)
+     * 
+     * @param left_inches_per_sec
+     * @param right_inches_per_sec
+     */
+    private synchronized void updatePositionSetpoint(double left_position_inches, double right_position_inches) {
+        m_driveLeft1.set(inchesToRotations(left_position_inches));
+        m_driveRight1.set(inchesToRotations(right_position_inches));
+    }
+
+    /**
+     * Turn the robot to a target heading.
+     * 
+     * Is called periodically when the robot is auto-aiming towards the boiler.
+     */
+    private void updateTurnToHeading(double timestamp) {
+        final Rotation2d field_to_robot = getHeading();
+        System.out.println("FIELD TO VEHICLE IS  " + field_to_robot);
+
+        // Figure out the rotation necessary to turn to face the goal.
+        final Rotation2d robot_to_target = field_to_robot.inverse().rotateBy(mTargetHeading);
+
+        // Check if we are on target
+        final double kGoalPosTolerance = 0.75; // degrees
+        final double kGoalVelTolerance = 5.0; // inches per second
+        if (Math.abs(robot_to_target.getDegrees()) < kGoalPosTolerance && Math.abs(getLeftVelocityInchesPerSec()) < kGoalVelTolerance && Math.abs(getRightVelocityInchesPerSec()) < kGoalVelTolerance) {
+            // Use the current setpoint and base lock.
+            mIsOnTarget = true;
+            updatePositionSetpoint(getLeftEncoderDistance(), getRightEncoderDistance());
+            return;
+        }
+
+        Kinematics.DriveVelocity wheel_delta = Kinematics.inverseKinematics(new Twist2d(0, 0, robot_to_target.getRadians()));
+        updatePositionSetpoint(wheel_delta.left + getLeftEncoderDistance(), wheel_delta.right + getRightEncoderDistance());
+    }
+
+    public double getLeftVelocityInchesPerSec() {
+        return rpmToInchesPerSecond(getLeftVelocityNativeUnits());
+    }
+
+    public double getRightVelocityInchesPerSec() {
+        return rpmToInchesPerSecond(getRightVelocityNativeUnits());
+    }
+
+    public synchronized boolean isDoneWithTurn() {
+        if (mDriveControlState == DriveControlState.TURN_TO_HEADING) {
+            return mIsOnTarget;
+        } else {
+            System.out.println("Robot is not in turn to heading mode");
+            return false;
+        }
+    }
 
   @Override
   public synchronized void stop() {
@@ -429,8 +497,6 @@ public class Drivetrain extends Subsystem {
   }
 
   private void updatePathFollower() {
-
-    System.out.println("IN UPDATEPATHFOLLOWER");
       if (mDriveControlState == DriveControlState.PATH_FOLLOWING) {
           final double now = Timer.getFPGATimestamp();
 
@@ -484,14 +550,14 @@ public class Drivetrain extends Subsystem {
       mPeriodicIO.right_velocity_ticks_per_100ms = m_driveRight1.getSelectedSensorVelocity(0);
       mPeriodicIO.gyro_heading = Rotation2d.fromDegrees(m_driveGyro.getFusedHeading()).rotateBy(mGyroOffset);
 
-      double deltaLeftTicks = ((mPeriodicIO.left_position_ticks - prevLeftTicks) / 4096.0) * Math.PI;
+      double deltaLeftTicks = ((mPeriodicIO.left_position_ticks - prevLeftTicks) / DRIVE_ENCODER_PPR) * Math.PI;
       if (deltaLeftTicks > 0.0) {
           mPeriodicIO.left_distance += deltaLeftTicks * Constants.kDriveWheelDiameterInches;
       } else {
           mPeriodicIO.left_distance += deltaLeftTicks * Constants.kDriveWheelDiameterInches;
       }
 
-      double deltaRightTicks = ((mPeriodicIO.right_position_ticks - prevRightTicks) / 4096.0) * Math.PI;
+      double deltaRightTicks = ((mPeriodicIO.right_position_ticks - prevRightTicks) / DRIVE_ENCODER_PPR) * Math.PI;
       if (deltaRightTicks > 0.0) {
           mPeriodicIO.right_distance += deltaRightTicks * Constants.kDriveWheelDiameterInches;
       } else {
@@ -507,14 +573,16 @@ public class Drivetrain extends Subsystem {
 
   @Override
   public synchronized void writePeriodicOutputs() {
+
+    // System.out.println("Left Demand: " + mPeriodicIO.left_demand + "Left Arbitrary: " + mPeriodicIO.left_feedforward);
       if (mDriveControlState == DriveControlState.OPEN_LOOP) {
           m_driveLeft1.set(ControlMode.PercentOutput, mPeriodicIO.left_demand, DemandType.ArbitraryFeedForward, 0.0);
           m_driveRight1.set(ControlMode.PercentOutput, mPeriodicIO.right_demand, DemandType.ArbitraryFeedForward, 0.0);
       } else {
           m_driveLeft1.set(ControlMode.Velocity, mPeriodicIO.left_demand, DemandType.ArbitraryFeedForward,
-                  mPeriodicIO.left_feedforward + Constants.kDriveLowGearVelocityKd * mPeriodicIO.left_accel / 1023.0);
+                  mPeriodicIO.left_feedforward + Constants.kDriveLowGearVelocityKd * mPeriodicIO.left_accel / (DRIVE_ENCODER_PPR/4.0));
           m_driveRight1.set(ControlMode.Velocity, mPeriodicIO.right_demand, DemandType.ArbitraryFeedForward,
-                  mPeriodicIO.right_feedforward + Constants.kDriveLowGearVelocityKd * mPeriodicIO.right_accel / 1023.0);
+                  mPeriodicIO.right_feedforward + Constants.kDriveLowGearVelocityKd * mPeriodicIO.right_accel / (DRIVE_ENCODER_PPR/4.0));
       }
   }
 
@@ -539,6 +607,8 @@ public class Drivetrain extends Subsystem {
   public enum DriveControlState {
       OPEN_LOOP, // open loop voltage control
       PATH_FOLLOWING, // velocity PID control
+      TURN_TO_HEADING, // turn in place
+      DRIVE_VELOCITY // drive velocity
   }
 
   public enum ShifterState {

@@ -61,6 +61,12 @@ public class RobotMap {
   public static final int ENDGAME_FEET_FORWARD = 6;
   public static final int ENDGAME_FEET_REVERSE = 7;
 
-  // Solenoid Channels PCM = 1
+  // // Solenoid Channels PCM = 1
+  // public static final int WEDGE_SOLENOID = 0;
+
+  //Mexico Sensor
+
+  public static final int MEXICO_SENSOR_ONE = 0;
+
   // public static final int WEDGE_SOLENOID = 0;
 }

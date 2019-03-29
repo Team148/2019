@@ -14,7 +14,7 @@ public class CargoShipModeHard extends AutoModeBase {
 
     final boolean mStartedLeft;
 
-    private DriveTrajectory mLevel2ToCargoOne;
+    private DriveTrajectory mLevel2ToCargoThree;
     private DriveTrajectory mCargoThreeTo90Turn;
     private DriveTrajectory mEndTurnToLoadingStation;
     private DriveTrajectory mLoadingStationToCargoFour;
@@ -22,11 +22,7 @@ public class CargoShipModeHard extends AutoModeBase {
     public CargoShipModeHard(boolean driveToLeftCargo) {
         mStartedLeft = driveToLeftCargo;
 
-        if (mStartedLeft) {
-            mLevel2ToCargoOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().leftLevel2toCargoOne, true);
-        } else {
-            mLevel2ToCargoOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().rightLevel2toCargoOne, true);
-        }
+        mLevel2ToCargoThree = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelTwoToCargoTwoLineup.get(mStartedLeft), true);
 
         // mLevel2ToCargoTwo = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level2ToCargoTwo.get(mStartedLeft), true);
         // mLevel2ToCargoOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level2ToCargoThree.get(mStartedLeft), true);
@@ -42,7 +38,7 @@ public class CargoShipModeHard extends AutoModeBase {
         //Score First Hatch
         runAction(new ParallelAction (
             Arrays.asList(
-                mLevel2ToCargoOne,
+                mLevel2ToCargoThree,
                 new SeriesAction(
                     Arrays.asList(
                         new WaitAction(2.0),
@@ -52,24 +48,24 @@ public class CargoShipModeHard extends AutoModeBase {
             )
         ));
 
-        runAction(new SeriesAction (
-            Arrays.asList(
-                // new TurnToTarget(0.5),
-                new OpenLoopDrive(0.5, 0.5, 0.5)
-            )
-        ));
+        // runAction(new SeriesAction (
+        //     Arrays.asList(
+        //         // new TurnToTarget(0.5),
+        //         new OpenLoopDrive(0.5, 0.5, 0.5)
+        //     )
+        // ));
 
-        runAction(new SeriesAction (
-            Arrays.asList(
-                new OpenCloseBeak(true),
-                new SeriesAction(
-                    Arrays.asList(
-                        new WaitAction(0.25),
-                        new OpenLoopDrive(-0.5, -0.5, 0.5)
-                    )
-                )
-            )
-        ));
+        // runAction(new SeriesAction (
+        //     Arrays.asList(
+        //         new OpenCloseBeak(true),
+        //         new SeriesAction(
+        //             Arrays.asList(
+        //                 new WaitAction(0.25),
+        //                 new OpenLoopDrive(-0.5, -0.5, 0.5)
+        //             )
+        //         )
+        //     )
+        // ));
 
         // //Turn 90 degrees
         // runAction(new ParallelAction (

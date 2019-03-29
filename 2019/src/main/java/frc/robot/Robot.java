@@ -95,6 +95,11 @@ public class Robot extends TimedRobot {
 
   private final Compressor comp = new Compressor(1);
 
+  private boolean autoInterrupted = false;
+
+  private int spam_counter;
+  private int last_pov;
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -219,7 +224,30 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
 
+    double throttle = m_OI.getThrottle();
+    double turn = m_OI.getTurn();
+
     SmartDashboard.putString("Match Cycle", "AUTONOMOUS");
+
+    if (m_OI.m_driveJoystick.getRawButton(7) && m_OI.m_driveJoystick.getRawButton(8) && !autoInterrupted) {
+     // mAutoModeExecutor.stop();
+      autoInterrupted = true;
+      disabledInit();
+      disabledPeriodic();
+      teleopInit();
+
+    }
+
+    if (autoInterrupted) {
+      // if(m_OI.m_driveJoystick.getRawButton(10)) {
+      //   m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn));
+      // }
+      // else {
+      //   m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn * 0.7));
+      // }
+
+      teleopPeriodic();
+    }
 
     RobotState.getInstance().outputToSmartDashboard();
     Drivetrain.getInstance().outputTelemetry();
@@ -228,6 +256,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     try {
+      spam_counter = 0;
+      last_pov = -1;
       CrashTracker.logTeleopInit();
       mDisabledLooper.stop();
       
@@ -263,8 +293,8 @@ public class Robot extends TimedRobot {
     // double timestamp = Timer.getFPGATimestamp();
     // SmartDashboard.putNumber("Match Time", timestamp);
 
-    SmartDashboard.putString("Match Cycle", "TELEOP");
-    SmartDashboard.putNumber("Elevator Encoder", m_Elevator.getElevatorPosition());
+    // SmartDashboard.putString("Match Cycle", "TELEOP");
+    // SmartDashboard.putNumber("Elevator Encoder", m_Elevator.getElevatorPosition());
 
     double throttle = m_OI.getThrottle();
     double turn = m_OI.getTurn();
@@ -276,7 +306,50 @@ public class Robot extends TimedRobot {
     try {
         
         //driver inputs
-        m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn));
+        if(m_OI.getDriverVision()){
+          m_Limelight.setLimelightPipeline(0);
+          m_Limelight.SetEnableVision(true);
+          m_Limelight.getLimelightData();
+          if(m_Limelight.IsTargeting()){
+            double limeX = m_Limelight.GetOffsetAngle();
+            double cameraSteer = 0;
+
+            double kCameraDrive = Constants.kCameraDriveClose;
+
+            if (Math.abs(limeX) <= Constants.kCameraClose) {
+
+                kCameraDrive = Constants.kCameraDriveClose;
+
+            } else if (Math.abs(limeX) < Constants.kCameraMid) {
+
+                kCameraDrive = Constants.kCameraDriveMid;
+
+            } else if (Math.abs(limeX) < Constants.kCameraFar) {
+
+                kCameraDrive = Constants.kCameraDriveFar;
+
+            }
+
+            cameraSteer = limeX * kCameraDrive; //-0.11 for POS Gold
+ 
+            System.out.println("CameraSteer: " + cameraSteer);
+        
+            m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, cameraSteer)); 
+            }
+          else{
+            m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn)); 
+          }
+            
+        }
+
+        //driver inputs - default case manual driving
+        else{
+          m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn));
+          m_Limelight.setLimelightPipeline(0);
+          m_Limelight.SetEnableVision(false);
+
+        }
+        
         
 
         //claw ball outtake (face buttons)
@@ -390,21 +463,30 @@ public class Robot extends TimedRobot {
         
         if(m_OI.m_operatorJoystick.getPOV() == 0) {
           Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_HIGH));
+
         }
         if(m_OI.m_operatorJoystick.getPOV() == 90) {
           Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_MIDDLE));
         }
         if(m_OI.m_operatorJoystick.getPOV() == 180) {
           Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_ZERO));
+          spam_counter = 0;
         }
-        if(m_OI.m_operatorJoystick.getPOV() == 270) {
+        if((m_OI.m_operatorJoystick.getPOV() == 270) && (spam_counter == 1)&& last_pov != 270){
           Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_CARGO));
         }
+        if((m_OI.m_operatorJoystick.getPOV() == 270) && (spam_counter == 0) && last_pov != 270){
+          Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_LOW_GOAL));
+          spam_counter = 1;
+        }
 
+
+        last_pov = m_OI.m_operatorJoystick.getPOV();
         //set subsystems motors and soleno ids from inputs
         m_Ball.setBallIntakeMotor(ballIntakePercent);
         m_Claw.setRollerClaw(rollerClawPercent);
         m_EndGame.setEndGameDriveSpeed(feetPercent);
+        m_Limelight.getLimelightData();
 
     } catch (Throwable t) {
         CrashTracker.logThrowableCrash(t);
