@@ -107,7 +107,7 @@ public class Constants {
     public static final double kRobotAngularDrag = 12.0;  // N*m / (rad/sec) TODO tune
     public static final double kDriveVIntercept = 1.055;  // V
     public static final double kDriveKv = 0.108404;  // V per rad/s
-    public static final double kDriveKa = 0.036671;  // V per rad/s^2
+    public static final double kDriveKa = 0.012;  // V per rad/s^2
 
     // Geometry
     // public static final double kCenterToFrontBumperDistance = 14.99;	//34.473 / 2.0;

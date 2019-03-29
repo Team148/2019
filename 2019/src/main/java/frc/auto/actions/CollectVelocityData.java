@@ -57,7 +57,7 @@ public class CollectVelocityData implements Action {
 
     }
 
-    @Override
+    @Override 
     public boolean isFinished() {
         return isFinished;
     }

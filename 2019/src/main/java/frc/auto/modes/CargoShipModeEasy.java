@@ -18,7 +18,10 @@ public class CargoShipModeEasy extends AutoModeBase {
     private int inchOffset;
 
     final boolean mStartedLeft;
-    private DriveTrajectory mLevel1ToCargoTwoLineup;
+
+    private DriveTrajectory mGoStraight;
+
+    // private DriveTrajectory mLevel1ToCargoTwoLineup;
     private DriveTrajectory mLevel1ToCargoTwoLineupForward;
     private DriveTrajectory mCargoTwoNoCorrection;
     // private DriveTrajectory mRocketThreeNoCorrection;
@@ -52,6 +55,8 @@ public class CargoShipModeEasy extends AutoModeBase {
     public CargoShipModeEasy(boolean driveToLeftRocket) {
         mStartedLeft = driveToLeftRocket;
 
+        mGoStraight = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().goStraight.get(mStartedLeft), true);
+
         // mLevel1ToCargoTwoLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelOneToCargoTwoLineup.get(mStartedLeft), true);
         mLevel1ToCargoTwoLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelOneToCargoTwoLineupForward.get(mStartedLeft), true);
 
@@ -84,7 +89,8 @@ public class CargoShipModeEasy extends AutoModeBase {
         //Score First Hatch
         runAction(new SeriesAction (
             Arrays.asList(
-                new ExtendRetract4Bar(true),
+                // mGoStraight
+                // new ExtendRetract4Bar(true),
                 // mLevel1ToCargoTwoLineup
                 mLevel1ToCargoTwoLineupForward
                 // new TurnToHeading(Rotation2d.fromDegrees(180.0)),
@@ -92,213 +98,31 @@ public class CargoShipModeEasy extends AutoModeBase {
             )
         ));
 
-        // angleOffset = LL.GetOffsetAngle();
-        // inchOffset = (int) Math.floor(angleOffset / 1.3);
-        // if (mStartedLeft) {
-        //     inchOffset *= -1;
-        // }
+        // runAction(new SeriesAction (
+        //     Arrays.asList(
+        //         new DriveForwardAndTurnToTarget(0.2, 1.0),
+        //         new OpenCloseBeak(true)
+        //     )
+        // ));
 
-        // System.out.println("I AM " + inchOffset + " INCHES OFF!!!!!!!!!!!");
+        // // //Get Second Hatch
+        // runAction(new SeriesAction (
+        //     Arrays.asList(
+        //         mCargoTwoAway,
+        //         mEndCargoTwoToLoadingStation,
+        //         // mToLoadingStation,
+        //         new DriveForwardAndTurnToTarget(0.2, 1.0),
+        //         new OpenCloseBeak(false),
+        //         mLoadingStationToCargoThreeLineup
+        //     )
+        // ));
 
-        // if (inchOffset == 1) {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             new ExtendRetract4Bar(true),
-        //             mCargoTwoCorrectPlus1
-        //         )
-        //     ));
-        // }
-        // else if (inchOffset == 2) {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             new ExtendRetract4Bar(true),
-        //             mCargoTwoCorrectPlus2
-        //         )
-        //     ));
-        // }
-        // else if (inchOffset == 3) {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             new ExtendRetract4Bar(true),
-        //             mCargoTwoCorrectPlus3
-        //         )
-        //     ));
-        // }
-        // else if (inchOffset == 4) {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             new ExtendRetract4Bar(true),
-        //             mCargoTwoCorrectPlus4
-        //         )
-        //     ));
-        // }
-        // else if (inchOffset >= 5) {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             new ExtendRetract4Bar(true),
-        //             mCargoTwoCorrectPlus5
-        //         )
-        //     ));
-        // }
-        // else if (inchOffset == -1) {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             new ExtendRetract4Bar(true),
-        //             mCargoTwoCorrectMinus1
-        //         )
-        //     ));
-        // }
-        // else if (inchOffset == -2) {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             new ExtendRetract4Bar(true),
-        //             mCargoTwoCorrectMinus2
-        //         )
-        //     ));
-        // }
-        // else if (inchOffset == -3) {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             new ExtendRetract4Bar(true),
-        //             mCargoTwoCorrectMinus3
-        //         )
-        //     ));
-        // }
-        // else if (inchOffset == -4) {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             new ExtendRetract4Bar(true),
-        //             mCargoTwoCorrectMinus4
-        //         )
-        //     ));
-        // }
-        // else if (inchOffset <= -5) {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             new ExtendRetract4Bar(true),
-        //             mCargoTwoCorrectMinus5
-        //         )
-        //     ));
-        // }
-        // else {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             new ExtendRetract4Bar(true),
-        //             mCargoTwoNoCorrection
-        //         )
-        //     ));
-        // }
-
-        runAction(new SeriesAction (
-            Arrays.asList(
-                new DriveForwardAndTurnToTarget(0.2, 1.0),
-                new OpenCloseBeak(true)
-            )
-        ));
-
-        // //Get Second Hatch
-        runAction(new SeriesAction (
-            Arrays.asList(
-                mCargoTwoAway,
-                mEndCargoTwoToLoadingStation,
-                // mToLoadingStation,
-                new DriveForwardAndTurnToTarget(0.2, 1.0),
-                new OpenCloseBeak(false),
-                mLoadingStationToCargoThreeLineup
-            )
-        ));
-
-        runAction(new SeriesAction (
-            Arrays.asList(
-                new DriveForwardAndTurnToTarget(0.2, 1.0),
-                new OpenCloseBeak(true),
-                new OpenLoopDrive(-0.2, -0.2, 0.5)
-            )
-        ));
-
-        // angleOffset = LL.GetOffsetAngle();
-        // inchOffset = (int) Math.floor(angleOffset / 1.3);
-        // System.out.println("INCH OFFSET   " + inchOffset + "!!!!!!!!!!!");
-        // if (mStartedLeft) {
-        //     inchOffset *= -1;
-        // }
-
-        // if (inchOffset == 1) {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             mCargoThreeCorrectPlus1
-        //         )
-        //     ));
-        // }
-        // else if (inchOffset == 2) {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             mCargoThreeCorrectPlus2
-        //         )
-        //     ));
-        // }
-        // else if (inchOffset == 3) {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             mCargoThreeCorrectPlus3
-        //         )
-        //     ));
-        // }
-        // else if (inchOffset == 4) {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             mCargoThreeCorrectPlus4
-        //         )
-        //     ));
-        // }
-        // else if (inchOffset >= 5) {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             mCargoThreeCorrectPlus5
-        //         )
-        //     ));
-        // }
-        // else if (inchOffset == -1) {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             mCargoThreeCorrectMinus1
-        //         )
-        //     ));
-        // }
-        // else if (inchOffset == -2) {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             mCargoThreeCorrectMinus2
-        //         )
-        //     ));
-        // }
-        // else if (inchOffset == -3) {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             mCargoThreeCorrectMinus3
-        //         )
-        //     ));
-        // }
-        // else if (inchOffset == -4) {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             mCargoThreeCorrectMinus4
-        //         )
-        //     ));
-        // }
-        // else if (inchOffset <= -5) {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             mCargoThreeCorrectMinus5
-        //         )
-        //     ));
-        // }
-        // else {
-        //     runAction(new SeriesAction (
-        //         Arrays.asList(
-        //             mCargoThreeNoCorrection
-        //         )
-        //     ));
-        // }
+        // runAction(new SeriesAction (
+        //     Arrays.asList(
+        //         new DriveForwardAndTurnToTarget(0.2, 1.0),
+        //         new OpenCloseBeak(true),
+        //         new OpenLoopDrive(-0.2, -0.2, 0.5)
+        //     )
+        // ));
     }
 }
