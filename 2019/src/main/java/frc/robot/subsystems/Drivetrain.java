@@ -180,8 +180,9 @@ public class Drivetrain extends Subsystem {
     m_driveRight1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 
     m_driveLeft1.setSensorPhase(true);
-    m_driveRight1.setSensorPhase(false);
-    // m_driveRight1.setSensorPhase(true);
+    //SET FOR COMPBOT PLZ
+    // m_driveRight1.setSensorPhase(false);
+    m_driveRight1.setSensorPhase(true);
   }
 
   public void setMotorSafeties() {
@@ -281,12 +282,13 @@ public class Drivetrain extends Subsystem {
    * Configures talons for velocity control
    */
   public synchronized void setVelocityInchesPerSecond(DriveSignal signal) {
-    if (mDriveControlState != DriveControlState.DRIVE_VELOCITY) {
+    if (mDriveControlState != DriveControlState.DRIVE_VELOCITY || mDriveControlState !=DriveControlState.PATH_FOLLOWING) {
         // We entered a velocity control state.
         setBrakeMode(true);
         m_driveLeft1.selectProfileSlot(kLowGearVelocityControlSlot, 0);
         m_driveRight1.selectProfileSlot(kLowGearVelocityControlSlot, 0);
-
+    }
+    if (mDriveControlState != DriveControlState.DRIVE_VELOCITY){
         mDriveControlState = DriveControlState.DRIVE_VELOCITY;   
     }
     double left_velocity_rev = inchesToRotations(signal.getLeft())*(2*Math.PI);
