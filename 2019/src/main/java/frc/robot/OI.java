@@ -120,6 +120,9 @@ public class OI {
   public boolean getDriverEndgame() {
     return (m_driveJoystick.getRawButton(7) && m_driveJoystick.getRawButton(8));
   }
+  public boolean getDriverVision(){
+    return m_driveJoystick.getRawButton(10);
+  }
 
   //Get Operator
   public double getElevatorManual() {
