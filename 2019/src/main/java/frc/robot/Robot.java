@@ -307,7 +307,9 @@ public class Robot extends TimedRobot {
         
         //driver inputs
         if(m_OI.getDriverVision()){
-          m_Limelight.setLimelightPipeline(1);
+          m_Limelight.setLimelightPipeline(0);
+          m_Limelight.SetEnableVision(true);
+          m_Limelight.getLimelightData();
           if(m_Limelight.IsTargeting()){
             double limeX = m_Limelight.GetOffsetAngle();
             double cameraSteer = 0;
@@ -328,7 +330,9 @@ public class Robot extends TimedRobot {
 
             }
 
-            cameraSteer = limeX * kCameraDrive;
+            cameraSteer = limeX * kCameraDrive; //-0.11 for POS Gold
+ 
+            System.out.println("CameraSteer: " + cameraSteer);
         
             m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, cameraSteer)); 
             }
@@ -342,6 +346,8 @@ public class Robot extends TimedRobot {
         else{
           m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn));
           m_Limelight.setLimelightPipeline(0);
+          m_Limelight.SetEnableVision(false);
+
         }
         
         
@@ -480,6 +486,7 @@ public class Robot extends TimedRobot {
         m_Ball.setBallIntakeMotor(ballIntakePercent);
         m_Claw.setRollerClaw(rollerClawPercent);
         m_EndGame.setEndGameDriveSpeed(feetPercent);
+        m_Limelight.getLimelightData();
 
     } catch (Throwable t) {
         CrashTracker.logThrowableCrash(t);

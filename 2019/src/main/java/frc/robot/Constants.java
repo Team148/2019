@@ -24,16 +24,16 @@ public class Constants {
     public static final double DRIVE_FEEDFORWARD = 0.05;
 
     //Turn to LimeLight Constants
-    public static final double LL_K_P = 0.03;
+    public static final double LL_K_P = 0.05;
     public static final double LL_K_I = 0;
     public static final double LL_K_D = 0.0;//LL_K_P * 0.25;
 
-    public static final double kCameraDriveClose = 10.0;
-    public static final double kCameraDriveMid = 15.0;
-    public static final double kCameraDriveFar = 20.0;
-    public static final double kCameraClose = 0.005;
-    public static final double kCameraMid = 0.015;
-    public static final double kCameraFar = 0.03;
+    public static final double kCameraClose = 10.0;
+    public static final double kCameraMid = 15.0;
+    public static final double kCameraFar = 20.0;
+    public static final double kCameraDriveClose = 0.06;
+    public static final double kCameraDriveMid = 0.035;
+    public static final double kCameraDriveFar = 0.02;
 
 
     //Elevator Constants

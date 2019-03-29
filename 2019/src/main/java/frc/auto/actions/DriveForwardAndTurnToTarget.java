@@ -66,15 +66,16 @@ public class DriveForwardAndTurnToTarget implements Action {
 
         if (validTarget) {
 
-            steeringAdjust = mPID.calculate(headingError, dt) * mVelocity;
+            steeringAdjust = -mPID.calculate(headingError, dt) * mVelocity;
 
+            if(mVelocity < 0)
+                steeringAdjust = -steeringAdjust;
 
-
-            mLastValidHeading = heading - headingError;
+            mLastValidHeading = heading + headingError;
 
         } else {
-
-            steeringAdjust = mPID.calculate((heading - mLastValidHeading), dt) * mVelocity;
+            steeringAdjust = 0.0;
+            //steeringAdjust = mPID.calculate((heading - mLastValidHeading), dt) * mVelocity;
 
         }
 
@@ -122,5 +123,6 @@ public class DriveForwardAndTurnToTarget implements Action {
     public void start() {
         mStartTime = Timer.getFPGATimestamp();
         mLL.SetFastNT(true);
+        mLL.setLimelightPipeline(0);
     }
 }
