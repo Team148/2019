@@ -29,8 +29,6 @@ public class Limelight extends Subsystem {
   
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
-
-
   boolean m_connected = false;
   double m_LEDMode = 0.0;
   double m_pipeline = 0.0;
@@ -48,7 +46,9 @@ public class Limelight extends Subsystem {
 	NetworkTableEntry latency;
 	NetworkTableEntry ledMode;
 	NetworkTableEntry pipeline;
-	NetworkTableEntry cammode;
+  NetworkTableEntry cammode;
+  NetworkTableEntry tv;
+  NetworkTableEntry tx;
 
   public Limelight() {
 
@@ -56,9 +56,17 @@ public class Limelight extends Subsystem {
 
     System.out.println("Creating Limelight");
 
-    m_LEDMode = 0.0;		//set LEDs to default to off
-    m_pipeline = 0.0;		//2019 target, dual, closest
-    m_camMode = 0.0;		//vision processing ON
+    // m_LEDMode = 0.0;		//set LEDs to default to off
+    // m_pipeline = 0.0;		//2019 target, dual, closest
+    // m_camMode = 0.0;		//vision processing ON
+
+      //read values from NetworkTables
+      table = NetworkTableInstance.getDefault().getTable("limelight");
+      tv = table.getEntry("tv"); //0 or 1 for valid target
+      tx = table.getEntry("tx");
+      ledMode = table.getEntry("ledMode");
+      pipeline = table.getEntry("pipeline");
+      cammode = table.getEntry("camMode");
 
   }
 
@@ -79,32 +87,40 @@ public class Limelight extends Subsystem {
   }
 
   public void getLimelightData() {
-      //read values from NetworkTables
-      table = NetworkTableInstance.getDefault().getTable("limelight");
-      NetworkTableEntry tv = table.getEntry("tv"); //0 or 1 for valid target
-      NetworkTableEntry tx = table.getEntry("tx");
-//      NetworkTableEntry ty = table.getEntry("ty");
-      NetworkTableEntry ledMode = table.getEntry("ledMode");
-      NetworkTableEntry pipeline = table.getEntry("pipeline");
-      NetworkTableEntry cammode = table.getEntry("camMode");
 
       //read values periodically
+
+      //read values from NetworkTables
+      table = NetworkTableInstance.getDefault().getTable("limelight");
+      tv = table.getEntry("tv"); //0 or 1 for valid target
+      tx = table.getEntry("tx");
+      ledMode = table.getEntry("ledMode");
+      pipeline = table.getEntry("pipeline");
+      cammode = table.getEntry("camMode");
+      
       validObject = tv.getDouble(-1);
       xOffSet = tx.getDouble(0.0);
-//      double yOffSet = ty.getDouble(0.0);
-      double m_LEDMode = ledMode.getDouble(0.0);
-      double m_pipeline = pipeline.getDouble(0.0);
-      double m_camMode = cammode.getDouble(0.0);
+      // m_LEDMode = ledMode.getDouble(0.0);
+      // m_pipeline = pipeline.getDouble(0.0);
+      // m_camMode = cammode.getDouble(0.0);
           
 //post to smart dashboard periodically
       SmartDashboard.putNumber("HorizOffset", xOffSet);
       SmartDashboard.putNumber("validObject", validObject);
 
-   //Write NetworkTables with desired values
-      ledMode.setDouble(m_LEDMode);
-      pipeline.setDouble(m_pipeline);
-      cammode.setDouble(m_camMode);
+  //  //Write NetworkTables with desired values
+  //     ledMode.setNumber(m_LEDMode);
+  //     pipeline.setNumber(Double.toString(m_pipeline));
+  //     // pipeline.setNumber(3);
+  //     cammode.setNumber(m_camMode);
   }
+
+public void setLimelightData() {
+  //Write NetworkTables with desired values
+  ledMode.setNumber(m_LEDMode);
+  pipeline.setNumber(m_pipeline);
+  cammode.setNumber(m_camMode);
+}
 
   public boolean CheckConnection() {  //??? this depends on return of null, -1?
     if(validObject == -1.0) {

@@ -25,6 +25,7 @@ public class UpdateLimeLight extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    frc.robot.subsystems.Limelight.getInstance().setLimelightData();
     frc.robot.subsystems.Limelight.getInstance().getLimelightData();
   }
 

@@ -123,6 +123,7 @@ public class DriveForwardAndTurnToTarget implements Action {
     public void start() {
         mStartTime = Timer.getFPGATimestamp();
         mLL.SetFastNT(true);
+        mLL.SetEnableVision(true);
         mLL.setLimelightPipeline(0);
     }
 }

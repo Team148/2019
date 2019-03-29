@@ -282,8 +282,9 @@ public class Drivetrain extends Subsystem {
    * Configures talons for velocity control
    */
   public synchronized void setVelocityInchesPerSecond(DriveSignal signal) {
-    if (mDriveControlState != DriveControlState.DRIVE_VELOCITY || mDriveControlState !=DriveControlState.PATH_FOLLOWING) {
+    if (!(mDriveControlState == DriveControlState.DRIVE_VELOCITY || mDriveControlState ==DriveControlState.PATH_FOLLOWING)) {
         // We entered a velocity control state.
+        System.out.println("Switching to velocity inches");
         setBrakeMode(true);
         m_driveLeft1.selectProfileSlot(kLowGearVelocityControlSlot, 0);
         m_driveRight1.selectProfileSlot(kLowGearVelocityControlSlot, 0);
