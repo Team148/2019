@@ -114,17 +114,17 @@ public class RocketModeEasy extends AutoModeBase {
         // //Get Second Hatch
         runAction(new ParallelAction (
             Arrays.asList(
-                // new ExtendRetractBallIntake(false),
+                new ExtendRetract4Bar(false),
                 mToLoadingStation
             )
         ));
 
-        // runAction(new SeriesAction (
-        //     Arrays.asList(
-        //         new DriveForwardAndTurnToTarget(0.3, 0.5),
-        //         new OpenCloseBeak(false)
-        //     )
-        // ));
+        runAction(new SeriesAction (
+            Arrays.asList(
+                new DriveForwardAndTurnToTarget(0.3, 0.5),
+                new OpenCloseBeak(false)
+            )
+        ));
 
         // runAction(new SeriesAction (
         //     Arrays.asList(
