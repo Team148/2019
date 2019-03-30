@@ -478,7 +478,7 @@ public class Robot extends TimedRobot {
           Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_ZERO));
         }
         if(m_OI.m_operatorJoystick.getPOV() == 270){
-          Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_LOW_GOAL));
+          Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_CARGO));
         }
 
         //set subsystems motors and soleno ids from inputs

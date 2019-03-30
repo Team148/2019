@@ -29,18 +29,25 @@ public class CargoShipModeEasy extends AutoModeBase {
     private DriveTrajectory mToLoadingStation;
     private DriveTrajectory mLoadingStationToCargoThreeLineup;
 
-    public CargoShipModeEasy(boolean driveToLeftRocket) {
-        mStartedLeft = driveToLeftRocket;
+    public CargoShipModeEasy(boolean driveToLeftCargo) {
+        mStartedLeft = driveToLeftCargo;
 
-        mLevel1ToCargoTwoLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelOneToCargoTwoLineupForward.get(mStartedLeft), true);
+        if(mStartedLeft) {
+            mLevel1ToCargoTwoLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelOneToCargoTwoLineupForwardLeft, true);
         
-        mCargoTwoAway = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromCargoTwo.get(mStartedLeft), true, false);
-        mEndCargoTwoToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endCargoTwoToLoadingStaton.get(mStartedLeft));
+            mCargoTwoAway = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromCargoTwoLeft, true, false);
+            mEndCargoTwoToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endCargoTwoToLoadingStatonLeft);
 
-        // mToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoTwoLineupToLoadingStation.get(mStartedLeft));
+            mLoadingStationToCargoThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoThreeLineupLeft, true);
+        }
+        else {
+            mLevel1ToCargoTwoLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelOneToCargoTwoLineupForwardRight, true);
+        
+            mCargoTwoAway = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromCargoTwoRight, true, false);
+            mEndCargoTwoToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endCargoTwoToLoadingStatonRight);
 
-        // mLoadingStationToCargoThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoThreeLineup.get(mStartedLeft), true, false);
-        mLoadingStationToCargoThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoThreeLineup.get(mStartedLeft), true);
+            mLoadingStationToCargoThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoThreeLineupRight, true);
+        }
 
     }
 
