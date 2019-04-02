@@ -241,6 +241,10 @@ public class Elevator extends Subsystem {
     return m_elevator1.getSelectedSensorPosition(0);
   }
 
+  public double getElevatorMPosition() {
+    return m_position;
+  }
+
   public int getElevatorVelocity() {
 
     return m_elevator1.getSelectedSensorVelocity(0);

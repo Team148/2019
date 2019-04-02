@@ -616,9 +616,9 @@ public class TrajectoryGenerator {
         private Trajectory<TimedState<Pose2dWithCurvature>> getAwayFromRocketOneToLoadingStationLineupRight() {
             List<Pose2d> waypoints = new ArrayList<>();
             waypoints.add(new Pose2d(new Translation2d(165.0, -90.0), Rotation2d.fromDegrees(250.0)));
-            waypoints.add(new Pose2d(new Translation2d(90.0, -128.0), Rotation2d.fromDegrees(180.0)));
+            waypoints.add(new Pose2d(new Translation2d(90.0, -130.0), Rotation2d.fromDegrees(180.0)));
             // waypoints.add(kLoadingStationLineupPose);
-            waypoints.add(new Pose2d(new Translation2d(60.0, -128.0), Rotation2d.fromDegrees(180.0)));
+            waypoints.add(new Pose2d(new Translation2d(60.0, -130.0), Rotation2d.fromDegrees(180.0)));
 
             return generateTrajectory(false, waypoints, Arrays.asList(new CentripetalAccelerationConstraint(kMaxCentripetalAccel)),
                 0.0, 20.0, kMaxVelocity, kMaxAccel, kMaxVoltage);

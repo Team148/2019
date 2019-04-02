@@ -72,8 +72,8 @@ public class CargoShipModeEasy extends AutoModeBase {
 
         runAction(new ParallelAction (
             Arrays.asList(
-                mCargoTwoAway,
-                new ExtendRetract4Bar(false)
+                mCargoTwoAway
+                // new ExtendRetract4Bar(false)
             )
         ));
 
@@ -81,10 +81,10 @@ public class CargoShipModeEasy extends AutoModeBase {
         runAction(new SeriesAction (
             Arrays.asList(
                 mEndCargoTwoToLoadingStation,
-                new DriveForwardAndTurnToTarget(20.0, 0.75),
-                new ExtendRetract4Bar(true),
-                new OpenLoopDrive(-0.1, -0.1, 0.2),
-                new OpenCloseBeak(false)
+                new DriveForwardAndTurnToTarget(20.0, 1.0),
+                // new ExtendRetract4Bar(true),
+                new OpenCloseBeak(false),
+                new OpenLoopDrive(-0.15, -0.15, 0.5)
             )
         ));
 

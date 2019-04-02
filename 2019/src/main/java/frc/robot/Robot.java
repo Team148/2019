@@ -261,7 +261,7 @@ public class Robot extends TimedRobot {
       CrashTracker.logTeleopInit();
       mDisabledLooper.stop();
 
-      m_Limelight.SetEnableVision(true);
+      m_Limelight.SetEnableVision(false);
       m_Limelight.setLimelightPipeline(3);
       // m_Limelight.setLimelightData();
       
@@ -348,7 +348,7 @@ public class Robot extends TimedRobot {
 
         //driver inputs - default case manual driving
         else{
-          m_Limelight.SetEnableVision(true);
+          m_Limelight.SetEnableVision(false);
           m_Limelight.setLimelightPipeline(3);
           m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn));
           // m_Limelight.setLimelightPipeline(0);
@@ -367,9 +367,6 @@ public class Robot extends TimedRobot {
         }
         else if(m_OI.getDriverThreeQuarterSpeed()) {
           rollerClawPercent = -0.75;
-        }
-        else if(m_OI.getDriverFullSpeed()) {
-          rollerClawPercent = -1.0; 
         }
 
         //left bumper
@@ -481,7 +478,12 @@ public class Robot extends TimedRobot {
           Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_CARGO));
         }
 
-        //set subsystems motors and soleno ids from inputs
+        if(m_OI.getDriver4() && (m_Elevator.getElevatorMPosition() == 0)) {
+          m_Beak.setBeakGrab(false);
+          Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_LOW_GOAL));
+        }
+
+        //set subsystems motors and solenoids from inputs
         m_Ball.setBallIntakeMotor(ballIntakePercent);
         m_Claw.setRollerClaw(rollerClawPercent);
         m_EndGame.setEndGameDriveSpeed(feetPercent);
