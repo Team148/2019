@@ -108,7 +108,7 @@ public class OI {
   public boolean getDriverThreeQuarterSpeed() {
     return m_driveJoystick.getRawButton(2);
   }
-  public boolean getDriverFullSpeed() {
+  public boolean getDriver4() {
     return m_driveJoystick.getRawButton(4);
   }
   public boolean getDriver5() {

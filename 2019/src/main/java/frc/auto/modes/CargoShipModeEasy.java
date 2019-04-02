@@ -29,17 +29,26 @@ public class CargoShipModeEasy extends AutoModeBase {
     private DriveTrajectory mToLoadingStation;
     private DriveTrajectory mLoadingStationToCargoThreeLineup;
 
-    public CargoShipModeEasy(boolean driveToLeftRocket) {
-        mStartedLeft = driveToLeftRocket;
+    public CargoShipModeEasy(boolean driveToLeftCargo) {
+        mStartedLeft = driveToLeftCargo;
 
-        mLevel1ToCargoTwoLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelOneToCargoTwoLineupForward.get(mStartedLeft), true);
+        if(mStartedLeft) {
+            mLevel1ToCargoTwoLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelOneToCargoTwoLineupForwardLeft, true);
         
-        mCargoTwoAway = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromCargoTwo.get(mStartedLeft), true, false);
-        mEndCargoTwoToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endCargoTwoToLoadingStaton.get(mStartedLeft));
+            mCargoTwoAway = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromCargoTwoLeft, true, false);
+            mEndCargoTwoToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endCargoTwoToLoadingStatonLeft);
 
-        // mToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoTwoLineupToLoadingStation.get(mStartedLeft));
+            mLoadingStationToCargoThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoThreeLineupLeft, true);
+        }
+        else {
+            mLevel1ToCargoTwoLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelOneToCargoTwoLineupForwardRight, true);
+        
+            mCargoTwoAway = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromCargoTwoRight, true, false);
+            mEndCargoTwoToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endCargoTwoToLoadingStatonRight);
 
-        mLoadingStationToCargoThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoThreeLineup.get(mStartedLeft), true, false);
+            mLoadingStationToCargoThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoThreeLineupRight, true);
+        }
+
     }
 
     @Override
@@ -63,8 +72,8 @@ public class CargoShipModeEasy extends AutoModeBase {
 
         runAction(new ParallelAction (
             Arrays.asList(
-                mCargoTwoAway,
-                new ExtendRetract4Bar(false)
+                mCargoTwoAway
+                // new ExtendRetract4Bar(false)
             )
         ));
 
@@ -72,17 +81,17 @@ public class CargoShipModeEasy extends AutoModeBase {
         runAction(new SeriesAction (
             Arrays.asList(
                 mEndCargoTwoToLoadingStation,
-                new DriveForwardAndTurnToTarget(20.0, 0.75),
-                new ExtendRetract4Bar(true),
-                new OpenLoopDrive(-0.1, -0.1, 0.2),
-                new OpenCloseBeak(false)
+                new DriveForwardAndTurnToTarget(20.0, 1.0),
+                // new ExtendRetract4Bar(true),
+                new OpenCloseBeak(false),
+                new OpenLoopDrive(-0.15, -0.15, 0.5)
             )
         ));
 
         runAction(new SeriesAction (
             Arrays.asList(
-                mLoadingStationToCargoThreeLineup
-                // new DriveForwardAndTurnToTarget(20.0, 1.0)
+                mLoadingStationToCargoThreeLineup,
+                new DriveForwardAndTurnToTarget(40.0, 1.0)
                 // new OpenCloseBeak(true),
                 // new OpenLoopDrive(-0.2, -0.2, 0.5)
             )

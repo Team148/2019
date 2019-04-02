@@ -15,23 +15,23 @@ public class CrossAutoLineMode extends AutoModeBase {
 
     @Override
     protected void routine() throws AutoModeEndedException {
-        List<DriveCharacterization.VelocityDataPoint> velocityData = new ArrayList<>();
-        List<DriveCharacterization.AccelerationDataPoint> accelerationData = new ArrayList<>();
+        // List<DriveCharacterization.VelocityDataPoint> velocityData = new ArrayList<>();
+        // List<DriveCharacterization.AccelerationDataPoint> accelerationData = new ArrayList<>();
 
-        System.out.println("Running Cross auto line");
-        runAction(new CollectVelocityData(velocityData, false, false));
-        runAction(new WaitAction(10.0));
-        runAction(new CollectAccelerationData(accelerationData, false, false));
+        // System.out.println("Running Cross auto line");
+        // runAction(new CollectVelocityData(velocityData, false, false));
+        // runAction(new WaitAction(10.0));
+        // runAction(new CollectAccelerationData(accelerationData, false, false));
 
-        DriveCharacterization.CharacterizationConstants constants = DriveCharacterization.characterizeDrive(velocityData, accelerationData);
+        // DriveCharacterization.CharacterizationConstants constants = DriveCharacterization.characterizeDrive(velocityData, accelerationData);
 
-        System.out.println("ks: " + constants.ks);
-        System.out.println("kv: " + constants.kv);
-        System.out.println("ka: " + constants.ka);
+        // System.out.println("ks: " + constants.ks);
+        // System.out.println("kv: " + constants.kv);
+        // System.out.println("ka: " + constants.ka);
         // waitAction(10.0);
         // runAction(new CollectAccelerationData(accelerationData, false, false));
-        // runAction(new WaitAction(5.0));
-        // // runAction(new OpenLoopDrive(-0.3, -0.3, 5.0, false));
-        // runAction(new OpenLoopDrive(0.5, 0.5, 3.0));
+        runAction(new WaitAction(5.0));
+        // runAction(new OpenLoopDrive(-0.3, -0.3, 5.0, false));
+        runAction(new OpenLoopDrive(0.5, 0.5, 3.0));
     }
 }

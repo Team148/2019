@@ -143,6 +143,8 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
 
     try {
+      // m_Limelight.SetEnableVision(true);
+      // m_Limelight.setLimelightPipeline(0.0);
       CrashTracker.logDisabledInit();
       mEnabledLooper.stop();
       if (mAutoModeExecutor != null) {
@@ -180,6 +182,9 @@ public class Robot extends TimedRobot {
     RobotState.getInstance().outputToSmartDashboard();
     Drivetrain.getInstance().outputTelemetry();
     SmartDashboard.putNumber("Elevator Encoder", m_Elevator.getElevatorPosition());
+    // SmartDashboard.putNumber("Limelight Tx", m_Limelight.GetOffsetAngle());
+
+    // System.out.println(m_Limelight.GetOffsetAngle());
   }
 
   /**
@@ -255,6 +260,10 @@ public class Robot extends TimedRobot {
     try {
       CrashTracker.logTeleopInit();
       mDisabledLooper.stop();
+
+      m_Limelight.SetEnableVision(false);
+      m_Limelight.setLimelightPipeline(3);
+      // m_Limelight.setLimelightData();
       
       comp.setClosedLoopControl(true);
 
@@ -302,9 +311,8 @@ public class Robot extends TimedRobot {
         
         //driver inputs
         if(m_OI.getDriverVision()){
-          m_Limelight.setLimelightPipeline(0);
           m_Limelight.SetEnableVision(true);
-          m_Limelight.getLimelightData();
+          m_Limelight.setLimelightPipeline(0);
           if(m_Limelight.IsTargeting()){
             double limeX = m_Limelight.GetOffsetAngle();
             double cameraSteer = 0;
@@ -332,6 +340,7 @@ public class Robot extends TimedRobot {
             m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, cameraSteer)); 
             }
           else{
+
             m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn)); 
           }
             
@@ -339,9 +348,11 @@ public class Robot extends TimedRobot {
 
         //driver inputs - default case manual driving
         else{
-          m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn));
-          m_Limelight.setLimelightPipeline(0);
           m_Limelight.SetEnableVision(false);
+          m_Limelight.setLimelightPipeline(3);
+          m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn));
+          // m_Limelight.setLimelightPipeline(0);
+          // m_Limelight.SetEnableVision(false);
 
         }
         
@@ -356,9 +367,6 @@ public class Robot extends TimedRobot {
         }
         else if(m_OI.getDriverThreeQuarterSpeed()) {
           rollerClawPercent = -0.75;
-        }
-        else if(m_OI.getDriverFullSpeed()) {
-          rollerClawPercent = -1.0; 
         }
 
         //left bumper
@@ -467,14 +475,19 @@ public class Robot extends TimedRobot {
           Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_ZERO));
         }
         if(m_OI.m_operatorJoystick.getPOV() == 270){
+          Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_CARGO));
+        }
+
+        if(m_OI.getDriver4() && (m_Elevator.getElevatorMPosition() == 0)) {
+          m_Beak.setBeakGrab(false);
           Scheduler.getInstance().add(new SetElevator(Constants.ELEVATOR_LOW_GOAL));
         }
 
-        //set subsystems motors and soleno ids from inputs
+        //set subsystems motors and solenoids from inputs
         m_Ball.setBallIntakeMotor(ballIntakePercent);
         m_Claw.setRollerClaw(rollerClawPercent);
         m_EndGame.setEndGameDriveSpeed(feetPercent);
-        m_Limelight.getLimelightData();
+        // m_Limelight.setLimelightData();
 
     } catch (Throwable t) {
         CrashTracker.logThrowableCrash(t);
