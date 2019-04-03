@@ -53,7 +53,8 @@ public class RobotMap {
 
   //Solenoid Channels PCM = 0
   public static final int BALL_INTAKE_SOLENOID = 0;
-  public static final int WEDGE_SOLENOID = 1;
+  // public static final int WEDGE_SOLENOID = 1;
+  public static final int FORKS_SOLENOID = 1;
   public static final int BEAK_4BAR_SOLENOID = 2;
   public static final int BEAK_GRAB_SOLENOID = 3;
   public static final int ENDGAME_SHIFT_FORWARD = 5;
