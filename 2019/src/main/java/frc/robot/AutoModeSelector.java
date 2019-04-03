@@ -41,8 +41,6 @@ public class AutoModeSelector {
 
     private Optional<AutoModeCreator> mCreator = Optional.empty();
 
-    private selectedAuto = null;
-
     // private SendableChooser<StartingHeight> mStartHeightChooser;
     // private SendableChooser<StartingPosition> mStartPositionChooser;
     // private SendableChooser<DesiredMode> mModeChooser;
@@ -112,12 +110,12 @@ public class AutoModeSelector {
         boolean startOnLeft = StartingPosition.LEFT == position;
 
         switch (mode) {
-            case CROSS_AUTO_LINE:
-                return Optional.of(new CrossAutoLineCreator());
+            // case CROSS_AUTO_LINE:
+            //     return Optional.of(new CrossAutoLineCreator());
             case CARGO_SHIP:
                 return Optional.of(new CargoShipModeCreator(startOnOne, startOnLeft));
-            case CARGO_SHIP_AND_ROCKET:
-                return Optional.of(new CargoShipANDRocketModeCreator(startOnOne, startOnLeft));
+            // case CARGO_SHIP_AND_ROCKET:
+            //     return Optional.of(new CargoShipANDRocketModeCreator(startOnOne, startOnLeft));
             case ROCKET:
                 return Optional.of(new RocketModeCreator(startOnOne, startOnLeft));
             default:
