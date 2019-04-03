@@ -79,11 +79,20 @@ public class OI {
   }
 
   //Get DS Switches
-  public boolean getBallMode() {
+  // public boolean getBallMode() {
+  //   return m_driveStation.getRawButton(12);
+  // }
+  // public boolean getDiscGrabWithSensor() {
+  //   return m_driveStation.getRawButton(13);
+  // }
+  public boolean getAutoMode() {
     return m_driveStation.getRawButton(12);
   }
-  public boolean getDiscGrabWithSensor() {
+  public boolean getAutoLeftRight() {
     return m_driveStation.getRawButton(13);
+  }
+  public boolean getAutoLevel() {
+    return m_driveStation.getRawButton(14);
   }
   public boolean getEndgameManual() {
     return m_driveStation.getRawButton(15);
