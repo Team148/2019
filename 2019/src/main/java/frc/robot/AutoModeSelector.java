@@ -74,25 +74,32 @@ public class AutoModeSelector {
         StartingPosition startingPosition;
         DesiredMode desiredMode;
 
-        if (OI.getInstance().getAutoLevel()) {
-            startingHeight = StartingHeight.LEVEL_TWO;
-        }
-        else {
+        if (OI.getInstance().getCrossLineAuto()) {
+            desiredMode = DesiredMode.CROSS_AUTO_LINE;
+            startingPosition = StartingPosition.LEFT;
             startingHeight = StartingHeight.LEVEL_ONE;
         }
-
-        if (OI.getInstance().getAutoLeftRight()) {
-            startingPosition = StartingPosition.RIGHT;
-        }
         else {
-            startingPosition = StartingPosition.LEFT;
-        }
-
-        if (OI.getInstance().getAutoMode()) {
-            desiredMode = DesiredMode.CARGO_SHIP;
-        }
-        else {
-            desiredMode = DesiredMode.ROCKET;
+            if (OI.getInstance().getAutoLevel()) {
+                startingHeight = StartingHeight.LEVEL_TWO;
+            }
+            else {
+                startingHeight = StartingHeight.LEVEL_ONE;
+            }
+    
+            if (OI.getInstance().getAutoLeftRight()) {
+                startingPosition = StartingPosition.RIGHT;
+            }
+            else {
+                startingPosition = StartingPosition.LEFT;
+            }
+    
+            if (OI.getInstance().getAutoMode()) {
+                desiredMode = DesiredMode.CARGO_SHIP;
+            }
+            else {
+                desiredMode = DesiredMode.ROCKET;
+            }
         }
 
         if (mCachedDesiredMode != desiredMode || mCachedStartingHeight != startingHeight || mCachedStartingPosition != startingPosition) {
@@ -110,8 +117,8 @@ public class AutoModeSelector {
         boolean startOnLeft = StartingPosition.LEFT == position;
 
         switch (mode) {
-            // case CROSS_AUTO_LINE:
-            //     return Optional.of(new CrossAutoLineCreator());
+            case CROSS_AUTO_LINE:
+                return Optional.of(new CrossAutoLineCreator());
             case CARGO_SHIP:
                 return Optional.of(new CargoShipModeCreator(startOnOne, startOnLeft));
             // case CARGO_SHIP_AND_ROCKET:

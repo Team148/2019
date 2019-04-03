@@ -94,7 +94,7 @@ public class OI {
   public boolean getAutoLevel() {
     return m_driveStation.getRawButton(14);
   }
-  public boolean getEndgameManual() {
+  public boolean getCrossLineAuto() {
     return m_driveStation.getRawButton(15);
   }
   public boolean getEndgameSafety() {
