@@ -181,8 +181,8 @@ public class Drivetrain extends Subsystem {
 
     m_driveLeft1.setSensorPhase(true);
     //SET FOR COMPBOT PLZ
-    // m_driveRight1.setSensorPhase(false);
-    m_driveRight1.setSensorPhase(true);
+    m_driveRight1.setSensorPhase(false);
+    // m_driveRight1.setSensorPhase(true);
   }
 
   public void setMotorSafeties() {
