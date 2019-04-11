@@ -81,7 +81,7 @@ public class CargoShipModeHard extends AutoModeBase {
         runAction(new SeriesAction (
             Arrays.asList(
                 mEndCargoTwoToLoadingStation,
-                new DriveForwardAndTurnToTarget(20.0, 1.0),
+                new DriveForwardAndTurnToTarget(30.0, 2.0),
                 // new ExtendRetract4Bar(true),
                 new OpenCloseBeak(false),
                 new OpenLoopDrive(-0.15, -0.15, 0.5)
