@@ -1,11 +1,3 @@
-
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -20,8 +12,6 @@ public class EndGameDrive extends Command {
 
 
   public EndGameDrive(double speed, double timeout) {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
     requires(EndGame.getInstance());
     System.out.println("Constructing EndGameDrive Command");
     m_speed = speed;

@@ -2,14 +2,14 @@ package frc.auto.modes;
 
 import frc.auto.AutoModeBase;
 import frc.auto.AutoModeEndedException;
-import frc.auto.actions.CollectAccelerationData;
-import frc.auto.actions.CollectVelocityData;
+// import frc.auto.actions.CollectAccelerationData;
+// import frc.auto.actions.CollectVelocityData;
 import frc.auto.actions.OpenLoopDrive;
 import frc.auto.actions.WaitAction;
-import lib.physics.DriveCharacterization;
+// import lib.physics.DriveCharacterization;
 
-import java.util.ArrayList;
-import java.util.List;
+// import java.util.ArrayList;
+// import java.util.List;
 
 public class CrossAutoLineMode extends AutoModeBase {
 
@@ -31,7 +31,6 @@ public class CrossAutoLineMode extends AutoModeBase {
         // waitAction(10.0);
         // runAction(new CollectAccelerationData(accelerationData, false, false));
         runAction(new WaitAction(5.0));
-        // runAction(new OpenLoopDrive(-0.3, -0.3, 5.0, false));
         runAction(new OpenLoopDrive(0.5, 0.5, 3.0));
     }
 }

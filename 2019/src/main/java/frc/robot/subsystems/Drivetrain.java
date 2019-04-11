@@ -32,12 +32,7 @@ import lib.util.ReflectingCSVWriter;
 import frc.loops.ILooper;
 import frc.loops.Loop;
 
-/**
- * Add your docs here.
- */
 public class Drivetrain extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
 
   private static Drivetrain m_instance;
 

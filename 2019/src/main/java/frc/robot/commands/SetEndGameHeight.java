@@ -1,18 +1,9 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.EndGame;
 import frc.robot.Constants;
-import frc.robot.OI;
 
 public class SetEndGameHeight extends Command {
 
@@ -20,8 +11,6 @@ public class SetEndGameHeight extends Command {
   boolean m_isFinished;
 
   public SetEndGameHeight(double position) {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
     requires(Elevator.getInstance());
     //requires(EndGame.getInstance());
 

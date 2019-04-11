@@ -10,13 +10,9 @@ package lib.util;
 public class ArcadeDriveHelper {
 
     private static final double kThrottleDeadband = 0.02;
-    private static final double kWheelDeadband = 0.02;
+    // private static final double kWheelDeadband = 0.02;
 
     private static boolean squareInputs = true;
-
-    // private static final double kHighSensitivity = 0.65;
-    // private static final double kLowSensitiity = 0.65;
-
 
     public DriveSignal arcadeDrive(double xSpeed, double zRotation) {
 
@@ -61,11 +57,6 @@ public class ArcadeDriveHelper {
             rightMotorOutput = xSpeed - zRotation;
             }
         }
-    
-        // m_leftMotor.set(limit(leftMotorOutput) * m_maxOutput);
-        // m_rightMotor.set(limit(rightMotorOutput) * m_maxOutput * m_rightSideInvertMultiplier);
-    
-        // feed();
         return new DriveSignal(leftMotorOutput, rightMotorOutput);
     }
 

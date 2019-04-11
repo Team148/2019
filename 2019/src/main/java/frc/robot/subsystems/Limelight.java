@@ -1,16 +1,7 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
-//import edu.wpi.first.networktables.NetworkTableType;
-//import edu.wpi.first.networktables.NetworkTableValue;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 
@@ -22,8 +13,6 @@ import frc.robot.commands.UpdateLimeLight;
  * Add your docs here.
  */
 public class Limelight extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
 
   private static Limelight m_instance;
   
@@ -38,10 +27,6 @@ public class Limelight extends Subsystem {
   double validObject = 0.0;
   double targetArea = 0.0;
 
-  // NetworkTableEntry validObject;
-	// NetworkTableEntry xOffSet;
-	// NetworkTableEntry yOffSet;
-	// NetworkTableEntry targetArea;
 	NetworkTableEntry skew;
 	NetworkTableEntry latency;
 	NetworkTableEntry ledMode;
@@ -56,10 +41,6 @@ public class Limelight extends Subsystem {
 
     System.out.println("Creating Limelight");
 
-    // m_LEDMode = 0.0;		//set LEDs to default to off
-    // m_pipeline = 0.0;		//2019 target, dual, closest
-    // m_camMode = 0.0;		//vision processing ON
-
       //read values from NetworkTables
       table = NetworkTableInstance.getDefault().getTable("limelight");
       tv = table.getEntry("tv"); //0 or 1 for valid target
@@ -72,9 +53,6 @@ public class Limelight extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-
     setDefaultCommand(new UpdateLimeLight()); 
   }
 
@@ -100,27 +78,19 @@ public class Limelight extends Subsystem {
       
       validObject = tv.getDouble(-1);
       xOffSet = tx.getDouble(0.0);
-      // m_LEDMode = ledMode.getDouble(0.0);
-      // m_pipeline = pipeline.getDouble(0.0);
-      // m_camMode = cammode.getDouble(0.0);
+
           
-//post to smart dashboard periodically
+      //post to smart dashboard periodically
       SmartDashboard.putNumber("HorizOffset", xOffSet);
       SmartDashboard.putNumber("validObject", validObject);
-
-  //  //Write NetworkTables with desired values
-  //     ledMode.setNumber(m_LEDMode);
-  //     pipeline.setNumber(Double.toString(m_pipeline));
-  //     // pipeline.setNumber(3);
-  //     cammode.setNumber(m_camMode);
   }
 
-public void setLimelightData() {
-  //Write NetworkTables with desired values
-  ledMode.setNumber(m_LEDMode);
-  pipeline.setNumber(m_pipeline);
-  cammode.setNumber(m_camMode);
-}
+  public void setLimelightData() {
+    //Write NetworkTables with desired values
+    ledMode.setNumber(m_LEDMode);
+    pipeline.setNumber(m_pipeline);
+    cammode.setNumber(m_camMode);
+  }
 
   public boolean CheckConnection() {  //??? this depends on return of null, -1?
     if(validObject == -1.0) {
@@ -161,18 +131,13 @@ public void setLimelightData() {
   
   
   public double GetOffsetAngle() {
- 
-    // System.out.println(xOffSet.getDouble(0));
     return xOffSet;
-  
   }
   public double GetTargetHeading() {
-   // double m_target_heading = Drivetrain.getInstance().getRobotPathHeading();
     if(IsTargeting())
     {
-   //   m_target_heading = Drivetrain.getInstance().getRobotPathHeading() + (-xOffSet.getDouble(0));
     }
-    return 0.0;//m_target_heading;
+    return 0.0;
   }
   
   public boolean IsTargeting() {
