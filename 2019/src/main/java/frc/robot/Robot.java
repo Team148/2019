@@ -26,6 +26,7 @@ import frc.robot.subsystems.Beak;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.EndGame;
+import frc.robot.subsystems.Forks;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.RollerClaw;
 // import frc.robot.subsystems.Wedge;
@@ -88,6 +89,7 @@ public class Robot extends TimedRobot {
   public static Drivetrain m_DriveTrain;
   public static Elevator m_Elevator;
   public static EndGame m_EndGame;
+  public static Forks m_Forks;
   public static Limelight m_Limelight;
   public static RollerClaw m_Claw;
   // public static Wedge m_Wedge;
@@ -108,6 +110,7 @@ public class Robot extends TimedRobot {
     m_DriveTrain = Drivetrain.getInstance();
     m_Elevator = Elevator.getInstance();
     m_EndGame = EndGame.getInstance();
+    m_Forks = Forks.getInstance();
     m_Limelight = Limelight.getInstance();
     m_Claw = RollerClaw.getInstance();
     // m_Wedge = Wedge.getInstance();
@@ -413,9 +416,9 @@ public class Robot extends TimedRobot {
               Scheduler.getInstance().add(new HangStageOne());
             }
 
-            // if(m_OI.getOperator2()) {
-            //   Scheduler.getInstance().add(new HangStageTwo());
-            // }
+            if(m_OI.getOperator2()) {
+              Scheduler.getInstance().add(new HangStageTwo());
+            }
     
             if(m_OI.getOperator3()) {
               Scheduler.getInstance().add(new HangStageThree());

@@ -89,7 +89,8 @@ public class Constants {
     public static final int ENDGAME_ZERO = -4350; //if feet are slightly out since they can't go all the way back in
     public static final int ENDGAME_ZERO_ANKLES = -33500; //if ankles are deployed, zero is even lower to ensure we don't damage the robot
 
-    public static final int ENDGAME_TOP = -74500;
+    public static final int ENDGAME_TOP = -80000;
+    // public static final int ENDGAME_TOP = -74500;
     public static final int ENDGAME_CHILL = -66700;
     public static final int ENDGAME_CHILL2 = -55000; //60000
 

@@ -4,31 +4,51 @@ import frc.auto.AutoModeBase;
 import frc.auto.AutoModeEndedException;
 import frc.auto.actions.*;
 import frc.paths.TrajectoryGenerator;
+import lib.geometry.Rotation2d;
 import lib.geometry.Translation2d;
+import frc.robot.subsystems.Limelight;
 
 import java.util.Arrays;
+
+import javax.swing.text.html.ParagraphView;
 
 public class CargoShipModeHard extends AutoModeBase {
 
     private static final TrajectoryGenerator mTrajectoryGenerator = TrajectoryGenerator.getInstance();
+    private static final Limelight LL = Limelight.getInstance();
+    private double angleOffset;
+    private int inchOffset;
 
     final boolean mStartedLeft;
 
-    private DriveTrajectory mLevel2ToCargoThree;
-    private DriveTrajectory mCargoThreeTo90Turn;
-    private DriveTrajectory mEndTurnToLoadingStation;
-    private DriveTrajectory mLoadingStationToCargoFour;
+    private DriveTrajectory mLevel2ToCargoTwoLineupForward;
+
+    private DriveTrajectory mCargoTwoAway;
+    private DriveTrajectory mEndCargoTwoToLoadingStation;
+
+    private DriveTrajectory mToLoadingStation;
+    private DriveTrajectory mLoadingStationToCargoThreeLineup;
 
     public CargoShipModeHard(boolean driveToLeftCargo) {
         mStartedLeft = driveToLeftCargo;
 
-        mLevel2ToCargoThree = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelTwoToCargoTwoLineup.get(mStartedLeft), true);
+        if(mStartedLeft) {
+            mLevel2ToCargoTwoLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelTwoToCargoTwoLineupForwardLeft, true);
+        
+            mCargoTwoAway = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromCargoTwoLeft, true, false);
+            mEndCargoTwoToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endCargoTwoToLoadingStatonLeft);
 
-        // mLevel2ToCargoTwo = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level2ToCargoTwo.get(mStartedLeft), true);
-        // mLevel2ToCargoOne = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().level2ToCargoThree.get(mStartedLeft), true);
-        // mCargoThreeTo90Turn = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().cargoThreeTo90Turn.get(mStartedLeft));
-        // mEndTurnToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endTurnToLoadingStation.get(mStartedLeft));
-        // mLoadingStationToCargoFour = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoFour.get(mStartedLeft));
+            mLoadingStationToCargoThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoThreeLineupLeft, true, false);
+        }
+        else {
+            mLevel2ToCargoTwoLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelTwoToCargoTwoLineupForwardRight, true);
+        
+            mCargoTwoAway = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromCargoTwoRight, true, false);
+            mEndCargoTwoToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endCargoTwoToLoadingStatonRight);
+
+            mLoadingStationToCargoThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoThreeLineupRight, true, false);
+        }
+
     }
 
     @Override
@@ -38,61 +58,43 @@ public class CargoShipModeHard extends AutoModeBase {
         //Score First Hatch
         runAction(new ParallelAction (
             Arrays.asList(
-                mLevel2ToCargoThree,
-                new SeriesAction(
-                    Arrays.asList(
-                        new WaitAction(2.0),
-                        new ExtendRetract4Bar(true)
-                    )
-                )
+                new ExtendRetract4Bar(true),
+                mLevel2ToCargoTwoLineupForward
             )
         ));
 
-        // runAction(new SeriesAction (
-        //     Arrays.asList(
-        //         // new TurnToTarget(0.5),
-        //         new OpenLoopDrive(0.5, 0.5, 0.5)
-        //     )
-        // ));
+        runAction(new SeriesAction (
+            Arrays.asList(
+                new DriveForwardAndTurnToTarget(20.0, 0.75),
+                new OpenCloseBeak(true)
+            )
+        ));
 
-        // runAction(new SeriesAction (
-        //     Arrays.asList(
-        //         new OpenCloseBeak(true),
-        //         new SeriesAction(
-        //             Arrays.asList(
-        //                 new WaitAction(0.25),
-        //                 new OpenLoopDrive(-0.5, -0.5, 0.5)
-        //             )
-        //         )
-        //     )
-        // ));
-
-        // //Turn 90 degrees
-        // runAction(new ParallelAction (
-        //     Arrays.asList(
-        //         mCargoThreeTo90Turn
-        //     )
-        // ));
+        runAction(new ParallelAction (
+            Arrays.asList(
+                mCargoTwoAway
+                // new ExtendRetract4Bar(false)
+            )
+        ));
 
         // //Get Second Hatch
-        // runAction(new ParallelAction (
-        //     Arrays.asList(
-        //         mEndTurnToLoadingStation
-        //     )
-        // ));
+        runAction(new SeriesAction (
+            Arrays.asList(
+                mEndCargoTwoToLoadingStation,
+                new DriveForwardAndTurnToTarget(30.0, 2.0),
+                // new ExtendRetract4Bar(true),
+                new OpenCloseBeak(false),
+                new OpenLoopDrive(-0.15, -0.15, 0.5)
+            )
+        ));
 
-        // //Score Second Hatch
-        // runAction(new ParallelAction (
-        //     Arrays.asList(
-        //         mLoadingStationToCargoFour
-        //     )
-        // ));
-
-        // //Score Second Hatch
-        // runAction(new ParallelAction (
-        //     Arrays.asList(
-        //         new OpenLoopDrive(0.5, 0.5, 0.2)
-        //     )
-        // ));
+        runAction(new SeriesAction (
+            Arrays.asList(
+                mLoadingStationToCargoThreeLineup,
+                new DriveForwardAndTurnToTarget(40.0, 1.0)
+                // new OpenCloseBeak(true),
+                // new OpenLoopDrive(-0.2, -0.2, 0.5)
+            )
+        ));
     }
 }
