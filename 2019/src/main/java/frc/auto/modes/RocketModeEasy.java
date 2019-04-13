@@ -38,7 +38,7 @@ public class RocketModeEasy extends AutoModeBase {
             mRocketOneAway = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromRocketOneRight);
             mToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromRocketOneToLoadingStationLineupRight);
 
-            mLoadingStationToRocketThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToRocketThreeLineupRight);
+            mLoadingStationToRocketThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToRocketThreeLineupRight, true);
         }
     }
 
@@ -47,41 +47,46 @@ public class RocketModeEasy extends AutoModeBase {
         System.out.println("Running Rocket Mode");
 
         //Score First Hatch
-        runAction(new ParallelAction (
-            Arrays.asList(
-                new ExtendRetract4Bar(true),
-                mLevel1ToRocketOneLineup
-            )
-        ));
+        // runAction(new ParallelAction (
+        //     Arrays.asList(
+        //         new ExtendRetract4Bar(true),
+        //         mLevel1ToRocketOneLineup
+        //     )
+        // ));
 
-        runAction(new SeriesAction (
-            Arrays.asList(
-                new DriveForwardAndTurnToTarget(20.0, 1.25),
-                new OpenCloseBeak(true)
-            )
-        ));
+        // runAction(new SeriesAction (
+        //     Arrays.asList(
+        //         new DriveForwardAndTurnToTarget(20.0, 1.25),
+        //         new OpenCloseBeak(true),
+        //         new OpenLoopDrive(-0.3, -0.3, 0.3),
+        //         new WaitAction(10.0)
+        //     )
+        // ));
 
-        runAction(new ParallelAction (
-            Arrays.asList(
-                mRocketOneAway
-            )
-        ));
+        // runAction(new ParallelAction (
+        //     Arrays.asList(
+        //         mRocketOneAway
+        //     )
+        // ));
 
-        // //Get Second Hatch
-        runAction(new ParallelAction (
-            Arrays.asList(
-                mToLoadingStation
-            )
-        ));
+        // // //Get Second Hatch
+        // runAction(new ParallelAction (
+        //     Arrays.asList(
+        //         mToLoadingStation
+        //     )
+        // ));
 
-        runAction(new SeriesAction (
-            Arrays.asList(
-                new DriveForwardAndTurnToTarget(20.0, 1.0),
-                new OpenCloseBeak(false),
-                new OpenLoopDrive(-0.15, -0.15, 0.5)
+        // runAction(new SeriesAction (
+        //     Arrays.asList(
+        //         new ExtendRetract4Bar(true),
+        //         new OpenCloseBeak(true),
+        //         new DriveForwardAndTurnToTarget(75.0, 2.0),
+        //         new DriveForwardAndTurnToTarget(10.0, 0.5),
+        //         new OpenCloseBeak(false),
+        //         new OpenLoopDrive(-0.15, -0.15, 0.5)
 
-            )
-        ));
+        //     )
+        // ));
 
         runAction(new SeriesAction (
             Arrays.asList(
