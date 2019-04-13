@@ -59,6 +59,7 @@ public class CargoShipModeEasy extends AutoModeBase {
         runAction(new SeriesAction (
             Arrays.asList(
                 new DriveForwardAndTurnToTarget(20.0, 0.75),
+                // new DriveForwardAndTurnToTarget(20.0, 1.0)
                 new OpenCloseBeak(true)
             )
         ));

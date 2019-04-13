@@ -2,6 +2,7 @@ package frc.auto.actions;
 
 import frc.robot.subsystems.Drivetrain;
 import lib.geometry.Rotation2d;
+import lib.util.DriveSignal;
 
 /**
  * Turns the robot to a specified heading
@@ -28,6 +29,9 @@ public class TurnToHeading implements Action {
 
     @Override
     public void done() {
+        System.out.println("Finished TurnToHeading!!!");
+        mDrive.setOpenLoop(new DriveSignal(0.0, 0.0));
+        mDrive.setBrakeMode(false);
     }
 
     @Override

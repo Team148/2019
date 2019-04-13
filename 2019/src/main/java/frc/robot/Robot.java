@@ -199,6 +199,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     
     try {
+      autoInterrupted = false; 
       comp.setClosedLoopControl(false);
 
       CrashTracker.logAutoInit();
@@ -454,6 +455,10 @@ public class Robot extends TimedRobot {
         m_Ball.setBallIntakeMotor(ballIntakePercent);
         m_Claw.setRollerClaw(rollerClawPercent);
         m_EndGame.setEndGameDriveSpeed(feetPercent);
+
+        RobotState.getInstance().outputToSmartDashboard();
+        Drivetrain.getInstance().outputTelemetry();
+        SmartDashboard.putNumber("Elevator Encoder", m_Elevator.getElevatorPosition());
 
     } catch (Throwable t) {
         CrashTracker.logThrowableCrash(t);

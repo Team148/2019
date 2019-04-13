@@ -44,7 +44,11 @@ public class DriveTrajectory implements Action {
     @Override
     public boolean isFinished() {
         if (mDrive.isDoneWithTrajectory()) {
-            System.out.println("Trajectory finished");
+            // System.out.println("Trajectory finished");
+            System.out.println("Trajectory Finished at X: " + mRobotState.getLatestFieldToVehicle().getValue().getTranslation().x()
+                                        + " Y: " + mRobotState.getLatestFieldToVehicle().getValue().getTranslation().y()
+                                        + " Heading: " + mRobotState.getLatestFieldToVehicle().getValue().getRotation().getDegrees()
+                                        + " Vel: " +mRobotState.getMeasuredVelocity().dx);
             return true;
         }
         return false;

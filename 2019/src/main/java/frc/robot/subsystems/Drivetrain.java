@@ -61,6 +61,7 @@ public class Drivetrain extends Subsystem {
   private boolean mIsOnTarget = false;
 
   private static final int kLowGearVelocityControlSlot = 0;
+  private static final int kLowGearPositionControlSlot = 1;
   private static final double DRIVE_ENCODER_PPR = 6956.0;
 
 
@@ -176,8 +177,8 @@ public class Drivetrain extends Subsystem {
 
     m_driveLeft1.setSensorPhase(true);
     //SET FOR COMPBOT PLZ
-    m_driveRight1.setSensorPhase(false);
-    // m_driveRight1.setSensorPhase(true);
+    // m_driveRight1.setSensorPhase(false);
+    m_driveRight1.setSensorPhase(true);
   }
 
   public void setMotorSafeties() {
@@ -273,6 +274,23 @@ public class Drivetrain extends Subsystem {
       mPeriodicIO.right_feedforward = feedforward.getRight();
   }
 
+  public synchronized void setPosition(DriveSignal signal) {
+    if (mDriveControlState != DriveControlState.TURN_TO_HEADING) {
+        // We entered a velocity control state.
+        setBrakeMode(true);
+        m_driveLeft1.selectProfileSlot(kLowGearPositionControlSlot, 0);
+        m_driveRight1.selectProfileSlot(kLowGearPositionControlSlot, 0);
+
+        System.out.println("Switching to Position");
+
+        mDriveControlState = DriveControlState.TURN_TO_HEADING;
+    }
+    mPeriodicIO.left_demand = signal.getLeft();
+    mPeriodicIO.right_demand = signal.getRight();
+    // mPeriodicIO.left_feedforward = feedforward.getLeft();
+    // mPeriodicIO.right_feedforward = feedforward.getRight();
+}
+
     /**
    * Configures talons for velocity control
    */
@@ -287,6 +305,9 @@ public class Drivetrain extends Subsystem {
     if (mDriveControlState != DriveControlState.DRIVE_VELOCITY){
         mDriveControlState = DriveControlState.DRIVE_VELOCITY;   
     }
+
+    SmartDashboard.putNumber("LeftIPS", signal.getLeft());
+    SmartDashboard.putNumber("RightIPS",signal.getRight());
     double left_velocity_rev = inchesToRotations(signal.getLeft())*(2*Math.PI);
     double right_velocity_rev = inchesToRotations(signal.getRight())*(2*Math.PI);
 
@@ -348,8 +369,9 @@ public class Drivetrain extends Subsystem {
      * Configures the drivebase to turn to a desired heading
      */
     public synchronized void setWantTurnToHeading(Rotation2d heading) {
-        mDriveControlState = DriveControlState.TURN_TO_HEADING;
-        updatePositionSetpoint(getLeftEncoderDistance(), getRightEncoderDistance());
+        // mDriveControlState = DriveControlState.TURN_TO_HEADING;
+        // updatePositionSetpoint(getLeftEncoderDistance(), getRightEncoderDistance());
+        setPosition(new DriveSignal(mPeriodicIO.left_position_ticks, mPeriodicIO.right_position_ticks));
 
         if (Math.abs(heading.inverse().rotateBy(mTargetHeading).getDegrees()) > 1E-3) {
             mTargetHeading = heading;
@@ -357,16 +379,19 @@ public class Drivetrain extends Subsystem {
         }
     }
 
-    /**
-     * Adjust position setpoint (if already in position mode)
-     * 
-     * @param left_inches_per_sec
-     * @param right_inches_per_sec
-     */
-    private synchronized void updatePositionSetpoint(double left_position_inches, double right_position_inches) {
-        m_driveLeft1.set(inchesToRotations(left_position_inches));
-        m_driveRight1.set(inchesToRotations(right_position_inches));
-    }
+    // /**
+    //  * Adjust position setpoint (if already in position mode)
+    //  * 
+    //  * @param left_inches_per_sec
+    //  * @param right_inches_per_sec
+    //  */
+    // private synchronized void updatePositionSetpoint(double left_position_inches, double right_position_inches) {
+    //    mPeriodicIO.left_demand = left_position_inches;
+    //    mPeriodicIO.right_demand = right_position_inches;
+       
+    //     // m_driveLeft1.set(inchesToRotations(left_position_inches));
+    //     // m_driveRight1.set(inchesToRotations(right_position_inches));
+    // }
 
     /**
      * Turn the robot to a target heading.
@@ -386,12 +411,13 @@ public class Drivetrain extends Subsystem {
         if (Math.abs(robot_to_target.getDegrees()) < kGoalPosTolerance && Math.abs(getLeftVelocityInchesPerSec()) < kGoalVelTolerance && Math.abs(getRightVelocityInchesPerSec()) < kGoalVelTolerance) {
             // Use the current setpoint and base lock.
             mIsOnTarget = true;
-            updatePositionSetpoint(getLeftEncoderDistance(), getRightEncoderDistance());
+            // setPosition(new DriveSignal(mPeriodicIO.left_position_ticks, mPeriodicIO.right_position_ticks));
+
             return;
         }
 
         Kinematics.DriveVelocity wheel_delta = Kinematics.inverseKinematics(new Twist2d(0, 0, robot_to_target.getRadians()));
-        updatePositionSetpoint(wheel_delta.left + getLeftEncoderDistance(), wheel_delta.right + getRightEncoderDistance());
+        setPosition(new DriveSignal(inchesToRotations(wheel_delta.left) *DRIVE_ENCODER_PPR + mPeriodicIO.left_position_ticks, inchesToRotations(wheel_delta.right) * DRIVE_ENCODER_PPR  + mPeriodicIO.right_position_ticks));
     }
 
     public double getLeftVelocityInchesPerSec() {
@@ -506,7 +532,8 @@ public class Drivetrain extends Subsystem {
           if (!mOverrideTrajectory) {
               setVelocity(new DriveSignal(radiansPerSecondToTicksPer100ms(output.left_velocity), radiansPerSecondToTicksPer100ms(output.right_velocity)),
                       new DriveSignal(output.left_feedforward_voltage / 12.0, output.right_feedforward_voltage / 12.0));
-
+                SmartDashboard.putNumber("LeftIPS", rotationsToInches(output.left_velocity/(Math.PI*2)));
+                SmartDashboard.putNumber("RightIPS", rotationsToInches(output.right_velocity/(Math.PI*2)));
               mPeriodicIO.left_accel = radiansPerSecondToTicksPer100ms(output.left_accel) / 1000.0;
               mPeriodicIO.right_accel = radiansPerSecondToTicksPer100ms(output.right_accel) / 1000.0;
           } else {
@@ -530,7 +557,27 @@ public class Drivetrain extends Subsystem {
       m_driveRight1.config_kD(kLowGearVelocityControlSlot, Constants.kDriveLowGearVelocityKd, Constants.kLongCANTimeoutMs);
       m_driveRight1.config_kF(kLowGearVelocityControlSlot, Constants.kDriveLowGearVelocityKf, Constants.kLongCANTimeoutMs);
       m_driveRight1.config_IntegralZone(kLowGearVelocityControlSlot, Constants.kDriveLowGearVelocityIZone, Constants.kLongCANTimeoutMs);
-  }
+
+      m_driveLeft1.config_kP(kLowGearPositionControlSlot, Constants.kDriveLowGearPositionKp, Constants.kLongCANTimeoutMs);
+      m_driveLeft1.config_kI(kLowGearPositionControlSlot, Constants.kDriveLowGearPositionKi, Constants.kLongCANTimeoutMs);
+      m_driveLeft1.config_kD(kLowGearPositionControlSlot, Constants.kDriveLowGearPositionKd, Constants.kLongCANTimeoutMs);
+      m_driveLeft1.config_kF(kLowGearPositionControlSlot, Constants.kDriveLowGearPositionKf, Constants.kLongCANTimeoutMs);
+      m_driveLeft1.config_IntegralZone(kLowGearPositionControlSlot, Constants.kDriveLowGearPositionIZone, Constants.kLongCANTimeoutMs);
+        m_driveLeft1.configMotionCruiseVelocity((int)radiansPerSecondToTicksPer100ms(Constants.kDriveLowGearMaxVelocity*(2*Math.PI)/60));
+        m_driveLeft1.configMotionAcceleration((int)radiansPerSecondToTicksPer100ms(Constants.kDriveLowGearMaxAccel*(2*Math.PI)/60));
+        m_driveLeft1.configClosedloopRamp(12/Constants.kDriveLowGearPositionRampRate);
+
+      m_driveRight1.config_kP(kLowGearPositionControlSlot, Constants.kDriveLowGearPositionKp, Constants.kLongCANTimeoutMs);
+      m_driveRight1.config_kI(kLowGearPositionControlSlot, Constants.kDriveLowGearPositionKi, Constants.kLongCANTimeoutMs);
+      m_driveRight1.config_kD(kLowGearPositionControlSlot, Constants.kDriveLowGearPositionKd, Constants.kLongCANTimeoutMs);
+      m_driveRight1.config_kF(kLowGearPositionControlSlot, Constants.kDriveLowGearPositionKf, Constants.kLongCANTimeoutMs);
+      m_driveRight1.config_IntegralZone(kLowGearPositionControlSlot, Constants.kDriveLowGearPositionIZone, Constants.kLongCANTimeoutMs);
+      m_driveRight1.configMotionCruiseVelocity((int)radiansPerSecondToTicksPer100ms(Constants.kDriveLowGearMaxVelocity*(2*Math.PI)/60));
+      m_driveRight1.configMotionAcceleration((int)radiansPerSecondToTicksPer100ms(Constants.kDriveLowGearMaxAccel*(2*Math.PI)/60));
+      m_driveRight1.configClosedloopRamp(12/Constants.kDriveLowGearPositionRampRate);
+
+
+    }
 
   @Override
   public void writeToLog() {
@@ -574,7 +621,12 @@ public class Drivetrain extends Subsystem {
       if (mDriveControlState == DriveControlState.OPEN_LOOP) {
           m_driveLeft1.set(ControlMode.PercentOutput, mPeriodicIO.left_demand, DemandType.ArbitraryFeedForward, 0.0);
           m_driveRight1.set(ControlMode.PercentOutput, mPeriodicIO.right_demand, DemandType.ArbitraryFeedForward, 0.0);
-      } else {
+      }
+      if(mDriveControlState == DriveControlState.TURN_TO_HEADING){
+        m_driveLeft1.set(ControlMode.MotionMagic, mPeriodicIO.left_demand);
+        m_driveRight1.set(ControlMode.MotionMagic, mPeriodicIO.right_demand);
+      }
+      else { //default case velocity
           m_driveLeft1.set(ControlMode.Velocity, mPeriodicIO.left_demand, DemandType.ArbitraryFeedForward,
                   mPeriodicIO.left_feedforward + Constants.kDriveLowGearVelocityKd * mPeriodicIO.left_accel / (DRIVE_ENCODER_PPR/4.0));
           m_driveRight1.set(ControlMode.Velocity, mPeriodicIO.right_demand, DemandType.ArbitraryFeedForward,
@@ -606,6 +658,8 @@ public class Drivetrain extends Subsystem {
       TURN_TO_HEADING, // turn in place
       DRIVE_VELOCITY // drive velocity
   }
+
+  
 
   public enum ShifterState {
       FORCE_LOW_GEAR,
