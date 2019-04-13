@@ -140,11 +140,11 @@ public class Constants {
     public static final double kDriveVoltageRampRate = 0.0;
 
     //PID Drive Position Gains
-    public static final double kDriveLowGearPositionKp = 0.0;//0.025;//0.0002;// 1.0/5000;	//0.9;
-    public static final double kDriveLowGearPositionKi = 0.0;//0.0001;// 0.002/5000;
-    public static final double kDriveLowGearPositionKd = 0.0;//0.25;//0.02; //100.0/5000;	//10.0;
-    public static final double kDriveLowGearPositionKf = 0.35;
-    public static final int kDriveLowGearPositionIZone = 1000;
+    public static final double kDriveLowGearPositionKp = 1.0;//0.02;//0.025;//0.0002;// 1.0/5000;	//0.9;
+    public static final double kDriveLowGearPositionKi = 0.002;//0.0001;// 0.002/5000;
+    public static final double kDriveLowGearPositionKd = 100.0;//2.0;//0.2;//0.25;//0.02; //100.0/5000;	//10.0;
+    public static final double kDriveLowGearPositionKf = 0.25;//0.32;
+    public static final int kDriveLowGearPositionIZone = 700;
     public static final double kDriveLowGearPositionRampRate = 240.0; // V/s
     public static final double kDriveLowGearNominalOutput = 0.5; // V
     public static final double kDriveLowGearMaxVelocity = 6.0 * 12.0 * 60.0 / (Math.PI * kDriveWheelDiameterInches); // 6 fps

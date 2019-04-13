@@ -63,8 +63,10 @@ public class Drivetrain extends Subsystem {
 
   private int mInitLeftPosition;
   private int mInitRightPosition;
-  private int mEndLeftPosition;
-  private int mEndRightPosition;
+  private int mInitLeftPositionCorrection;
+  private int mInitRightPositionCorrection;
+  private int mInitTicksNeeded;
+
 
   private static final int kLowGearVelocityControlSlot = 0;
   private static final int kLowGearPositionControlSlot = 1;
@@ -83,6 +85,8 @@ public class Drivetrain extends Subsystem {
 
     @Override
     public void onLoop(double timestamp) {
+
+        
         synchronized (Drivetrain.this) {
             switch (mDriveControlState) {
                 case OPEN_LOOP:
@@ -92,6 +96,7 @@ public class Drivetrain extends Subsystem {
                     break;
                 case TURN_TO_HEADING:
                     updateTurnToHeading(timestamp);
+                    // System.out.println("TURN TO HEADING");
                     return;
                 case DRIVE_VELOCITY:
                     break;
@@ -429,7 +434,7 @@ public class Drivetrain extends Subsystem {
      * Configures the drivebase to turn to a desired heading
      */
     public synchronized void setWantTurnToHeading(Rotation2d heading) {
-        mDriveControlState = DriveControlState.TURN_TO_HEADING;
+    //    mDriveControlState = DriveControlState.TURN_TO_HEADING;
         // updatePositionSetpoint(getLeftEncoderDistance(), getRightEncoderDistance());
         mInitLeftPosition = mPeriodicIO.left_position_ticks;
         mInitRightPosition = mPeriodicIO.right_position_ticks;
@@ -438,6 +443,16 @@ public class Drivetrain extends Subsystem {
         if (Math.abs(heading.inverse().rotateBy(mTargetHeading).getDegrees()) > 1E-3) {
             mTargetHeading = heading;
             mIsOnTarget = false;
+
+            final Rotation2d field_to_robot = getHeading();
+            final Rotation2d robot_to_target = field_to_robot.inverse().rotateBy(mTargetHeading);
+
+            Kinematics.DriveVelocity wheel_delta = Kinematics.inverseKinematics(new Twist2d(0, 0, robot_to_target.getRadians()));
+
+            mInitTicksNeeded = (int)(inchesToRotations(wheel_delta.right) *DRIVE_ENCODER_PPR * 0.5) ;
+
+            mInitLeftPositionCorrection = (int)(mInitLeftPosition - mInitTicksNeeded);
+            mInitRightPositionCorrection =  (int)(mInitRightPosition + mInitTicksNeeded);
         }
     }
 
@@ -448,12 +463,17 @@ public class Drivetrain extends Subsystem {
      * Is called periodically when the robot is auto-aiming towards the boiler.
      */
     private void updateTurnToHeading(double timestamp) {
-        // final Rotation2d field_to_robot = getHeading();
-        final Rotation2d field_to_robot = mRobotState.getLatestFieldToVehicle().getValue().getRotation();
-        System.out.println("FIELD TO VEHICLE IS  " + field_to_robot.getDegrees());
+        final Rotation2d field_to_robot = getHeading();
+        // System.out.println("Running updateTurnToHeading");
+        // final Rotation2d field_to_robot = mRobotState.getLatestFieldToVehicle().getValue().getRotation();
+        
+        // System.out.println("FIELD TO VEHICLE IS  " + field_to_robot.getDegrees());
 
         // Figure out the rotation necessary to turn to face the goal.
+
+
         final Rotation2d robot_to_target = field_to_robot.inverse().rotateBy(mTargetHeading);
+        
 
         // Check if we are on target
         final double kGoalPosTolerance = 0.75; // degrees
@@ -467,10 +487,30 @@ public class Drivetrain extends Subsystem {
         }
 
         Kinematics.DriveVelocity wheel_delta = Kinematics.inverseKinematics(new Twist2d(0, 0, robot_to_target.getRadians()));
+        int ticksNeeded = (int)(inchesToRotations(wheel_delta.right) *DRIVE_ENCODER_PPR  * 0.5) ;
 
-        double wantLeftPos = inchesToRotations(wheel_delta.left) *DRIVE_ENCODER_PPR + mPeriodicIO.left_position_ticks;
-        double wantRightPos =  inchesToRotations(wheel_delta.right) * DRIVE_ENCODER_PPR  + mPeriodicIO.right_position_ticks;
+        // System.out.println("ticksNeeded: " + ticksNeeded);
 
+        int m_l_cur_pos = mPeriodicIO.left_position_ticks;
+        int m_r_cur_pos = mPeriodicIO.right_position_ticks;
+
+        int m_pos_traveled_l = ((mInitLeftPosition - m_l_cur_pos) + mInitLeftPosition);
+        int m_pos_traveled_r = ((mInitRightPosition + m_r_cur_pos) - mInitRightPosition);
+    
+        int m_pos_err_l_e = ((mInitTicksNeeded - (m_pos_traveled_l)));
+        int m_pos_err_r_e = ((mInitTicksNeeded - (m_pos_traveled_r)));
+    
+        int m_pos_err_l = ticksNeeded - m_pos_err_l_e - mInitLeftPosition;
+        int m_pos_err_r = ticksNeeded - m_pos_err_r_e - mInitRightPosition;
+
+        int wantLeftPos = mInitLeftPositionCorrection - m_pos_err_l;
+        int wantRightPos = mInitRightPositionCorrection - m_pos_err_r;
+
+
+        System.out.println("Theta Error: " + robot_to_target.getDegrees() );//+ " wdl: " + wheel_delta.left + " wdr: " + wheel_delta.right);
+        // double wantLeftPos = inchesToRotations(wheel_delta.left) *DRIVE_ENCODER_PPR + mPeriodicIO.left_position_ticks;
+        // double wantRightPos =  inchesToRotations(wheel_delta.right) * DRIVE_ENCODER_PPR  + mPeriodicIO.right_position_ticks;
+        // System.out.println("L: " + wantLeftPos + " R: " +wantRightPos);
         setPositionMagic(new DriveSignal(wantLeftPos, wantRightPos));
     }
 
