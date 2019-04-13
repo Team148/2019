@@ -4,10 +4,12 @@ import frc.auto.AutoModeBase;
 import frc.auto.AutoModeEndedException;
 import frc.auto.actions.*;
 import frc.paths.TrajectoryGenerator;
-// import lib.geometry.Rotation2d;
+import lib.geometry.Rotation2d;
 // import lib.geometry.Translation2d;
 
 import java.util.Arrays;
+
+import javax.swing.text.html.ParagraphView;
 
 public class RocketModeEasy extends AutoModeBase {
 
@@ -46,7 +48,7 @@ public class RocketModeEasy extends AutoModeBase {
     protected void routine() throws AutoModeEndedException {
         System.out.println("Running Rocket Mode");
 
-        //Score First Hatch
+        // Score First Hatch
         // runAction(new ParallelAction (
         //     Arrays.asList(
         //         new ExtendRetract4Bar(true),
@@ -54,14 +56,22 @@ public class RocketModeEasy extends AutoModeBase {
         //     )
         // ));
 
-        // runAction(new SeriesAction (
-        //     Arrays.asList(
-        //         new DriveForwardAndTurnToTarget(20.0, 1.25),
-        //         new OpenCloseBeak(true),
-        //         new OpenLoopDrive(-0.3, -0.3, 0.3),
-        //         new WaitAction(10.0)
-        //     )
-        // ));
+        runAction(new SeriesAction (
+            Arrays.asList(
+                new ParallelAction(Arrays.asList(
+                    new ExtendRetract4Bar(true),
+                    mLevel1ToRocketOneLineup
+                )),
+                new DriveForwardAndTurnToTarget(20.0, 1.25),
+                new OpenCloseBeak(true)
+            )
+        ));
+        runAction(new SeriesAction (
+            Arrays.asList(
+                new OpenLoopDrive(-0.5, -0.5, 0.5),
+                new TurnToHeading(Rotation2d.fromDegrees(180.0))
+            )
+        ));
 
         // runAction(new ParallelAction (
         //     Arrays.asList(
@@ -69,29 +79,26 @@ public class RocketModeEasy extends AutoModeBase {
         //     )
         // ));
 
-        // // //Get Second Hatch
+        // //Get Second Hatch
         // runAction(new ParallelAction (
         //     Arrays.asList(
         //         mToLoadingStation
         //     )
         // ));
 
-        // runAction(new SeriesAction (
-        //     Arrays.asList(
-        //         new ExtendRetract4Bar(true),
-        //         new OpenCloseBeak(true),
-        //         new DriveForwardAndTurnToTarget(75.0, 2.0),
-        //         new DriveForwardAndTurnToTarget(10.0, 0.5),
-        //         new OpenCloseBeak(false),
-        //         new OpenLoopDrive(-0.15, -0.15, 0.5)
-
-        //     )
-        // ));
-
         runAction(new SeriesAction (
             Arrays.asList(
-                mLoadingStationToRocketThreeLineup
+                new DriveForwardAndTurnToTarget(80.0, 1.5),
+                new DriveForwardAndTurnToTarget(20.0, 1.0),
+                new OpenCloseBeak(false),
+                new OpenLoopDrive(-0.15, -0.15, 0.5)
             )
         ));
+
+        // runAction(new SeriesAction (
+        //     Arrays.asList(
+        //         mLoadingStationToRocketThreeLineup
+        //     )
+        // ));
     }
 }

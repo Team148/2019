@@ -294,13 +294,16 @@ public class Drivetrain extends Subsystem {
         //   setBrakeMode(false);
 
         //   System.out.println("Switching to open loop");
-        if(mTalonControlState != TalonControlState.OPEN){
-            configureOpenTalon();
-        }
+        // if(mTalonControlState != TalonControlState.OPEN){
+        //     configureOpenTalon();
+        // }
             
           System.out.println(signal);
           mDriveControlState = DriveControlState.OPEN_LOOP;
       }
+      if(mTalonControlState != TalonControlState.OPEN){
+        configureOpenTalon();
+    }
       mPeriodicIO.left_demand = signal.getLeft();
       mPeriodicIO.right_demand = signal.getRight();
       mPeriodicIO.left_feedforward = 0.0;
@@ -314,9 +317,9 @@ public class Drivetrain extends Subsystem {
       if (mDriveControlState != DriveControlState.PATH_FOLLOWING) {
           // We entered a velocity control state.
           
-          if(mTalonControlState != TalonControlState.VELOCITY){
-              configureVelocityTalon();
-          }
+        //   if(mTalonControlState != TalonControlState.VELOCITY){
+        //       configureVelocityTalon();
+        //   }
 
         //   setBrakeMode(true);
         //   m_driveLeft1.selectProfileSlot(kLowGearVelocityControlSlot, 0);
@@ -326,6 +329,10 @@ public class Drivetrain extends Subsystem {
 
           mDriveControlState = DriveControlState.PATH_FOLLOWING;
       }
+      if(mTalonControlState != TalonControlState.VELOCITY){
+        configureVelocityTalon();
+    }
+
       mPeriodicIO.left_demand = signal.getLeft();
       mPeriodicIO.right_demand = signal.getRight();
       mPeriodicIO.left_feedforward = feedforward.getLeft();
@@ -335,9 +342,9 @@ public class Drivetrain extends Subsystem {
   public synchronized void setPositionMagic(DriveSignal signal) {
     if (mDriveControlState != DriveControlState.TURN_TO_HEADING) {
         // We entered a velocity control state.
-        if(mTalonControlState != TalonControlState.MOTION_MAGIC){
-            configureMagicTalon();
-        }
+        // if(mTalonControlState != TalonControlState.MOTION_MAGIC){
+        //     configureMagicTalon();
+        // }
         // setBrakeMode(true);
         // m_driveLeft1.selectProfileSlot(kLowGearPositionControlSlot, 0);
         // m_driveRight1.selectProfileSlot(kLowGearPositionControlSlot, 0);
@@ -346,6 +353,10 @@ public class Drivetrain extends Subsystem {
 
         mDriveControlState = DriveControlState.TURN_TO_HEADING;
     }
+    if(mTalonControlState != TalonControlState.MOTION_MAGIC){
+        configureMagicTalon();
+    }
+
     mPeriodicIO.left_demand = signal.getLeft();
     mPeriodicIO.right_demand = signal.getRight();
     // mPeriodicIO.left_feedforward = feedforward.getLeft();
@@ -507,7 +518,7 @@ public class Drivetrain extends Subsystem {
         int wantRightPos = mInitRightPositionCorrection - m_pos_err_r;
 
 
-        System.out.println("Theta Error: " + robot_to_target.getDegrees() );//+ " wdl: " + wheel_delta.left + " wdr: " + wheel_delta.right);
+        // System.out.println("Theta Error: " + robot_to_target.getDegrees() );//+ " wdl: " + wheel_delta.left + " wdr: " + wheel_delta.right);
         // double wantLeftPos = inchesToRotations(wheel_delta.left) *DRIVE_ENCODER_PPR + mPeriodicIO.left_position_ticks;
         // double wantRightPos =  inchesToRotations(wheel_delta.right) * DRIVE_ENCODER_PPR  + mPeriodicIO.right_position_ticks;
         // System.out.println("L: " + wantLeftPos + " R: " +wantRightPos);

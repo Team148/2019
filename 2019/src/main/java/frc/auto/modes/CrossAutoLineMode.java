@@ -32,8 +32,7 @@ public class CrossAutoLineMode extends AutoModeBase {
         // System.out.println("ka: " + constants.ka);
         // runAction(new WaitAction(10.0));
         // runAction(new CollectAccelerationData(accelerationData, false, false));
-        // runAction(new WaitAction(5.0));
-        // runAction(new OpenLoopDrive(0.5, 0.5, 2.0));
-        runAction(new TurnToHeading(Rotation2d.fromDegrees(90.0)));
+        runAction(new WaitAction(5.0));
+        runAction(new OpenLoopDrive(0.5, 0.5, 2.0));
     }
 }
