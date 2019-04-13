@@ -36,6 +36,7 @@ public class TurnToHeading implements Action {
 
     @Override
     public void start() {
+        System.out.println("Starting TurnToHeading");
         mDrive.setWantTurnToHeading(mTargetHeading);
     }
 }
