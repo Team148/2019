@@ -72,7 +72,8 @@ public class DriveForwardAndTurnToTarget implements Action {
                 steeringAdjust = -steeringAdjust;
 
             mLastValidHeading = heading + headingError;
-
+            
+            System.out.println("Valid Target");
         } else {
             steeringAdjust = 0.0;
             //steeringAdjust = mPID.calculate((heading - mLastValidHeading), dt) * mVelocity;
@@ -125,5 +126,6 @@ public class DriveForwardAndTurnToTarget implements Action {
         mLL.SetFastNT(true);
         mLL.SetEnableVision(true);
         mLL.setLimelightPipeline(0);
+        System.out.println("Starting DriveForwardAndTurnToTarget");
     }
 }

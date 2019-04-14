@@ -516,7 +516,7 @@ public synchronized void setPosition(DriveSignal signal) {
         
 
         // Check if we are on target
-        final double kGoalPosTolerance = 0.5; // degrees
+        final double kGoalPosTolerance = 2.0; // degrees
         final double kGoalVelTolerance = 5.0; // inches per second
         if (Math.abs(robot_to_target.getDegrees()) < kGoalPosTolerance && Math.abs(getLeftLinearVelocity()) < kGoalVelTolerance && Math.abs(getRightLinearVelocity()) < kGoalVelTolerance) {
             // if (Math.abs(robot_to_target.getDegrees()) < kGoalPosTolerance) {

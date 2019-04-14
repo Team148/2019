@@ -42,7 +42,7 @@ public class RocketModeEasy extends AutoModeBase {
             mRocketOneAway = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromRocketOneRight);
             mToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromRocketOneToLoadingStationLineupRight);
 
-            mLoadingStationToRocketThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToRocketThreeLineupRight);
+            mLoadingStationToRocketThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToRocketThreeLineupRight, false, false, TrajectoryGenerator.kRocketThreeLineupPose.getTranslation().translateBy(new Translation2d(-4.0, -4.0)), TrajectoryGenerator.kRocketThreeLineupPose.getTranslation().translateBy(new Translation2d(4.0, 4.0)), false);
         }
     }
 
@@ -56,14 +56,14 @@ public class RocketModeEasy extends AutoModeBase {
                     new ExtendRetract4Bar(true),
                     mLevel1ToRocketOneLineup
                 )),
-                new DriveForwardAndTurnToTarget(20.0, 1.0),
+                new DriveForwardAndTurnToTarget(20.0, 0.5),
                 new OpenCloseBeak(true)
             )
         ));
         runAction(new SeriesAction (
             Arrays.asList(
                 new OpenLoopDrive(-0.5, -0.5, 0.25),
-                new TurnToHeading(Rotation2d.fromDegrees(180.0))
+                new TurnToHeading(Rotation2d.fromDegrees(180.0), 0.75)
             )
         ));
 
@@ -91,8 +91,8 @@ public class RocketModeEasy extends AutoModeBase {
         runAction(new SeriesAction (
             Arrays.asList(
                 mLoadingStationToRocketThreeLineup,
-                new TurnToHeading(Rotation2d.fromDegrees(210.0)),
-                new DriveForwardAndTurnToTarget(20.0, 1.0),
+                new TurnToHeading(Rotation2d.fromDegrees(210.0), 0.5),
+                new DriveForwardAndTurnToTarget(20.0, 1.25),
                 new OpenCloseBeak(true),
                 new OpenLoopDrive(-0.5, -0.5, 0.25),
                 new TurnToHeading(Rotation2d.fromDegrees(90.0))
