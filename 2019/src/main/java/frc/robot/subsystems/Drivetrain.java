@@ -472,11 +472,13 @@ public synchronized void setPosition(DriveSignal signal) {
      * Configures the drivebase to turn to a desired heading
      */
     public synchronized void setWantTurnToHeading(Rotation2d heading) {
-    //    mDriveControlState = DriveControlState.TURN_TO_HEADING;
+       mDriveControlState = DriveControlState.TURN_TO_HEADING;
         // updatePositionSetpoint(getLeftEncoderDistance(), getRightEncoderDistance());
         mInitLeftPosition = mPeriodicIO.left_position_ticks;
         mInitRightPosition = mPeriodicIO.right_position_ticks;
-        setPositionMagic(new DriveSignal(mInitLeftPosition, mInitRightPosition));
+        // setPositionMagic(new DriveSignal(mInitLeftPosition, mInitRightPosition));
+        setPosition(new DriveSignal(mInitLeftPosition, mInitRightPosition));
+
 
         if (Math.abs(heading.inverse().rotateBy(mTargetHeading).getDegrees()) > 1E-3) {
             mTargetHeading = heading;
@@ -487,7 +489,7 @@ public synchronized void setPosition(DriveSignal signal) {
 
             Kinematics.DriveVelocity wheel_delta = Kinematics.inverseKinematics(new Twist2d(0, 0, robot_to_target.getRadians()));
 
-            mInitTicksNeeded = (int)(inchesToRotations(wheel_delta.right) *DRIVE_ENCODER_PPR * 0.5) ;
+            mInitTicksNeeded = (int)(inchesToRotations(wheel_delta.right) *DRIVE_ENCODER_PPR) ;
 
             mInitLeftPositionCorrection = (int)(mInitLeftPosition - mInitTicksNeeded);
             mInitRightPositionCorrection =  (int)(mInitRightPosition + mInitTicksNeeded);
@@ -514,38 +516,48 @@ public synchronized void setPosition(DriveSignal signal) {
         
 
         // Check if we are on target
-        final double kGoalPosTolerance = 0.75; // degrees
+        final double kGoalPosTolerance = 0.5; // degrees
         final double kGoalVelTolerance = 5.0; // inches per second
         if (Math.abs(robot_to_target.getDegrees()) < kGoalPosTolerance && Math.abs(getLeftLinearVelocity()) < kGoalVelTolerance && Math.abs(getRightLinearVelocity()) < kGoalVelTolerance) {
+            // if (Math.abs(robot_to_target.getDegrees()) < kGoalPosTolerance) {
+
             // Use the current setpoint and base lock.
             mIsOnTarget = true;
-            setPositionMagic(new DriveSignal(mPeriodicIO.left_position_ticks, mPeriodicIO.right_position_ticks));
+            setPosition(new DriveSignal(mPeriodicIO.left_position_ticks, mPeriodicIO.right_position_ticks));
 
             return;
         }
 
         Kinematics.DriveVelocity wheel_delta = Kinematics.inverseKinematics(new Twist2d(0, 0, robot_to_target.getRadians()));
-        int ticksNeeded = (int)(inchesToRotations(wheel_delta.right) *DRIVE_ENCODER_PPR  * 0.5) ;
+        int ticksNeeded = (int)(inchesToRotations(wheel_delta.right) *DRIVE_ENCODER_PPR ) ;
 
         // System.out.println("ticksNeeded: " + ticksNeeded);
 
         int m_l_cur_pos = mPeriodicIO.left_position_ticks;
         int m_r_cur_pos = mPeriodicIO.right_position_ticks;
 
-        int m_pos_traveled_l = ((mInitLeftPosition - m_l_cur_pos) + mInitLeftPosition);
-        int m_pos_traveled_r = ((mInitRightPosition + m_r_cur_pos) - mInitRightPosition);
+        // System.out.println("curr_L " + m_l_cur_pos + " curr_R " + m_r_cur_pos);
+
+        // int m_pos_traveled_l = ((mInitLeftPosition - m_l_cur_pos));//+ mInitLeftPosition);
+        // int m_pos_traveled_r = ((mInitRightPosition + m_r_cur_pos));// - mInitRightPosition);
+        // System.out.println("Traveled L: " + m_pos_traveled_l + " Traveled R: " + m_pos_traveled_r);
     
-        int m_pos_err_l_e = ((mInitTicksNeeded - (m_pos_traveled_l)));
-        int m_pos_err_r_e = ((mInitTicksNeeded - (m_pos_traveled_r)));
+        // int m_pos_err_l_e = ((mInitTicksNeeded - (m_pos_traveled_l)));
+        // int m_pos_err_r_e = ((mInitTicksNeeded + (m_pos_traveled_r)));
+        // System.out.println("DeltaTicks L: " + m_pos_err_l_e + "DeltaTicks R: " + m_pos_err_r_e);
     
-        int m_pos_err_l = ticksNeeded - m_pos_err_l_e - mInitLeftPosition;
-        int m_pos_err_r = ticksNeeded - m_pos_err_r_e - mInitRightPosition;
+        // int m_pos_err_l = ticksNeeded - m_pos_err_l_e - mInitLeftPosition;
+        // int m_pos_err_r = ticksNeeded - m_pos_err_r_e - mInitRightPosition;
 
-        int wantLeftPos = mInitLeftPositionCorrection - m_pos_err_l;
-        int wantRightPos = mInitRightPositionCorrection - m_pos_err_r;
+        // int wantLeftPos = mInitLeftPositionCorrection - m_pos_err_l;
+        // int wantRightPos = mInitRightPositionCorrection + m_pos_err_r;
+
+             int wantLeftPos = m_l_cur_pos - ticksNeeded;
+        int wantRightPos = m_r_cur_pos + ticksNeeded;
 
 
-        // System.out.println("Theta Error: " + robot_to_target.getDegrees() );//+ " wdl: " + wheel_delta.left + " wdr: " + wheel_delta.right);
+
+        System.out.println("Theta Error: " + robot_to_target.getDegrees() );//+ " wdl: " + wheel_delta.left + " wdr: " + wheel_delta.right);
         // double wantLeftPos = inchesToRotations(wheel_delta.left) *DRIVE_ENCODER_PPR + mPeriodicIO.left_position_ticks;
         // double wantRightPos =  inchesToRotations(wheel_delta.right) * DRIVE_ENCODER_PPR  + mPeriodicIO.right_position_ticks;
         // System.out.println("L: " + wantLeftPos + " R: " +wantRightPos);

@@ -50,19 +50,22 @@ public class RocketModeEasy extends AutoModeBase {
     protected void routine() throws AutoModeEndedException {
         System.out.println("Running Rocket Mode");
 
+        // runAction(new SeriesAction (
+        //     Arrays.asList(
+        //         new ParallelAction(Arrays.asList(
+        //             new ExtendRetract4Bar(true),
+        //             mLevel1ToRocketOneLineup
+        //         )),
+        //         new DriveForwardAndTurnToTarget(20.0, 1.25),
+        //         new OpenCloseBeak(true)
+        //     )
+        // ));
         runAction(new SeriesAction (
             Arrays.asList(
-                new ParallelAction(Arrays.asList(
-                    new ExtendRetract4Bar(true),
-                    mLevel1ToRocketOneLineup
-                )),
-                new DriveForwardAndTurnToTarget(20.0, 1.25),
-                new OpenCloseBeak(true)
-            )
-        ));
-        runAction(new SeriesAction (
-            Arrays.asList(
-                new OpenLoopDrive(-0.5, -0.5, 0.5),
+                // new OpenLoopDrive(-0.5, -0.5, 0.5),
+                // new TurnToHeading(Rotation2d.fromDegrees(180.0))
+                new TurnToHeading(Rotation2d.fromDegrees(45.0)),
+                new WaitAction(1.0),
                 new TurnToHeading(Rotation2d.fromDegrees(180.0))
             )
         ));
