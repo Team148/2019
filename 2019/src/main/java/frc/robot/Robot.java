@@ -81,7 +81,8 @@ public class Robot extends TimedRobot {
   private final SubsystemManager mSubsystemManager = new SubsystemManager(
     Arrays.asList(
       RobotStateEstimator.getInstance(),
-      Drivetrain.getInstance()
+      Drivetrain.getInstance(),
+      Limelight.getInstance()
     )
   );
 
@@ -183,6 +184,7 @@ public class Robot extends TimedRobot {
 
     RobotState.getInstance().outputToSmartDashboard();
     Drivetrain.getInstance().outputTelemetry();
+    Limelight.getInstance().outputTelemetry();
     SmartDashboard.putNumber("Elevator Encoder", m_Elevator.getElevatorPosition());
   }
 
@@ -242,6 +244,7 @@ public class Robot extends TimedRobot {
 
     RobotState.getInstance().outputToSmartDashboard();
     Drivetrain.getInstance().outputTelemetry();
+    Limelight.getInstance().outputTelemetry();
   }
 
   @Override
@@ -462,6 +465,7 @@ public class Robot extends TimedRobot {
 
         RobotState.getInstance().outputToSmartDashboard();
         Drivetrain.getInstance().outputTelemetry();
+        Limelight.getInstance().outputTelemetry();
         SmartDashboard.putNumber("Elevator Encoder", m_Elevator.getElevatorPosition());
 
     } catch (Throwable t) {

@@ -1,12 +1,17 @@
 package frc.robot.subsystems;
 
+import frc.robot.subsystems.Subsystem;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.commands.UpdateLimeLight;
+// import edu.wpi.first.wpilibj.command.Subsystem;
+// import frc.robot.commands.UpdateLimeLight;
+
+import frc.loops.ILooper;
+import frc.loops.Loop;
 
 
 /**
@@ -35,6 +40,29 @@ public class Limelight extends Subsystem {
   NetworkTableEntry tv;
   NetworkTableEntry tx;
 
+  private final Loop mLoop = new Loop() {
+
+    @Override
+    public void onStart(double timestamp) {
+        synchronized (Limelight.this) {
+        }
+    }
+
+    @Override
+    public void onLoop(double timestamp) {
+        synchronized (Limelight.this) {
+          setLimelightData();
+          getLimelightData();
+          System.out.println("runningLL Loop");
+        }
+      }
+    @Override
+    public void onStop(double timestamp) {
+        stop();
+    }
+
+  };
+
   public Limelight() {
 
     super();
@@ -51,10 +79,10 @@ public class Limelight extends Subsystem {
 
   }
 
-  @Override
-  public void initDefaultCommand() {
-    setDefaultCommand(new UpdateLimeLight()); 
-  }
+  // @Override
+  // public void initDefaultCommand() {
+  //   setDefaultCommand(new UpdateLimeLight()); 
+  // }
 
   public static Limelight getInstance() {
 
@@ -80,9 +108,7 @@ public class Limelight extends Subsystem {
       xOffSet = tx.getDouble(0.0);
 
           
-      //post to smart dashboard periodically
-      SmartDashboard.putNumber("HorizOffset", xOffSet);
-      SmartDashboard.putNumber("validObject", validObject);
+
   }
 
   public void setLimelightData() {
@@ -160,4 +186,27 @@ public class Limelight extends Subsystem {
     else
       NetworkTableInstance.getDefault().setUpdateRate(0.05);
     }
+
+    @Override public boolean checkSystem() {
+      return true;
+  }
+
+    @Override
+    public synchronized void stop() {
+        
+    }
+
+    @Override
+    public void outputTelemetry() {
+
+      //post to smart dashboard periodically
+      SmartDashboard.putNumber("HorizOffset", xOffSet);
+      SmartDashboard.putNumber("validObject", validObject);
+    }
+
+    @Override
+    public void registerEnabledLoops(ILooper in) {
+        in.register(mLoop);
+    }
+
 }
