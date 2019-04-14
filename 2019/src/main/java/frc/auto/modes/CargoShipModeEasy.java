@@ -4,8 +4,8 @@ import frc.auto.AutoModeBase;
 import frc.auto.AutoModeEndedException;
 import frc.auto.actions.*;
 import frc.paths.TrajectoryGenerator;
-// import lib.geometry.Rotation2d;
-// import lib.geometry.Translation2d;
+import lib.geometry.Rotation2d;
+import lib.geometry.Translation2d;
 
 import java.util.Arrays;
 
@@ -34,7 +34,7 @@ public class CargoShipModeEasy extends AutoModeBase {
             mLoadingStationToCargoThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoThreeLineupLeft, true);
         }
         else {
-            mLevel1ToCargoTwoLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelOneToCargoTwoLineupForwardRight, true);
+            mLevel1ToCargoTwoLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelOneToCargoTwoLineupForwardRight, true, false, TrajectoryGenerator.kCargoTwoPose.getTranslation().translateBy(new Translation2d(-4.0, -4.0)), TrajectoryGenerator.kCargoTwoPose.getTranslation().translateBy(new Translation2d(4.0, 4.0)), false);
         
             mCargoTwoAway = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromCargoTwoRight, true, false);
             mEndCargoTwoToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endCargoTwoToLoadingStatonRight);
@@ -49,20 +49,22 @@ public class CargoShipModeEasy extends AutoModeBase {
         System.out.println("Running Cargo Mode");
 
         //Score First Hatch
-        runAction(new ParallelAction (
+        runAction(new SeriesAction (
             Arrays.asList(
-                new ExtendRetract4Bar(true),
-                mLevel1ToCargoTwoLineupForward
+                new ParallelAction(Arrays.asList(
+                    new ExtendRetract4Bar(true),
+                    mLevel1ToCargoTwoLineupForward
+                )),
+                new DriveForwardAndTurnToTarget(20.0, 0.75),
+                new OpenCloseBeak(true)
             )
         ));
-
-        // runAction(new SeriesAction (
-        //     Arrays.asList(
-        //         new DriveForwardAndTurnToTarget(20.0, 0.75),
-        //         // new DriveForwardAndTurnToTarget(20.0, 1.0)
-        //         new OpenCloseBeak(true)
-        //     )
-        // ));
+        runAction(new SeriesAction (
+            Arrays.asList(
+                new OpenLoopDrive(-0.5, -0.5, 0.25),
+                new TurnToHeading(Rotation2d.fromDegrees(180.0))
+            )
+        ));
 
         // runAction(new ParallelAction (
         //     Arrays.asList(
