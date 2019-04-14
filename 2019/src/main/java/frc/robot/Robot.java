@@ -285,7 +285,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    System.out.println("IN TELEOP PERIODIC");
 
     double throttle = m_OI.getThrottle();
     double turn = m_OI.getTurn();

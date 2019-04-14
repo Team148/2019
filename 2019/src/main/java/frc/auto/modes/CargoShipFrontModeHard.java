@@ -8,22 +8,21 @@ import frc.paths.TrajectoryGenerator;
 
 // import java.util.Arrays;
 
-public class CargoShipANDRocketModeEasy extends AutoModeBase {
+public class CargoShipFrontModeHard extends AutoModeBase {
 
     private static final TrajectoryGenerator mTrajectoryGenerator = TrajectoryGenerator.getInstance();
-
+    
     final boolean mStartedLeft;
-    private DriveTrajectory mLevel1ToCargoTwoLineupForward;
+    private DriveTrajectory mLevel2ToCargoTwoLineupForward;
 
-    public CargoShipANDRocketModeEasy(boolean driveToLeftCargo) {
+    public CargoShipFrontModeHard(boolean driveToLeftCargo) {
         mStartedLeft = driveToLeftCargo;
 
         if(mStartedLeft) {
-            mLevel1ToCargoTwoLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelOneToCargoTwoLineupForwardLeft, true);
-        
+            mLevel2ToCargoTwoLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelTwoToCargoTwoLineupForwardLeft, true);
         }
         else {
-            mLevel1ToCargoTwoLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelOneToCargoTwoLineupForwardRight, true);
+            mLevel2ToCargoTwoLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelTwoToCargoTwoLineupForwardRight, true);
         }
     }
 
@@ -34,7 +33,7 @@ public class CargoShipANDRocketModeEasy extends AutoModeBase {
         //Score First Hatch
         // runAction(new ParallelAction (
         //     Arrays.asList(
-        //         mLevelOneToCargoTwo
+        //         mLevel2ToCargoTwo
         //     )
         // ));
 

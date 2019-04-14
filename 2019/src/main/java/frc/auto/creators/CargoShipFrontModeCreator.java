@@ -1,34 +1,34 @@
 package frc.auto.creators;
 
 import frc.auto.AutoModeBase;
-import frc.auto.modes.CargoShipModeEasy;
-import frc.auto.modes.CargoShipModeHard;
+import frc.auto.modes.CargoShipFrontModeEasy;
+import frc.auto.modes.CargoShipFrontModeHard;
 
-public class CargoShipModeCreator implements AutoModeCreator {
+public class CargoShipFrontModeCreator implements AutoModeCreator {
 
     //Pre build trajectory to go left or right, start from level 1 or 2
     private boolean mRobotStartedOnLevel1;
     private boolean mRobotStartedOnLeft;
 
-    private AutoModeBase CargoShipLevel1;
-    private AutoModeBase CargoShipLevel2;
+    private AutoModeBase CargoShipFrontLevel1;
+    private AutoModeBase CargoShipFrontLevel2;
     
-    public CargoShipModeCreator(boolean startOnLevelOne, boolean startOnLeft) {
+    public CargoShipFrontModeCreator(boolean startOnLevelOne, boolean startOnLeft) {
         mRobotStartedOnLevel1 = startOnLevelOne;
         mRobotStartedOnLeft = startOnLeft;
 
-        CargoShipLevel1 = new CargoShipModeEasy(mRobotStartedOnLeft);
-        CargoShipLevel2 = new CargoShipModeHard(mRobotStartedOnLeft);
+        CargoShipFrontLevel1 = new CargoShipFrontModeEasy(mRobotStartedOnLeft);
+        CargoShipFrontLevel2 = new CargoShipFrontModeHard(mRobotStartedOnLeft);
     }
 
     @Override
     public AutoModeBase getStateDependentAutoMode() {
         // System.out.println("Getting CargoShipMode for " + mRobotStartedOnLevel1 + " AND " + mRobotStartedOnLeft);
         if (mRobotStartedOnLevel1) {
-            return CargoShipLevel1;
+            return CargoShipFrontLevel1;
         }
         else {
-            return CargoShipLevel2;
+            return CargoShipFrontLevel2;
         }
     }
 }

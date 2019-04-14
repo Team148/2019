@@ -9,7 +9,7 @@ import frc.paths.TrajectoryGenerator;
 
 import java.util.Arrays;
 
-public class CargoShipModeHard extends AutoModeBase {
+public class CargoShipSideModeHard extends AutoModeBase {
 
     private static final TrajectoryGenerator mTrajectoryGenerator = TrajectoryGenerator.getInstance();
 
@@ -22,7 +22,7 @@ public class CargoShipModeHard extends AutoModeBase {
 
     private DriveTrajectory mLoadingStationToCargoThreeLineup;
 
-    public CargoShipModeHard(boolean driveToLeftCargo) {
+    public CargoShipSideModeHard(boolean driveToLeftCargo) {
         mStartedLeft = driveToLeftCargo;
 
         if(mStartedLeft) {

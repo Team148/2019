@@ -26,8 +26,8 @@ public class AutoModeSelector {
     enum DesiredMode {
         DO_NOTHING,
         CROSS_AUTO_LINE,
-        CARGO_SHIP,
-        CARGO_SHIP_AND_ROCKET,
+        CARGO_SHIP_FRONT,
+        CARGO_SHIP_SIDE,
         ROCKET
     }
 
@@ -58,8 +58,8 @@ public class AutoModeSelector {
         mModeChooser = new SendableChooser<>(); 
         mModeChooser.setDefaultOption("Cross Auto Line ", DesiredMode.CROSS_AUTO_LINE);
         mModeChooser.addOption("Do Nothing", DesiredMode.DO_NOTHING);
-        mModeChooser.addOption("Cargo Ship", DesiredMode.CARGO_SHIP);
-        mModeChooser.addOption("Cargo Ship AND Rocket", DesiredMode.CARGO_SHIP_AND_ROCKET);
+        mModeChooser.addOption("Cargo Ship FRONT", DesiredMode.CARGO_SHIP_FRONT);
+        mModeChooser.addOption("Cargo Ship SIDE", DesiredMode.CARGO_SHIP_SIDE);
         mModeChooser.addOption("Only Rocket", DesiredMode.ROCKET);
         SmartDashboard.putData("Desired Mode", mModeChooser);
     }
@@ -87,10 +87,10 @@ public class AutoModeSelector {
         switch (mode) {
             case CROSS_AUTO_LINE:
                 return Optional.of(new CrossAutoLineCreator());
-            case CARGO_SHIP:
-                return Optional.of(new CargoShipModeCreator(startOnOne, startOnLeft));
-            case CARGO_SHIP_AND_ROCKET:
-                return Optional.of(new CargoShipANDRocketModeCreator(startOnOne, startOnLeft));
+            case CARGO_SHIP_FRONT:
+                return Optional.of(new CargoShipFrontModeCreator(startOnOne, startOnLeft));
+            case CARGO_SHIP_SIDE:
+                return Optional.of(new CargoShipSideModeCreator(startOnOne, startOnLeft));
             case ROCKET:
                 return Optional.of(new RocketModeCreator(startOnOne, startOnLeft));
             default:
