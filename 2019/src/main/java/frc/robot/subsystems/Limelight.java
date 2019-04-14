@@ -53,6 +53,7 @@ public class Limelight extends Subsystem {
         synchronized (Limelight.this) {
           setLimelightData();
           getLimelightData();
+          System.out.println("runningLL Loop");
         }
       }
     @Override
@@ -202,4 +203,10 @@ public class Limelight extends Subsystem {
       SmartDashboard.putNumber("HorizOffset", xOffSet);
       SmartDashboard.putNumber("validObject", validObject);
     }
+
+    @Override
+    public void registerEnabledLoops(ILooper in) {
+        in.register(mLoop);
+    }
+
 }
