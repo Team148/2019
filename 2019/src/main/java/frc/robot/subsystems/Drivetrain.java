@@ -230,6 +230,20 @@ public class Drivetrain extends Subsystem {
     System.out.println("Switching to Magic");
   }
 
+  private void configurePositionTalon(){
+
+    setBrakeMode(true);
+    m_driveLeft1.selectProfileSlot(kLowGearPositionControlSlot, 0);
+    m_driveRight1.selectProfileSlot(kLowGearPositionControlSlot, 0);
+    
+    m_driveLeft1.configClosedloopRamp(12/Constants.kDriveLowGearPositionRampRate);
+    m_driveRight1.configClosedloopRamp(12/Constants.kDriveLowGearPositionRampRate);
+
+    mTalonControlState = TalonControlState.POSITION;
+
+    System.out.println("Switching to Position");
+  }
+
   public void setMotorSafeties() {
     m_driveLeft1.setSafetyEnabled(false);
     m_driveLeft2.setSafetyEnabled(false);
@@ -355,6 +369,18 @@ public class Drivetrain extends Subsystem {
     }
     if(mTalonControlState != TalonControlState.MOTION_MAGIC){
         configureMagicTalon();
+    }
+
+    mPeriodicIO.left_demand = signal.getLeft();
+    mPeriodicIO.right_demand = signal.getRight();
+    // mPeriodicIO.left_feedforward = feedforward.getLeft();
+    // mPeriodicIO.right_feedforward = feedforward.getRight();
+}
+
+
+public synchronized void setPosition(DriveSignal signal) {
+    if(mTalonControlState != TalonControlState.POSITION){
+        configurePositionTalon();
     }
 
     mPeriodicIO.left_demand = signal.getLeft();
@@ -522,7 +548,9 @@ public class Drivetrain extends Subsystem {
         // double wantLeftPos = inchesToRotations(wheel_delta.left) *DRIVE_ENCODER_PPR + mPeriodicIO.left_position_ticks;
         // double wantRightPos =  inchesToRotations(wheel_delta.right) * DRIVE_ENCODER_PPR  + mPeriodicIO.right_position_ticks;
         // System.out.println("L: " + wantLeftPos + " R: " +wantRightPos);
-        setPositionMagic(new DriveSignal(wantLeftPos, wantRightPos));
+        // setPositionMagic(new DriveSignal(wantLeftPos, wantRightPos));
+
+        setPosition(new DriveSignal(wantLeftPos, wantRightPos));
     }
 
     // public double getLeftVelocityInchesPerSec() {
@@ -738,6 +766,10 @@ public class Drivetrain extends Subsystem {
           m_driveRight1.set(ControlMode.Velocity, mPeriodicIO.right_demand, DemandType.ArbitraryFeedForward,
                   mPeriodicIO.right_feedforward + Constants.kDriveLowGearVelocityKd * mPeriodicIO.right_accel / (DRIVE_ENCODER_PPR/4.0));
       }
+        if(mTalonControlState == TalonControlState.POSITION){
+            m_driveLeft1.set(ControlMode.Position, mPeriodicIO.left_demand);
+            m_driveRight1.set(ControlMode.Position, mPeriodicIO.right_demand);
+        }
   }
 
   @Override public boolean checkSystem() {
@@ -769,7 +801,8 @@ public class Drivetrain extends Subsystem {
   public enum TalonControlState{
         OPEN,
         VELOCITY,       
-        MOTION_MAGIC
+        MOTION_MAGIC,
+        POSITION
   }
 
   
