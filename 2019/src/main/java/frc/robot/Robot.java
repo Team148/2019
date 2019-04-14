@@ -393,7 +393,7 @@ public class Robot extends TimedRobot {
 
         //driver and operator triggers
         if(m_OI.m_driveJoystick.getRawAxis(2) > 0.3) {
-          rollerClawPercent = -1.0;
+          rollerClawPercent = -0.5;
         }
         if(m_OI.m_driveJoystick.getRawAxis(3) > 0.3) {
           rollerClawPercent = 1.0;
