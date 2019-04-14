@@ -145,6 +145,7 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
 
     try {
+      System.out.println("IN DISABLED INIT");
       CrashTracker.logDisabledInit();
       mEnabledLooper.stop();
       if (mAutoModeExecutor != null) {
@@ -167,6 +168,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
+    // System.out.println("IN DISABLED PERIODIC");
     Scheduler.getInstance().run();
 
     mAutoModeSelector.updateModeCreator();
@@ -199,7 +201,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     
     try {
-      autoInterrupted = false; 
+      System.out.println("IN AUTONOMOUS INIT");
+      autoInterrupted = false;
       comp.setClosedLoopControl(false);
 
       CrashTracker.logAutoInit();
@@ -209,7 +212,6 @@ public class Robot extends TimedRobot {
       Drivetrain.getInstance().zeroSensors();
 
       mAutoModeExecutor.start();
-
       mEnabledLooper.start();
   } catch (Throwable t) {
       CrashTracker.logThrowableCrash(t);
@@ -224,7 +226,7 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
 
-    SmartDashboard.putString("Match Cycle", "AUTONOMOUS");
+    // SmartDashboard.putString("Match Cycle", "AUTONOMOUS");
 
     if (m_OI.m_driveJoystick.getRawButton(7) && m_OI.m_driveJoystick.getRawButton(8) && !autoInterrupted) {
       autoInterrupted = true;
@@ -245,6 +247,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     try {
+      System.out.println("IN TELEOP INIT");
       CrashTracker.logTeleopInit();
       mDisabledLooper.stop();
 
@@ -279,6 +282,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    System.out.println("IN TELEOP PERIODIC");
 
     double throttle = m_OI.getThrottle();
     double turn = m_OI.getTurn();

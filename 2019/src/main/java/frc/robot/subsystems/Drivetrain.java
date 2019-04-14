@@ -77,8 +77,9 @@ public class Drivetrain extends Subsystem {
     @Override
     public void onStart(double timestamp) {
         synchronized (Drivetrain.this) {
-            setOpenLoop(new DriveSignal(0.05, 0.05));
-            setBrakeMode(false);
+            mDriveControlState = DriveControlState.PATH_FOLLOWING;
+            // setOpenLoop(new DriveSignal(0.05, 0.05));
+            // setBrakeMode(false);
 //                 startLogging();
         }
     }

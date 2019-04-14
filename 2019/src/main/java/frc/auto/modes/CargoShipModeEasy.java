@@ -56,35 +56,35 @@ public class CargoShipModeEasy extends AutoModeBase {
             )
         ));
 
-        runAction(new SeriesAction (
-            Arrays.asList(
-                new DriveForwardAndTurnToTarget(20.0, 0.75),
-                // new DriveForwardAndTurnToTarget(20.0, 1.0)
-                new OpenCloseBeak(true)
-            )
-        ));
+        // runAction(new SeriesAction (
+        //     Arrays.asList(
+        //         new DriveForwardAndTurnToTarget(20.0, 0.75),
+        //         // new DriveForwardAndTurnToTarget(20.0, 1.0)
+        //         new OpenCloseBeak(true)
+        //     )
+        // ));
 
-        runAction(new ParallelAction (
-            Arrays.asList(
-                mCargoTwoAway
-            )
-        ));
+        // runAction(new ParallelAction (
+        //     Arrays.asList(
+        //         mCargoTwoAway
+        //     )
+        // ));
 
         // //Get Second Hatch
-        runAction(new SeriesAction (
-            Arrays.asList(
-                mEndCargoTwoToLoadingStation,
-                new DriveForwardAndTurnToTarget(20.0, 1.0),
-                new OpenCloseBeak(false),
-                new OpenLoopDrive(-0.15, -0.15, 0.5)
-            )
-        ));
+        // runAction(new SeriesAction (
+        //     Arrays.asList(
+        //         mEndCargoTwoToLoadingStation,
+        //         new DriveForwardAndTurnToTarget(20.0, 1.0),
+        //         new OpenCloseBeak(false),
+        //         new OpenLoopDrive(-0.15, -0.15, 0.5)
+        //     )
+        // ));
 
-        runAction(new SeriesAction (
-            Arrays.asList(
-                mLoadingStationToCargoThreeLineup,
-                new DriveForwardAndTurnToTarget(40.0, 1.0)
-            )
-        ));
+        // runAction(new SeriesAction (
+        //     Arrays.asList(
+        //         mLoadingStationToCargoThreeLineup,
+        //         new DriveForwardAndTurnToTarget(40.0, 1.0)
+        //     )
+        // ));
     }
 }

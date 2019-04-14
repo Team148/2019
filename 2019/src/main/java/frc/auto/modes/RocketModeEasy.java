@@ -4,8 +4,10 @@ import frc.auto.AutoModeBase;
 import frc.auto.AutoModeEndedException;
 import frc.auto.actions.*;
 import frc.paths.TrajectoryGenerator;
+import lib.geometry.Pose2d;
 import lib.geometry.Rotation2d;
 // import lib.geometry.Translation2d;
+import lib.geometry.Translation2d;
 
 import java.util.Arrays;
 
@@ -35,26 +37,18 @@ public class RocketModeEasy extends AutoModeBase {
             mLoadingStationToRocketThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToRocketThreeLineupLeft);
         }
         else {
-            mLevel1ToRocketOneLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelOneToRocketOneLineupRight, true);
+            mLevel1ToRocketOneLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelOneToRocketOneLineupRight, true, false, TrajectoryGenerator.kRocketOneLineupPose.getTranslation().translateBy(new Translation2d(-4.0, -4.0)), TrajectoryGenerator.kRocketOneLineupPose.getTranslation().translateBy(new Translation2d(4.0, 4.0)), false);
 
             mRocketOneAway = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromRocketOneRight);
             mToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromRocketOneToLoadingStationLineupRight);
 
-            mLoadingStationToRocketThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToRocketThreeLineupRight, true);
+            mLoadingStationToRocketThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToRocketThreeLineupRight);
         }
     }
 
     @Override
     protected void routine() throws AutoModeEndedException {
         System.out.println("Running Rocket Mode");
-
-        // Score First Hatch
-        // runAction(new ParallelAction (
-        //     Arrays.asList(
-        //         new ExtendRetract4Bar(true),
-        //         mLevel1ToRocketOneLineup
-        //     )
-        // ));
 
         runAction(new SeriesAction (
             Arrays.asList(
@@ -79,7 +73,7 @@ public class RocketModeEasy extends AutoModeBase {
         //     )
         // ));
 
-        // //Get Second Hatch
+        //Get Second Hatch
         // runAction(new ParallelAction (
         //     Arrays.asList(
         //         mToLoadingStation
@@ -90,15 +84,19 @@ public class RocketModeEasy extends AutoModeBase {
             Arrays.asList(
                 new DriveForwardAndTurnToTarget(80.0, 1.5),
                 new DriveForwardAndTurnToTarget(20.0, 1.0),
-                new OpenCloseBeak(false),
-                new OpenLoopDrive(-0.15, -0.15, 0.5)
+                new OpenCloseBeak(false)
             )
         ));
 
-        // runAction(new SeriesAction (
-        //     Arrays.asList(
-        //         mLoadingStationToRocketThreeLineup
-        //     )
-        // ));
+        runAction(new SeriesAction (
+            Arrays.asList(
+                mLoadingStationToRocketThreeLineup,
+                new TurnToHeading(Rotation2d.fromDegrees(210.0)),
+                new DriveForwardAndTurnToTarget(20.0, 1.25),
+                new OpenCloseBeak(true),
+                new OpenLoopDrive(-0.5, -0.5, 0.5),
+                new TurnToHeading(Rotation2d.fromDegrees(90.0))
+            )
+        ));
     }
 }

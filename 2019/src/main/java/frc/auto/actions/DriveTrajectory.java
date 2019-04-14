@@ -20,6 +20,7 @@ public class DriveTrajectory implements Action {
     private final boolean mResetPose;
     private final boolean mResetTransform;
     private final boolean mResetHeading;
+    private final WaitUntilInsideRegion mWaitInsideRegion;
 
     public DriveTrajectory(Trajectory<TimedState<Pose2dWithCurvature>> trajectory) {
         this(trajectory, false);
@@ -31,6 +32,8 @@ public class DriveTrajectory implements Action {
         mResetPose = resetPose;
         mResetTransform = false;
         mResetHeading = false;
+
+        mWaitInsideRegion = null;
     }
 
     public DriveTrajectory(Trajectory<TimedState<Pose2dWithCurvature>> trajectory, boolean resetTransform, boolean resetHeading) {
@@ -39,6 +42,16 @@ public class DriveTrajectory implements Action {
         mResetTransform = resetTransform;
         mResetHeading = resetTransform;
          
+        mWaitInsideRegion = null;
+    }
+
+    public DriveTrajectory(Trajectory<TimedState<Pose2dWithCurvature>> trajectory, boolean resetTransform, boolean resetHeading, Translation2d bottomLeft, Translation2d topRight, boolean isOnLeft) {
+        mTrajectory = new TrajectoryIterator<>(new TimedView<>(trajectory));
+        mResetPose = false;
+        mResetTransform = resetTransform;
+        mResetHeading = resetTransform;
+
+        mWaitInsideRegion = new WaitUntilInsideRegion(bottomLeft, topRight, isOnLeft);
     }
 
     @Override
@@ -50,6 +63,12 @@ public class DriveTrajectory implements Action {
                                         + " Heading: " + mRobotState.getLatestFieldToVehicle().getValue().getRotation().getDegrees()
                                         + " Vel: " +mRobotState.getMeasuredVelocity().dx);
             return true;
+        }
+        if(mWaitInsideRegion != null) {
+            if (mWaitInsideRegion.isFinished()) {
+                System.out.println("Inside box!");
+                return true;
+            }
         }
         return false;
     }
