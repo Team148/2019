@@ -8,8 +8,6 @@
 //  * Add your docs here.
 //  */
 // public class Wedge extends Subsystem {
-//   // Put methods for controlling this subsystem
-//   // here. Call these from Commands.
 
 //   private static Wedge m_instance;
 
@@ -23,7 +21,6 @@
 
 //   @Override
 //   public void initDefaultCommand() {
-//     // Set the default command for a subsystem here.
 //     // setDefaultCommand(new MySpecialCommand());
 //   }
 

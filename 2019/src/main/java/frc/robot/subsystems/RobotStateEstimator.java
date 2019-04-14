@@ -13,7 +13,7 @@ public class RobotStateEstimator extends Subsystem {
     private Drivetrain drive_ = Drivetrain.getInstance();
     private double left_encoder_prev_distance_ = 0.0;
     private double right_encoder_prev_distance_ = 0.0;
-    private double back_encoder_prev_distance_ = 0.0;
+    // private double back_encoder_prev_distance_ = 0.0;
 
     RobotStateEstimator() {
     }

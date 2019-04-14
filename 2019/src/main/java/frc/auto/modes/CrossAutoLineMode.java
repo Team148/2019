@@ -6,6 +6,8 @@ import frc.auto.actions.CollectAccelerationData;
 import frc.auto.actions.CollectVelocityData;
 import frc.auto.actions.OpenLoopDrive;
 import frc.auto.actions.WaitAction;
+import frc.auto.actions.TurnToHeading;
+import lib.geometry.Rotation2d;
 import lib.physics.DriveCharacterization;
 
 import java.util.ArrayList;
@@ -28,10 +30,9 @@ public class CrossAutoLineMode extends AutoModeBase {
         // System.out.println("ks: " + constants.ks);
         // System.out.println("kv: " + constants.kv);
         // System.out.println("ka: " + constants.ka);
-        // waitAction(10.0);
+        // runAction(new WaitAction(10.0));
         // runAction(new CollectAccelerationData(accelerationData, false, false));
         runAction(new WaitAction(5.0));
-        // runAction(new OpenLoopDrive(-0.3, -0.3, 5.0, false));
-        runAction(new OpenLoopDrive(0.5, 0.5, 3.0));
+        runAction(new OpenLoopDrive(0.5, 0.5, 2.0));
     }
 }

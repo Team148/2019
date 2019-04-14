@@ -4,20 +4,14 @@ import frc.auto.AutoModeBase;
 import frc.auto.AutoModeEndedException;
 import frc.auto.actions.*;
 import frc.paths.TrajectoryGenerator;
-import lib.geometry.Rotation2d;
-import lib.geometry.Translation2d;
-import frc.robot.subsystems.Limelight;
+// import lib.geometry.Rotation2d;
+// import lib.geometry.Translation2d;
 
 import java.util.Arrays;
-
-import javax.swing.text.html.ParagraphView;
 
 public class CargoShipModeHard extends AutoModeBase {
 
     private static final TrajectoryGenerator mTrajectoryGenerator = TrajectoryGenerator.getInstance();
-    private static final Limelight LL = Limelight.getInstance();
-    private double angleOffset;
-    private int inchOffset;
 
     final boolean mStartedLeft;
 
@@ -26,7 +20,6 @@ public class CargoShipModeHard extends AutoModeBase {
     private DriveTrajectory mCargoTwoAway;
     private DriveTrajectory mEndCargoTwoToLoadingStation;
 
-    private DriveTrajectory mToLoadingStation;
     private DriveTrajectory mLoadingStationToCargoThreeLineup;
 
     public CargoShipModeHard(boolean driveToLeftCargo) {
@@ -73,7 +66,6 @@ public class CargoShipModeHard extends AutoModeBase {
         runAction(new ParallelAction (
             Arrays.asList(
                 mCargoTwoAway
-                // new ExtendRetract4Bar(false)
             )
         ));
 
@@ -82,7 +74,6 @@ public class CargoShipModeHard extends AutoModeBase {
             Arrays.asList(
                 mEndCargoTwoToLoadingStation,
                 new DriveForwardAndTurnToTarget(30.0, 2.0),
-                // new ExtendRetract4Bar(true),
                 new OpenCloseBeak(false),
                 new OpenLoopDrive(-0.15, -0.15, 0.5)
             )
@@ -92,8 +83,6 @@ public class CargoShipModeHard extends AutoModeBase {
             Arrays.asList(
                 mLoadingStationToCargoThreeLineup,
                 new DriveForwardAndTurnToTarget(40.0, 1.0)
-                // new OpenCloseBeak(true),
-                // new OpenLoopDrive(-0.2, -0.2, 0.5)
             )
         ));
     }

@@ -23,7 +23,7 @@ public class CargoShipModeCreator implements AutoModeCreator {
 
     @Override
     public AutoModeBase getStateDependentAutoMode() {
-        System.out.println("Getting CargoShipMode for " + mRobotStartedOnLevel1 + " AND " + mRobotStartedOnLeft);
+        // System.out.println("Getting CargoShipMode for " + mRobotStartedOnLevel1 + " AND " + mRobotStartedOnLeft);
         if (mRobotStartedOnLevel1) {
             return CargoShipLevel1;
         }

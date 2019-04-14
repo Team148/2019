@@ -4,21 +4,26 @@ import frc.auto.AutoModeBase;
 import frc.auto.AutoModeEndedException;
 import frc.auto.actions.*;
 import frc.paths.TrajectoryGenerator;
-import lib.geometry.Translation2d;
+// import lib.geometry.Translation2d;
 
-import java.util.Arrays;
+// import java.util.Arrays;
 
 public class CargoShipANDRocketModeHard extends AutoModeBase {
 
     private static final TrajectoryGenerator mTrajectoryGenerator = TrajectoryGenerator.getInstance();
     
     final boolean mStartedLeft;
-    private DriveTrajectory mLevel2ToCargoTwo;
+    private DriveTrajectory mLevel2ToCargoTwoLineupForward;
 
     public CargoShipANDRocketModeHard(boolean driveToLeftCargo) {
         mStartedLeft = driveToLeftCargo;
 
-        mLevel2ToCargoTwo = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelTwoToCargoTwoLineup.get(mStartedLeft), true);
+        if(mStartedLeft) {
+            mLevel2ToCargoTwoLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelTwoToCargoTwoLineupForwardLeft, true);
+        }
+        else {
+            mLevel2ToCargoTwoLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelTwoToCargoTwoLineupForwardRight, true);
+        }
     }
 
     @Override
@@ -26,11 +31,11 @@ public class CargoShipANDRocketModeHard extends AutoModeBase {
         System.out.println("Running Cargo AND Rocket Mode");
 
         //Score First Hatch
-        runAction(new ParallelAction (
-            Arrays.asList(
-                mLevel2ToCargoTwo
-            )
-        ));
+        // runAction(new ParallelAction (
+        //     Arrays.asList(
+        //         mLevel2ToCargoTwo
+        //     )
+        // ));
 
         // //Get Second Hatch
         // runAction(new ParallelAction (

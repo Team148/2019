@@ -2,8 +2,8 @@ package frc.auto.modes;
 
 import frc.auto.AutoModeBase;
 import frc.auto.AutoModeEndedException;
-import frc.auto.actions.DriveTrajectory;
-import frc.paths.TrajectoryGenerator;
+// import frc.auto.actions.DriveTrajectory;
+// import frc.paths.TrajectoryGenerator;
 import frc.robot.subsystems.Drivetrain;
 
 public class TestMode extends AutoModeBase {

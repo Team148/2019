@@ -1,23 +1,41 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+/*Team 148 - The Robowranglers, wish to extend a thank you to 
+/ Team 254 - The Cheesy Poofs 
+/ for their distribution of the source code that Overhang's source code is based on.
 
+/ The original 254 source code is located here: https://github.com/Team254/FRC-2018-Public
+/ License from 254 2018 Repository
+MIT License
+
+Copyright (c) 2018 Team 254
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 package frc.robot;
 
 import java.util.Arrays;
 import java.util.Optional; 
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Watchdog;
 
 //import Subsystems
 import frc.robot.subsystems.*;
@@ -29,21 +47,15 @@ import frc.robot.subsystems.EndGame;
 import frc.robot.subsystems.Forks;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.RollerClaw;
-// import frc.robot.subsystems.Wedge;
 import frc.robot.SubsystemManager;
 
 //import Commands
 import frc.robot.commands.SetElevator;
-import frc.robot.commands.SetElevatorShifter;
 import frc.robot.commands.AutoHang;
-import frc.robot.commands.SetEndGameHeight;
-import frc.robot.commands.SetAnkle;
-import frc.robot.commands.EndGameDrive;
 import frc.robot.commands.HangStageFour;
 import frc.robot.commands.HangStageOne;
 import frc.robot.commands.HangStageThree;
 import frc.robot.commands.HangStageTwo;
-import frc.robot.commands.UpdateLimeLight;
 
 
 //import 254
@@ -52,19 +64,8 @@ import frc.auto.AutoModeExecutor;
 import frc.loops.Looper;
 import frc.paths.TrajectoryGenerator;
 import lib.geometry.Pose2d;
-import lib.geometry.Rotation2d;
-import lib.geometry.Translation2d;
 import lib.util.*;
 
-
-
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the TimedRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.gradle file in the
- * project.
- */
 public class Robot extends TimedRobot {
 
   private Looper mEnabledLooper = new Looper();
@@ -80,7 +81,8 @@ public class Robot extends TimedRobot {
   private final SubsystemManager mSubsystemManager = new SubsystemManager(
     Arrays.asList(
       RobotStateEstimator.getInstance(),
-      Drivetrain.getInstance()
+      Drivetrain.getInstance(),
+      Limelight.getInstance()
     )
   );
 
@@ -92,7 +94,6 @@ public class Robot extends TimedRobot {
   public static Forks m_Forks;
   public static Limelight m_Limelight;
   public static RollerClaw m_Claw;
-  // public static Wedge m_Wedge;
   public static OI m_OI;
 
   private final Compressor comp = new Compressor(1);
@@ -113,7 +114,6 @@ public class Robot extends TimedRobot {
     m_Forks = Forks.getInstance();
     m_Limelight = Limelight.getInstance();
     m_Claw = RollerClaw.getInstance();
-    // m_Wedge = Wedge.getInstance();
     m_OI = OI.getInstance();
 
     mSubsystemManager.registerEnabledLoops(mEnabledLooper);
@@ -146,8 +146,7 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
 
     try {
-      // m_Limelight.SetEnableVision(true);
-      // m_Limelight.setLimelightPipeline(0.0);
+      System.out.println("IN DISABLED INIT");
       CrashTracker.logDisabledInit();
       mEnabledLooper.stop();
       if (mAutoModeExecutor != null) {
@@ -170,6 +169,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
+    // System.out.println("IN DISABLED PERIODIC");
     Scheduler.getInstance().run();
 
     mAutoModeSelector.updateModeCreator();
@@ -184,10 +184,8 @@ public class Robot extends TimedRobot {
 
     RobotState.getInstance().outputToSmartDashboard();
     Drivetrain.getInstance().outputTelemetry();
+    Limelight.getInstance().outputTelemetry();
     SmartDashboard.putNumber("Elevator Encoder", m_Elevator.getElevatorPosition());
-    // SmartDashboard.putNumber("Limelight Tx", m_Limelight.GetOffsetAngle());
-
-    // System.out.println(m_Limelight.GetOffsetAngle());
   }
 
   /**
@@ -205,6 +203,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     
     try {
+      System.out.println("IN AUTONOMOUS INIT");
+      autoInterrupted = false;
       comp.setClosedLoopControl(false);
 
       CrashTracker.logAutoInit();
@@ -214,7 +214,6 @@ public class Robot extends TimedRobot {
       Drivetrain.getInstance().zeroSensors();
 
       mAutoModeExecutor.start();
-
       mEnabledLooper.start();
   } catch (Throwable t) {
       CrashTracker.logThrowableCrash(t);
@@ -229,13 +228,9 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
 
-    double throttle = m_OI.getThrottle();
-    double turn = m_OI.getTurn();
-
-    SmartDashboard.putString("Match Cycle", "AUTONOMOUS");
+    // SmartDashboard.putString("Match Cycle", "AUTONOMOUS");
 
     if (m_OI.m_driveJoystick.getRawButton(7) && m_OI.m_driveJoystick.getRawButton(8) && !autoInterrupted) {
-     // mAutoModeExecutor.stop();
       autoInterrupted = true;
       disabledInit();
       disabledPeriodic();
@@ -244,29 +239,23 @@ public class Robot extends TimedRobot {
     }
 
     if (autoInterrupted) {
-      // if(m_OI.m_driveJoystick.getRawButton(10)) {
-      //   m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn));
-      // }
-      // else {
-      //   m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn * 0.7));
-      // }
-
       teleopPeriodic();
     }
 
     RobotState.getInstance().outputToSmartDashboard();
     Drivetrain.getInstance().outputTelemetry();
+    Limelight.getInstance().outputTelemetry();
   }
 
   @Override
   public void teleopInit() {
     try {
+      System.out.println("IN TELEOP INIT");
       CrashTracker.logTeleopInit();
       mDisabledLooper.stop();
 
       m_Limelight.SetEnableVision(false);
       m_Limelight.setLimelightPipeline(3);
-      // m_Limelight.setLimelightData();
       
       comp.setClosedLoopControl(true);
 
@@ -296,12 +285,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-
-    // double timestamp = Timer.getFPGATimestamp();
-    // SmartDashboard.putNumber("Match Time", timestamp);
-
-    // SmartDashboard.putString("Match Cycle", "TELEOP");
-    // SmartDashboard.putNumber("Elevator Encoder", m_Elevator.getElevatorPosition());
+    System.out.println("IN TELEOP PERIODIC");
 
     double throttle = m_OI.getThrottle();
     double turn = m_OI.getTurn();
@@ -354,9 +338,6 @@ public class Robot extends TimedRobot {
           m_Limelight.SetEnableVision(false);
           m_Limelight.setLimelightPipeline(3);
           m_DriveTrain.setOpenLoop(mArcadeDriveHelper.arcadeDrive(throttle * -1, turn));
-          // m_Limelight.setLimelightPipeline(0);
-          // m_Limelight.SetEnableVision(false);
-
         }
         
         
@@ -400,7 +381,6 @@ public class Robot extends TimedRobot {
         }
 
         if(m_OI.m_operatorJoystick.getRawAxis(2) > 0.3) {
-          // m_Wedge.setWedge(false);
           m_Ball.setBallIntakeCylinder(true);
           m_Beak.setBeakBar(true);
         }
@@ -441,18 +421,10 @@ public class Robot extends TimedRobot {
           if(m_OI.getOperator1()) {
             m_Beak.setBeakBar(false);
           }
-
-          // if(m_OI.getOperator2()) {
-          //   m_Wedge.setWedge(false);
-          // }
   
           if(m_OI.getOperator3()) {
             m_Beak.setBeakBar(true);
           }
-
-          // if(m_OI.getOperator4()) {
-          //   m_Wedge.setWedge(true);
-          // }
         }
         
 
@@ -490,7 +462,11 @@ public class Robot extends TimedRobot {
         m_Ball.setBallIntakeMotor(ballIntakePercent);
         m_Claw.setRollerClaw(rollerClawPercent);
         m_EndGame.setEndGameDriveSpeed(feetPercent);
-        // m_Limelight.setLimelightData();
+
+        RobotState.getInstance().outputToSmartDashboard();
+        Drivetrain.getInstance().outputTelemetry();
+        Limelight.getInstance().outputTelemetry();
+        SmartDashboard.putNumber("Elevator Encoder", m_Elevator.getElevatorPosition());
 
     } catch (Throwable t) {
         CrashTracker.logThrowableCrash(t);
