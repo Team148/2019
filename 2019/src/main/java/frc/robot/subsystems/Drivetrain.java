@@ -409,8 +409,8 @@ public synchronized void setPosition(DriveSignal signal) {
         mDriveControlState = DriveControlState.DRIVE_VELOCITY;   
     }
 
-    SmartDashboard.putNumber("LeftIPS", signal.getLeft());
-    SmartDashboard.putNumber("RightIPS",signal.getRight());
+    // SmartDashboard.putNumber("LeftIPS", signal.getLeft());
+    // SmartDashboard.putNumber("RightIPS",signal.getRight());
     double left_velocity_rev = inchesToRotations(signal.getLeft())*(2*Math.PI);
     double right_velocity_rev = inchesToRotations(signal.getRight())*(2*Math.PI);
 

@@ -34,7 +34,7 @@ public class CargoShipModeEasy extends AutoModeBase {
             mLoadingStationToCargoThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoThreeLineupLeft, true);
         }
         else {
-            mLevel1ToCargoTwoLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelOneToCargoTwoLineupForwardRight, true, false, TrajectoryGenerator.kCargoTwoPose.getTranslation().translateBy(new Translation2d(-4.0, -4.0)), TrajectoryGenerator.kCargoTwoPose.getTranslation().translateBy(new Translation2d(4.0, 4.0)), false);
+            mLevel1ToCargoTwoLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelOneToCargoTwoLineupForwardRight, true, false, TrajectoryGenerator.kCargoTwoLineupPose.getTranslation().translateBy(new Translation2d(-4.0, -4.0)), TrajectoryGenerator.kCargoTwoLineupPose.getTranslation().translateBy(new Translation2d(4.0, 4.0)), false);
         
             mCargoTwoAway = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromCargoTwoRight, true, false);
             mEndCargoTwoToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endCargoTwoToLoadingStatonRight);
@@ -62,7 +62,7 @@ public class CargoShipModeEasy extends AutoModeBase {
         runAction(new SeriesAction (
             Arrays.asList(
                 new OpenLoopDrive(-0.5, -0.5, 0.25),
-                new TurnToHeading(Rotation2d.fromDegrees(180.0))
+                new TurnToHeading(Rotation2d.fromDegrees(210.0))
             )
         ));
 
@@ -72,15 +72,15 @@ public class CargoShipModeEasy extends AutoModeBase {
         //     )
         // ));
 
-        // //Get Second Hatch
-        // runAction(new SeriesAction (
-        //     Arrays.asList(
-        //         mEndCargoTwoToLoadingStation,
-        //         new DriveForwardAndTurnToTarget(20.0, 1.0),
-        //         new OpenCloseBeak(false),
-        //         new OpenLoopDrive(-0.15, -0.15, 0.5)
-        //     )
-        // ));
+        //Get Second Hatch
+        runAction(new SeriesAction (
+            Arrays.asList(
+                mEndCargoTwoToLoadingStation
+                // new DriveForwardAndTurnToTarget(20.0, 1.0),
+                // new OpenCloseBeak(false),
+                // new OpenLoopDrive(-0.15, -0.15, 0.5)
+            )
+        ));
 
         // runAction(new SeriesAction (
         //     Arrays.asList(
