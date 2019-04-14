@@ -81,7 +81,8 @@ public class Robot extends TimedRobot {
   private final SubsystemManager mSubsystemManager = new SubsystemManager(
     Arrays.asList(
       RobotStateEstimator.getInstance(),
-      Drivetrain.getInstance()
+      Drivetrain.getInstance(),
+      Limelight.getInstance()
     )
   );
 
