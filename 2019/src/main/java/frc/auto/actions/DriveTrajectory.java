@@ -67,6 +67,10 @@ public class DriveTrajectory implements Action {
         if(mWaitInsideRegion != null) {
             if (mWaitInsideRegion.isFinished()) {
                 System.out.println("Inside box!");
+                // System.out.println("Trajectory Finished at X: " + mRobotState.getLatestFieldToVehicle().getValue().getTranslation().x()
+                //                         + " Y: " + mRobotState.getLatestFieldToVehicle().getValue().getTranslation().y()
+                //                         + " Heading: " + mRobotState.getLatestFieldToVehicle().getValue().getRotation().getDegrees()
+                //                         + " Vel: " +mRobotState.getMeasuredVelocity().dx);
                 return true;
             }
         }

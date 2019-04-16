@@ -16,6 +16,7 @@ public class RocketModeHard extends AutoModeBase {
     final boolean mStartedLeft;
     private double angleToLoadingStation;
     private double angleToRocketThree;
+    private double angleToCargoShip;
 
     private DriveTrajectory mLevel2ToRocketOneLineup;
 
@@ -30,24 +31,26 @@ public class RocketModeHard extends AutoModeBase {
         if(mStartedLeft) {
             angleToLoadingStation = 180.0;
             angleToRocketThree = 150.0;
+            angleToCargoShip = 270.0;
 
-            mLevel2ToRocketOneLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelTwoToRocketOneLineupLeft, true, false, TrajectoryGenerator.kRocketOneLineupPoseLeft.getTranslation().translateBy(new Translation2d(-4.0, -4.0)), TrajectoryGenerator.kRocketOneLineupPoseLeft.getTranslation().translateBy(new Translation2d(4.0, 4.0)), true);
+            mLevel2ToRocketOneLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelTwoToRocketOneLineupLeft, true, false, TrajectoryGenerator.kRocketOneLineupPoseLeft.getTranslation().translateBy(new Translation2d(-4.0, -4.0)), TrajectoryGenerator.kRocketOneLineupPoseLeft.getTranslation().translateBy(new Translation2d(4.0, 4.0)), false);
 
             // mRocketOneAway = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromRocketOneLeft);
             // mToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromRocketOneToLoadingStationLineupLeft);
 
-            mLoadingStationToRocketThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToRocketThreeLineupLeft, false, false, TrajectoryGenerator.kRocketThreeLineupPoseLeft.getTranslation().translateBy(new Translation2d(-4.0, -4.0)), TrajectoryGenerator.kRocketThreeLineupPose.getTranslation().translateBy(new Translation2d(4.0, 4.0)), true);
+            mLoadingStationToRocketThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToRocketThreeLineupLeft, true, false, TrajectoryGenerator.kRocketThreeLineupPoseLeft.getTranslation().translateBy(new Translation2d(-4.0, -4.0)), TrajectoryGenerator.kRocketThreeLineupPoseLeft.getTranslation().translateBy(new Translation2d(4.0, 4.0)), false);
         }
         else {
             angleToLoadingStation = 180.0;
             angleToRocketThree = 210.0;
+            angleToCargoShip = 90.0;
 
             mLevel2ToRocketOneLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelTwoToRocketOneLineupRight, true, false, TrajectoryGenerator.kRocketOneLineupPose.getTranslation().translateBy(new Translation2d(-4.0, -4.0)), TrajectoryGenerator.kRocketOneLineupPose.getTranslation().translateBy(new Translation2d(4.0, 4.0)), false);
 
             // mRocketOneAway = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromRocketOneRight);
             // mToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().awayFromRocketOneToLoadingStationLineupRight);
 
-            mLoadingStationToRocketThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToRocketThreeLineupRight, false, false, TrajectoryGenerator.kRocketThreeLineupPose.getTranslation().translateBy(new Translation2d(-4.0, -4.0)), TrajectoryGenerator.kRocketThreeLineupPose.getTranslation().translateBy(new Translation2d(4.0, 4.0)), false);
+            mLoadingStationToRocketThreeLineup = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToRocketThreeLineupRight, true, false, TrajectoryGenerator.kRocketThreeLineupPose.getTranslation().translateBy(new Translation2d(-4.0, -4.0)), TrajectoryGenerator.kRocketThreeLineupPose.getTranslation().translateBy(new Translation2d(4.0, 4.0)), false);
         }
     }
 
@@ -67,15 +70,15 @@ public class RocketModeHard extends AutoModeBase {
         ));
         runAction(new SeriesAction (
             Arrays.asList(
-                new OpenLoopDrive(-0.5, -0.5, 0.25),
-                new TurnToHeading(Rotation2d.fromDegrees(angleToLoadingStation), 0.75)
+                new OpenLoopDrive(-0.5, -0.5, 0.2),
+                new TurnToHeading(Rotation2d.fromDegrees(angleToLoadingStation), 1.0)
             )
         ));
 
         runAction(new SeriesAction (
             Arrays.asList(
                 new DriveForwardAndTurnToTarget(80.0, 1.5),
-                new DriveForwardAndTurnToTarget(20.0, 1.0),
+                new DriveForwardAndTurnToTarget(20.0, 1.5),
                 new OpenCloseBeak(false)
             )
         ));
@@ -84,10 +87,11 @@ public class RocketModeHard extends AutoModeBase {
             Arrays.asList(
                 mLoadingStationToRocketThreeLineup,
                 new TurnToHeading(Rotation2d.fromDegrees(angleToRocketThree), 0.5),
-                new DriveForwardAndTurnToTarget(20.0, 1.25),
+                new DriveForwardAndTurnToTarget(20.0, 1.5),
                 new OpenCloseBeak(true),
                 new OpenLoopDrive(-0.5, -0.5, 0.25),
-                new TurnToHeading(Rotation2d.fromDegrees(90.0))
+                new TurnToHeading(Rotation2d.fromDegrees(angleToCargoShip)),
+                new DriveForwardAndTurnToTarget(20.0, 1.0)
             )
         ));
     }

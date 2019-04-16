@@ -204,6 +204,8 @@ public class Robot extends TimedRobot {
     
     try {
       System.out.println("IN AUTONOMOUS INIT");
+      m_Limelight.SetEnableVision(true);
+      m_Limelight.setLimelightPipeline(0);
       autoInterrupted = false;
       comp.setClosedLoopControl(false);
 

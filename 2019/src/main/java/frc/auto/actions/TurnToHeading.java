@@ -41,8 +41,8 @@ public class TurnToHeading implements Action {
     @Override
     public void done() {
         System.out.println("Finished TurnToHeading!!!");
-        mDrive.setOpenLoop(new DriveSignal(0.0, 0.0));
-        mDrive.setBrakeMode(false);
+        // mDrive.setOpenLoop(new DriveSignal(0.0, 0.0));
+        // mDrive.setBrakeMode(false);
     }
 
     @Override
