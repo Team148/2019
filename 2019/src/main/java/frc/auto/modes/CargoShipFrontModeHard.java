@@ -59,7 +59,7 @@ public class CargoShipFrontModeHard extends AutoModeBase {
                     new ExtendRetract4Bar(true),
                     mLevel2ToCargoOneLineupForward
                 )),
-                new DriveForwardAndTurnToTarget(20.0, 0.5),
+                new DriveForwardAndTurnToTarget(20.0, 0.75),
                 new OpenCloseBeak(true)
             )
         ));
