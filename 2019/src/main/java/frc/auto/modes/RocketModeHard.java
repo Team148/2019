@@ -64,7 +64,7 @@ public class RocketModeHard extends AutoModeBase {
                     new ExtendRetract4Bar(true),
                     mLevel2ToRocketOneLineup
                 )),
-                new DriveForwardAndTurnToTarget(20.0, 0.5),
+                new DriveForwardAndTurnToTarget(20.0, 0.6),
                 new OpenCloseBeak(true)
             )
         ));

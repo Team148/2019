@@ -89,14 +89,17 @@ public class DriveTrajectory implements Action {
     public void start() {
         System.out.println("Starting trajectory! (length=" + mTrajectory.getRemainingProgress() + ")");
         if (mResetPose) {
+            System.out.println("RESETTING ROBOT POSE!!");
             mRobotState.reset(Timer.getFPGATimestamp(), mTrajectory.getState().state().getPose());
         }
 
         if(mResetHeading && mResetTransform)
         {
+            System.out.println("RESETTING ROBOT POSE!!");
             mRobotState.reset(Timer.getFPGATimestamp(), mTrajectory.getState().state().getPose());
         }
         if(mResetTransform && !mResetHeading){
+            System.out.println("RESETTING ROBOT TRANSLATION!!");
             Translation2d temp_translation = mTrajectory.getState().state().getPose().getTranslation();
             Rotation2d current_rotation = mDrive.getHeading();
 

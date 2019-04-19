@@ -32,8 +32,8 @@ public class CargoShipFrontModeHard extends AutoModeBase {
             angleToCargoTwo = 270.0;
             angleToCargoThree = 315.0;
 
-            mLevel2ToCargoOneLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelTwoToCargoOneLineupForwardLeft, true, false, TrajectoryGenerator.kCargoOneLineupPoseLeft.getTranslation().translateBy(new Translation2d(-4.0, -4.0)), TrajectoryGenerator.kCargoOneLineupPoseLeft.getTranslation().translateBy(new Translation2d(4.0, 4.0)), false);
-            mEndCargoOneToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endCargoOneToLoadingStatonLeft, true, false, TrajectoryGenerator.kLoadingStationLineupPoseLeft.getTranslation().translateBy(new Translation2d(-4.0, -4.0)), TrajectoryGenerator.kLoadingStationLineupPoseLeft.getTranslation().translateBy(new Translation2d(4.0, 4.0)), false);
+            mLevel2ToCargoOneLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelTwoToCargoOneLineupForwardLeft, true, false, TrajectoryGenerator.kCargoOneLineupPoseLeft.getTranslation().translateBy(new Translation2d(-4.0, -10.0)), TrajectoryGenerator.kCargoOneLineupPoseLeft.getTranslation().translateBy(new Translation2d(4.0, 10.0)), false);
+            mEndCargoOneToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endCargoOneToLoadingStatonLeft, true, false, TrajectoryGenerator.kLoadingStationLineupPoseLeft.getTranslation().translateBy(new Translation2d(-4.0, -10.0)), TrajectoryGenerator.kLoadingStationLineupPoseLeft.getTranslation().translateBy(new Translation2d(4.0, 10.0)), false);
             mLoadingStationToCargoTwo = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoTwoLineupLeft, true, false, TrajectoryGenerator.kLoadingToCargoTwoLineupPoseLeft.getTranslation().translateBy(new Translation2d(-4.0, -10.0)), TrajectoryGenerator.kLoadingToCargoTwoLineupPoseLeft.getTranslation().translateBy(new Translation2d(4.0, 10.0)), false);
         
         }
@@ -42,8 +42,8 @@ public class CargoShipFrontModeHard extends AutoModeBase {
             angleToCargoTwo = 90.0;
             angleToCargoThree = 45.0;
 
-            mLevel2ToCargoOneLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelTwoToCargoOneLineupForwardRight, true, false, TrajectoryGenerator.kCargoOneLineupPose.getTranslation().translateBy(new Translation2d(-4.0, -4.0)), TrajectoryGenerator.kCargoOneLineupPose.getTranslation().translateBy(new Translation2d(4.0, 4.0)), false);
-            mEndCargoOneToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endCargoOneToLoadingStatonRight, true, false, TrajectoryGenerator.kLoadingStationLineupPose.getTranslation().translateBy(new Translation2d(-4.0, -4.0)), TrajectoryGenerator.kLoadingStationLineupPose.getTranslation().translateBy(new Translation2d(4.0, 4.0)), false);
+            mLevel2ToCargoOneLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelTwoToCargoOneLineupForwardRight, true, false, TrajectoryGenerator.kCargoOneLineupPose.getTranslation().translateBy(new Translation2d(-4.0, -10.0)), TrajectoryGenerator.kCargoOneLineupPose.getTranslation().translateBy(new Translation2d(4.0, 10.0)), false);
+            mEndCargoOneToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endCargoOneToLoadingStatonRight, true, false, TrajectoryGenerator.kLoadingStationLineupPose.getTranslation().translateBy(new Translation2d(-4.0, -10.0)), TrajectoryGenerator.kLoadingStationLineupPose.getTranslation().translateBy(new Translation2d(4.0, 10.0)), false);
             mLoadingStationToCargoTwo = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoTwoLineupRight, true, false, TrajectoryGenerator.kLoadingToCargoTwoLineupPose.getTranslation().translateBy(new Translation2d(-4.0, -10.0)), TrajectoryGenerator.kLoadingToCargoTwoLineupPose.getTranslation().translateBy(new Translation2d(4.0, 10.0)), false);
         }
     }
@@ -59,7 +59,7 @@ public class CargoShipFrontModeHard extends AutoModeBase {
                     new ExtendRetract4Bar(true),
                     mLevel2ToCargoOneLineupForward
                 )),
-                new DriveForwardAndTurnToTarget(20.0, 0.75),
+                new DriveForwardAndTurnToTarget(20.0, 1.0),
                 new OpenCloseBeak(true)
             )
         ));
@@ -83,8 +83,8 @@ public class CargoShipFrontModeHard extends AutoModeBase {
         runAction(new SeriesAction (
             Arrays.asList(
                 mLoadingStationToCargoTwo,
-                new TurnToHeading(Rotation2d.fromDegrees(angleToCargoTwo)),
-                new DriveForwardAndTurnToTarget(20.0, 0.75),
+                new TurnToHeading(Rotation2d.fromDegrees(angleToCargoTwo), 1.0),
+                new DriveForwardAndTurnToTarget(20.0, 1.5),
                 new OpenCloseBeak(true)
             )
         ));
