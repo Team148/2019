@@ -1,23 +1,22 @@
 package frc.robot.subsystems;
 
-import frc.robot.subsystems.Subsystem;
-
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
+//import edu.wpi.first.networktables.NetworkTableType;
+//import edu.wpi.first.networktables.NetworkTableValue;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 
-// import edu.wpi.first.wpilibj.command.Subsystem;
-// import frc.robot.commands.UpdateLimeLight;
-
-import frc.loops.ILooper;
-import frc.loops.Loop;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.commands.UpdateLimeLight;
 
 
 /**
  * Add your docs here.
  */
 public class Limelight extends Subsystem {
+  // Put methods for controlling this subsystem
+  // here. Call these from Commands.
 
   private static Limelight m_instance;
   
@@ -32,6 +31,10 @@ public class Limelight extends Subsystem {
   double validObject = 0.0;
   double targetArea = 0.0;
 
+  // NetworkTableEntry validObject;
+	// NetworkTableEntry xOffSet;
+	// NetworkTableEntry yOffSet;
+	// NetworkTableEntry targetArea;
 	NetworkTableEntry skew;
 	NetworkTableEntry latency;
 	NetworkTableEntry ledMode;
@@ -40,34 +43,15 @@ public class Limelight extends Subsystem {
   NetworkTableEntry tv;
   NetworkTableEntry tx;
 
-  private final Loop mLoop = new Loop() {
-
-    @Override
-    public void onStart(double timestamp) {
-        synchronized (Limelight.this) {
-        }
-    }
-
-    @Override
-    public void onLoop(double timestamp) {
-        synchronized (Limelight.this) {
-          setLimelightData();
-          getLimelightData();
-          // System.out.println("runningLL Loop");
-        }
-      }
-    @Override
-    public void onStop(double timestamp) {
-        stop();
-    }
-
-  };
-
   public Limelight() {
 
     super();
 
     System.out.println("Creating Limelight");
+
+    // m_LEDMode = 0.0;		//set LEDs to default to off
+    // m_pipeline = 0.0;		//2019 target, dual, closest
+    // m_camMode = 0.0;		//vision processing ON
 
       //read values from NetworkTables
       table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -79,10 +63,13 @@ public class Limelight extends Subsystem {
 
   }
 
-  // @Override
-  // public void initDefaultCommand() {
-  //   setDefaultCommand(new UpdateLimeLight()); 
-  // }
+  @Override
+  public void initDefaultCommand() {
+    // Set the default command for a subsystem here.
+    // setDefaultCommand(new MySpecialCommand());
+
+    setDefaultCommand(new UpdateLimeLight()); 
+  }
 
   public static Limelight getInstance() {
 
@@ -106,17 +93,27 @@ public class Limelight extends Subsystem {
       
       validObject = tv.getDouble(-1);
       xOffSet = tx.getDouble(0.0);
-
+      // m_LEDMode = ledMode.getDouble(0.0);
+      // m_pipeline = pipeline.getDouble(0.0);
+      // m_camMode = cammode.getDouble(0.0);
           
+//post to smart dashboard periodically
+      SmartDashboard.putNumber("HorizOffset", xOffSet);
+      SmartDashboard.putNumber("validObject", validObject);
 
+  //  //Write NetworkTables with desired values
+  //     ledMode.setNumber(m_LEDMode);
+  //     pipeline.setNumber(Double.toString(m_pipeline));
+  //     // pipeline.setNumber(3);
+  //     cammode.setNumber(m_camMode);
   }
 
-  public void setLimelightData() {
-    //Write NetworkTables with desired values
-    ledMode.setNumber(m_LEDMode);
-    pipeline.setNumber(m_pipeline);
-    cammode.setNumber(m_camMode);
-  }
+public void setLimelightData() {
+  //Write NetworkTables with desired values
+  ledMode.setNumber(m_LEDMode);
+  pipeline.setNumber(m_pipeline);
+  cammode.setNumber(m_camMode);
+}
 
   public boolean CheckConnection() {  //??? this depends on return of null, -1?
     if(validObject == -1.0) {
@@ -157,13 +154,18 @@ public class Limelight extends Subsystem {
   
   
   public double GetOffsetAngle() {
+ 
+    // System.out.println(xOffSet.getDouble(0));
     return xOffSet;
+  
   }
   public double GetTargetHeading() {
+   // double m_target_heading = Drivetrain.getInstance().getRobotPathHeading();
     if(IsTargeting())
     {
+   //   m_target_heading = Drivetrain.getInstance().getRobotPathHeading() + (-xOffSet.getDouble(0));
     }
-    return 0.0;
+    return 0.0;//m_target_heading;
   }
   
   public boolean IsTargeting() {
@@ -186,27 +188,4 @@ public class Limelight extends Subsystem {
     else
       NetworkTableInstance.getDefault().setUpdateRate(0.05);
     }
-
-    @Override public boolean checkSystem() {
-      return true;
-  }
-
-    @Override
-    public synchronized void stop() {
-        
-    }
-
-    @Override
-    public void outputTelemetry() {
-
-      //post to smart dashboard periodically
-      SmartDashboard.putNumber("HorizOffset", xOffSet);
-      SmartDashboard.putNumber("validObject", validObject);
-    }
-
-    @Override
-    public void registerEnabledLoops(ILooper in) {
-        in.register(mLoop);
-    }
-
 }

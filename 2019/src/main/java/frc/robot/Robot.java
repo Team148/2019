@@ -81,8 +81,7 @@ public class Robot extends TimedRobot {
   private final SubsystemManager mSubsystemManager = new SubsystemManager(
     Arrays.asList(
       RobotStateEstimator.getInstance(),
-      Drivetrain.getInstance(),
-      Limelight.getInstance()
+      Drivetrain.getInstance()
     )
   );
 
@@ -184,7 +183,6 @@ public class Robot extends TimedRobot {
 
     RobotState.getInstance().outputToSmartDashboard();
     Drivetrain.getInstance().outputTelemetry();
-    Limelight.getInstance().outputTelemetry();
     SmartDashboard.putNumber("Elevator Encoder", m_Elevator.getElevatorPosition());
   }
 
@@ -204,13 +202,13 @@ public class Robot extends TimedRobot {
     
     try {
       System.out.println("IN AUTONOMOUS INIT");
+      CrashTracker.logAutoInit();
+      mDisabledLooper.stop();
+      
       m_Limelight.SetEnableVision(true);
       m_Limelight.setLimelightPipeline(0);
       autoInterrupted = false;
       comp.setClosedLoopControl(false);
-
-      CrashTracker.logAutoInit();
-      mDisabledLooper.stop();
 
       RobotState.getInstance().reset(Timer.getFPGATimestamp(), Pose2d.identity());
       Drivetrain.getInstance().zeroSensors();
@@ -246,7 +244,6 @@ public class Robot extends TimedRobot {
 
     RobotState.getInstance().outputToSmartDashboard();
     Drivetrain.getInstance().outputTelemetry();
-    Limelight.getInstance().outputTelemetry();
   }
 
   @Override
@@ -466,7 +463,6 @@ public class Robot extends TimedRobot {
 
         RobotState.getInstance().outputToSmartDashboard();
         Drivetrain.getInstance().outputTelemetry();
-        Limelight.getInstance().outputTelemetry();
         SmartDashboard.putNumber("Elevator Encoder", m_Elevator.getElevatorPosition());
 
     } catch (Throwable t) {

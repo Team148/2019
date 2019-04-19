@@ -42,10 +42,10 @@ public class Beak extends Subsystem {
   }
 
   public void setBeakGrab (boolean on) {
-    System.out.println("Settings Beak Fingers!!!!!!!!!!!!!");
+    // System.out.println("Settings Beak Fingers!!!!!!!!!!!!!");
     if (on) {
       m_beakGrab.set(true);
-      System.out.println("!!!!Beak set to On");
+      // System.out.println("!!!!Beak set to On");
     }
     else {
       m_beakGrab.set(false);

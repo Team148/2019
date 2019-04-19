@@ -557,7 +557,7 @@ public synchronized void setPosition(DriveSignal signal) {
 
 
 
-        System.out.println("Theta Error: " + robot_to_target.getDegrees() );//+ " wdl: " + wheel_delta.left + " wdr: " + wheel_delta.right);
+        //System.out.println("Theta Error: " + robot_to_target.getDegrees() );//+ " wdl: " + wheel_delta.left + " wdr: " + wheel_delta.right);
         // double wantLeftPos = inchesToRotations(wheel_delta.left) *DRIVE_ENCODER_PPR + mPeriodicIO.left_position_ticks;
         // double wantRightPos =  inchesToRotations(wheel_delta.right) * DRIVE_ENCODER_PPR  + mPeriodicIO.right_position_ticks;
         // System.out.println("L: " + wantLeftPos + " R: " +wantRightPos);

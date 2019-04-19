@@ -70,7 +70,7 @@ public class RocketModeHard extends AutoModeBase {
         ));
         runAction(new SeriesAction (
             Arrays.asList(
-                new OpenLoopDrive(-0.5, -0.5, 0.2),
+                new OpenLoopDrive(-0.5, -0.5, 0.15),
                 new TurnToHeading(Rotation2d.fromDegrees(angleToLoadingStation), 1.0)
             )
         ));
