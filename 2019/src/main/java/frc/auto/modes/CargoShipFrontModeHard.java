@@ -32,7 +32,7 @@ public class CargoShipFrontModeHard extends AutoModeBase {
             angleToCargoTwo = 270.0;
             angleToCargoThree = 315.0;
 
-            mLevel2ToCargoOneLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelTwoToCargoOneLineupForwardLeft, true, false, TrajectoryGenerator.kCargoOneLineupPoseLeft.getTranslation().translateBy(new Translation2d(-4.0, -10.0)), TrajectoryGenerator.kCargoOneLineupPoseLeft.getTranslation().translateBy(new Translation2d(4.0, 10.0)), false);
+            mLevel2ToCargoOneLineupForward = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().levelTwoToCargoOneLineupForwardLeft, true, false, TrajectoryGenerator.kCargoOneLineupPoseLeft.getTranslation().translateBy(new Translation2d(-4.0, -5.0)), TrajectoryGenerator.kCargoOneLineupPoseLeft.getTranslation().translateBy(new Translation2d(4.0, 5.0)), false);
             mEndCargoOneToLoadingStation = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().endCargoOneToLoadingStatonLeft, true, false, TrajectoryGenerator.kLoadingStationLineupPoseLeft.getTranslation().translateBy(new Translation2d(-4.0, -10.0)), TrajectoryGenerator.kLoadingStationLineupPoseLeft.getTranslation().translateBy(new Translation2d(4.0, 10.0)), false);
             mLoadingStationToCargoTwo = new DriveTrajectory(mTrajectoryGenerator.getTrajectorySet().loadingStationToCargoTwoLineupLeft, true, false, TrajectoryGenerator.kLoadingToCargoTwoLineupPoseLeft.getTranslation().translateBy(new Translation2d(-4.0, -10.0)), TrajectoryGenerator.kLoadingToCargoTwoLineupPoseLeft.getTranslation().translateBy(new Translation2d(4.0, 10.0)), false);
         
@@ -84,7 +84,7 @@ public class CargoShipFrontModeHard extends AutoModeBase {
             Arrays.asList(
                 mLoadingStationToCargoTwo,
                 new TurnToHeading(Rotation2d.fromDegrees(angleToCargoTwo), 1.0),
-                new DriveForwardAndTurnToTarget(20.0, 1.5),
+                new DriveForwardAndTurnToTarget(20.0, 1.75),
                 new OpenCloseBeak(true)
             )
         ));
