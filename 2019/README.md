@@ -6,9 +6,9 @@ Team 148 - The Robowranglers wish to extend a thank you to
 Team 254 - The Cheesy Poofs for their distribution of the source code that Overhang's source code is based on.
 
 The original 254 source code is located here: https://github.com/Team254/FRC-2018-Public
+
 License from 254 2018 Repository
 MIT License
-
 Copyright (c) 2018 Team 254
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
